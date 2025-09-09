@@ -1,0 +1,149 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  // output   = "../lib/generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum DataSpaceStatus {
+  ACTIVE
+  INACTIVE
+}
+
+model DataSpace {
+  id          String          @id @default(cuid())
+  name        String          @unique // 数据空间名称
+  description String // 数据空间描述
+  status      DataSpaceStatus // 数据空间状态
+  country     String
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+
+  @@map("data_space")
+}
+
+enum ConnectionType {
+  INTERNET // 互联网连接
+  DEDICATED // 专线连接
+  ISOLATED // 物理隔离
+}
+
+enum ComputeBinding {
+  NONE // 无
+  SANDBOX // 沙盒环境
+  TEE // 可信执行环境
+  MPC // 多方安全计算
+}
+
+enum StartMode {
+  ONEBOX_AUTO // 一体机自动启动
+  TEE_AUTO // TEE环境自动启动
+  MANUAL // 手动启动
+}
+
+enum SecurityColor {
+  GREEN // 绿色
+  YELLOW // 黄色
+  RED // 红色
+}
+
+enum SecurityLevel {
+  S // [90-100]
+  A // [80-89]
+  B // [65-79]
+  C // [50-64]
+  D // [0-49]
+}
+
+model ConnectorSecurityRating {
+  id           String @id @default(cuid())
+  connectorDID String @map("connector_did") // 连接器DID
+
+  // 追加型增强要素
+  connectionType         ConnectionType @map("connection_type") // 连接类型
+  tlsVersion             String         @map("tls_version") @db.VarChar(16) // TLS版本
+  msgSigning             Boolean        @map("msg_signing") // 报文签名/完整性
+  mfaEnabled             Boolean        @map("mfa_enabled") // 是否启用多因素认证
+  defaultPasswordChanged Boolean        @map("default_password_changed") // 默认密码已更改
+  hsmTpm                 Boolean        @map("hsm_tpm") // 是否使用硬件安全模块（HSM）或可信平台模块（TPM）
+  didEnabled             Boolean        @map("did_enabled") // 是否启用DID
+  didSameChain           Boolean        @map("did_same_chain") // DID是否在同一区块链上（异链）
+  spvSupported           Boolean        @map("spv_supported") // 是否支持简化支付验证（SPV）用于跨链验证
+  computeBinding         ComputeBinding @map("compute_binding") // 计算环境绑定
+  usageControlEnforced   Boolean        @map("usage_control_enforced")
+  secureBoot             Boolean        @map("secure_boot") // 是否启用安全启动
+  measuredBoot           Boolean        @map("measured_boot")
+  startMode              StartMode      @map("start_mode") // 启动模式
+  thirdPartyCerts        String?        @map("third_party_certs") @db.Text // 存储逗号分隔的证书类型
+  auditWorm              Boolean        @map("audit_worm") // 是否启用防篡改审计日志
+  logRetentionMonths     Int            @map("log_retention_months") // 日志保留月数
+  privacyMinimization    Boolean        @map("privacy_minimization") // 是否启用隐私最小化
+  autoPiiDeletion        Boolean        @map("auto_pii_deletion") // 是否启用自动PII(Personally Identifiable Information)删除
+
+  // 六维度颜色
+  identityColor    SecurityColor @map("identity_color") // 身份维颜色
+  commColor        SecurityColor @map("comm_color") // 通信维颜色
+  accessUsageColor SecurityColor @map("access_usage_color") // 访问控制与数据使用控制维颜色
+  platformColor    SecurityColor @map("platform_color") // 平台与系统安全维颜色
+  auditColor       SecurityColor @map("audit_color") // 审计与可追溯维颜色
+  privacyColor     SecurityColor @map("privacy_color") // 用户信息与隐私维颜色
+
+  // 汇总
+  overallScore Float         @map("overall_score") // 总分
+  overallLevel SecurityLevel @map("overall_level") // 总等级
+  gatingReason String?       @map("gating_reason") @db.VarChar(255)
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("connector_security_rating")
+}
+
+model App {
+  id                    String    @id @default(cuid())
+  dataSpaceId           String    @map("data_space_id")
+  sovereign             String // 数据主权方：企业主权、国家主权等等
+  publisher             String // 实际开发和发布应用的组织或个人
+  version               String // 版本号
+  title                 String
+  description           String
+  license               String?
+  docs                  String? // 文档链接
+  endpointDocumentation String? // 端点文档链接（API文档）
+  language              String // 编程语言，Python、TypeScript、Rust、Go、Rust
+  runtimeEnvironment    String // 运行环境，Docker、Kubernetes、虚拟机、物理机
+  envVariables          String? // 环境变量
+  storageConfig         String? // 存储配置
+  keywords              String? // 关键词
+  createdAt             DateTime  @default(now()) @map("created_at")
+  updatedAt             DateTime  @updatedAt @map("updated_at")
+  deletedAt             DateTime? @map("deleted_at")
+
+  appStoreId String?   @map("app_store_id")
+  appStore   AppStore? @relation(fields: [appStoreId], references: [id])
+
+  @@map("app")
+}
+
+model AppStore {
+  id          String    @id @default(cuid())
+  dataSpaceId String    @map("data_space_id")
+  title       String
+  description String
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
+  deletedAt   DateTime? @map("deleted_at")
+
+  apps App[]
+
+  @@map("app_store")
+}

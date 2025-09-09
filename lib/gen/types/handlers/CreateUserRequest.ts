@@ -7,28 +7,69 @@ export type HandlersCreateUserRequest = {
   /**
    * @type string
    */
-  email: string
+  credential_id: string
   /**
-   * @type string | undefined
-   */
-  first_name?: string
-  /**
-   * @type string | undefined
-   */
-  last_name?: string
-  /**
-   * @minLength 6
    * @type string
    */
-  password: string
+  credential_signature_alg: string
+  /**
+   * @type string
+   */
+  credential_signature_value: string
+  /**
+   * @type string
+   */
+  credential_types: string
+  /**
+   * @type string
+   */
+  credential_verification_method: string
   /**
    * @type string | undefined
    */
-  phone?: string
+  expiration_date?: string
   /**
-   * @minLength 3
-   * @maxLength 50
    * @type string
    */
-  username: string
+  identity_status: string
+  /**
+   * @type string | undefined
+   */
+  issuance_date?: string
+  /**
+   * @type string
+   */
+  issuer_did: string
+  /**
+   * @type string | undefined
+   */
+  issuer_name?: string
+  /**
+   * @type string | undefined
+   */
+  issuer_url?: string
+  /**
+   * @type string
+   */
+  organization: string
+  /**
+   * @type string
+   */
+  user_did: string
+  /**
+   * @type string
+   */
+  user_name: string
+  /**
+   * @type string
+   */
+  user_type: string
+  /**
+   * @type string | undefined
+   */
+  valid_from?: string
+  /**
+   * @type object
+   */
+  vc: object
 }

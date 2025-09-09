@@ -1,0 +1,1 @@
+{"type":"string","enum":["LAOS","THAILAND","CHINA"],"x-enum-comments":{"China":"中国","Laos":"老挝","Thailand":"泰国"},"x-enum-descriptions":["老挝","泰国","中国"],"x-enum-varnames":["Laos","Thailand","China"],"x-readme-ref-name":"models.Country"}

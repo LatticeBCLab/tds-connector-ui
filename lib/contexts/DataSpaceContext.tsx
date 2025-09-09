@@ -1,58 +1,83 @@
 "use client";
 
-import { createContext, ReactNode, useContext, useState } from "react";
+import { useGetAllDataSpaces } from "@/lib/gen/hooks/useGetAllDataSpaces";
+import type { ModelsDataSpace } from "@/lib/gen/types/models/DataSpace";
+import {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 
 export interface DataSpace {
   id: string;
   name: string;
   description: string;
-  status: "active" | "inactive";
+  status: "active" | "inactive" | "pending" | "archived";
+  country?: string;
 }
 
 interface DataSpaceContextType {
-  currentDataSpace: DataSpace;
+  currentDataSpace: DataSpace | null;
   availableDataSpaces: DataSpace[];
   switchDataSpace: (dataSpaceId: string) => void;
+  isLoading: boolean;
+  error: string | null;
 }
 
-const defaultDataSpaces: DataSpace[] = [
-  {
-    id: "healthcare",
-    name: "Healthcare Data Space",
-    description: "Medical and healthcare data sharing platform",
-    status: "active",
-  },
-  {
-    id: "finance",
-    name: "Financial Data Space",
-    description: "Financial services data ecosystem",
-    status: "active",
-  },
-  {
-    id: "mobility",
-    name: "Mobility Data Space",
-    description: "Transportation and mobility data hub",
-    status: "active",
-  },
-  {
-    id: "energy",
-    name: "Energy Data Space",
-    description: "Energy sector data exchange platform",
-    status: "inactive",
-  },
-];
+const mapApiDataSpaceToLocal = (apiDataSpace: ModelsDataSpace): DataSpace => ({
+  id: apiDataSpace.id || "",
+  name: apiDataSpace.name || "",
+  description: apiDataSpace.description || "",
+  status: mapApiStatus(apiDataSpace.status),
+  country: apiDataSpace.country,
+});
+
+const mapApiStatus = (
+  status?: string
+): "active" | "inactive" | "pending" | "archived" => {
+  switch (status) {
+    case "ACTIVE":
+      return "active";
+    case "INACTIVE":
+      return "inactive";
+    case "PENDING":
+      return "pending";
+    case "ARCHIVED":
+      return "archived";
+    default:
+      return "inactive";
+  }
+};
 
 const DataSpaceContext = createContext<DataSpaceContextType | undefined>(
   undefined
 );
 
 export function DataSpaceProvider({ children }: { children: ReactNode }) {
-  const [currentDataSpace, setCurrentDataSpace] = useState<DataSpace>(
-    defaultDataSpaces[0]
+  const [currentDataSpace, setCurrentDataSpace] = useState<DataSpace | null>(
+    null
+  );
+  const { data: apiDataSpaces, isLoading, error } = useGetAllDataSpaces();
+
+  const availableDataSpaces = useMemo(
+    () => (apiDataSpaces ? apiDataSpaces.map(mapApiDataSpaceToLocal) : []),
+    [apiDataSpaces]
   );
 
+  useEffect(() => {
+    if (availableDataSpaces.length > 0 && !currentDataSpace) {
+      const activeDataSpace = availableDataSpaces.find(
+        (ds) => ds.status === "active"
+      );
+      setCurrentDataSpace(activeDataSpace || availableDataSpaces[0]);
+    }
+  }, [availableDataSpaces, currentDataSpace]);
+
   const switchDataSpace = (dataSpaceId: string) => {
-    const dataSpace = defaultDataSpaces.find((ds) => ds.id === dataSpaceId);
+    const dataSpace = availableDataSpaces.find((ds) => ds.id === dataSpaceId);
     if (dataSpace) {
       setCurrentDataSpace(dataSpace);
     }
@@ -62,8 +87,10 @@ export function DataSpaceProvider({ children }: { children: ReactNode }) {
     <DataSpaceContext.Provider
       value={{
         currentDataSpace,
-        availableDataSpaces: defaultDataSpaces,
+        availableDataSpaces,
         switchDataSpace,
+        isLoading,
+        error: error?.message || null,
       }}
     >
       {children}

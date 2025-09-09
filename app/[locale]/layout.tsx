@@ -1,3 +1,4 @@
+import { AppInitializer } from "@/components/app-initializer";
 import Header from "@/components/header";
 import QueryClientProvider from "@/components/providers/QueryClientProvider";
 import { ThemeProvider } from "@/components/theme-provider";
@@ -51,8 +52,8 @@ export default async function LocaleLayout({
           disableTransitionOnChange
         >
           <DataSpaceProvider>
+            <AppInitializer />
             <div className="bg-background min-h-screen">
-              {/* Header */}
               <Header />
 
               {/* Main Content */}

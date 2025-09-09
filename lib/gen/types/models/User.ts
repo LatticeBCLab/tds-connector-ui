@@ -3,56 +3,79 @@
  * Do not edit manually.
  */
 
+import type { ModelsVerifiableCredential } from './VerifiableCredential.ts'
+
 export type ModelsUser = {
   /**
-   * @type string | undefined
+   * @type object | undefined
    */
-  avatar?: string
+  credential?: ModelsVerifiableCredential
   /**
    * @type string | undefined
    */
-  created_at?: string
+  credentialId?: string
   /**
    * @type string | undefined
    */
-  email?: string
-  /**
-   * @description 用户详细信息
-   * @type string | undefined
-   */
-  first_name?: string
-  /**
-   * @type integer | undefined
-   */
-  id?: number
-  /**
-   * @description 用户状态
-   * @type boolean | undefined
-   */
-  is_active?: boolean
-  /**
-   * @type boolean | undefined
-   */
-  is_verified?: boolean
+  credentialSignatureAlg?: string
   /**
    * @type string | undefined
    */
-  last_login_at?: string
+  credentialSignatureValue?: string
   /**
    * @type string | undefined
    */
-  last_name?: string
+  credentialTypes?: string
   /**
    * @type string | undefined
    */
-  phone?: string
+  credentialVerificationMethod?: string
   /**
    * @type string | undefined
    */
-  updated_at?: string
+  expirationDate?: string
   /**
-   * @description 用户基本信息
    * @type string | undefined
    */
-  username?: string
+  identityStatus?: string
+  /**
+   * @type string | undefined
+   */
+  issuanceDate?: string
+  /**
+   * @type string | undefined
+   */
+  issuerDid?: string
+  /**
+   * @type string | undefined
+   */
+  issuerName?: string
+  /**
+   * @type string | undefined
+   */
+  issuerUrl?: string
+  /**
+   * @type string | undefined
+   */
+  lastAuthenticatedAt?: string
+  /**
+   * @type string | undefined
+   */
+  organization?: string
+  /**
+   * @type string | undefined
+   */
+  userDid?: string
+  /**
+   * @type string | undefined
+   */
+  userName?: string
+  /**
+   * @type string | undefined
+   */
+  userType?: string
+  /**
+   * @type string | undefined
+   */
+  validFrom?: string
 }

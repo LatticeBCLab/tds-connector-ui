@@ -1,1 +1,0 @@
-{"type":"object","properties":{"email":{"type":"string","example":"john@example.com"},"first_name":{"type":"string","example":"John"},"is_active":{"type":"boolean","example":true},"last_name":{"type":"string","example":"Doe"},"phone":{"type":"string","example":"+1234567890"}},"x-readme-ref-name":"handlers.UpdateUserRequest"}

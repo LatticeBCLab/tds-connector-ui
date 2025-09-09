@@ -1,55 +1,672 @@
+export type {
+  AddPolicyToContractTemplateByIDPathParams,
+  AddPolicyToContractTemplateByID200,
+  AddPolicyToContractTemplateByID400,
+  AddPolicyToContractTemplateByID404,
+  AddPolicyToContractTemplateByID500,
+  AddPolicyToContractTemplateByIDMutationRequest,
+  AddPolicyToContractTemplateByIDMutationResponse,
+  AddPolicyToContractTemplateByIDMutation,
+} from './AddPolicyToContractTemplateByID.ts'
+export type {
+  ApproveResourceAuditByIDPathParams,
+  ApproveResourceAuditByID200,
+  ApproveResourceAuditByID400,
+  ApproveResourceAuditByID404,
+  ApproveResourceAuditByID500,
+  ApproveResourceAuditByIDMutationRequest,
+  ApproveResourceAuditByIDMutationResponse,
+  ApproveResourceAuditByIDMutation,
+} from './ApproveResourceAuditByID.ts'
+export type {
+  BatchCreateI18N201,
+  BatchCreateI18N400,
+  BatchCreateI18N500,
+  BatchCreateI18NMutationRequest,
+  BatchCreateI18NMutationResponse,
+  BatchCreateI18NMutation,
+} from './BatchCreateI18N.ts'
+export type {
+  CancelResourceAuditByIDPathParams,
+  CancelResourceAuditByID200,
+  CancelResourceAuditByID400,
+  CancelResourceAuditByID404,
+  CancelResourceAuditByID500,
+  CancelResourceAuditByIDMutationResponse,
+  CancelResourceAuditByIDMutation,
+} from './CancelResourceAuditByID.ts'
+export type {
+  CreateConnector201,
+  CreateConnector400,
+  CreateConnector500,
+  CreateConnectorMutationRequest,
+  CreateConnectorMutationResponse,
+  CreateConnectorMutation,
+} from './CreateConnector.ts'
+export type {
+  CreateContract201,
+  CreateContract400,
+  CreateContract500,
+  CreateContractMutationRequest,
+  CreateContractMutationResponse,
+  CreateContractMutation,
+} from './CreateContract.ts'
+export type {
+  CreateContractTemplate201,
+  CreateContractTemplate400,
+  CreateContractTemplate500,
+  CreateContractTemplateMutationRequest,
+  CreateContractTemplateMutationResponse,
+  CreateContractTemplateMutation,
+} from './CreateContractTemplate.ts'
+export type { CreateI18N201, CreateI18N400, CreateI18N500, CreateI18NMutationRequest, CreateI18NMutationResponse, CreateI18NMutation } from './CreateI18N.ts'
+export type {
+  CreatePolicy201,
+  CreatePolicy400,
+  CreatePolicy500,
+  CreatePolicyMutationRequest,
+  CreatePolicyMutationResponse,
+  CreatePolicyMutation,
+} from './CreatePolicy.ts'
+export type {
+  CreateResource201,
+  CreateResource400,
+  CreateResource500,
+  CreateResourceMutationRequest,
+  CreateResourceMutationResponse,
+  CreateResourceMutation,
+} from './CreateResource.ts'
+export type {
+  CreateResourceAudit201,
+  CreateResourceAudit400,
+  CreateResourceAudit404,
+  CreateResourceAudit500,
+  CreateResourceAuditMutationRequest,
+  CreateResourceAuditMutationResponse,
+  CreateResourceAuditMutation,
+} from './CreateResourceAudit.ts'
+export type { CreateUser201, CreateUser400, CreateUser500, CreateUserMutationRequest, CreateUserMutationResponse, CreateUserMutation } from './CreateUser.ts'
 export type { DbOfferingModel } from './db/OfferingModel.ts'
 export type {
-  DeleteUsersIdPathParams,
-  DeleteUsersId200,
-  DeleteUsersId400,
-  DeleteUsersId404,
-  DeleteUsersId500,
-  DeleteUsersIdMutationResponse,
-  DeleteUsersIdMutation,
-} from './DeleteUsersId.ts'
+  DeleteByRowIDPathParams,
+  DeleteByRowID200,
+  DeleteByRowID400,
+  DeleteByRowID500,
+  DeleteByRowIDMutationResponse,
+  DeleteByRowIDMutation,
+} from './DeleteByRowID.ts'
+export type {
+  DeleteContractByIDPathParams,
+  DeleteContractByID200,
+  DeleteContractByID400,
+  DeleteContractByID404,
+  DeleteContractByID500,
+  DeleteContractByIDMutationResponse,
+  DeleteContractByIDMutation,
+} from './DeleteContractByID.ts'
+export type {
+  DeleteContractTemplateByIDPathParams,
+  DeleteContractTemplateByID200,
+  DeleteContractTemplateByID400,
+  DeleteContractTemplateByID404,
+  DeleteContractTemplateByID500,
+  DeleteContractTemplateByIDMutationResponse,
+  DeleteContractTemplateByIDMutation,
+} from './DeleteContractTemplateByID.ts'
+export type {
+  DeleteI18nByIDPathParams,
+  DeleteI18nByID200,
+  DeleteI18nByID400,
+  DeleteI18nByID404,
+  DeleteI18nByID500,
+  DeleteI18nByIDMutationResponse,
+  DeleteI18nByIDMutation,
+} from './DeleteI18nByID.ts'
+export type {
+  DeletePolicyByIDPathParams,
+  DeletePolicyByID200,
+  DeletePolicyByID400,
+  DeletePolicyByID404,
+  DeletePolicyByID500,
+  DeletePolicyByIDMutationResponse,
+  DeletePolicyByIDMutation,
+} from './DeletePolicyByID.ts'
+export type {
+  DeletePolicyFromContractTemplateByIDPathParams,
+  DeletePolicyFromContractTemplateByID200,
+  DeletePolicyFromContractTemplateByID400,
+  DeletePolicyFromContractTemplateByID404,
+  DeletePolicyFromContractTemplateByID500,
+  DeletePolicyFromContractTemplateByIDMutationResponse,
+  DeletePolicyFromContractTemplateByIDMutation,
+} from './DeletePolicyFromContractTemplateByID.ts'
+export type {
+  DeleteResourceAuditByIDPathParams,
+  DeleteResourceAuditByID200,
+  DeleteResourceAuditByID400,
+  DeleteResourceAuditByID404,
+  DeleteResourceAuditByID500,
+  DeleteResourceAuditByIDMutationResponse,
+  DeleteResourceAuditByIDMutation,
+} from './DeleteResourceAuditByID.ts'
+export type {
+  DeleteResourceByIDPathParams,
+  DeleteResourceByID200,
+  DeleteResourceByID400,
+  DeleteResourceByID404,
+  DeleteResourceByID500,
+  DeleteResourceByIDMutationResponse,
+  DeleteResourceByIDMutation,
+} from './DeleteResourceByID.ts'
 export type { Get200, GetQueryResponse, GetQuery } from './Get.ts'
 export type {
-  GetApiV1OfferingIdPathParams,
-  GetApiV1OfferingId200,
-  GetApiV1OfferingId400,
-  GetApiV1OfferingId500,
-  GetApiV1OfferingIdQueryResponse,
-  GetApiV1OfferingIdQuery,
-} from './GetApiV1OfferingId.ts'
-export type { GetApiV1Offerings200, GetApiV1Offerings500, GetApiV1OfferingsQueryResponse, GetApiV1OfferingsQuery } from './GetApiV1Offerings.ts'
+  GetActiveResourceCountQueryParams,
+  GetActiveResourceCount200,
+  GetActiveResourceCount500,
+  GetActiveResourceCountQueryResponse,
+  GetActiveResourceCountQuery,
+} from './GetActiveResourceCount.ts'
+export type {
+  GetActiveResourceCountByDataspacePathParams,
+  GetActiveResourceCountByDataspaceQueryParams,
+  GetActiveResourceCountByDataspace200,
+  GetActiveResourceCountByDataspace400,
+  GetActiveResourceCountByDataspace500,
+  GetActiveResourceCountByDataspaceQueryResponse,
+  GetActiveResourceCountByDataspaceQuery,
+} from './GetActiveResourceCountByDataspace.ts'
+export type { GetAllDataSpaces200, GetAllDataSpaces500, GetAllDataSpacesQueryResponse, GetAllDataSpacesQuery } from './GetAllDataSpaces.ts'
+export type {
+  GetConnectorByDIDPathParams,
+  GetConnectorByDID200,
+  GetConnectorByDID400,
+  GetConnectorByDID404,
+  GetConnectorByDID500,
+  GetConnectorByDIDQueryResponse,
+  GetConnectorByDIDQuery,
+} from './GetConnectorByDID.ts'
+export type {
+  GetConnectorSecurityRatingByDIDPathParams,
+  GetConnectorSecurityRatingByDID200,
+  GetConnectorSecurityRatingByDID400,
+  GetConnectorSecurityRatingByDID404,
+  GetConnectorSecurityRatingByDID500,
+  GetConnectorSecurityRatingByDIDQueryResponse,
+  GetConnectorSecurityRatingByDIDQuery,
+} from './GetConnectorSecurityRatingByDID.ts'
+export type {
+  GetContractByIDPathParams,
+  GetContractByID200,
+  GetContractByID400,
+  GetContractByID404,
+  GetContractByID500,
+  GetContractByIDQueryResponse,
+  GetContractByIDQuery,
+} from './GetContractByID.ts'
+export type {
+  GetContractCountByDataspaceAndConsumerPathParams,
+  GetContractCountByDataspaceAndConsumerQueryParams,
+  GetContractCountByDataspaceAndConsumer200,
+  GetContractCountByDataspaceAndConsumer500,
+  GetContractCountByDataspaceAndConsumerQueryResponse,
+  GetContractCountByDataspaceAndConsumerQuery,
+} from './GetContractCountByDataspaceAndConsumer.ts'
+export type {
+  GetContractCountByDataspaceAndProviderPathParams,
+  GetContractCountByDataspaceAndProviderQueryParams,
+  GetContractCountByDataspaceAndProvider200,
+  GetContractCountByDataspaceAndProvider500,
+  GetContractCountByDataspaceAndProviderQueryResponse,
+  GetContractCountByDataspaceAndProviderQuery,
+} from './GetContractCountByDataspaceAndProvider.ts'
+export type {
+  GetContractCountByProviderQueryParams,
+  GetContractCountByProvider200,
+  GetContractCountByProvider500,
+  GetContractCountByProviderQueryResponse,
+  GetContractCountByProviderQuery,
+} from './GetContractCountByProvider.ts'
+export type {
+  GetContractListByDataspacePathParams,
+  GetContractListByDataspaceQueryParams,
+  GetContractListByDataspace200,
+  GetContractListByDataspace400,
+  GetContractListByDataspace500,
+  GetContractListByDataspaceQueryResponse,
+  GetContractListByDataspaceQuery,
+} from './GetContractListByDataspace.ts'
+export type {
+  GetContractListByDataspaceAndConsumerPathParams,
+  GetContractListByDataspaceAndConsumerQueryParams,
+  GetContractListByDataspaceAndConsumer200,
+  GetContractListByDataspaceAndConsumer400,
+  GetContractListByDataspaceAndConsumer500,
+  GetContractListByDataspaceAndConsumerQueryResponse,
+  GetContractListByDataspaceAndConsumerQuery,
+} from './GetContractListByDataspaceAndConsumer.ts'
+export type {
+  GetContractListByDataspaceAndProviderQueryParams,
+  GetContractListByDataspaceAndProvider200,
+  GetContractListByDataspaceAndProvider400,
+  GetContractListByDataspaceAndProvider500,
+  GetContractListByDataspaceAndProviderQueryResponse,
+  GetContractListByDataspaceAndProviderQuery,
+} from './GetContractListByDataspaceAndProvider.ts'
+export type {
+  GetContractsByConsumerPathParams,
+  GetContractsByConsumerQueryParams,
+  GetContractsByConsumer200,
+  GetContractsByConsumer400,
+  GetContractsByConsumer500,
+  GetContractsByConsumerQueryResponse,
+  GetContractsByConsumerQuery,
+} from './GetContractsByConsumer.ts'
+export type {
+  GetContractsByProviderPathParams,
+  GetContractsByProviderQueryParams,
+  GetContractsByProvider200,
+  GetContractsByProvider400,
+  GetContractsByProvider500,
+  GetContractsByProviderQueryResponse,
+  GetContractsByProviderQuery,
+} from './GetContractsByProvider.ts'
+export type {
+  GetContractTemplateByIDPathParams,
+  GetContractTemplateByID200,
+  GetContractTemplateByID400,
+  GetContractTemplateByID404,
+  GetContractTemplateByID500,
+  GetContractTemplateByIDQueryResponse,
+  GetContractTemplateByIDQuery,
+} from './GetContractTemplateByID.ts'
+export type {
+  GetContractTemplateByNamePathParams,
+  GetContractTemplateByName200,
+  GetContractTemplateByName400,
+  GetContractTemplateByName404,
+  GetContractTemplateByName500,
+  GetContractTemplateByNameQueryResponse,
+  GetContractTemplateByNameQuery,
+} from './GetContractTemplateByName.ts'
+export type {
+  GetContractTemplatePoliciesByIDPathParams,
+  GetContractTemplatePoliciesByID200,
+  GetContractTemplatePoliciesByID400,
+  GetContractTemplatePoliciesByID404,
+  GetContractTemplatePoliciesByID500,
+  GetContractTemplatePoliciesByIDQueryResponse,
+  GetContractTemplatePoliciesByIDQuery,
+} from './GetContractTemplatePoliciesByID.ts'
+export type {
+  GetContractTemplatesByStatusPathParamsStatusEnum,
+  GetContractTemplatesByStatusPathParams,
+  GetContractTemplatesByStatusQueryParams,
+  GetContractTemplatesByStatus200,
+  GetContractTemplatesByStatus400,
+  GetContractTemplatesByStatus500,
+  GetContractTemplatesByStatusQueryResponse,
+  GetContractTemplatesByStatusQuery,
+} from './GetContractTemplatesByStatus.ts'
+export type {
+  GetI18nByIDPathParams,
+  GetI18nByID200,
+  GetI18nByID400,
+  GetI18nByID404,
+  GetI18nByID500,
+  GetI18nByIDQueryResponse,
+  GetI18nByIDQuery,
+} from './GetI18nByID.ts'
+export type {
+  GetI18nByRowIDFieldAndLangQueryParams,
+  GetI18nByRowIDFieldAndLang200,
+  GetI18nByRowIDFieldAndLang400,
+  GetI18nByRowIDFieldAndLang404,
+  GetI18nByRowIDFieldAndLang500,
+  GetI18nByRowIDFieldAndLangQueryResponse,
+  GetI18nByRowIDFieldAndLangQuery,
+} from './GetI18nByRowIDFieldAndLang.ts'
 export type { GetInfo200, GetInfoQueryResponse, GetInfoQuery } from './GetInfo.ts'
+export type {
+  GetOfferingIdPathParams,
+  GetOfferingId200,
+  GetOfferingId400,
+  GetOfferingId500,
+  GetOfferingIdQueryResponse,
+  GetOfferingIdQuery,
+} from './GetOfferingId.ts'
+export type { GetOfferings200, GetOfferings500, GetOfferingsQueryResponse, GetOfferingsQuery } from './GetOfferings.ts'
 export type { GetPing200, GetPingQueryResponse, GetPingQuery } from './GetPing.ts'
-export type { GetUsersQueryParams, GetUsers200, GetUsers400, GetUsers500, GetUsersQueryResponse, GetUsersQuery } from './GetUsers.ts'
 export type {
-  GetUsersIdPathParams,
-  GetUsersId200,
-  GetUsersId400,
-  GetUsersId404,
-  GetUsersId500,
-  GetUsersIdQueryResponse,
-  GetUsersIdQuery,
-} from './GetUsersId.ts'
+  GetPoliciesBySecurityLevelPathParamsLevelEnum,
+  GetPoliciesBySecurityLevelPathParams,
+  GetPoliciesBySecurityLevelQueryParams,
+  GetPoliciesBySecurityLevel200,
+  GetPoliciesBySecurityLevel400,
+  GetPoliciesBySecurityLevel500,
+  GetPoliciesBySecurityLevelQueryResponse,
+  GetPoliciesBySecurityLevelQuery,
+} from './GetPoliciesBySecurityLevel.ts'
+export type {
+  GetPolicyByIDPathParams,
+  GetPolicyByID200,
+  GetPolicyByID400,
+  GetPolicyByID404,
+  GetPolicyByID500,
+  GetPolicyByIDQueryResponse,
+  GetPolicyByIDQuery,
+} from './GetPolicyByID.ts'
+export type {
+  GetPolicyByNamePathParams,
+  GetPolicyByName200,
+  GetPolicyByName400,
+  GetPolicyByName404,
+  GetPolicyByName500,
+  GetPolicyByNameQueryResponse,
+  GetPolicyByNameQuery,
+} from './GetPolicyByName.ts'
+export type {
+  GetResourceAuditByIDPathParams,
+  GetResourceAuditByIDQueryParams,
+  GetResourceAuditByID200,
+  GetResourceAuditByID400,
+  GetResourceAuditByID404,
+  GetResourceAuditByID500,
+  GetResourceAuditByIDQueryResponse,
+  GetResourceAuditByIDQuery,
+} from './GetResourceAuditByID.ts'
+export type {
+  GetResourceAuditsByIDPathParams,
+  GetResourceAuditsByIDQueryParamsTypeEnum,
+  GetResourceAuditsByIDQueryParamsStatusEnum,
+  GetResourceAuditsByIDQueryParams,
+  GetResourceAuditsByID200,
+  GetResourceAuditsByID400,
+  GetResourceAuditsByID500,
+  GetResourceAuditsByIDQueryResponse,
+  GetResourceAuditsByIDQuery,
+} from './GetResourceAuditsByID.ts'
+export type {
+  GetResourceByIDPathParams,
+  GetResourceByID200,
+  GetResourceByID400,
+  GetResourceByID404,
+  GetResourceByID500,
+  GetResourceByIDQueryResponse,
+  GetResourceByIDQuery,
+} from './GetResourceByID.ts'
+export type {
+  GetResourceListByDataspacePathParams,
+  GetResourceListByDataspaceQueryParams,
+  GetResourceListByDataspace200,
+  GetResourceListByDataspace400,
+  GetResourceListByDataspace500,
+  GetResourceListByDataspaceQueryResponse,
+  GetResourceListByDataspaceQuery,
+} from './GetResourceListByDataspace.ts'
+export type {
+  GetResourceListByDataspaceAndPublisherQueryParams,
+  GetResourceListByDataspaceAndPublisher200,
+  GetResourceListByDataspaceAndPublisher400,
+  GetResourceListByDataspaceAndPublisher500,
+  GetResourceListByDataspaceAndPublisherQueryResponse,
+  GetResourceListByDataspaceAndPublisherQuery,
+} from './GetResourceListByDataspaceAndPublisher.ts'
+export type {
+  GetResourcesByPublisherPathParams,
+  GetResourcesByPublisherQueryParams,
+  GetResourcesByPublisher200,
+  GetResourcesByPublisher400,
+  GetResourcesByPublisher500,
+  GetResourcesByPublisherQueryResponse,
+  GetResourcesByPublisherQuery,
+} from './GetResourcesByPublisher.ts'
+export type {
+  GetTotalResourceCountQueryParams,
+  GetTotalResourceCount200,
+  GetTotalResourceCount500,
+  GetTotalResourceCountQueryResponse,
+  GetTotalResourceCountQuery,
+} from './GetTotalResourceCount.ts'
+export type {
+  GetTotalResourceCountByDataspacePathParams,
+  GetTotalResourceCountByDataspaceQueryParams,
+  GetTotalResourceCountByDataspace200,
+  GetTotalResourceCountByDataspace400,
+  GetTotalResourceCountByDataspace500,
+  GetTotalResourceCountByDataspaceQueryResponse,
+  GetTotalResourceCountByDataspaceQuery,
+} from './GetTotalResourceCountByDataspace.ts'
+export type {
+  GetUserByDIDPathParams,
+  GetUserByDID200,
+  GetUserByDID400,
+  GetUserByDID404,
+  GetUserByDID500,
+  GetUserByDIDQueryResponse,
+  GetUserByDIDQuery,
+} from './GetUserByDID.ts'
+export type { HandlersAddPolicyToTemplateRequest } from './handlers/AddPolicyToTemplateRequest.ts'
+export type { HandlersApproveAuditRequest } from './handlers/ApproveAuditRequest.ts'
+export type { HandlersCreateConnectorRequest } from './handlers/CreateConnectorRequest.ts'
+export type { HandlersCreateContractRequest } from './handlers/CreateContractRequest.ts'
+export type { HandlersCreateContractTemplateRequest } from './handlers/CreateContractTemplateRequest.ts'
+export type { HandlersCreateI18nRequest } from './handlers/CreateI18nRequest.ts'
+export type { HandlersCreatePolicyRequest } from './handlers/CreatePolicyRequest.ts'
+export type { HandlersCreateResourceAuditRequest } from './handlers/CreateResourceAuditRequest.ts'
+export type { HandlersCreateResourceRequest } from './handlers/CreateResourceRequest.ts'
 export type { HandlersCreateUserRequest } from './handlers/CreateUserRequest.ts'
-export type { HandlersUpdateUserRequest } from './handlers/UpdateUserRequest.ts'
+export type { HandlersRejectAuditRequest } from './handlers/RejectAuditRequest.ts'
+export type { HandlersUpdateContractRequest } from './handlers/UpdateContractRequest.ts'
+export type { HandlersUpdateContractTemplateRequest } from './handlers/UpdateContractTemplateRequest.ts'
+export type { HandlersUpdateI18nRequest } from './handlers/UpdateI18nRequest.ts'
+export type { HandlersUpdatePolicyRequest } from './handlers/UpdatePolicyRequest.ts'
+export type { HandlersUpdateResourceAuditRequest } from './handlers/UpdateResourceAuditRequest.ts'
+export type { HandlersUpdateResourceRequest } from './handlers/UpdateResourceRequest.ts'
+export type {
+  ListContractsQueryParams,
+  ListContracts200,
+  ListContracts400,
+  ListContracts500,
+  ListContractsQueryResponse,
+  ListContractsQuery,
+} from './ListContracts.ts'
+export type {
+  ListContractTemplatesQueryParamsStatusEnum,
+  ListContractTemplatesQueryParams,
+  ListContractTemplates200,
+  ListContractTemplates400,
+  ListContractTemplates500,
+  ListContractTemplatesQueryResponse,
+  ListContractTemplatesQuery,
+} from './ListContractTemplates.ts'
+export type {
+  ListPoliciesQueryParams,
+  ListPolicies200,
+  ListPolicies400,
+  ListPolicies500,
+  ListPoliciesQueryResponse,
+  ListPoliciesQuery,
+} from './ListPolicies.ts'
+export type {
+  ListResourceAuditsQueryParamsTypeEnum,
+  ListResourceAuditsQueryParamsStatusEnum,
+  ListResourceAuditsQueryParams,
+  ListResourceAudits200,
+  ListResourceAudits400,
+  ListResourceAudits500,
+  ListResourceAuditsQueryResponse,
+  ListResourceAuditsQuery,
+} from './ListResourceAudits.ts'
+export type {
+  ListResourcesQueryParamsTypeEnum,
+  ListResourcesQueryParamsStatusEnum,
+  ListResourcesQueryParamsCountryEnum,
+  ListResourcesQueryParams,
+  ListResources200,
+  ListResources400,
+  ListResources500,
+  ListResourcesQueryResponse,
+  ListResourcesQuery,
+} from './ListResources.ts'
+export type { ModelsApp } from './models/App.ts'
+export type { ModelsAppStore } from './models/AppStore.ts'
+export type { ModelsAuditStatusEnum, ModelsAuditStatus } from './models/AuditStatus.ts'
+export type { ModelsAuditTypeEnum, ModelsAuditType } from './models/AuditType.ts'
+export type { ModelsComputeBindingEnum, ModelsComputeBinding } from './models/ComputeBinding.ts'
+export type { ModelsConnectionTypeEnum, ModelsConnectionType } from './models/ConnectionType.ts'
+export type { ModelsConnector } from './models/Connector.ts'
+export type { ModelsConnectorSecurityRating } from './models/ConnectorSecurityRating.ts'
+export type { ModelsContract } from './models/Contract.ts'
+export type { ModelsContractTemplate } from './models/ContractTemplate.ts'
+export type { ModelsContractTemplatePolicy } from './models/ContractTemplatePolicy.ts'
+export type { ModelsCountryEnum, ModelsCountry } from './models/Country.ts'
+export type { ModelsCredentialIssuer } from './models/CredentialIssuer.ts'
+export type { ModelsCredentialProof } from './models/CredentialProof.ts'
+export type { ModelsCredentialSubject } from './models/CredentialSubject.ts'
+export type { ModelsDataSpace } from './models/DataSpace.ts'
+export type { ModelsDataSpaceStatusEnum, ModelsDataSpaceStatus } from './models/DataSpaceStatus.ts'
+export type { ModelsDIDDocument } from './models/DIDDocument.ts'
+export type { ModelsI18N } from './models/I18N.ts'
+export type { ModelsPolicyTemplate } from './models/PolicyTemplate.ts'
+export type { ModelsResource } from './models/Resource.ts'
+export type { ModelsResourceAudit } from './models/ResourceAudit.ts'
+export type { ModelsResourceStatusEnum, ModelsResourceStatus } from './models/ResourceStatus.ts'
+export type { ModelsResourceTypeEnum, ModelsResourceType } from './models/ResourceType.ts'
+export type { ModelsSecurityColorEnum, ModelsSecurityColor } from './models/SecurityColor.ts'
+export type { ModelsSecurityLevelEnum, ModelsSecurityLevel } from './models/SecurityLevel.ts'
+export type { ModelsService } from './models/Service.ts'
+export type { ModelsStartModeEnum, ModelsStartMode } from './models/StartMode.ts'
+export type { ModelsTemplateStatusEnum, ModelsTemplateStatus } from './models/TemplateStatus.ts'
 export type { ModelsUser } from './models/User.ts'
+export type { ModelsVerifiableCredential } from './models/VerifiableCredential.ts'
+export type { ModelsVerificationMethod } from './models/VerificationMethod.ts'
 export type {
-  PostApiV1Offering200,
-  PostApiV1Offering400,
-  PostApiV1Offering500,
-  PostApiV1OfferingMutationRequest,
-  PostApiV1OfferingMutationResponse,
-  PostApiV1OfferingMutation,
-} from './PostApiV1Offering.ts'
-export type { PostUsers201, PostUsers400, PostUsers500, PostUsersMutationRequest, PostUsersMutationResponse, PostUsersMutation } from './PostUsers.ts'
+  PostOffering200,
+  PostOffering400,
+  PostOffering500,
+  PostOfferingMutationRequest,
+  PostOfferingMutationResponse,
+  PostOfferingMutation,
+} from './PostOffering.ts'
 export type {
-  PutUsersIdPathParams,
-  PutUsersId200,
-  PutUsersId400,
-  PutUsersId404,
-  PutUsersId500,
-  PutUsersIdMutationRequest,
-  PutUsersIdMutationResponse,
-  PutUsersIdMutation,
-} from './PutUsersId.ts'
+  RejectResourceAuditByIDPathParams,
+  RejectResourceAuditByID200,
+  RejectResourceAuditByID400,
+  RejectResourceAuditByID404,
+  RejectResourceAuditByID500,
+  RejectResourceAuditByIDMutationRequest,
+  RejectResourceAuditByIDMutationResponse,
+  RejectResourceAuditByIDMutation,
+} from './RejectResourceAuditByID.ts'
+export type { ResponsePaginatedResponse } from './response/PaginatedResponse.ts'
+export type { ResponsePagination } from './response/Pagination.ts'
 export type { ResponseResponse } from './response/Response.ts'
+export type {
+  UpdateContractByIDPathParams,
+  UpdateContractByID200,
+  UpdateContractByID400,
+  UpdateContractByID404,
+  UpdateContractByID500,
+  UpdateContractByIDMutationRequest,
+  UpdateContractByIDMutationResponse,
+  UpdateContractByIDMutation,
+} from './UpdateContractByID.ts'
+export type {
+  UpdateContractTemplateByIDPathParams,
+  UpdateContractTemplateByID200,
+  UpdateContractTemplateByID400,
+  UpdateContractTemplateByID404,
+  UpdateContractTemplateByID500,
+  UpdateContractTemplateByIDMutationRequest,
+  UpdateContractTemplateByIDMutationResponse,
+  UpdateContractTemplateByIDMutation,
+} from './UpdateContractTemplateByID.ts'
+export type {
+  UpdateContractTemplateStatusByIDPathParamsStatusEnum,
+  UpdateContractTemplateStatusByIDPathParams,
+  UpdateContractTemplateStatusByID200,
+  UpdateContractTemplateStatusByID400,
+  UpdateContractTemplateStatusByID404,
+  UpdateContractTemplateStatusByID500,
+  UpdateContractTemplateStatusByIDMutationResponse,
+  UpdateContractTemplateStatusByIDMutation,
+} from './UpdateContractTemplateStatusByID.ts'
+export type {
+  UpdateI18nByIDPathParams,
+  UpdateI18nByID200,
+  UpdateI18nByID400,
+  UpdateI18nByID404,
+  UpdateI18nByID500,
+  UpdateI18nByIDMutationRequest,
+  UpdateI18nByIDMutationResponse,
+  UpdateI18nByIDMutation,
+} from './UpdateI18nByID.ts'
+export type {
+  UpdatePolicyByIDPathParams,
+  UpdatePolicyByID200,
+  UpdatePolicyByID400,
+  UpdatePolicyByID404,
+  UpdatePolicyByID500,
+  UpdatePolicyByIDMutationRequest,
+  UpdatePolicyByIDMutationResponse,
+  UpdatePolicyByIDMutation,
+} from './UpdatePolicyByID.ts'
+export type {
+  UpdateResourceAuditByIDPathParams,
+  UpdateResourceAuditByID200,
+  UpdateResourceAuditByID400,
+  UpdateResourceAuditByID404,
+  UpdateResourceAuditByID500,
+  UpdateResourceAuditByIDMutationRequest,
+  UpdateResourceAuditByIDMutationResponse,
+  UpdateResourceAuditByIDMutation,
+} from './UpdateResourceAuditByID.ts'
+export type {
+  UpdateResourceByIDPathParams,
+  UpdateResourceByID200,
+  UpdateResourceByID400,
+  UpdateResourceByID404,
+  UpdateResourceByID500,
+  UpdateResourceByIDMutationRequest,
+  UpdateResourceByIDMutationResponse,
+  UpdateResourceByIDMutation,
+} from './UpdateResourceByID.ts'
+export type {
+  UpdateResourceOutReviewByIDPathParams,
+  UpdateResourceOutReviewByID200,
+  UpdateResourceOutReviewByID400,
+  UpdateResourceOutReviewByID404,
+  UpdateResourceOutReviewByID500,
+  UpdateResourceOutReviewByIDMutationRequest,
+  UpdateResourceOutReviewByIDMutationResponse,
+  UpdateResourceOutReviewByIDMutation,
+} from './UpdateResourceOutReviewByID.ts'
+export type {
+  UpdateResourceStatusByIDPathParams,
+  UpdateResourceStatusByID200,
+  UpdateResourceStatusByID400,
+  UpdateResourceStatusByID404,
+  UpdateResourceStatusByID500,
+  UpdateResourceStatusByIDMutationRequest,
+  UpdateResourceStatusByIDMutationResponse,
+  UpdateResourceStatusByIDMutation,
+} from './UpdateResourceStatusByID.ts'
+export { getContractTemplatesByStatusPathParamsStatusEnum } from './GetContractTemplatesByStatus.ts'
+export { getPoliciesBySecurityLevelPathParamsLevelEnum } from './GetPoliciesBySecurityLevel.ts'
+export { getResourceAuditsByIDQueryParamsTypeEnum, getResourceAuditsByIDQueryParamsStatusEnum } from './GetResourceAuditsByID.ts'
+export { listContractTemplatesQueryParamsStatusEnum } from './ListContractTemplates.ts'
+export { listResourceAuditsQueryParamsTypeEnum, listResourceAuditsQueryParamsStatusEnum } from './ListResourceAudits.ts'
+export { listResourcesQueryParamsTypeEnum, listResourcesQueryParamsStatusEnum, listResourcesQueryParamsCountryEnum } from './ListResources.ts'
+export { modelsAuditStatus } from './models/AuditStatus.ts'
+export { modelsAuditType } from './models/AuditType.ts'
+export { modelsComputeBinding } from './models/ComputeBinding.ts'
+export { modelsConnectionType } from './models/ConnectionType.ts'
+export { modelsCountry } from './models/Country.ts'
+export { modelsDataSpaceStatus } from './models/DataSpaceStatus.ts'
+export { modelsResourceStatus } from './models/ResourceStatus.ts'
+export { modelsResourceType } from './models/ResourceType.ts'
+export { modelsSecurityColor } from './models/SecurityColor.ts'
+export { modelsSecurityLevel } from './models/SecurityLevel.ts'
+export { modelsStartMode } from './models/StartMode.ts'
+export { modelsTemplateStatus } from './models/TemplateStatus.ts'
+export { updateContractTemplateStatusByIDPathParamsStatusEnum } from './UpdateContractTemplateStatusByID.ts'
