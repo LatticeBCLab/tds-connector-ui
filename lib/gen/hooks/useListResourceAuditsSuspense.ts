@@ -16,7 +16,7 @@ import { listResourceAudits } from '../clients/listResourceAudits.ts'
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
 
 export const listResourceAuditsSuspenseQueryKey = (params?: ListResourceAuditsQueryParams) =>
-  [{ url: '/resource-audits' }, ...(params ? [params] : [])] as const
+  [{ url: '/api/v1/resource-audits' }, ...(params ? [params] : [])] as const
 
 export type ListResourceAuditsSuspenseQueryKey = ReturnType<typeof listResourceAuditsSuspenseQueryKey>
 
@@ -42,7 +42,7 @@ export function listResourceAuditsSuspenseQueryOptions(
 /**
  * @description 分页获取资源审核列表，支持按多种条件筛选
  * @summary 获取资源审核列表
- * {@link /resource-audits}
+ * {@link /api/v1/resource-audits}
  */
 export function useListResourceAuditsSuspense<TData = ListResourceAuditsQueryResponse, TQueryKey extends QueryKey = ListResourceAuditsSuspenseQueryKey>(
   params?: ListResourceAuditsQueryParams,

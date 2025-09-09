@@ -17,7 +17,7 @@ import { getResourceAuditsByID } from '../clients/getResourceAuditsByID.ts'
 import { queryOptions, useQuery } from '@tanstack/react-query'
 
 export const getResourceAuditsByIDQueryKey = (id: GetResourceAuditsByIDPathParams['id'], params?: GetResourceAuditsByIDQueryParams) =>
-  [{ url: '/resources/:id/audits', params: { id: id } }, ...(params ? [params] : [])] as const
+  [{ url: '/api/v1/resources/:id/audits', params: { id: id } }, ...(params ? [params] : [])] as const
 
 export type GetResourceAuditsByIDQueryKey = ReturnType<typeof getResourceAuditsByIDQueryKey>
 
@@ -45,7 +45,7 @@ export function getResourceAuditsByIDQueryOptions(
 /**
  * @description 获取指定资源的所有审核记录
  * @summary 获取资源的审核记录
- * {@link /resources/:id/audits}
+ * {@link /api/v1/resources/:id/audits}
  */
 export function useGetResourceAuditsByID<
   TData = GetResourceAuditsByIDQueryResponse,

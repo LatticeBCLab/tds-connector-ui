@@ -15,7 +15,7 @@ import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from
 import { listResourceAudits } from '../clients/listResourceAudits.ts'
 import { queryOptions, useQuery } from '@tanstack/react-query'
 
-export const listResourceAuditsQueryKey = (params?: ListResourceAuditsQueryParams) => [{ url: '/resource-audits' }, ...(params ? [params] : [])] as const
+export const listResourceAuditsQueryKey = (params?: ListResourceAuditsQueryParams) => [{ url: '/api/v1/resource-audits' }, ...(params ? [params] : [])] as const
 
 export type ListResourceAuditsQueryKey = ReturnType<typeof listResourceAuditsQueryKey>
 
@@ -38,7 +38,7 @@ export function listResourceAuditsQueryOptions(params?: ListResourceAuditsQueryP
 /**
  * @description 分页获取资源审核列表，支持按多种条件筛选
  * @summary 获取资源审核列表
- * {@link /resource-audits}
+ * {@link /api/v1/resource-audits}
  */
 export function useListResourceAudits<
   TData = ListResourceAuditsQueryResponse,

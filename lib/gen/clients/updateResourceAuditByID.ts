@@ -15,14 +15,14 @@ import type {
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 function getUpdateResourceAuditByIDUrl(id: UpdateResourceAuditByIDPathParams['id']) {
-  const res = { method: 'PUT', url: `/tdsc/resource-audits/${id}` as const }
+  const res = { method: 'PUT', url: `/tdsc/api/v1/resource-audits/${id}` as const }
   return res
 }
 
 /**
  * @description 根据审核ID更新资源审核信息
  * @summary 更新资源审核信息
- * {@link /resource-audits/:id}
+ * {@link /api/v1/resource-audits/:id}
  */
 export async function updateResourceAuditByID(
   id: UpdateResourceAuditByIDPathParams['id'],

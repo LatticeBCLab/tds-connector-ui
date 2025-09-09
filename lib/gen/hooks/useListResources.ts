@@ -10,7 +10,7 @@ import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from
 import { listResources } from '../clients/listResources.ts'
 import { queryOptions, useQuery } from '@tanstack/react-query'
 
-export const listResourcesQueryKey = (params?: ListResourcesQueryParams) => [{ url: '/resources' }, ...(params ? [params] : [])] as const
+export const listResourcesQueryKey = (params?: ListResourcesQueryParams) => [{ url: '/api/v1/resources' }, ...(params ? [params] : [])] as const
 
 export type ListResourcesQueryKey = ReturnType<typeof listResourcesQueryKey>
 
@@ -28,7 +28,7 @@ export function listResourcesQueryOptions(params?: ListResourcesQueryParams, con
 /**
  * @description 分页获取资源列表，支持按多种条件筛选和搜索
  * @summary 获取资源列表
- * {@link /resources}
+ * {@link /api/v1/resources}
  */
 export function useListResources<
   TData = ListResourcesQueryResponse,

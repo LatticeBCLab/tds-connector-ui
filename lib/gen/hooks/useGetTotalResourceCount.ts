@@ -11,7 +11,7 @@ import { getTotalResourceCount } from '../clients/getTotalResourceCount.ts'
 import { queryOptions, useQuery } from '@tanstack/react-query'
 
 export const getTotalResourceCountQueryKey = (params?: GetTotalResourceCountQueryParams) =>
-  [{ url: '/resources/total/count' }, ...(params ? [params] : [])] as const
+  [{ url: '/api/v1/resources/total/count' }, ...(params ? [params] : [])] as const
 
 export type GetTotalResourceCountQueryKey = ReturnType<typeof getTotalResourceCountQueryKey>
 
@@ -29,7 +29,7 @@ export function getTotalResourceCountQueryOptions(params?: GetTotalResourceCount
 /**
  * @description 根据数据空间和/或发布者查询所有状态的资源总数，两个参数都是可选的
  * @summary 获取资源总数量
- * {@link /resources/total/count}
+ * {@link /api/v1/resources/total/count}
  */
 export function useGetTotalResourceCount<
   TData = GetTotalResourceCountQueryResponse,

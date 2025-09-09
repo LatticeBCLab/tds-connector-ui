@@ -19,7 +19,7 @@ import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
 export const getResourcesByPublisherSuspenseQueryKey = (
   publisher: GetResourcesByPublisherPathParams['publisher'],
   params?: GetResourcesByPublisherQueryParams,
-) => [{ url: '/publishers/:publisher/resources', params: { publisher: publisher } }, ...(params ? [params] : [])] as const
+) => [{ url: '/api/v1/publishers/:publisher/resources', params: { publisher: publisher } }, ...(params ? [params] : [])] as const
 
 export type GetResourcesByPublisherSuspenseQueryKey = ReturnType<typeof getResourcesByPublisherSuspenseQueryKey>
 
@@ -47,7 +47,7 @@ export function getResourcesByPublisherSuspenseQueryOptions(
 /**
  * @description 获取指定发布者发布的所有资源
  * @summary 获取发布者的资源列表
- * {@link /publishers/:publisher/resources}
+ * {@link /api/v1/publishers/:publisher/resources}
  */
 export function useGetResourcesByPublisherSuspense<
   TData = GetResourcesByPublisherQueryResponse,

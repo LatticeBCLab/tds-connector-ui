@@ -14,14 +14,14 @@ import type {
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 function getGetContractsByProviderUrl(provider: GetContractsByProviderPathParams['provider']) {
-  const res = { method: 'GET', url: `/tdsc/contracts/provider/${provider}` as const }
+  const res = { method: 'GET', url: `/tdsc/api/v1/contracts/provider/${provider}` as const }
   return res
 }
 
 /**
  * @description 分页获取特定提供者的合约列表
  * @summary 获取提供者的合约列表
- * {@link /contracts/provider/:provider}
+ * {@link /api/v1/contracts/provider/:provider}
  */
 export async function getContractsByProvider(
   provider: GetContractsByProviderPathParams['provider'],

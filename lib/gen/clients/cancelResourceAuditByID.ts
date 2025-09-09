@@ -14,14 +14,14 @@ import type {
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 function getCancelResourceAuditByIDUrl(id: CancelResourceAuditByIDPathParams['id']) {
-  const res = { method: 'POST', url: `/tdsc/resource-audits/${id}/cancel` as const }
+  const res = { method: 'POST', url: `/tdsc/api/v1/resource-audits/${id}/cancel` as const }
   return res
 }
 
 /**
  * @description 取消指定的资源审核申请
  * @summary 取消资源审核
- * {@link /resource-audits/:id/cancel}
+ * {@link /api/v1/resource-audits/:id/cancel}
  */
 export async function cancelResourceAuditByID(id: CancelResourceAuditByIDPathParams['id'], config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
   const { client: request = fetch, ...requestConfig } = config

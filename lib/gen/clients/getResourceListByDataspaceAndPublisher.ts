@@ -13,14 +13,14 @@ import type {
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 function getGetResourceListByDataspaceAndPublisherUrl() {
-  const res = { method: 'GET', url: `/tdsc/resources/list` as const }
+  const res = { method: 'GET', url: `/tdsc/api/v1/resources/list` as const }
   return res
 }
 
 /**
  * @description 根据数据空间和/或发布者查询资源列表，支持分页。两个参数都是可选的
  * @summary 获取资源列表（支持灵活的组合查询）
- * {@link /resources/list}
+ * {@link /api/v1/resources/list}
  */
 export async function getResourceListByDataspaceAndPublisher(
   params?: GetResourceListByDataspaceAndPublisherQueryParams,

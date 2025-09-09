@@ -14,14 +14,14 @@ import type {
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 function getGetResourcesByPublisherUrl(publisher: GetResourcesByPublisherPathParams['publisher']) {
-  const res = { method: 'GET', url: `/tdsc/publishers/${publisher}/resources` as const }
+  const res = { method: 'GET', url: `/tdsc/api/v1/publishers/${publisher}/resources` as const }
   return res
 }
 
 /**
  * @description 获取指定发布者发布的所有资源
  * @summary 获取发布者的资源列表
- * {@link /publishers/:publisher/resources}
+ * {@link /api/v1/publishers/:publisher/resources}
  */
 export async function getResourcesByPublisher(
   publisher: GetResourcesByPublisherPathParams['publisher'],

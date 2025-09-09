@@ -8,14 +8,14 @@ import type { ListResourcesQueryResponse, ListResourcesQueryParams, ListResource
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 function getListResourcesUrl() {
-  const res = { method: 'GET', url: `/tdsc/resources` as const }
+  const res = { method: 'GET', url: `/tdsc/api/v1/resources` as const }
   return res
 }
 
 /**
  * @description 分页获取资源列表，支持按多种条件筛选和搜索
  * @summary 获取资源列表
- * {@link /resources}
+ * {@link /api/v1/resources}
  */
 export async function listResources(params?: ListResourcesQueryParams, config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
   const { client: request = fetch, ...requestConfig } = config

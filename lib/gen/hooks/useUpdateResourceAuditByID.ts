@@ -17,14 +17,14 @@ import type { UseMutationOptions, QueryClient } from '@tanstack/react-query'
 import { updateResourceAuditByID } from '../clients/updateResourceAuditByID.ts'
 import { useMutation } from '@tanstack/react-query'
 
-export const updateResourceAuditByIDMutationKey = () => [{ url: '/resource-audits/:id' }] as const
+export const updateResourceAuditByIDMutationKey = () => [{ url: '/api/v1/resource-audits/:id' }] as const
 
 export type UpdateResourceAuditByIDMutationKey = ReturnType<typeof updateResourceAuditByIDMutationKey>
 
 /**
  * @description 根据审核ID更新资源审核信息
  * @summary 更新资源审核信息
- * {@link /resource-audits/:id}
+ * {@link /api/v1/resource-audits/:id}
  */
 export function useUpdateResourceAuditByID<TContext>(
   options: {

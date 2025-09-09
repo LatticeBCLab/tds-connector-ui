@@ -10,7 +10,7 @@ import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryRe
 import { listResources } from '../clients/listResources.ts'
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
 
-export const listResourcesSuspenseQueryKey = (params?: ListResourcesQueryParams) => [{ url: '/resources' }, ...(params ? [params] : [])] as const
+export const listResourcesSuspenseQueryKey = (params?: ListResourcesQueryParams) => [{ url: '/api/v1/resources' }, ...(params ? [params] : [])] as const
 
 export type ListResourcesSuspenseQueryKey = ReturnType<typeof listResourcesSuspenseQueryKey>
 
@@ -28,7 +28,7 @@ export function listResourcesSuspenseQueryOptions(params?: ListResourcesQueryPar
 /**
  * @description 分页获取资源列表，支持按多种条件筛选和搜索
  * @summary 获取资源列表
- * {@link /resources}
+ * {@link /api/v1/resources}
  */
 export function useListResourcesSuspense<TData = ListResourcesQueryResponse, TQueryKey extends QueryKey = ListResourcesSuspenseQueryKey>(
   params?: ListResourcesQueryParams,

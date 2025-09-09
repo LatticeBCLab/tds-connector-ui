@@ -19,7 +19,7 @@ import { queryOptions, useQuery } from '@tanstack/react-query'
 export const getContractListByDataspaceQueryKey = (
   dataspace: GetContractListByDataspacePathParams['dataspace'],
   params?: GetContractListByDataspaceQueryParams,
-) => [{ url: '/dataspaces/:dataspace/contracts/list', params: { dataspace: dataspace } }, ...(params ? [params] : [])] as const
+) => [{ url: '/api/v1/dataspaces/:dataspace/contracts/list', params: { dataspace: dataspace } }, ...(params ? [params] : [])] as const
 
 export type GetContractListByDataspaceQueryKey = ReturnType<typeof getContractListByDataspaceQueryKey>
 
@@ -47,7 +47,7 @@ export function getContractListByDataspaceQueryOptions(
 /**
  * @description 根据数据空间查询合约列表，支持分页。provider 参数是可选的
  * @summary 获取指定数据空间的合约列表
- * {@link /dataspaces/:dataspace/contracts/list}
+ * {@link /api/v1/dataspaces/:dataspace/contracts/list}
  */
 export function useGetContractListByDataspace<
   TData = GetContractListByDataspaceQueryResponse,

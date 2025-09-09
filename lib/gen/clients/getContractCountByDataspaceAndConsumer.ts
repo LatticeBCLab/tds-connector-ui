@@ -13,14 +13,14 @@ import type {
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 function getGetContractCountByDataspaceAndConsumerUrl(dataspace: GetContractCountByDataspaceAndConsumerPathParams['dataspace']) {
-  const res = { method: 'GET', url: `/tdsc/dataspaces/${dataspace}/contracts/consumer/count` as const }
+  const res = { method: 'GET', url: `/tdsc/api/v1/dataspaces/${dataspace}/contracts/consumer/count` as const }
   return res
 }
 
 /**
  * @description 根据数据空间和/或消费者查询合约数量，consumer 参数是可选的。如果 consumer 为空则查询该数据空间下所有消费者的合约
  * @summary 获取指定数据空间中消费者的合约数量（支持灵活的组合查询）
- * {@link /dataspaces/:dataspace/contracts/consumer/count}
+ * {@link /api/v1/dataspaces/:dataspace/contracts/consumer/count}
  */
 export async function getContractCountByDataspaceAndConsumer(
   dataspace: GetContractCountByDataspaceAndConsumerPathParams['dataspace'],

@@ -16,14 +16,14 @@ import type { UseMutationOptions, QueryClient } from '@tanstack/react-query'
 import { deleteContractByID } from '../clients/deleteContractByID.ts'
 import { useMutation } from '@tanstack/react-query'
 
-export const deleteContractByIDMutationKey = () => [{ url: '/contracts/:id' }] as const
+export const deleteContractByIDMutationKey = () => [{ url: '/api/v1/contracts/:id' }] as const
 
 export type DeleteContractByIDMutationKey = ReturnType<typeof deleteContractByIDMutationKey>
 
 /**
  * @description 根据合约ID删除合约
  * @summary 删除合约
- * {@link /contracts/:id}
+ * {@link /api/v1/contracts/:id}
  */
 export function useDeleteContractByID<TContext>(
   options: {

@@ -17,14 +17,14 @@ import type { UseMutationOptions, QueryClient } from '@tanstack/react-query'
 import { approveResourceAuditByID } from '../clients/approveResourceAuditByID.ts'
 import { useMutation } from '@tanstack/react-query'
 
-export const approveResourceAuditByIDMutationKey = () => [{ url: '/resource-audits/:id/approve' }] as const
+export const approveResourceAuditByIDMutationKey = () => [{ url: '/api/v1/resource-audits/:id/approve' }] as const
 
 export type ApproveResourceAuditByIDMutationKey = ReturnType<typeof approveResourceAuditByIDMutationKey>
 
 /**
  * @description 批准指定的资源审核申请
  * @summary 批准资源审核
- * {@link /resource-audits/:id/approve}
+ * {@link /api/v1/resource-audits/:id/approve}
  */
 export function useApproveResourceAuditByID<TContext>(
   options: {

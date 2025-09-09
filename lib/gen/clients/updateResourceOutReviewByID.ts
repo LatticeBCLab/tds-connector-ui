@@ -15,14 +15,14 @@ import type {
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 function getUpdateResourceOutReviewByIDUrl(id: UpdateResourceOutReviewByIDPathParams['id']) {
-  const res = { method: 'PATCH', url: `/tdsc/resources/${id}/out-review` as const }
+  const res = { method: 'PATCH', url: `/tdsc/api/v1/resources/${id}/out-review` as const }
   return res
 }
 
 /**
  * @description 更新指定资源的出境审核状态
  * @summary 更新资源出境审核状态
- * {@link /resources/:id/out-review}
+ * {@link /api/v1/resources/:id/out-review}
  */
 export async function updateResourceOutReviewByID(
   id: UpdateResourceOutReviewByIDPathParams['id'],

@@ -8,14 +8,14 @@ import type { GetTotalResourceCountQueryResponse, GetTotalResourceCountQueryPara
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 function getGetTotalResourceCountUrl() {
-  const res = { method: 'GET', url: `/tdsc/resources/total/count` as const }
+  const res = { method: 'GET', url: `/tdsc/api/v1/resources/total/count` as const }
   return res
 }
 
 /**
  * @description 根据数据空间和/或发布者查询所有状态的资源总数，两个参数都是可选的
  * @summary 获取资源总数量
- * {@link /resources/total/count}
+ * {@link /api/v1/resources/total/count}
  */
 export async function getTotalResourceCount(params?: GetTotalResourceCountQueryParams, config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
   const { client: request = fetch, ...requestConfig } = config

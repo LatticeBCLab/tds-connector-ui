@@ -19,7 +19,7 @@ import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
 export const getResourceListByDataspaceSuspenseQueryKey = (
   dataspace: GetResourceListByDataspacePathParams['dataspace'],
   params?: GetResourceListByDataspaceQueryParams,
-) => [{ url: '/dataspaces/:dataspace/resources/list', params: { dataspace: dataspace } }, ...(params ? [params] : [])] as const
+) => [{ url: '/api/v1/dataspaces/:dataspace/resources/list', params: { dataspace: dataspace } }, ...(params ? [params] : [])] as const
 
 export type GetResourceListByDataspaceSuspenseQueryKey = ReturnType<typeof getResourceListByDataspaceSuspenseQueryKey>
 
@@ -47,7 +47,7 @@ export function getResourceListByDataspaceSuspenseQueryOptions(
 /**
  * @description 根据数据空间查询资源列表，支持分页。publisher 参数是可选的
  * @summary 获取指定数据空间的资源列表
- * {@link /dataspaces/:dataspace/resources/list}
+ * {@link /api/v1/dataspaces/:dataspace/resources/list}
  */
 export function useGetResourceListByDataspaceSuspense<
   TData = GetResourceListByDataspaceQueryResponse,

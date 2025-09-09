@@ -16,14 +16,14 @@ import type { UseMutationOptions, QueryClient } from '@tanstack/react-query'
 import { deleteResourceByID } from '../clients/deleteResourceByID.ts'
 import { useMutation } from '@tanstack/react-query'
 
-export const deleteResourceByIDMutationKey = () => [{ url: '/resources/:id' }] as const
+export const deleteResourceByIDMutationKey = () => [{ url: '/api/v1/resources/:id' }] as const
 
 export type DeleteResourceByIDMutationKey = ReturnType<typeof deleteResourceByIDMutationKey>
 
 /**
  * @description 根据资源ID删除资源
  * @summary 删除资源
- * {@link /resources/:id}
+ * {@link /api/v1/resources/:id}
  */
 export function useDeleteResourceByID<TContext>(
   options: {

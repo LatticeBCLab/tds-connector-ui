@@ -19,7 +19,7 @@ import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
 export const getContractListByDataspaceAndConsumerSuspenseQueryKey = (
   dataspace: GetContractListByDataspaceAndConsumerPathParams['dataspace'],
   params?: GetContractListByDataspaceAndConsumerQueryParams,
-) => [{ url: '/dataspaces/:dataspace/contracts/consumer/list', params: { dataspace: dataspace } }, ...(params ? [params] : [])] as const
+) => [{ url: '/api/v1/dataspaces/:dataspace/contracts/consumer/list', params: { dataspace: dataspace } }, ...(params ? [params] : [])] as const
 
 export type GetContractListByDataspaceAndConsumerSuspenseQueryKey = ReturnType<typeof getContractListByDataspaceAndConsumerSuspenseQueryKey>
 
@@ -47,7 +47,7 @@ export function getContractListByDataspaceAndConsumerSuspenseQueryOptions(
 /**
  * @description 根据数据空间和消费者查询合约列表，支持分页。consumer 参数是可选的
  * @summary 获取指定数据空间的合约列表（按消费者筛选）
- * {@link /dataspaces/:dataspace/contracts/consumer/list}
+ * {@link /api/v1/dataspaces/:dataspace/contracts/consumer/list}
  */
 export function useGetContractListByDataspaceAndConsumerSuspense<
   TData = GetContractListByDataspaceAndConsumerQueryResponse,

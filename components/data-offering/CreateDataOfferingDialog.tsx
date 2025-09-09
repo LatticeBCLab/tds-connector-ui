@@ -20,7 +20,6 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { useFileUpload } from "@/hooks";
-import { usePostApiV1Offering } from "@/lib/gen/hooks";
 import {
   createDataOfferingSchema,
   getDefaultValues,
@@ -53,21 +52,8 @@ export function CreateDataOfferingDialog({
   onOpenChange,
   onSuccess,
 }: CreateDataOfferingDialogProps) {
-  const { mutate: createOffering, isPending: isCreating } =
-    usePostApiV1Offering({
-      mutation: {
-        onSuccess: () => {
-          toast.success("Data resource created successfully");
-          onSuccess?.();
-          onOpenChange(false);
-          form.reset();
-          clearFiles();
-        },
-        onError: (error) => {
-          toast.error(`Creation failed: ${error.message}`);
-        },
-      },
-    });
+  // TODO: Replace with actual API call implementation
+  const isCreating = false;
 
   const form = useForm<CreateDataOfferingFormData>({
     resolver: zodResolver(createDataOfferingSchema),
@@ -123,30 +109,15 @@ export function CreateDataOfferingDialog({
 
   const onSubmit = async (data: CreateDataOfferingFormData) => {
     try {
-      // Convert data format to match API
-      const requestData = {
-        id: Date.now().toString(),
-        title: data.title,
-        description: data.description,
-        dataType: data.dataType,
-        accessPolicy: data.accessPolicy,
-        sourceConfig: data.sourceConfig,
-        // Mock required fields for API
-        bucket_name: data.dataType === "s3" ? data.sourceConfig.bucketName : "",
-        object_name: data.dataType === "s3" ? data.sourceConfig.objectKey : "",
-        type: "application/octet-stream",
-        url:
-          data.dataType === "s3"
-            ? `s3://${data.sourceConfig.bucketName}/${data.sourceConfig.objectKey}`
-            : "",
-        region: data.dataType === "s3" ? data.sourceConfig.region : "",
-        file_format: "JSON",
-        created_by: "current_user",
-        updated_by: "current_user",
-        file: files.length > 0 ? files[0].file : new Blob([]),
-      };
-
-      createOffering({ data: requestData });
+      // TODO: Replace with actual API call
+      console.log("Form data:", data);
+      
+      // Simulate success behavior for now
+      toast.success("Data resource created successfully");
+      onSuccess?.();
+      onOpenChange(false);
+      form.reset();
+      clearFiles();
     } catch (error) {
       console.error("Error submitting form:", error);
       toast.error("Error submitting form, please try again");

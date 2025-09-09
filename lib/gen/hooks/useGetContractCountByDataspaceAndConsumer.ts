@@ -18,7 +18,7 @@ import { queryOptions, useQuery } from '@tanstack/react-query'
 export const getContractCountByDataspaceAndConsumerQueryKey = (
   dataspace: GetContractCountByDataspaceAndConsumerPathParams['dataspace'],
   params?: GetContractCountByDataspaceAndConsumerQueryParams,
-) => [{ url: '/dataspaces/:dataspace/contracts/consumer/count', params: { dataspace: dataspace } }, ...(params ? [params] : [])] as const
+) => [{ url: '/api/v1/dataspaces/:dataspace/contracts/consumer/count', params: { dataspace: dataspace } }, ...(params ? [params] : [])] as const
 
 export type GetContractCountByDataspaceAndConsumerQueryKey = ReturnType<typeof getContractCountByDataspaceAndConsumerQueryKey>
 
@@ -46,7 +46,7 @@ export function getContractCountByDataspaceAndConsumerQueryOptions(
 /**
  * @description 根据数据空间和/或消费者查询合约数量，consumer 参数是可选的。如果 consumer 为空则查询该数据空间下所有消费者的合约
  * @summary 获取指定数据空间中消费者的合约数量（支持灵活的组合查询）
- * {@link /dataspaces/:dataspace/contracts/consumer/count}
+ * {@link /api/v1/dataspaces/:dataspace/contracts/consumer/count}
  */
 export function useGetContractCountByDataspaceAndConsumer<
   TData = GetContractCountByDataspaceAndConsumerQueryResponse,

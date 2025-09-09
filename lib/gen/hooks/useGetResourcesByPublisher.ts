@@ -17,7 +17,7 @@ import { getResourcesByPublisher } from '../clients/getResourcesByPublisher.ts'
 import { queryOptions, useQuery } from '@tanstack/react-query'
 
 export const getResourcesByPublisherQueryKey = (publisher: GetResourcesByPublisherPathParams['publisher'], params?: GetResourcesByPublisherQueryParams) =>
-  [{ url: '/publishers/:publisher/resources', params: { publisher: publisher } }, ...(params ? [params] : [])] as const
+  [{ url: '/api/v1/publishers/:publisher/resources', params: { publisher: publisher } }, ...(params ? [params] : [])] as const
 
 export type GetResourcesByPublisherQueryKey = ReturnType<typeof getResourcesByPublisherQueryKey>
 
@@ -45,7 +45,7 @@ export function getResourcesByPublisherQueryOptions(
 /**
  * @description 获取指定发布者发布的所有资源
  * @summary 获取发布者的资源列表
- * {@link /publishers/:publisher/resources}
+ * {@link /api/v1/publishers/:publisher/resources}
  */
 export function useGetResourcesByPublisher<
   TData = GetResourcesByPublisherQueryResponse,

@@ -19,7 +19,7 @@ import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
 export const getTotalResourceCountByDataspaceSuspenseQueryKey = (
   dataspace: GetTotalResourceCountByDataspacePathParams['dataspace'],
   params?: GetTotalResourceCountByDataspaceQueryParams,
-) => [{ url: '/dataspaces/:dataspace/resources/total/count', params: { dataspace: dataspace } }, ...(params ? [params] : [])] as const
+) => [{ url: '/api/v1/dataspaces/:dataspace/resources/total/count', params: { dataspace: dataspace } }, ...(params ? [params] : [])] as const
 
 export type GetTotalResourceCountByDataspaceSuspenseQueryKey = ReturnType<typeof getTotalResourceCountByDataspaceSuspenseQueryKey>
 
@@ -47,7 +47,7 @@ export function getTotalResourceCountByDataspaceSuspenseQueryOptions(
 /**
  * @description 根据数据空间查询所有状态的资源总数，可选择按发布者筛选
  * @summary 获取数据空间中的资源总数量（支持发布者筛选）
- * {@link /dataspaces/:dataspace/resources/total/count}
+ * {@link /api/v1/dataspaces/:dataspace/resources/total/count}
  */
 export function useGetTotalResourceCountByDataspaceSuspense<
   TData = GetTotalResourceCountByDataspaceQueryResponse,

@@ -17,14 +17,14 @@ import type { UseMutationOptions, QueryClient } from '@tanstack/react-query'
 import { updateResourceOutReviewByID } from '../clients/updateResourceOutReviewByID.ts'
 import { useMutation } from '@tanstack/react-query'
 
-export const updateResourceOutReviewByIDMutationKey = () => [{ url: '/resources/:id/out-review' }] as const
+export const updateResourceOutReviewByIDMutationKey = () => [{ url: '/api/v1/resources/:id/out-review' }] as const
 
 export type UpdateResourceOutReviewByIDMutationKey = ReturnType<typeof updateResourceOutReviewByIDMutationKey>
 
 /**
  * @description 更新指定资源的出境审核状态
  * @summary 更新资源出境审核状态
- * {@link /resources/:id/out-review}
+ * {@link /api/v1/resources/:id/out-review}
  */
 export function useUpdateResourceOutReviewByID<TContext>(
   options: {

@@ -16,7 +16,7 @@ import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from
 import { getContractByID } from '../clients/getContractByID.ts'
 import { queryOptions, useQuery } from '@tanstack/react-query'
 
-export const getContractByIDQueryKey = (id: GetContractByIDPathParams['id']) => [{ url: '/contracts/:id', params: { id: id } }] as const
+export const getContractByIDQueryKey = (id: GetContractByIDPathParams['id']) => [{ url: '/api/v1/contracts/:id', params: { id: id } }] as const
 
 export type GetContractByIDQueryKey = ReturnType<typeof getContractByIDQueryKey>
 
@@ -40,7 +40,7 @@ export function getContractByIDQueryOptions(id: GetContractByIDPathParams['id'],
 /**
  * @description 根据合约ID获取合约详细信息
  * @summary 获取合约信息
- * {@link /contracts/:id}
+ * {@link /api/v1/contracts/:id}
  */
 export function useGetContractByID<
   TData = GetContractByIDQueryResponse,

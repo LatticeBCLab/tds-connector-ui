@@ -15,14 +15,14 @@ import type {
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 function getRejectResourceAuditByIDUrl(id: RejectResourceAuditByIDPathParams['id']) {
-  const res = { method: 'POST', url: `/tdsc/resource-audits/${id}/reject` as const }
+  const res = { method: 'POST', url: `/tdsc/api/v1/resource-audits/${id}/reject` as const }
   return res
 }
 
 /**
  * @description 拒绝指定的资源审核申请
  * @summary 拒绝资源审核
- * {@link /resource-audits/:id/reject}
+ * {@link /api/v1/resource-audits/:id/reject}
  */
 export async function rejectResourceAuditByID(
   id: RejectResourceAuditByIDPathParams['id'],

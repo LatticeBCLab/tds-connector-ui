@@ -14,14 +14,14 @@ import type {
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 function getGetContractListByDataspaceAndConsumerUrl(dataspace: GetContractListByDataspaceAndConsumerPathParams['dataspace']) {
-  const res = { method: 'GET', url: `/tdsc/dataspaces/${dataspace}/contracts/consumer/list` as const }
+  const res = { method: 'GET', url: `/tdsc/api/v1/dataspaces/${dataspace}/contracts/consumer/list` as const }
   return res
 }
 
 /**
  * @description 根据数据空间和消费者查询合约列表，支持分页。consumer 参数是可选的
  * @summary 获取指定数据空间的合约列表（按消费者筛选）
- * {@link /dataspaces/:dataspace/contracts/consumer/list}
+ * {@link /api/v1/dataspaces/:dataspace/contracts/consumer/list}
  */
 export async function getContractListByDataspaceAndConsumer(
   dataspace: GetContractListByDataspaceAndConsumerPathParams['dataspace'],

@@ -14,14 +14,14 @@ import type {
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 function getGetTotalResourceCountByDataspaceUrl(dataspace: GetTotalResourceCountByDataspacePathParams['dataspace']) {
-  const res = { method: 'GET', url: `/tdsc/dataspaces/${dataspace}/resources/total/count` as const }
+  const res = { method: 'GET', url: `/tdsc/api/v1/dataspaces/${dataspace}/resources/total/count` as const }
   return res
 }
 
 /**
  * @description 根据数据空间查询所有状态的资源总数，可选择按发布者筛选
  * @summary 获取数据空间中的资源总数量（支持发布者筛选）
- * {@link /dataspaces/:dataspace/resources/total/count}
+ * {@link /api/v1/dataspaces/:dataspace/resources/total/count}
  */
 export async function getTotalResourceCountByDataspace(
   dataspace: GetTotalResourceCountByDataspacePathParams['dataspace'],

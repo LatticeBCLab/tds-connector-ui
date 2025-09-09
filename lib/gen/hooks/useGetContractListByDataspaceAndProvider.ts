@@ -16,7 +16,7 @@ import { getContractListByDataspaceAndProvider } from '../clients/getContractLis
 import { queryOptions, useQuery } from '@tanstack/react-query'
 
 export const getContractListByDataspaceAndProviderQueryKey = (params?: GetContractListByDataspaceAndProviderQueryParams) =>
-  [{ url: '/contracts/list' }, ...(params ? [params] : [])] as const
+  [{ url: '/api/v1/contracts/list' }, ...(params ? [params] : [])] as const
 
 export type GetContractListByDataspaceAndProviderQueryKey = ReturnType<typeof getContractListByDataspaceAndProviderQueryKey>
 
@@ -42,7 +42,7 @@ export function getContractListByDataspaceAndProviderQueryOptions(
 /**
  * @description 根据数据空间和/或提供者查询合约列表，支持分页。两个参数都是可选的
  * @summary 获取合约列表（支持灵活的组合查询）
- * {@link /contracts/list}
+ * {@link /api/v1/contracts/list}
  */
 export function useGetContractListByDataspaceAndProvider<
   TData = GetContractListByDataspaceAndProviderQueryResponse,

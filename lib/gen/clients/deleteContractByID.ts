@@ -14,14 +14,14 @@ import type {
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 function getDeleteContractByIDUrl(id: DeleteContractByIDPathParams['id']) {
-  const res = { method: 'DELETE', url: `/tdsc/contracts/${id}` as const }
+  const res = { method: 'DELETE', url: `/tdsc/api/v1/contracts/${id}` as const }
   return res
 }
 
 /**
  * @description 根据合约ID删除合约
  * @summary 删除合约
- * {@link /contracts/:id}
+ * {@link /api/v1/contracts/:id}
  */
 export async function deleteContractByID(id: DeleteContractByIDPathParams['id'], config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
   const { client: request = fetch, ...requestConfig } = config

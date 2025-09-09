@@ -16,7 +16,7 @@ import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from
 import { getResourceByID } from '../clients/getResourceByID.ts'
 import { queryOptions, useQuery } from '@tanstack/react-query'
 
-export const getResourceByIDQueryKey = (id: GetResourceByIDPathParams['id']) => [{ url: '/resources/:id', params: { id: id } }] as const
+export const getResourceByIDQueryKey = (id: GetResourceByIDPathParams['id']) => [{ url: '/api/v1/resources/:id', params: { id: id } }] as const
 
 export type GetResourceByIDQueryKey = ReturnType<typeof getResourceByIDQueryKey>
 
@@ -40,7 +40,7 @@ export function getResourceByIDQueryOptions(id: GetResourceByIDPathParams['id'],
 /**
  * @description 根据资源ID获取资源详细信息
  * @summary 获取资源信息
- * {@link /resources/:id}
+ * {@link /api/v1/resources/:id}
  */
 export function useGetResourceByID<
   TData = GetResourceByIDQueryResponse,

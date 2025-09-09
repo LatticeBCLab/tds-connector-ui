@@ -3,7 +3,7 @@
  * Do not edit manually.
  */
 
-import type { ModelsResource } from './models/Resource.ts'
+import type { ModelsResourceResponse } from './models/ResourceResponse.ts'
 import type { ResponsePaginatedResponse } from './response/PaginatedResponse.ts'
 import type { ResponseResponse } from './response/Response.ts'
 
@@ -39,7 +39,7 @@ export type GetResourceListByDataspaceAndPublisher200 = ResponsePaginatedRespons
   /**
    * @type array | undefined
    */
-  data?: ModelsResource[]
+  data?: ModelsResourceResponse[]
 }
 
 /**

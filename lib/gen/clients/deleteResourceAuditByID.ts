@@ -14,14 +14,14 @@ import type {
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 function getDeleteResourceAuditByIDUrl(id: DeleteResourceAuditByIDPathParams['id']) {
-  const res = { method: 'DELETE', url: `/tdsc/resource-audits/${id}` as const }
+  const res = { method: 'DELETE', url: `/tdsc/api/v1/resource-audits/${id}` as const }
   return res
 }
 
 /**
  * @description 根据审核ID删除资源审核
  * @summary 删除资源审核
- * {@link /resource-audits/:id}
+ * {@link /api/v1/resource-audits/:id}
  */
 export async function deleteResourceAuditByID(id: DeleteResourceAuditByIDPathParams['id'], config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
   const { client: request = fetch, ...requestConfig } = config

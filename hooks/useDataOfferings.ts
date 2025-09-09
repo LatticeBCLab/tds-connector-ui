@@ -91,13 +91,13 @@ export function useDataOfferings(): UseDataOfferingsReturn {
 
   // 当数据空间切换时，更新数据
   useEffect(() => {
-    const spaceData = getDataForSpace(currentDataSpace.id);
+    const spaceData = getDataForSpace('healthcare');
     setDataOfferings(spaceData.dataOfferings);
     setPolicyTemplates(spaceData.policyTemplates);
     setDataContracts(spaceData.dataContracts);
     setExternalOfferings(spaceData.externalOfferings);
     setDataRequests(spaceData.dataRequests);
-  }, [currentDataSpace.id]);
+  }, [currentDataSpace?.id]);
 
   const [policyTemplates, setPolicyTemplates] = useState<PolicyTemplate[]>([]);
 

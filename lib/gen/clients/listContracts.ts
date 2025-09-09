@@ -8,14 +8,14 @@ import type { ListContractsQueryResponse, ListContractsQueryParams, ListContract
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 function getListContractsUrl() {
-  const res = { method: 'GET', url: `/tdsc/contracts` as const }
+  const res = { method: 'GET', url: `/tdsc/api/v1/contracts` as const }
   return res
 }
 
 /**
  * @description 分页获取合约列表，支持按名称、提供者、消费者搜索，支持过滤有效合约
  * @summary 获取合约列表
- * {@link /contracts}
+ * {@link /api/v1/contracts}
  */
 export async function listContracts(params?: ListContractsQueryParams, config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
   const { client: request = fetch, ...requestConfig } = config

@@ -11,7 +11,7 @@ import { getActiveResourceCount } from '../clients/getActiveResourceCount.ts'
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
 
 export const getActiveResourceCountSuspenseQueryKey = (params?: GetActiveResourceCountQueryParams) =>
-  [{ url: '/resources/active/count' }, ...(params ? [params] : [])] as const
+  [{ url: '/api/v1/resources/active/count' }, ...(params ? [params] : [])] as const
 
 export type GetActiveResourceCountSuspenseQueryKey = ReturnType<typeof getActiveResourceCountSuspenseQueryKey>
 
@@ -37,7 +37,7 @@ export function getActiveResourceCountSuspenseQueryOptions(
 /**
  * @description 根据数据空间和/或发布者查询 active 状态的资源总数，两个参数都是可选的
  * @summary 获取 active 状态的资源数量
- * {@link /resources/active/count}
+ * {@link /api/v1/resources/active/count}
  */
 export function useGetActiveResourceCountSuspense<
   TData = GetActiveResourceCountQueryResponse,

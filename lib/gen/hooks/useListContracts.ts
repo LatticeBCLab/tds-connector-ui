@@ -10,7 +10,7 @@ import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from
 import { listContracts } from '../clients/listContracts.ts'
 import { queryOptions, useQuery } from '@tanstack/react-query'
 
-export const listContractsQueryKey = (params?: ListContractsQueryParams) => [{ url: '/contracts' }, ...(params ? [params] : [])] as const
+export const listContractsQueryKey = (params?: ListContractsQueryParams) => [{ url: '/api/v1/contracts' }, ...(params ? [params] : [])] as const
 
 export type ListContractsQueryKey = ReturnType<typeof listContractsQueryKey>
 
@@ -28,7 +28,7 @@ export function listContractsQueryOptions(params?: ListContractsQueryParams, con
 /**
  * @description 分页获取合约列表，支持按名称、提供者、消费者搜索，支持过滤有效合约
  * @summary 获取合约列表
- * {@link /contracts}
+ * {@link /api/v1/contracts}
  */
 export function useListContracts<
   TData = ListContractsQueryResponse,

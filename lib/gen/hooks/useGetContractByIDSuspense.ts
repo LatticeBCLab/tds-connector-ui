@@ -16,7 +16,7 @@ import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryRe
 import { getContractByID } from '../clients/getContractByID.ts'
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
 
-export const getContractByIDSuspenseQueryKey = (id: GetContractByIDPathParams['id']) => [{ url: '/contracts/:id', params: { id: id } }] as const
+export const getContractByIDSuspenseQueryKey = (id: GetContractByIDPathParams['id']) => [{ url: '/api/v1/contracts/:id', params: { id: id } }] as const
 
 export type GetContractByIDSuspenseQueryKey = ReturnType<typeof getContractByIDSuspenseQueryKey>
 
@@ -40,7 +40,7 @@ export function getContractByIDSuspenseQueryOptions(id: GetContractByIDPathParam
 /**
  * @description 根据合约ID获取合约详细信息
  * @summary 获取合约信息
- * {@link /contracts/:id}
+ * {@link /api/v1/contracts/:id}
  */
 export function useGetContractByIDSuspense<TData = GetContractByIDQueryResponse, TQueryKey extends QueryKey = GetContractByIDSuspenseQueryKey>(
   id: GetContractByIDPathParams['id'],

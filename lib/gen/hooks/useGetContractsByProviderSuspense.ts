@@ -17,7 +17,7 @@ import { getContractsByProvider } from '../clients/getContractsByProvider.ts'
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
 
 export const getContractsByProviderSuspenseQueryKey = (provider: GetContractsByProviderPathParams['provider'], params?: GetContractsByProviderQueryParams) =>
-  [{ url: '/contracts/provider/:provider', params: { provider: provider } }, ...(params ? [params] : [])] as const
+  [{ url: '/api/v1/contracts/provider/:provider', params: { provider: provider } }, ...(params ? [params] : [])] as const
 
 export type GetContractsByProviderSuspenseQueryKey = ReturnType<typeof getContractsByProviderSuspenseQueryKey>
 
@@ -45,7 +45,7 @@ export function getContractsByProviderSuspenseQueryOptions(
 /**
  * @description 分页获取特定提供者的合约列表
  * @summary 获取提供者的合约列表
- * {@link /contracts/provider/:provider}
+ * {@link /api/v1/contracts/provider/:provider}
  */
 export function useGetContractsByProviderSuspense<
   TData = GetContractsByProviderQueryResponse,

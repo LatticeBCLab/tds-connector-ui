@@ -14,14 +14,14 @@ import type {
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 function getGetActiveResourceCountByDataspaceUrl(dataspace: GetActiveResourceCountByDataspacePathParams['dataspace']) {
-  const res = { method: 'GET', url: `/tdsc/dataspaces/${dataspace}/resources/active/count` as const }
+  const res = { method: 'GET', url: `/tdsc/api/v1/dataspaces/${dataspace}/resources/active/count` as const }
   return res
 }
 
 /**
  * @description 根据数据空间查询 active 状态的资源总数，可选择按发布者筛选
  * @summary 获取数据空间中 active 状态的资源数量（支持发布者筛选）
- * {@link /dataspaces/:dataspace/resources/active/count}
+ * {@link /api/v1/dataspaces/:dataspace/resources/active/count}
  */
 export async function getActiveResourceCountByDataspace(
   dataspace: GetActiveResourceCountByDataspacePathParams['dataspace'],

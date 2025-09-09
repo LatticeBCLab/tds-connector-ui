@@ -14,14 +14,14 @@ import type {
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 function getGetResourceByIDUrl(id: GetResourceByIDPathParams['id']) {
-  const res = { method: 'GET', url: `/tdsc/resources/${id}` as const }
+  const res = { method: 'GET', url: `/tdsc/api/v1/resources/${id}` as const }
   return res
 }
 
 /**
  * @description 根据资源ID获取资源详细信息
  * @summary 获取资源信息
- * {@link /resources/:id}
+ * {@link /api/v1/resources/:id}
  */
 export async function getResourceByID(id: GetResourceByIDPathParams['id'], config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
   const { client: request = fetch, ...requestConfig } = config

@@ -15,14 +15,14 @@ import type {
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 function getUpdateContractByIDUrl(id: UpdateContractByIDPathParams['id']) {
-  const res = { method: 'PUT', url: `/tdsc/contracts/${id}` as const }
+  const res = { method: 'PUT', url: `/tdsc/api/v1/contracts/${id}` as const }
   return res
 }
 
 /**
  * @description 根据合约ID更新合约信息
  * @summary 更新合约信息
- * {@link /contracts/:id}
+ * {@link /api/v1/contracts/:id}
  */
 export async function updateContractByID(
   id: UpdateContractByIDPathParams['id'],

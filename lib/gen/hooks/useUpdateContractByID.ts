@@ -17,14 +17,14 @@ import type { UseMutationOptions, QueryClient } from '@tanstack/react-query'
 import { updateContractByID } from '../clients/updateContractByID.ts'
 import { useMutation } from '@tanstack/react-query'
 
-export const updateContractByIDMutationKey = () => [{ url: '/contracts/:id' }] as const
+export const updateContractByIDMutationKey = () => [{ url: '/api/v1/contracts/:id' }] as const
 
 export type UpdateContractByIDMutationKey = ReturnType<typeof updateContractByIDMutationKey>
 
 /**
  * @description 根据合约ID更新合约信息
  * @summary 更新合约信息
- * {@link /contracts/:id}
+ * {@link /api/v1/contracts/:id}
  */
 export function useUpdateContractByID<TContext>(
   options: {

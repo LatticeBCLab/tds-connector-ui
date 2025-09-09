@@ -16,7 +16,7 @@ import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryRe
 import { getResourceByID } from '../clients/getResourceByID.ts'
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
 
-export const getResourceByIDSuspenseQueryKey = (id: GetResourceByIDPathParams['id']) => [{ url: '/resources/:id', params: { id: id } }] as const
+export const getResourceByIDSuspenseQueryKey = (id: GetResourceByIDPathParams['id']) => [{ url: '/api/v1/resources/:id', params: { id: id } }] as const
 
 export type GetResourceByIDSuspenseQueryKey = ReturnType<typeof getResourceByIDSuspenseQueryKey>
 
@@ -40,7 +40,7 @@ export function getResourceByIDSuspenseQueryOptions(id: GetResourceByIDPathParam
 /**
  * @description 根据资源ID获取资源详细信息
  * @summary 获取资源信息
- * {@link /resources/:id}
+ * {@link /api/v1/resources/:id}
  */
 export function useGetResourceByIDSuspense<TData = GetResourceByIDQueryResponse, TQueryKey extends QueryKey = GetResourceByIDSuspenseQueryKey>(
   id: GetResourceByIDPathParams['id'],

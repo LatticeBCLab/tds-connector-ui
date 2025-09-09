@@ -15,7 +15,7 @@ import { getContractCountByProvider } from '../clients/getContractCountByProvide
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
 
 export const getContractCountByProviderSuspenseQueryKey = (params?: GetContractCountByProviderQueryParams) =>
-  [{ url: '/contracts/count' }, ...(params ? [params] : [])] as const
+  [{ url: '/api/v1/contracts/count' }, ...(params ? [params] : [])] as const
 
 export type GetContractCountByProviderSuspenseQueryKey = ReturnType<typeof getContractCountByProviderSuspenseQueryKey>
 
@@ -41,7 +41,7 @@ export function getContractCountByProviderSuspenseQueryOptions(
 /**
  * @description 根据提供者和/或数据空间查询合约数量，两个参数都是可选的。如果都为空则查询所有合约数量
  * @summary 获取合约数量（支持灵活的组合查询）
- * {@link /contracts/count}
+ * {@link /api/v1/contracts/count}
  */
 export function useGetContractCountByProviderSuspense<
   TData = GetContractCountByProviderQueryResponse,

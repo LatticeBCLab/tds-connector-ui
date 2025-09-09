@@ -16,7 +16,7 @@ import { getResourceListByDataspaceAndPublisher } from '../clients/getResourceLi
 import { queryOptions, useQuery } from '@tanstack/react-query'
 
 export const getResourceListByDataspaceAndPublisherQueryKey = (params?: GetResourceListByDataspaceAndPublisherQueryParams) =>
-  [{ url: '/resources/list' }, ...(params ? [params] : [])] as const
+  [{ url: '/api/v1/resources/list' }, ...(params ? [params] : [])] as const
 
 export type GetResourceListByDataspaceAndPublisherQueryKey = ReturnType<typeof getResourceListByDataspaceAndPublisherQueryKey>
 
@@ -42,7 +42,7 @@ export function getResourceListByDataspaceAndPublisherQueryOptions(
 /**
  * @description 根据数据空间和/或发布者查询资源列表，支持分页。两个参数都是可选的
  * @summary 获取资源列表（支持灵活的组合查询）
- * {@link /resources/list}
+ * {@link /api/v1/resources/list}
  */
 export function useGetResourceListByDataspaceAndPublisher<
   TData = GetResourceListByDataspaceAndPublisherQueryResponse,

@@ -17,7 +17,7 @@ import { getContractsByConsumer } from '../clients/getContractsByConsumer.ts'
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
 
 export const getContractsByConsumerSuspenseQueryKey = (consumer: GetContractsByConsumerPathParams['consumer'], params?: GetContractsByConsumerQueryParams) =>
-  [{ url: '/contracts/consumer/:consumer', params: { consumer: consumer } }, ...(params ? [params] : [])] as const
+  [{ url: '/api/v1/contracts/consumer/:consumer', params: { consumer: consumer } }, ...(params ? [params] : [])] as const
 
 export type GetContractsByConsumerSuspenseQueryKey = ReturnType<typeof getContractsByConsumerSuspenseQueryKey>
 
@@ -45,7 +45,7 @@ export function getContractsByConsumerSuspenseQueryOptions(
 /**
  * @description 分页获取特定消费者的合约列表
  * @summary 获取消费者的合约列表
- * {@link /contracts/consumer/:consumer}
+ * {@link /api/v1/contracts/consumer/:consumer}
  */
 export function useGetContractsByConsumerSuspense<
   TData = GetContractsByConsumerQueryResponse,

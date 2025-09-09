@@ -14,14 +14,14 @@ import type {
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 function getGetResourceAuditsByIDUrl(id: GetResourceAuditsByIDPathParams['id']) {
-  const res = { method: 'GET', url: `/tdsc/resources/${id}/audits` as const }
+  const res = { method: 'GET', url: `/tdsc/api/v1/resources/${id}/audits` as const }
   return res
 }
 
 /**
  * @description 获取指定资源的所有审核记录
  * @summary 获取资源的审核记录
- * {@link /resources/:id/audits}
+ * {@link /api/v1/resources/:id/audits}
  */
 export async function getResourceAuditsByID(
   id: GetResourceAuditsByIDPathParams['id'],

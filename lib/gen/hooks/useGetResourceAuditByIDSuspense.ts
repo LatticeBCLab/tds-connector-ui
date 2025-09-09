@@ -18,7 +18,7 @@ import { getResourceAuditByID } from '../clients/getResourceAuditByID.ts'
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
 
 export const getResourceAuditByIDSuspenseQueryKey = (id: GetResourceAuditByIDPathParams['id'], params?: GetResourceAuditByIDQueryParams) =>
-  [{ url: '/resource-audits/:id', params: { id: id } }, ...(params ? [params] : [])] as const
+  [{ url: '/api/v1/resource-audits/:id', params: { id: id } }, ...(params ? [params] : [])] as const
 
 export type GetResourceAuditByIDSuspenseQueryKey = ReturnType<typeof getResourceAuditByIDSuspenseQueryKey>
 
@@ -46,7 +46,7 @@ export function getResourceAuditByIDSuspenseQueryOptions(
 /**
  * @description 根据审核ID获取资源审核详细信息
  * @summary 获取资源审核信息
- * {@link /resource-audits/:id}
+ * {@link /api/v1/resource-audits/:id}
  */
 export function useGetResourceAuditByIDSuspense<TData = GetResourceAuditByIDQueryResponse, TQueryKey extends QueryKey = GetResourceAuditByIDSuspenseQueryKey>(
   id: GetResourceAuditByIDPathParams['id'],

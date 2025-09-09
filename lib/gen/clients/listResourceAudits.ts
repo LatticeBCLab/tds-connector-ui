@@ -13,14 +13,14 @@ import type {
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 function getListResourceAuditsUrl() {
-  const res = { method: 'GET', url: `/tdsc/resource-audits` as const }
+  const res = { method: 'GET', url: `/tdsc/api/v1/resource-audits` as const }
   return res
 }
 
 /**
  * @description 分页获取资源审核列表，支持按多种条件筛选
  * @summary 获取资源审核列表
- * {@link /resource-audits}
+ * {@link /api/v1/resource-audits}
  */
 export async function listResourceAudits(params?: ListResourceAuditsQueryParams, config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
   const { client: request = fetch, ...requestConfig } = config

@@ -10,7 +10,7 @@ import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryRe
 import { listContracts } from '../clients/listContracts.ts'
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
 
-export const listContractsSuspenseQueryKey = (params?: ListContractsQueryParams) => [{ url: '/contracts' }, ...(params ? [params] : [])] as const
+export const listContractsSuspenseQueryKey = (params?: ListContractsQueryParams) => [{ url: '/api/v1/contracts' }, ...(params ? [params] : [])] as const
 
 export type ListContractsSuspenseQueryKey = ReturnType<typeof listContractsSuspenseQueryKey>
 
@@ -28,7 +28,7 @@ export function listContractsSuspenseQueryOptions(params?: ListContractsQueryPar
 /**
  * @description 分页获取合约列表，支持按名称、提供者、消费者搜索，支持过滤有效合约
  * @summary 获取合约列表
- * {@link /contracts}
+ * {@link /api/v1/contracts}
  */
 export function useListContractsSuspense<TData = ListContractsQueryResponse, TQueryKey extends QueryKey = ListContractsSuspenseQueryKey>(
   params?: ListContractsQueryParams,

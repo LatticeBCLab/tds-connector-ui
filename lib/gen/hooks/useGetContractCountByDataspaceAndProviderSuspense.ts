@@ -18,7 +18,7 @@ import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
 export const getContractCountByDataspaceAndProviderSuspenseQueryKey = (
   dataspace: GetContractCountByDataspaceAndProviderPathParams['dataspace'],
   params?: GetContractCountByDataspaceAndProviderQueryParams,
-) => [{ url: '/dataspaces/:dataspace/contracts/count', params: { dataspace: dataspace } }, ...(params ? [params] : [])] as const
+) => [{ url: '/api/v1/dataspaces/:dataspace/contracts/count', params: { dataspace: dataspace } }, ...(params ? [params] : [])] as const
 
 export type GetContractCountByDataspaceAndProviderSuspenseQueryKey = ReturnType<typeof getContractCountByDataspaceAndProviderSuspenseQueryKey>
 
@@ -46,7 +46,7 @@ export function getContractCountByDataspaceAndProviderSuspenseQueryOptions(
 /**
  * @description 根据数据空间和/或提供者查询合约数量，provider 参数是可选的。如果 provider 为空则查询该数据空间下所有提供者的合约
  * @summary 获取指定数据空间的合约数量（支持灵活的组合查询）
- * {@link /dataspaces/:dataspace/contracts/count}
+ * {@link /api/v1/dataspaces/:dataspace/contracts/count}
  */
 export function useGetContractCountByDataspaceAndProviderSuspense<
   TData = GetContractCountByDataspaceAndProviderQueryResponse,

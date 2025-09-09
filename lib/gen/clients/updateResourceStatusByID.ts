@@ -15,14 +15,14 @@ import type {
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 function getUpdateResourceStatusByIDUrl(id: UpdateResourceStatusByIDPathParams['id']) {
-  const res = { method: 'PATCH', url: `/tdsc/resources/${id}/status` as const }
+  const res = { method: 'PATCH', url: `/tdsc/api/v1/resources/${id}/status` as const }
   return res
 }
 
 /**
  * @description 更新指定资源的状态
  * @summary 更新资源状态
- * {@link /resources/:id/status}
+ * {@link /api/v1/resources/:id/status}
  */
 export async function updateResourceStatusByID(
   id: UpdateResourceStatusByIDPathParams['id'],

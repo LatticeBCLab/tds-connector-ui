@@ -8,14 +8,14 @@ import type { GetActiveResourceCountQueryResponse, GetActiveResourceCountQueryPa
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 function getGetActiveResourceCountUrl() {
-  const res = { method: 'GET', url: `/tdsc/resources/active/count` as const }
+  const res = { method: 'GET', url: `/tdsc/api/v1/resources/active/count` as const }
   return res
 }
 
 /**
  * @description 根据数据空间和/或发布者查询 active 状态的资源总数，两个参数都是可选的
  * @summary 获取 active 状态的资源数量
- * {@link /resources/active/count}
+ * {@link /api/v1/resources/active/count}
  */
 export async function getActiveResourceCount(params?: GetActiveResourceCountQueryParams, config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
   const { client: request = fetch, ...requestConfig } = config

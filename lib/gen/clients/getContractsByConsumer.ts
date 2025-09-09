@@ -14,14 +14,14 @@ import type {
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 function getGetContractsByConsumerUrl(consumer: GetContractsByConsumerPathParams['consumer']) {
-  const res = { method: 'GET', url: `/tdsc/contracts/consumer/${consumer}` as const }
+  const res = { method: 'GET', url: `/tdsc/api/v1/contracts/consumer/${consumer}` as const }
   return res
 }
 
 /**
  * @description 分页获取特定消费者的合约列表
  * @summary 获取消费者的合约列表
- * {@link /contracts/consumer/:consumer}
+ * {@link /api/v1/contracts/consumer/:consumer}
  */
 export async function getContractsByConsumer(
   consumer: GetContractsByConsumerPathParams['consumer'],

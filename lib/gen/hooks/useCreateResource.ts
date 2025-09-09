@@ -10,14 +10,14 @@ import type { UseMutationOptions, QueryClient } from '@tanstack/react-query'
 import { createResource } from '../clients/createResource.ts'
 import { useMutation } from '@tanstack/react-query'
 
-export const createResourceMutationKey = () => [{ url: '/resources' }] as const
+export const createResourceMutationKey = () => [{ url: '/api/v1/resources' }] as const
 
 export type CreateResourceMutationKey = ReturnType<typeof createResourceMutationKey>
 
 /**
  * @description 创建新的数据资源
  * @summary 创建资源
- * {@link /resources}
+ * {@link /api/v1/resources}
  */
 export function useCreateResource<TContext>(
   options: {
