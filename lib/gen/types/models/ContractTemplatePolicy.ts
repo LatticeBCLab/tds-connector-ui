@@ -10,7 +10,7 @@ export type ModelsContractTemplatePolicy = {
   /**
    * @description 关联关系
    */
-  contract_template?: ModelsContractTemplate
+  contractTemplate?: ModelsContractTemplate
   /**
    * @type string | undefined
    */
@@ -18,7 +18,7 @@ export type ModelsContractTemplatePolicy = {
   /**
    * @type string | undefined
    */
-  ct_id?: string
+  ctId?: string
   /**
    * @type string | undefined
    */
@@ -30,15 +30,15 @@ export type ModelsContractTemplatePolicy = {
   /**
    * @type string | undefined
    */
-  policy_id?: string
+  policyId?: string
   /**
    * @type string | undefined
    */
-  policy_snapshot?: string
+  policySnapshot?: string
   /**
    * @type object | undefined
    */
-  policy_template?: ModelsPolicyTemplate
+  policyTemplate?: ModelsPolicyTemplate
   /**
    * @type string | undefined
    */

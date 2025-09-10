@@ -1,5 +1,6 @@
 export type { HandlersAddPolicyToTemplateRequest } from './AddPolicyToTemplateRequest.ts'
 export type { HandlersApproveAuditRequest } from './ApproveAuditRequest.ts'
+export type { HandlersCreateBlockchainRequest } from './CreateBlockchainRequest.ts'
 export type { HandlersCreateConnectorRequest } from './CreateConnectorRequest.ts'
 export type { HandlersCreateContractRequest } from './CreateContractRequest.ts'
 export type { HandlersCreateContractTemplateRequest } from './CreateContractTemplateRequest.ts'

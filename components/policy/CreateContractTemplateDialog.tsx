@@ -15,36 +15,90 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Skeleton } from "@/components/ui/skeleton";
 import { Textarea } from "@/components/ui/textarea";
-import { ContractTemplate, PolicyTemplate } from "@/types";
-import { AlertTriangle, CheckCircle, Shield } from "lucide-react";
+import { useCreateContractTemplate, useListPolicies } from "@/lib/gen";
+import { AlertTriangle, Shield } from "lucide-react";
 import { useState } from "react";
+import { toast } from "sonner";
+import { Spinner } from "../ui/spinner";
+
+interface PolicyData {
+  id: string;
+  name?: string;
+  description?: string;
+  value?: any;
+  security_level?: string;
+  icon?: string;
+  created_at?: string;
+  updated_at?: string;
+  deleted_at?: string | null;
+  [key: string]: any; // For additional fields
+}
+
+interface PoliciesResponse {
+  policies?: PolicyData[];
+  page?: number;
+  page_size?: number;
+  total?: number;
+}
 
 interface CreateContractTemplateDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  policyTemplates: PolicyTemplate[];
-  onCreateContract: (
-    contractTemplate: Omit<ContractTemplate, "id" | "createdAt" | "usageCount">
-  ) => void;
+  onSuccess?: () => void;
 }
 
 export function CreateContractTemplateDialog({
   open,
   onOpenChange,
-  policyTemplates,
-  onCreateContract,
+  onSuccess,
 }: CreateContractTemplateDialogProps) {
+  // Hooks
+  const { data: policiesData, isLoading: loadingPolicies } = useListPolicies();
+  const createContractTemplateMutation = useCreateContractTemplate({
+    mutation: {
+      onSuccess: () => {
+        toast.success("Contract template created successfully!");
+        onSuccess?.();
+        onOpenChange(false);
+        resetForm();
+      },
+      onError: (error) => {
+        toast.error("Failed to create contract template!");
+        setErrors([error.message || "Failed to create contract template"]);
+      },
+    },
+  });
+
   const [formData, setFormData] = useState({
     name: "",
     description: "",
-    contractType: "single_policy" as "single_policy" | "multi_policy",
-    status: "draft" as "draft" | "active",
+    status: "active" as "active" | "banned",
   });
 
   const [selectedPolicyIds, setSelectedPolicyIds] = useState<string[]>([]);
   const [errors, setErrors] = useState<string[]>([]);
+
+  const policies = (policiesData as PoliciesResponse)?.policies || [];
+
+  const resetForm = () => {
+    setFormData({
+      name: "",
+      description: "",
+      status: "active",
+    });
+    setSelectedPolicyIds([]);
+    setErrors([]);
+  };
 
   const handleSubmit = () => {
     const newErrors: string[] = [];
@@ -62,58 +116,35 @@ export function CreateContractTemplateDialog({
       newErrors.push("At least one policy must be selected");
     }
 
-    if (
-      formData.contractType === "single_policy" &&
-      selectedPolicyIds.length > 1
-    ) {
-      newErrors.push("Single policy contract can only have one policy");
-    }
-
     if (newErrors.length > 0) {
       setErrors(newErrors);
       return;
     }
 
-    // Get selected policy templates
-    const selectedPolicies = policyTemplates.filter((policy) =>
-      selectedPolicyIds.includes(policy.id)
-    );
+    // Create policies map: { [policyId]: policyData }
+    const policiesMap: Record<string, any> = {};
+    selectedPolicyIds.forEach((policyId) => {
+      const policy = policies.find((p: PolicyData) => p.id === policyId);
+      if (policy) {
+        // Store the entire policy object as a snapshot
+        policiesMap[policyId] = policy;
+      }
+    });
 
-    // Create contract template
-    const contractTemplate: Omit<
-      ContractTemplate,
-      "id" | "createdAt" | "usageCount"
-    > = {
+    // Create contract template data
+    const contractTemplateData = {
       name: formData.name,
       description: formData.description,
-      policyIds: selectedPolicyIds,
-      policies: selectedPolicies,
-      contractType: formData.contractType,
+      policies: policiesMap,
       status: formData.status,
-      updatedAt: new Date().toISOString(),
     };
 
-    onCreateContract(contractTemplate);
-
-    // Reset form
-    setFormData({
-      name: "",
-      description: "",
-      contractType: "single_policy",
-      status: "draft",
-    });
-    setSelectedPolicyIds([]);
-    setErrors([]);
-    onOpenChange(false);
+    createContractTemplateMutation.mutate({ data: contractTemplateData });
   };
 
   const handlePolicyToggle = (policyId: string, checked: boolean) => {
     if (checked) {
-      if (formData.contractType === "single_policy") {
-        setSelectedPolicyIds([policyId]); // Replace for single policy
-      } else {
-        setSelectedPolicyIds((prev) => [...prev, policyId]); // Add for multi policy
-      }
+      setSelectedPolicyIds((prev) => [...prev, policyId]);
     } else {
       setSelectedPolicyIds((prev) => prev.filter((id) => id !== policyId));
     }
@@ -183,96 +214,28 @@ export function CreateContractTemplateDialog({
               />
             </div>
 
-            <div className="flex items-center justify-between">
-              <div className="space-y-2">
-                <Label>Contract Type</Label>
-                <RadioGroup
-                  className="flex rounded-md border p-2"
-                  value={formData.contractType}
-                  onValueChange={(value: "single_policy" | "multi_policy") => {
-                    setFormData((prev) => ({ ...prev, contractType: value }));
-                    // Clear selections when changing type
-                    if (
-                      value === "single_policy" &&
-                      selectedPolicyIds.length > 1
-                    ) {
-                      setSelectedPolicyIds([selectedPolicyIds[0]]);
-                    }
-                  }}
-                >
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem
-                      value="single_policy"
-                      id="single"
-                      className="border-border"
-                    />
-                    <Label
-                      className="text-muted-foreground/80"
-                      htmlFor="single"
-                    >
-                      Single Policy
-                    </Label>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem
-                      value="multi_policy"
-                      id="multi"
-                      className="border-border"
-                    />
-                    <Label className="text-muted-foreground/80" htmlFor="multi">
-                      Multi Policy
-                    </Label>
-                  </div>
-                </RadioGroup>
-              </div>
-
-              <div className="space-y-2">
-                <Label>Initial Status</Label>
-                <RadioGroup
-                  className="flex rounded-md border p-2"
-                  value={formData.status}
-                  onValueChange={(value: "draft" | "active") =>
-                    setFormData((prev) => ({ ...prev, status: value }))
-                  }
-                >
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem
-                      value="draft"
-                      id="draft"
-                      className="border-border"
-                    />
-                    <Label className="text-muted-foreground/80" htmlFor="draft">
-                      Draft
-                    </Label>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem
-                      value="active"
-                      id="active"
-                      className="border-border"
-                    />
-                    <Label
-                      className="text-muted-foreground/80"
-                      htmlFor="active"
-                    >
-                      Active
-                    </Label>
-                  </div>
-                </RadioGroup>
-              </div>
+            <div className="space-y-2">
+              <Label htmlFor="status">Status</Label>
+              <Select
+                value={formData.status}
+                onValueChange={(value: "active" | "banned") =>
+                  setFormData((prev) => ({ ...prev, status: value }))
+                }
+              >
+                <SelectTrigger className="border-border w-48">
+                  <SelectValue placeholder="Select status" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="active">Active</SelectItem>
+                  <SelectItem value="banned">Banned</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
           </div>
           {/* Policy Selection */}
           <div className="space-y-4">
             <div className="flex items-center justify-between">
-              <Label className="text-base font-semibold">
-                Select Policies
-                {formData.contractType === "single_policy" && (
-                  <span className="text-muted-foreground ml-2 text-sm font-normal">
-                    (Select one policy)
-                  </span>
-                )}
-              </Label>
+              <Label className="text-base font-semibold">Select Policies</Label>
               {selectedPolicyIds.length > 0 && (
                 <Badge variant="secondary">
                   {selectedPolicyIds.length} selected
@@ -280,94 +243,141 @@ export function CreateContractTemplateDialog({
               )}
             </div>
 
-            <div className="grid max-h-96 gap-3 overflow-y-auto">
-              {policyTemplates.map((policy) => {
-                const isSelected = selectedPolicyIds.includes(policy.id);
-                const isDisabled =
-                  formData.contractType === "single_policy" &&
-                  selectedPolicyIds.length >= 1 &&
-                  !isSelected;
-
-                return (
-                  <Card
-                    key={policy.id}
-                    className={`transition-all ${
-                      isSelected
-                        ? "border-primary bg-primary/5"
-                        : isDisabled
-                          ? "opacity-50"
-                          : "hover:bg-muted/50"
-                    }`}
-                  >
+            {loadingPolicies ? (
+              <div className="space-y-3">
+                {Array.from({ length: 3 }).map((_, i) => (
+                  <Card key={i}>
                     <CardHeader className="pb-2">
                       <div className="flex items-start space-x-3">
-                        <Checkbox
-                          id={policy.id}
-                          className="border-border"
-                          checked={isSelected}
-                          disabled={isDisabled}
-                          onCheckedChange={(checked) =>
-                            handlePolicyToggle(policy.id, !!checked)
-                          }
-                        />
-                        <div className="flex-1 space-y-1">
-                          <div className="flex items-center gap-2">
-                            <Shield className="text-primary h-4 w-4" />
-                            <CardTitle className="line-clamp-1 text-sm">
-                              {policy.name}
-                            </CardTitle>
-                            <Badge
-                              variant={
-                                policy.severity === "high"
-                                  ? "destructive"
-                                  : policy.severity === "medium"
-                                    ? "default"
-                                    : "secondary"
-                              }
-                              className="text-xs"
-                            >
-                              {policy.severity}
-                            </Badge>
-                            <Badge variant="outline" className="text-xs">
-                              {policy.category}
-                            </Badge>
-                          </div>
-                          <p className="text-muted-foreground text-xs">
-                            {policy.description}
-                          </p>
+                        <Skeleton className="mt-1 h-4 w-4" />
+                        <div className="flex-1 space-y-2">
+                          <Skeleton className="h-4 w-3/4" />
+                          <Skeleton className="h-3 w-full" />
                         </div>
-                        {isSelected && (
-                          <CheckCircle className="text-primary h-5 w-5" />
-                        )}
                       </div>
                     </CardHeader>
-                    <CardContent className="pt-0">
-                      <div className="text-muted-foreground flex items-center gap-2 text-xs">
-                        <span>
-                          {policy.rules.length} rule
-                          {policy.rules.length !== 1 ? "s" : ""}
-                        </span>
-                        <span>•</span>
-                        <span>{policy.enforcementType} enforcement</span>
-                        <span>•</span>
-                        <span>
-                          Created{" "}
-                          {new Date(policy.createdAt).toLocaleDateString()}
-                        </span>
-                      </div>
-                    </CardContent>
                   </Card>
-                );
-              })}
-            </div>
+                ))}
+              </div>
+            ) : (
+              <ScrollArea className="h-[400px] w-full">
+                <div className="space-y-3 pr-4">
+                  {policies.map((policy: PolicyData) => {
+                    const isSelected = selectedPolicyIds.includes(policy.id);
+
+                    return (
+                      <Card
+                        key={policy.id}
+                        className={`transition-all ${
+                          isSelected
+                            ? "border-primary bg-primary/5"
+                            : "hover:bg-muted/50"
+                        }`}
+                      >
+                        <CardHeader className="pb-2">
+                          <div className="flex items-start justify-between">
+                            <div className="min-w-0 flex-1 space-y-2">
+                              <div className="flex items-start justify-between gap-3">
+                                <div className="min-w-0 flex-1">
+                                  <CardTitle className="text-sm leading-tight">
+                                    {policy.name || "Unnamed Policy"}
+                                  </CardTitle>
+                                </div>
+                                <Checkbox
+                                  id={policy.id}
+                                  className="border-border flex-shrink-0"
+                                  checked={isSelected}
+                                  onCheckedChange={(checked) =>
+                                    handlePolicyToggle(policy.id, !!checked)
+                                  }
+                                />
+                              </div>
+                              <div className="flex flex-wrap items-center gap-2">
+                                {policy.security_level && (
+                                  <Badge
+                                    variant={
+                                      policy.security_level === "high"
+                                        ? "destructive"
+                                        : policy.security_level === "medium"
+                                          ? "default"
+                                          : "secondary"
+                                    }
+                                    className="text-xs"
+                                  >
+                                    {policy.security_level}
+                                  </Badge>
+                                )}
+                                {policy.icon && (
+                                  <Badge variant="outline" className="text-xs">
+                                    {policy.icon}
+                                  </Badge>
+                                )}
+                                {/* {isSelected && (
+                                  <CheckCircle className="text-primary h-4 w-4" />
+                                )} */}
+                              </div>
+                              <p className="text-muted-foreground text-xs leading-relaxed">
+                                {policy.description ||
+                                  "No description available"}
+                              </p>
+                            </div>
+                          </div>
+                        </CardHeader>
+                        <CardContent className="pt-0">
+                          <div className="text-muted-foreground flex flex-col gap-2 text-xs">
+                            <span>Policy ID: {policy.id}</span>
+                            {policy.created_at && (
+                              <span>
+                                Created:{" "}
+                                {new Date(
+                                  policy.created_at
+                                ).toLocaleDateString()}
+                              </span>
+                            )}
+                          </div>
+                        </CardContent>
+                      </Card>
+                    );
+                  })}
+                  {policies.length === 0 && (
+                    <div className="py-8 text-center">
+                      <Shield className="text-muted-foreground mx-auto mb-4 h-12 w-12" />
+                      <h3 className="text-muted-foreground mb-2 text-lg font-semibold">
+                        No policies available
+                      </h3>
+                      <p className="text-muted-foreground text-sm">
+                        No policy templates found. Please create some policies
+                        first.
+                      </p>
+                    </div>
+                  )}
+                </div>
+              </ScrollArea>
+            )}
           </div>
         </div>
 
         <DialogFooter>
-          <Button variant="outline" onClick={() => onOpenChange(false)}>
+          <Button
+            variant="outline"
+            onClick={() => onOpenChange(false)}
+            disabled={createContractTemplateMutation.isPending}
+          >
             Cancel
           </Button>
-          <Button onClick={handleSubmit}>Create Contract Template</Button>
+          <Button
+            onClick={handleSubmit}
+            disabled={createContractTemplateMutation.isPending}
+          >
+            {createContractTemplateMutation.isPending ? (
+              <>
+                <Spinner variant="circle" />
+                Creating...
+              </>
+            ) : (
+              "Create Contract Template"
+            )}
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

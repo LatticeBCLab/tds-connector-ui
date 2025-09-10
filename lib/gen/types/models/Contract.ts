@@ -26,6 +26,10 @@ export type ModelsContract = {
   /**
    * @type string | undefined
    */
+  hash?: string
+  /**
+   * @type string | undefined
+   */
   id?: string
   /**
    * @description 最大访问次数

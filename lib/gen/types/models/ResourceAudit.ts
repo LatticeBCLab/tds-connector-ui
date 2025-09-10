@@ -36,6 +36,10 @@ export type ModelsResourceAudit = {
   /**
    * @type string | undefined
    */
+  hash?: string
+  /**
+   * @type string | undefined
+   */
   id?: string
   /**
    * @type object | undefined

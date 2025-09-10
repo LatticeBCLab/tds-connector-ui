@@ -23,11 +23,13 @@ import { Spinner } from "../ui/spinner";
 interface ContractTemplatesCardProps {
   showCreateButton?: boolean;
   onCreateClick?: () => void;
+  refreshTrigger?: number; // Used to trigger data refresh
 }
 
 export function ContractTemplatesCard({
   showCreateButton = true,
   onCreateClick,
+  refreshTrigger,
 }: ContractTemplatesCardProps) {
   const [page, setPage] = useState(1);
   const [pageSize] = useState(10);
@@ -65,6 +67,16 @@ export function ContractTemplatesCard({
       setPage((prev) => prev + 1);
     }
   };
+
+  // Refresh data when refreshTrigger changes
+  useEffect(() => {
+    if (refreshTrigger && refreshTrigger > 0) {
+      // Reset to first page and refetch data
+      setPage(1);
+      setAllTemplates([]);
+      refetchContracts();
+    }
+  }, [refreshTrigger, refetchContracts]);
 
   if (isLoading) {
     return (

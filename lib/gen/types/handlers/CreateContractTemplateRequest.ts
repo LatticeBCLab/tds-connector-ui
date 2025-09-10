@@ -3,4 +3,24 @@
  * Do not edit manually.
  */
 
-export type HandlersCreateContractTemplateRequest = object
+import type { ModelsTemplateStatus } from '../models/TemplateStatus.ts'
+
+export type HandlersCreateContractTemplateRequest = {
+  /**
+   * @type string | undefined
+   */
+  description?: string
+  /**
+   * @type string | undefined
+   */
+  id?: string
+  /**
+   * @type string
+   */
+  name: string
+  /**
+   * @type object | undefined
+   */
+  policies?: object
+  status?: ModelsTemplateStatus
+}

@@ -27,6 +27,10 @@ export type ModelsResource = {
   /**
    * @type string | undefined
    */
+  hash?: string
+  /**
+   * @type string | undefined
+   */
   id?: string
   /**
    * @type string | undefined

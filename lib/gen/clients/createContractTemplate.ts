@@ -23,7 +23,7 @@ function getCreateContractTemplateUrl() {
  * {@link /api/v1/contract-templates}
  */
 export async function createContractTemplate(
-  data?: CreateContractTemplateMutationRequest,
+  data: CreateContractTemplateMutationRequest,
   config: Partial<RequestConfig<CreateContractTemplateMutationRequest>> & { client?: typeof fetch } = {},
 ) {
   const { client: request = fetch, ...requestConfig } = config

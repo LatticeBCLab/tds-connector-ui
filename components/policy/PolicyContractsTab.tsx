@@ -5,11 +5,14 @@ import { useContracts } from "@/hooks";
 import { useDataSpace } from "@/lib/contexts/DataSpaceContext";
 import { useListPolicies } from "@/lib/gen/hooks/useListPolicies";
 import { CheckCircle, FileText, Globe, Shield } from "lucide-react";
+import { useState } from "react";
 import { ContractTemplatesCard } from "./ContractTemplatesCard";
 import { CreateContractTemplateDialog } from "./CreateContractTemplateDialog";
 import { PolicyTemplatesCard } from "./PolicyTemplatesCard";
 
 export function PolicyContractsTab() {
+  const [refreshTrigger, setRefreshTrigger] = useState(0);
+
   const {
     contractTemplates,
     activeContracts,
@@ -27,6 +30,11 @@ export function PolicyContractsTab() {
   });
 
   const totalPolicies = (policiesResponse as any)?.total || 0;
+
+  const handleContractTemplateCreated = () => {
+    // Trigger refresh of contract templates list
+    setRefreshTrigger((prev) => prev + 1);
+  };
 
   return (
     <div className="space-y-6">
@@ -67,6 +75,7 @@ export function PolicyContractsTab() {
         {/* Contract Templates */}
         <ContractTemplatesCard
           onCreateClick={() => setIsCreateContractTemplateOpen(true)}
+          refreshTrigger={refreshTrigger}
         />
       </div>
 
@@ -74,8 +83,7 @@ export function PolicyContractsTab() {
       <CreateContractTemplateDialog
         open={isCreateContractTemplateOpen}
         onOpenChange={setIsCreateContractTemplateOpen}
-        policyTemplates={[]} // 暂时传空数组，或者可以从 useListPolicies 获取
-        onCreateContract={createContractTemplate}
+        onSuccess={handleContractTemplateCreated}
       />
     </div>
   );

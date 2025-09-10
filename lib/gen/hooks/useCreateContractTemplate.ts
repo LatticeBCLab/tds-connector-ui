@@ -29,7 +29,7 @@ export function useCreateContractTemplate<TContext>(
     mutation?: UseMutationOptions<
       CreateContractTemplateMutationResponse,
       ResponseErrorConfig<CreateContractTemplate400 | CreateContractTemplate500>,
-      { data?: CreateContractTemplateMutationRequest },
+      { data: CreateContractTemplateMutationRequest },
       TContext
     > & { client?: QueryClient }
     client?: Partial<RequestConfig<CreateContractTemplateMutationRequest>> & { client?: typeof fetch }
@@ -42,7 +42,7 @@ export function useCreateContractTemplate<TContext>(
   return useMutation<
     CreateContractTemplateMutationResponse,
     ResponseErrorConfig<CreateContractTemplate400 | CreateContractTemplate500>,
-    { data?: CreateContractTemplateMutationRequest },
+    { data: CreateContractTemplateMutationRequest },
     TContext
   >(
     {

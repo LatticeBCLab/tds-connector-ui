@@ -1,1 +1,1 @@
-{"type":"object","x-readme-ref-name":"handlers.CreateContractTemplateRequest"}
+{"type":"object","required":["name"],"properties":{"description":{"type":"string","example":"用于数据共享的标准合同模板"},"id":{"type":"string","example":"template-123"},"name":{"type":"string","example":"数据共享合同模板"},"policies":{"type":"object"},"status":{"allOf":[{"type":"string","enum":["active","banned"],"x-enum-varnames":["TemplateStatusActive","TemplateStatusBanned"],"x-readme-ref-name":"models.TemplateStatus"}],"example":"active"}},"x-readme-ref-name":"handlers.CreateContractTemplateRequest"}

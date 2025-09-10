@@ -2,6 +2,7 @@ export type { AddPolicyToContractTemplateByIDMutationKey } from './hooks/useAddP
 export type { ApproveResourceAuditByIDMutationKey } from './hooks/useApproveResourceAuditByID.ts'
 export type { BatchCreateI18NMutationKey } from './hooks/useBatchCreateI18N.ts'
 export type { CancelResourceAuditByIDMutationKey } from './hooks/useCancelResourceAuditByID.ts'
+export type { CreateBlockchainMutationKey } from './hooks/useCreateBlockchain.ts'
 export type { CreateConnectorMutationKey } from './hooks/useCreateConnector.ts'
 export type { CreateContractMutationKey } from './hooks/useCreateContract.ts'
 export type { CreateContractTemplateMutationKey } from './hooks/useCreateContractTemplate.ts'
@@ -27,6 +28,10 @@ export type { GetAllConnectorSecurityRatingsExcludeQueryKey } from './hooks/useG
 export type { GetAllConnectorSecurityRatingsExcludeSuspenseQueryKey } from './hooks/useGetAllConnectorSecurityRatingsExcludeSuspense.ts'
 export type { GetAllDataSpacesQueryKey } from './hooks/useGetAllDataSpaces.ts'
 export type { GetAllDataSpacesSuspenseQueryKey } from './hooks/useGetAllDataSpacesSuspense.ts'
+export type { GetBlockchainQueryKey } from './hooks/useGetBlockchain.ts'
+export type { GetBlockchainByDataSpaceQueryKey } from './hooks/useGetBlockchainByDataSpace.ts'
+export type { GetBlockchainByDataSpaceSuspenseQueryKey } from './hooks/useGetBlockchainByDataSpaceSuspense.ts'
+export type { GetBlockchainSuspenseQueryKey } from './hooks/useGetBlockchainSuspense.ts'
 export type { GetConnectorByDIDQueryKey } from './hooks/useGetConnectorByDID.ts'
 export type { GetConnectorByDIDSuspenseQueryKey } from './hooks/useGetConnectorByDIDSuspense.ts'
 export type { GetConnectorSecurityRatingByDIDQueryKey } from './hooks/useGetConnectorSecurityRatingByDID.ts'
@@ -94,6 +99,8 @@ export type { GetTotalResourceCountByDataspaceSuspenseQueryKey } from './hooks/u
 export type { GetTotalResourceCountSuspenseQueryKey } from './hooks/useGetTotalResourceCountSuspense.ts'
 export type { GetUserByDIDQueryKey } from './hooks/useGetUserByDID.ts'
 export type { GetUserByDIDSuspenseQueryKey } from './hooks/useGetUserByDIDSuspense.ts'
+export type { ListBlockchainsQueryKey } from './hooks/useListBlockchains.ts'
+export type { ListBlockchainsSuspenseQueryKey } from './hooks/useListBlockchainsSuspense.ts'
 export type { ListContractsQueryKey } from './hooks/useListContracts.ts'
 export type { ListContractsSuspenseQueryKey } from './hooks/useListContractsSuspense.ts'
 export type { ListContractTemplatesQueryKey } from './hooks/useListContractTemplates.ts'
@@ -152,6 +159,14 @@ export type {
   CancelResourceAuditByIDMutationResponse,
   CancelResourceAuditByIDMutation,
 } from './types/CancelResourceAuditByID.ts'
+export type {
+  CreateBlockchain201,
+  CreateBlockchain400,
+  CreateBlockchain500,
+  CreateBlockchainMutationRequest,
+  CreateBlockchainMutationResponse,
+  CreateBlockchainMutation,
+} from './types/CreateBlockchain.ts'
 export type {
   CreateConnector201,
   CreateConnector400,
@@ -314,6 +329,23 @@ export type {
   GetAllConnectorSecurityRatingsExcludeQuery,
 } from './types/GetAllConnectorSecurityRatingsExclude.ts'
 export type { GetAllDataSpaces200, GetAllDataSpaces500, GetAllDataSpacesQueryResponse, GetAllDataSpacesQuery } from './types/GetAllDataSpaces.ts'
+export type {
+  GetBlockchainPathParams,
+  GetBlockchain200,
+  GetBlockchain404,
+  GetBlockchain500,
+  GetBlockchainQueryResponse,
+  GetBlockchainQuery,
+} from './types/GetBlockchain.ts'
+export type {
+  GetBlockchainByDataSpacePathParams,
+  GetBlockchainByDataSpace200,
+  GetBlockchainByDataSpace400,
+  GetBlockchainByDataSpace404,
+  GetBlockchainByDataSpace500,
+  GetBlockchainByDataSpaceQueryResponse,
+  GetBlockchainByDataSpaceQuery,
+} from './types/GetBlockchainByDataSpace.ts'
 export type {
   GetConnectorByDIDPathParams,
   GetConnectorByDID200,
@@ -585,6 +617,7 @@ export type {
 } from './types/GetUserByDID.ts'
 export type { HandlersAddPolicyToTemplateRequest } from './types/handlers/AddPolicyToTemplateRequest.ts'
 export type { HandlersApproveAuditRequest } from './types/handlers/ApproveAuditRequest.ts'
+export type { HandlersCreateBlockchainRequest } from './types/handlers/CreateBlockchainRequest.ts'
 export type { HandlersCreateConnectorRequest } from './types/handlers/CreateConnectorRequest.ts'
 export type { HandlersCreateContractRequest } from './types/handlers/CreateContractRequest.ts'
 export type { HandlersCreateContractTemplateRequest } from './types/handlers/CreateContractTemplateRequest.ts'
@@ -600,6 +633,13 @@ export type { HandlersUpdateI18nRequest } from './types/handlers/UpdateI18nReque
 export type { HandlersUpdatePolicyRequest } from './types/handlers/UpdatePolicyRequest.ts'
 export type { HandlersUpdateResourceAuditRequest } from './types/handlers/UpdateResourceAuditRequest.ts'
 export type { HandlersUpdateResourceRequest } from './types/handlers/UpdateResourceRequest.ts'
+export type {
+  ListBlockchainsQueryParams,
+  ListBlockchains200,
+  ListBlockchains500,
+  ListBlockchainsQueryResponse,
+  ListBlockchainsQuery,
+} from './types/ListBlockchains.ts'
 export type {
   ListContractsQueryParams,
   ListContracts200,
@@ -650,6 +690,7 @@ export type { ModelsApp } from './types/models/App.ts'
 export type { ModelsAppStore } from './types/models/AppStore.ts'
 export type { ModelsAuditStatusEnum, ModelsAuditStatus } from './types/models/AuditStatus.ts'
 export type { ModelsAuditTypeEnum, ModelsAuditType } from './types/models/AuditType.ts'
+export type { ModelsBlockChain } from './types/models/BlockChain.ts'
 export type { ModelsBoundStatusEnum, ModelsBoundStatus } from './types/models/BoundStatus.ts'
 export type { ModelsComputeBindingEnum, ModelsComputeBinding } from './types/models/ComputeBinding.ts'
 export type { ModelsConnectionTypeEnum, ModelsConnectionType } from './types/models/ConnectionType.ts'
@@ -677,6 +718,7 @@ export type { ModelsSecurityLevelEnum, ModelsSecurityLevel } from './types/model
 export type { ModelsService } from './types/models/Service.ts'
 export type { ModelsStartModeEnum, ModelsStartMode } from './types/models/StartMode.ts'
 export type { ModelsTemplateStatusEnum, ModelsTemplateStatus } from './types/models/TemplateStatus.ts'
+export type { ModelsTransaction } from './types/models/Transaction.ts'
 export type { ModelsUser } from './types/models/User.ts'
 export type { ModelsVerifiableCredential } from './types/models/VerifiableCredential.ts'
 export type { ModelsVerificationMethod } from './types/models/VerificationMethod.ts'
@@ -795,6 +837,7 @@ export { addPolicyToContractTemplateByID } from './clients/addPolicyToContractTe
 export { approveResourceAuditByID } from './clients/approveResourceAuditByID.ts'
 export { batchCreateI18N } from './clients/batchCreateI18N.ts'
 export { cancelResourceAuditByID } from './clients/cancelResourceAuditByID.ts'
+export { createBlockchain } from './clients/createBlockchain.ts'
 export { createConnector } from './clients/createConnector.ts'
 export { createContract } from './clients/createContract.ts'
 export { createContractTemplate } from './clients/createContractTemplate.ts'
@@ -816,6 +859,8 @@ export { getActiveResourceCount } from './clients/getActiveResourceCount.ts'
 export { getActiveResourceCountByDataspace } from './clients/getActiveResourceCountByDataspace.ts'
 export { getAllConnectorSecurityRatingsExclude } from './clients/getAllConnectorSecurityRatingsExclude.ts'
 export { getAllDataSpaces } from './clients/getAllDataSpaces.ts'
+export { getBlockchain } from './clients/getBlockchain.ts'
+export { getBlockchainByDataSpace } from './clients/getBlockchainByDataSpace.ts'
 export { getConnectorByDID } from './clients/getConnectorByDID.ts'
 export { getConnectorSecurityRatingByDID } from './clients/getConnectorSecurityRatingByDID.ts'
 export { getContractByID } from './clients/getContractByID.ts'
@@ -849,6 +894,7 @@ export { getResourcesByPublisher } from './clients/getResourcesByPublisher.ts'
 export { getTotalResourceCount } from './clients/getTotalResourceCount.ts'
 export { getTotalResourceCountByDataspace } from './clients/getTotalResourceCountByDataspace.ts'
 export { getUserByDID } from './clients/getUserByDID.ts'
+export { listBlockchains } from './clients/listBlockchains.ts'
 export { listContracts } from './clients/listContracts.ts'
 export { listContractTemplates } from './clients/listContractTemplates.ts'
 export { listPolicies } from './clients/listPolicies.ts'
@@ -869,6 +915,7 @@ export { addPolicyToContractTemplateByIDMutationKey, useAddPolicyToContractTempl
 export { approveResourceAuditByIDMutationKey, useApproveResourceAuditByID } from './hooks/useApproveResourceAuditByID.ts'
 export { batchCreateI18NMutationKey, useBatchCreateI18N } from './hooks/useBatchCreateI18N.ts'
 export { cancelResourceAuditByIDMutationKey, useCancelResourceAuditByID } from './hooks/useCancelResourceAuditByID.ts'
+export { createBlockchainMutationKey, useCreateBlockchain } from './hooks/useCreateBlockchain.ts'
 export { createConnectorMutationKey, useCreateConnector } from './hooks/useCreateConnector.ts'
 export { createContractMutationKey, useCreateContract } from './hooks/useCreateContract.ts'
 export { createContractTemplateMutationKey, useCreateContractTemplate } from './hooks/useCreateContractTemplate.ts'
@@ -914,6 +961,14 @@ export {
 } from './hooks/useGetAllConnectorSecurityRatingsExcludeSuspense.ts'
 export { getAllDataSpacesQueryKey, getAllDataSpacesQueryOptions, useGetAllDataSpaces } from './hooks/useGetAllDataSpaces.ts'
 export { getAllDataSpacesSuspenseQueryKey, getAllDataSpacesSuspenseQueryOptions, useGetAllDataSpacesSuspense } from './hooks/useGetAllDataSpacesSuspense.ts'
+export { getBlockchainQueryKey, getBlockchainQueryOptions, useGetBlockchain } from './hooks/useGetBlockchain.ts'
+export { getBlockchainByDataSpaceQueryKey, getBlockchainByDataSpaceQueryOptions, useGetBlockchainByDataSpace } from './hooks/useGetBlockchainByDataSpace.ts'
+export {
+  getBlockchainByDataSpaceSuspenseQueryKey,
+  getBlockchainByDataSpaceSuspenseQueryOptions,
+  useGetBlockchainByDataSpaceSuspense,
+} from './hooks/useGetBlockchainByDataSpaceSuspense.ts'
+export { getBlockchainSuspenseQueryKey, getBlockchainSuspenseQueryOptions, useGetBlockchainSuspense } from './hooks/useGetBlockchainSuspense.ts'
 export { getConnectorByDIDQueryKey, getConnectorByDIDQueryOptions, useGetConnectorByDID } from './hooks/useGetConnectorByDID.ts'
 export { getConnectorByDIDSuspenseQueryKey, getConnectorByDIDSuspenseQueryOptions, useGetConnectorByDIDSuspense } from './hooks/useGetConnectorByDIDSuspense.ts'
 export {
@@ -1125,6 +1180,8 @@ export {
 } from './hooks/useGetTotalResourceCountSuspense.ts'
 export { getUserByDIDQueryKey, getUserByDIDQueryOptions, useGetUserByDID } from './hooks/useGetUserByDID.ts'
 export { getUserByDIDSuspenseQueryKey, getUserByDIDSuspenseQueryOptions, useGetUserByDIDSuspense } from './hooks/useGetUserByDIDSuspense.ts'
+export { listBlockchainsQueryKey, listBlockchainsQueryOptions, useListBlockchains } from './hooks/useListBlockchains.ts'
+export { listBlockchainsSuspenseQueryKey, listBlockchainsSuspenseQueryOptions, useListBlockchainsSuspense } from './hooks/useListBlockchainsSuspense.ts'
 export { listContractsQueryKey, listContractsQueryOptions, useListContracts } from './hooks/useListContracts.ts'
 export { listContractsSuspenseQueryKey, listContractsSuspenseQueryOptions, useListContractsSuspense } from './hooks/useListContractsSuspense.ts'
 export { listContractTemplatesQueryKey, listContractTemplatesQueryOptions, useListContractTemplates } from './hooks/useListContractTemplates.ts'

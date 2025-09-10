@@ -302,7 +302,8 @@ export function PolicyTemplatesCard({
                     <div className="mt-3 flex items-center justify-between border-t pt-3">
                       <div className="text-muted-foreground flex items-center gap-4 text-xs">
                         <span>Security: {policy.security_level}</span>
-                        <span>•</span>
+                      </div>
+                      <div className="text-muted-foreground flex items-center gap-4 text-xs">
                         <span>
                           Created:{" "}
                           {new Date(policy.created_at).toLocaleDateString()}

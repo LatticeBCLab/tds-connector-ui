@@ -37,6 +37,10 @@ export type ModelsUser = {
   /**
    * @type string | undefined
    */
+  hash?: string
+  /**
+   * @type string | undefined
+   */
   identityStatus?: string
   /**
    * @type string | undefined

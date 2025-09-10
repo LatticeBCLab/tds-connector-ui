@@ -36,6 +36,14 @@ export type {
   CancelResourceAuditByIDMutation,
 } from './CancelResourceAuditByID.ts'
 export type {
+  CreateBlockchain201,
+  CreateBlockchain400,
+  CreateBlockchain500,
+  CreateBlockchainMutationRequest,
+  CreateBlockchainMutationResponse,
+  CreateBlockchainMutation,
+} from './CreateBlockchain.ts'
+export type {
   CreateConnector201,
   CreateConnector400,
   CreateConnector500,
@@ -183,6 +191,23 @@ export type {
   GetAllConnectorSecurityRatingsExcludeQuery,
 } from './GetAllConnectorSecurityRatingsExclude.ts'
 export type { GetAllDataSpaces200, GetAllDataSpaces500, GetAllDataSpacesQueryResponse, GetAllDataSpacesQuery } from './GetAllDataSpaces.ts'
+export type {
+  GetBlockchainPathParams,
+  GetBlockchain200,
+  GetBlockchain404,
+  GetBlockchain500,
+  GetBlockchainQueryResponse,
+  GetBlockchainQuery,
+} from './GetBlockchain.ts'
+export type {
+  GetBlockchainByDataSpacePathParams,
+  GetBlockchainByDataSpace200,
+  GetBlockchainByDataSpace400,
+  GetBlockchainByDataSpace404,
+  GetBlockchainByDataSpace500,
+  GetBlockchainByDataSpaceQueryResponse,
+  GetBlockchainByDataSpaceQuery,
+} from './GetBlockchainByDataSpace.ts'
 export type {
   GetConnectorByDIDPathParams,
   GetConnectorByDID200,
@@ -454,6 +479,7 @@ export type {
 } from './GetUserByDID.ts'
 export type { HandlersAddPolicyToTemplateRequest } from './handlers/AddPolicyToTemplateRequest.ts'
 export type { HandlersApproveAuditRequest } from './handlers/ApproveAuditRequest.ts'
+export type { HandlersCreateBlockchainRequest } from './handlers/CreateBlockchainRequest.ts'
 export type { HandlersCreateConnectorRequest } from './handlers/CreateConnectorRequest.ts'
 export type { HandlersCreateContractRequest } from './handlers/CreateContractRequest.ts'
 export type { HandlersCreateContractTemplateRequest } from './handlers/CreateContractTemplateRequest.ts'
@@ -469,6 +495,13 @@ export type { HandlersUpdateI18nRequest } from './handlers/UpdateI18nRequest.ts'
 export type { HandlersUpdatePolicyRequest } from './handlers/UpdatePolicyRequest.ts'
 export type { HandlersUpdateResourceAuditRequest } from './handlers/UpdateResourceAuditRequest.ts'
 export type { HandlersUpdateResourceRequest } from './handlers/UpdateResourceRequest.ts'
+export type {
+  ListBlockchainsQueryParams,
+  ListBlockchains200,
+  ListBlockchains500,
+  ListBlockchainsQueryResponse,
+  ListBlockchainsQuery,
+} from './ListBlockchains.ts'
 export type {
   ListContractsQueryParams,
   ListContracts200,
@@ -519,6 +552,7 @@ export type { ModelsApp } from './models/App.ts'
 export type { ModelsAppStore } from './models/AppStore.ts'
 export type { ModelsAuditStatusEnum, ModelsAuditStatus } from './models/AuditStatus.ts'
 export type { ModelsAuditTypeEnum, ModelsAuditType } from './models/AuditType.ts'
+export type { ModelsBlockChain } from './models/BlockChain.ts'
 export type { ModelsBoundStatusEnum, ModelsBoundStatus } from './models/BoundStatus.ts'
 export type { ModelsComputeBindingEnum, ModelsComputeBinding } from './models/ComputeBinding.ts'
 export type { ModelsConnectionTypeEnum, ModelsConnectionType } from './models/ConnectionType.ts'
@@ -546,6 +580,7 @@ export type { ModelsSecurityLevelEnum, ModelsSecurityLevel } from './models/Secu
 export type { ModelsService } from './models/Service.ts'
 export type { ModelsStartModeEnum, ModelsStartMode } from './models/StartMode.ts'
 export type { ModelsTemplateStatusEnum, ModelsTemplateStatus } from './models/TemplateStatus.ts'
+export type { ModelsTransaction } from './models/Transaction.ts'
 export type { ModelsUser } from './models/User.ts'
 export type { ModelsVerifiableCredential } from './models/VerifiableCredential.ts'
 export type { ModelsVerificationMethod } from './models/VerificationMethod.ts'
