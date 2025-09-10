@@ -23,6 +23,8 @@ export type { GetActiveResourceCountQueryKey } from './useGetActiveResourceCount
 export type { GetActiveResourceCountByDataspaceQueryKey } from './useGetActiveResourceCountByDataspace.ts'
 export type { GetActiveResourceCountByDataspaceSuspenseQueryKey } from './useGetActiveResourceCountByDataspaceSuspense.ts'
 export type { GetActiveResourceCountSuspenseQueryKey } from './useGetActiveResourceCountSuspense.ts'
+export type { GetAllConnectorSecurityRatingsExcludeQueryKey } from './useGetAllConnectorSecurityRatingsExclude.ts'
+export type { GetAllConnectorSecurityRatingsExcludeSuspenseQueryKey } from './useGetAllConnectorSecurityRatingsExcludeSuspense.ts'
 export type { GetAllDataSpacesQueryKey } from './useGetAllDataSpaces.ts'
 export type { GetAllDataSpacesSuspenseQueryKey } from './useGetAllDataSpacesSuspense.ts'
 export type { GetConnectorByDIDQueryKey } from './useGetConnectorByDID.ts'
@@ -150,6 +152,16 @@ export {
   getActiveResourceCountSuspenseQueryOptions,
   useGetActiveResourceCountSuspense,
 } from './useGetActiveResourceCountSuspense.ts'
+export {
+  getAllConnectorSecurityRatingsExcludeQueryKey,
+  getAllConnectorSecurityRatingsExcludeQueryOptions,
+  useGetAllConnectorSecurityRatingsExclude,
+} from './useGetAllConnectorSecurityRatingsExclude.ts'
+export {
+  getAllConnectorSecurityRatingsExcludeSuspenseQueryKey,
+  getAllConnectorSecurityRatingsExcludeSuspenseQueryOptions,
+  useGetAllConnectorSecurityRatingsExcludeSuspense,
+} from './useGetAllConnectorSecurityRatingsExcludeSuspense.ts'
 export { getAllDataSpacesQueryKey, getAllDataSpacesQueryOptions, useGetAllDataSpaces } from './useGetAllDataSpaces.ts'
 export { getAllDataSpacesSuspenseQueryKey, getAllDataSpacesSuspenseQueryOptions, useGetAllDataSpacesSuspense } from './useGetAllDataSpacesSuspense.ts'
 export { getConnectorByDIDQueryKey, getConnectorByDIDQueryOptions, useGetConnectorByDID } from './useGetConnectorByDID.ts'

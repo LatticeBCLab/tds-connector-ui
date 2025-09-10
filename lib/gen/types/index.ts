@@ -175,6 +175,13 @@ export type {
   GetActiveResourceCountByDataspaceQueryResponse,
   GetActiveResourceCountByDataspaceQuery,
 } from './GetActiveResourceCountByDataspace.ts'
+export type {
+  GetAllConnectorSecurityRatingsExcludeQueryParams,
+  GetAllConnectorSecurityRatingsExclude200,
+  GetAllConnectorSecurityRatingsExclude500,
+  GetAllConnectorSecurityRatingsExcludeQueryResponse,
+  GetAllConnectorSecurityRatingsExcludeQuery,
+} from './GetAllConnectorSecurityRatingsExclude.ts'
 export type { GetAllDataSpaces200, GetAllDataSpaces500, GetAllDataSpacesQueryResponse, GetAllDataSpacesQuery } from './GetAllDataSpaces.ts'
 export type {
   GetConnectorByDIDPathParams,

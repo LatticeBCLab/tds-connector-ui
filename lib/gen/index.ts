@@ -23,6 +23,8 @@ export type { GetActiveResourceCountQueryKey } from './hooks/useGetActiveResourc
 export type { GetActiveResourceCountByDataspaceQueryKey } from './hooks/useGetActiveResourceCountByDataspace.ts'
 export type { GetActiveResourceCountByDataspaceSuspenseQueryKey } from './hooks/useGetActiveResourceCountByDataspaceSuspense.ts'
 export type { GetActiveResourceCountSuspenseQueryKey } from './hooks/useGetActiveResourceCountSuspense.ts'
+export type { GetAllConnectorSecurityRatingsExcludeQueryKey } from './hooks/useGetAllConnectorSecurityRatingsExclude.ts'
+export type { GetAllConnectorSecurityRatingsExcludeSuspenseQueryKey } from './hooks/useGetAllConnectorSecurityRatingsExcludeSuspense.ts'
 export type { GetAllDataSpacesQueryKey } from './hooks/useGetAllDataSpaces.ts'
 export type { GetAllDataSpacesSuspenseQueryKey } from './hooks/useGetAllDataSpacesSuspense.ts'
 export type { GetConnectorByDIDQueryKey } from './hooks/useGetConnectorByDID.ts'
@@ -304,6 +306,13 @@ export type {
   GetActiveResourceCountByDataspaceQueryResponse,
   GetActiveResourceCountByDataspaceQuery,
 } from './types/GetActiveResourceCountByDataspace.ts'
+export type {
+  GetAllConnectorSecurityRatingsExcludeQueryParams,
+  GetAllConnectorSecurityRatingsExclude200,
+  GetAllConnectorSecurityRatingsExclude500,
+  GetAllConnectorSecurityRatingsExcludeQueryResponse,
+  GetAllConnectorSecurityRatingsExcludeQuery,
+} from './types/GetAllConnectorSecurityRatingsExclude.ts'
 export type { GetAllDataSpaces200, GetAllDataSpaces500, GetAllDataSpacesQueryResponse, GetAllDataSpacesQuery } from './types/GetAllDataSpaces.ts'
 export type {
   GetConnectorByDIDPathParams,
@@ -805,6 +814,7 @@ export { deleteResourceByID } from './clients/deleteResourceByID.ts'
 export { get } from './clients/get.ts'
 export { getActiveResourceCount } from './clients/getActiveResourceCount.ts'
 export { getActiveResourceCountByDataspace } from './clients/getActiveResourceCountByDataspace.ts'
+export { getAllConnectorSecurityRatingsExclude } from './clients/getAllConnectorSecurityRatingsExclude.ts'
 export { getAllDataSpaces } from './clients/getAllDataSpaces.ts'
 export { getConnectorByDID } from './clients/getConnectorByDID.ts'
 export { getConnectorSecurityRatingByDID } from './clients/getConnectorSecurityRatingByDID.ts'
@@ -892,6 +902,16 @@ export {
   getActiveResourceCountSuspenseQueryOptions,
   useGetActiveResourceCountSuspense,
 } from './hooks/useGetActiveResourceCountSuspense.ts'
+export {
+  getAllConnectorSecurityRatingsExcludeQueryKey,
+  getAllConnectorSecurityRatingsExcludeQueryOptions,
+  useGetAllConnectorSecurityRatingsExclude,
+} from './hooks/useGetAllConnectorSecurityRatingsExclude.ts'
+export {
+  getAllConnectorSecurityRatingsExcludeSuspenseQueryKey,
+  getAllConnectorSecurityRatingsExcludeSuspenseQueryOptions,
+  useGetAllConnectorSecurityRatingsExcludeSuspense,
+} from './hooks/useGetAllConnectorSecurityRatingsExcludeSuspense.ts'
 export { getAllDataSpacesQueryKey, getAllDataSpacesQueryOptions, useGetAllDataSpaces } from './hooks/useGetAllDataSpaces.ts'
 export { getAllDataSpacesSuspenseQueryKey, getAllDataSpacesSuspenseQueryOptions, useGetAllDataSpacesSuspense } from './hooks/useGetAllDataSpacesSuspense.ts'
 export { getConnectorByDIDQueryKey, getConnectorByDIDQueryOptions, useGetConnectorByDID } from './hooks/useGetConnectorByDID.ts'

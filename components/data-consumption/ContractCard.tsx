@@ -36,15 +36,10 @@ import {
   FileText,
   Globe,
   Loader2,
+  Shield,
 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
-
-// Format policy array for display
-const formatPolicyDisplay = (policies: any[]) => {
-  if (!policies || policies.length === 0) return "No Policy";
-  return policies.map((p) => p.type || p.name).join(", ");
-};
 
 // Get contract status based on expiration
 const getContractDisplayStatus = (expiresAt: string) => {
@@ -359,11 +354,31 @@ export function ContractCard() {
                           {contract.resourceId}
                         </span>
                       </div>
-                      <div className="flex justify-between">
-                        <span className="text-muted-foreground">Policy:</span>
-                        <span className="font-medium">
-                          {formatPolicyDisplay(contract.policy)}
-                        </span>
+                      <div>
+                        <div className="text-muted-foreground mb-2 text-sm">
+                          Policies:
+                        </div>
+                        <div className="space-y-1">
+                          {contract.policy.length === 0 ? (
+                            <div className="text-muted-foreground text-sm">
+                              No Policy
+                            </div>
+                          ) : (
+                            contract.policy.map(
+                              (policy: any, index: number) => (
+                                <div
+                                  key={policy.id || index}
+                                  className="bg-muted/50 flex items-center gap-2 rounded py-1"
+                                >
+                                  <Shield className="text-primary h-4 w-4" />
+                                  <span className="text-sm font-medium">
+                                    {policy.name}
+                                  </span>
+                                </div>
+                              )
+                            )
+                          )}
+                        </div>
                       </div>
                     </div>
                   </div>
