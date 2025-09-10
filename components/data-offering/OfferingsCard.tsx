@@ -18,8 +18,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Spinner } from "@/components/ui/spinner";
-import { useDataSpace } from "@/lib/contexts/DataSpaceContext";
 import { useGetResourceListByDataspaceAndPublisher } from "@/lib/gen/hooks/useGetResourceListByDataspaceAndPublisher";
+import { useAppStore } from "@/lib/stores/app-store";
 import { cn } from "@/lib/utils";
 import {
   ArrowUpDown,
@@ -82,7 +82,7 @@ export function OfferingsCard({
   isAddOfferingOpen,
   setIsAddOfferingOpen,
 }: OfferingsCardProps) {
-  const { currentDataSpace } = useDataSpace();
+  const { userDID, currentDataSpaceId } = useAppStore();
 
   // State for pagination
   const [page, setPage] = useState(1);
@@ -103,12 +103,12 @@ export function OfferingsCard({
     {
       page,
       page_size: pageSize,
-      dataspace: currentDataSpace?.id,
-      //publisher: userDID || undefined,
+      dataspace: currentDataSpaceId || undefined,
+      publisher: userDID || "",
     },
     {
       query: {
-        enabled: !!currentDataSpace?.id,
+        enabled: !!currentDataSpaceId,
       },
     }
   );
@@ -117,7 +117,7 @@ export function OfferingsCard({
   useEffect(() => {
     setPage(1);
     setAllDataOfferings([]);
-  }, [currentDataSpace?.id]);
+  }, [currentDataSpaceId]);
 
   // Handle data concatenation for "Load More" functionality
   useEffect(() => {
@@ -173,7 +173,7 @@ export function OfferingsCard({
   if (resourceError) {
     return cardSkeleton(
       <div className="p-6 text-center">
-        <p className="text-red-600">Error loading data offerings</p>
+        <p>Error loading data offerings</p>
         <Button
           onClick={() => refetchResources()}
           variant="outline"

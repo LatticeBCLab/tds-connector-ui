@@ -17,12 +17,12 @@ export type ModelsContract = {
   /**
    * @type string | undefined
    */
-  created_at?: string
+  createdAt?: string
   /**
    * @description 过期时间
    * @type string | undefined
    */
-  expires_at?: string
+  expiresAt?: string
   /**
    * @type string | undefined
    */
@@ -31,7 +31,7 @@ export type ModelsContract = {
    * @description 最大访问次数
    * @type integer | undefined
    */
-  max_access_count?: number
+  maxAccessCount?: number
   /**
    * @description 合约名称
    * @type string | undefined
@@ -51,9 +51,9 @@ export type ModelsContract = {
    * @description 关联的资源ID
    * @type string | undefined
    */
-  resource_id?: string
+  resourceId?: string
   /**
    * @type string | undefined
    */
-  updated_at?: string
+  updatedAt?: string
 }

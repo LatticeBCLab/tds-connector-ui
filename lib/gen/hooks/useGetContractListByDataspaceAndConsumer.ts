@@ -45,7 +45,7 @@ export function getContractListByDataspaceAndConsumerQueryOptions(
 }
 
 /**
- * @description 根据数据空间和消费者查询合约列表，支持分页。consumer 参数是可选的
+ * @description 根据数据空间和消费者查询合约列表，支持分页。consumer 参数是可选的。expired参数控制过期状态过滤：true返回过期合约，false返回未过期合约，不传则返回所有合约
  * @summary 获取指定数据空间的合约列表（按消费者筛选）
  * {@link /api/v1/dataspaces/:dataspace/contracts/consumer/list}
  */

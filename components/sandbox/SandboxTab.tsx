@@ -33,6 +33,7 @@ import {
   Square,
   Trash2,
 } from "lucide-react";
+import { ScrollArea } from "../ui/scroll-area";
 
 export function SandboxTab() {
   const {
@@ -375,66 +376,70 @@ export function SandboxTab() {
               </ActionDialog>
             </div>
           </CardHeader>
-          <CardContent>
-            <div className="max-h-96 space-y-3 overflow-y-auto">
-              {dataProcessingJobs.map((job) => (
-                <div key={job.id} className="rounded-lg border p-3">
-                  <div className="flex items-start justify-between">
-                    <div className="flex-1">
-                      <div className="mb-1 flex items-center space-x-2">
-                        <h4 className="text-sm font-medium">{job.name}</h4>
-                        <StatusBadge status={job.status} type="job" />
-                      </div>
-                      <div className="text-muted-foreground space-y-1 text-xs">
-                        <div>
-                          Sandbox:{" "}
-                          {
-                            sandboxEnvironments.find(
-                              (s) => s.id === job.sandboxId
-                            )?.name
-                          }
+          <CardContent className="p-0">
+            <ScrollArea className="h-96 px-6 pb-6">
+              <div className="space-y-3">
+                {dataProcessingJobs.map((job) => (
+                  <div key={job.id} className="rounded-lg border p-3">
+                    <div className="flex items-start justify-between">
+                      <div className="flex-1">
+                        <div className="mb-1 flex items-center space-x-2">
+                          <h4 className="text-sm font-medium">{job.name}</h4>
+                          <StatusBadge status={job.status} type="job" />
                         </div>
-                        <div>
-                          Started: {new Date(job.startTime).toLocaleString()}
-                        </div>
-                        {job.endTime && (
+                        <div className="text-muted-foreground space-y-1 text-xs">
                           <div>
-                            Ended: {new Date(job.endTime).toLocaleString()}
+                            Sandbox:{" "}
+                            {
+                              sandboxEnvironments.find(
+                                (s) => s.id === job.sandboxId
+                              )?.name
+                            }
                           </div>
-                        )}
-                        <div>Input: {job.inputSize}</div>
-                        {job.outputSize && <div>Output: {job.outputSize}</div>}
-                        {job.errorMessage && (
-                          <div className="text-red-600">
-                            Error: {job.errorMessage}
+                          <div>
+                            Started: {new Date(job.startTime).toLocaleString()}
                           </div>
-                        )}
+                          {job.endTime && (
+                            <div>
+                              Ended: {new Date(job.endTime).toLocaleString()}
+                            </div>
+                          )}
+                          <div>Input: {job.inputSize}</div>
+                          {job.outputSize && (
+                            <div>Output: {job.outputSize}</div>
+                          )}
+                          {job.errorMessage && (
+                            <div className="text-red-600">
+                              Error: {job.errorMessage}
+                            </div>
+                          )}
+                        </div>
                       </div>
-                    </div>
-                    <div className="flex items-center space-x-1">
-                      {job.status === "queued" && (
-                        <Button
-                          size="sm"
-                          variant="outline"
-                          onClick={() => runJob(job.id)}
-                        >
-                          <Play className="h-4 w-4" />
+                      <div className="flex items-center space-x-1">
+                        {job.status === "queued" && (
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            onClick={() => runJob(job.id)}
+                          >
+                            <Play className="h-4 w-4" />
+                          </Button>
+                        )}
+                        <Button variant="ghost" size="sm">
+                          <Eye className="h-4 w-4" />
                         </Button>
-                      )}
-                      <Button variant="ghost" size="sm">
-                        <Eye className="h-4 w-4" />
-                      </Button>
-                      <Button variant="ghost" size="sm">
-                        <Edit className="h-4 w-4" />
-                      </Button>
-                      <Button variant="ghost" size="sm">
-                        <Trash2 className="h-4 w-4" />
-                      </Button>
+                        <Button variant="ghost" size="sm">
+                          <Edit className="h-4 w-4" />
+                        </Button>
+                        <Button variant="ghost" size="sm">
+                          <Trash2 className="h-4 w-4" />
+                        </Button>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+            </ScrollArea>
           </CardContent>
         </Card>
       </div>

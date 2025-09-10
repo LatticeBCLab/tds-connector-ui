@@ -3,21 +3,9 @@
 import {
   ActionDialog,
   MetricCard,
-  SearchFilter,
   SecurityRatingChart,
   StatusBadge,
 } from "@/components/shared";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -38,224 +26,45 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { useDataOfferings, useIdentity } from "@/hooks";
 import { cn } from "@/lib/utils";
-import type {
-  ContractStatus,
-  CrossBorderAuditStatus,
-  DataContract,
-  HostingStatus,
-} from "@/types";
+import type { DataContract } from "@/types";
 import {
   Activity,
-  AlertTriangle,
-  Ban,
   Building,
   Calendar,
-  CheckCircle,
-  Clock,
   Database,
-  Download,
   ExternalLink,
-  Eye,
-  Globe,
-  Loader2,
   Mail,
   MapPin,
-  Server,
   Shield,
   Users,
-  XCircle,
 } from "lucide-react";
-import { useState } from "react";
-import { toast } from "sonner";
-
-const categoryOptions = [
-  { value: "all", label: "All Categories" },
-  { value: "analytics", label: "Analytics" },
-  { value: "research", label: "Research" },
-  { value: "finance", label: "Finance" },
-  { value: "healthcare", label: "Healthcare" },
-  { value: "iot", label: "IoT" },
-];
-
-// Contract status icon mapping
-const getContractStatusIcon = (status: ContractStatus) => {
-  switch (status) {
-    case "active":
-      return Activity;
-    case "transferring":
-      return Download;
-    case "in_use":
-      return Activity;
-    case "suspended":
-      return Ban;
-    case "expired":
-      return Clock;
-    case "data_unavailable":
-      return AlertTriangle;
-    case "violated":
-      return Ban;
-    default:
-      return AlertTriangle;
-  }
-};
-
-// Hosting status icon mapping
-const getHostingStatusIcon = (status: HostingStatus) => {
-  switch (status) {
-    case "hosted":
-      return Shield;
-    case "self_managed":
-      return Server;
-    case "pending":
-      return Clock;
-    default:
-      return AlertTriangle;
-  }
-};
-
-// Hosting status label mapping
-const getHostingStatusLabel = (status: HostingStatus) => {
-  switch (status) {
-    case "hosted":
-      return "Hosted";
-    case "self_managed":
-      return "Self Managed";
-    case "pending":
-      return "Pending";
-    default:
-      return "Unknown";
-  }
-};
-
-// Cross-border audit status icon mapping
-const getCrossBorderAuditIcon = (status: CrossBorderAuditStatus) => {
-  switch (status) {
-    case "approved":
-      return CheckCircle;
-    case "pending":
-      return Clock;
-    case "rejected":
-      return XCircle;
-    case "not_required":
-      return Shield;
-    default:
-      return AlertTriangle;
-  }
-};
-
-// Cross-border audit status label mapping
-const getCrossBorderAuditLabel = (status: CrossBorderAuditStatus) => {
-  switch (status) {
-    case "approved":
-      return "Approved";
-    case "pending":
-      return "Pending";
-    case "rejected":
-      return "Rejected";
-    case "not_required":
-      return "Not Required";
-    default:
-      return "Unknown";
-  }
-};
-
-// Contract status label mapping
-const getContractStatusLabel = (status: ContractStatus) => {
-  switch (status) {
-    case "active":
-      return "Active";
-    case "transferring":
-      return "Transferring";
-    case "in_use":
-      return "In Use";
-    case "suspended":
-      return "Suspended";
-    case "expired":
-      return "Expired";
-    case "data_unavailable":
-      return "Data Unavailable";
-    case "violated":
-      return "Violated";
-    default:
-      return "Unknown";
-  }
-};
+import { CatalogCard } from "./CatalogCard";
+import { ContractCard } from "./ContractCard";
 
 export function DataConsumptionTab() {
   const { connectedConnectors } = useIdentity();
 
   const {
-    externalOfferings,
+    dataRequests,
     dataContracts,
+    externalOfferings,
     isRequestDataOpen,
     setIsRequestDataOpen,
     selectedOffering,
+    setSelectedOffering,
     newRequest,
     setNewRequest,
-    searchQuery,
-    setSearchQuery,
-    categoryFilter,
-    setCategoryFilter,
     requestData,
-    filteredOfferings,
   } = useDataOfferings();
 
   const activeContractsCount = dataContracts.filter(
     (c: DataContract) => c.status === "active" || c.status === "in_use"
   ).length;
 
-  // State to track downloading files
-  const [downloadingFiles, setDownloadingFiles] = useState<Set<string>>(
-    new Set()
-  );
-
-  // Handle file download
-  const handleDownloadFile = async (contractId: string) => {
-    // Prevent multiple downloads of the same file
-    if (downloadingFiles.has(contractId)) {
-      return;
-    }
-
-    try {
-      // Set downloading state
-      setDownloadingFiles((prev) => new Set(prev).add(contractId));
-
-      // Create a temporary element to trigger download
-      const downloadUrl = `/tdsc/api/v1/offering/${contractId}`;
-
-      // Create a temporary link element and click it to trigger download
-      const link = document.createElement("a");
-      link.href = downloadUrl;
-      link.download = "12121"; // This will use the filename from server
-      link.style.display = "none";
-
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-
-      // Show success message
-      toast.success("Download started");
-
-      // Simulate download completion after a short delay
-      // In a real implementation, you might want to listen for actual download events
-      setTimeout(() => {
-        setDownloadingFiles((prev) => {
-          const newSet = new Set(prev);
-          newSet.delete(contractId);
-          return newSet;
-        });
-      }, 2000); // Remove loading state after 2 seconds
-    } catch (error) {
-      console.error("Failed to download file:", error);
-      toast.error("Download failed");
-
-      // Remove from downloading state on error
-      setDownloadingFiles((prev) => {
-        const newSet = new Set(prev);
-        newSet.delete(contractId);
-        return newSet;
-      });
-    }
+  // Handle request for data access
+  const handleRequestData = (offering: any) => {
+    setSelectedOffering(offering);
+    setIsRequestDataOpen(true);
   };
 
   return (
@@ -294,402 +103,10 @@ export function DataConsumptionTab() {
 
       <div className="grid gap-6 lg:grid-cols-2">
         {/* Data Catalog */}
-        <Card>
-          <CardHeader>
-            <div className="flex items-center justify-between">
-              <div>
-                <CardTitle>Data Catalog</CardTitle>
-                <CardDescription>
-                  Discover and request data from other connectors
-                </CardDescription>
-              </div>
-              {/* <ActionDialog
-                trigger={
-                  <Button size="sm" variant="outline">
-                    <Plus className="h-4 w-4 mr-2" />
-                    Connect Connector
-                  </Button>
-                }
-                title="Connect New Connector"
-                description="Establish connection with another trusted connector"
-                open={isConnectConnectorOpen}
-                onOpenChange={setIsConnectConnectorOpen}
-                maxWidth="sm"
-              >
-                <div className="space-y-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="connector-did">Connector DID</Label>
-                    <Input
-                      id="connector-did"
-                      value={newConnector.did}
-                      onChange={(e) => setNewConnector({ ...newConnector, did: e.target.value })}
-                      placeholder="did:example:connector123"
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="connector-name">Display Name</Label>
-                    <Input
-                      id="connector-name"
-                      value={newConnector.name}
-                      onChange={(e) => setNewConnector({ ...newConnector, name: e.target.value })}
-                      placeholder="Research Institute"
-                    />
-                  </div>
-                  <div className="flex justify-end space-x-2">
-                    <Button variant="outline" onClick={() => setIsConnectConnectorOpen(false)}>
-                      Cancel
-                    </Button>
-                    <Button onClick={connectConnector}>
-                      Connect
-                    </Button>
-                  </div>
-                </div>
-              </ActionDialog> */}
-            </div>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            {/* Search and Filter */}
-            <SearchFilter
-              searchValue={searchQuery}
-              onSearchChange={setSearchQuery}
-              filterValue={categoryFilter}
-              onFilterChange={setCategoryFilter}
-              filterOptions={categoryOptions}
-              searchPlaceholder="Search data offerings..."
-            />
+        <CatalogCard />
 
-            {/* Offerings List */}
-            <div className="max-h-96 space-y-3 overflow-y-auto">
-              {filteredOfferings.map((offering) => {
-                const HostingIcon = getHostingStatusIcon(
-                  offering.hostingStatus
-                );
-                const CrossBorderIcon = getCrossBorderAuditIcon(
-                  offering.crossBorderAuditStatus
-                );
-
-                return (
-                  <div key={offering.id} className="rounded-lg border p-3">
-                    <div className="flex items-start justify-between">
-                      <div className="flex-1">
-                        <div className="mb-2 flex items-center space-x-2">
-                          <h4 className="font-medium">{offering.title}</h4>
-                          {/* Hosting Status Badge */}
-                          <div
-                            className={cn(
-                              "flex items-center space-x-1 rounded-md px-2 py-1 text-xs",
-                              offering.hostingStatus === "hosted" &&
-                                "bg-blue-100 text-blue-800",
-                              offering.hostingStatus === "self_managed" &&
-                                "bg-purple-100 text-purple-800",
-                              offering.hostingStatus === "pending" &&
-                                "bg-orange-100 text-orange-800"
-                            )}
-                          >
-                            <HostingIcon className="h-3 w-3" />
-                            <span>
-                              {getHostingStatusLabel(offering.hostingStatus)}
-                            </span>
-                          </div>
-                          {/* Cross-border Audit Status Badge */}
-                          <div
-                            className={cn(
-                              "flex items-center space-x-1 rounded-md px-2 py-1 text-xs",
-                              offering.crossBorderAuditStatus === "approved" &&
-                                "bg-green-100 text-green-800",
-                              offering.crossBorderAuditStatus === "pending" &&
-                                "bg-yellow-100 text-yellow-800",
-                              offering.crossBorderAuditStatus === "rejected" &&
-                                "bg-red-100 text-red-800",
-                              offering.crossBorderAuditStatus ===
-                                "not_required" && "bg-gray-100 text-gray-800"
-                            )}
-                          >
-                            <CrossBorderIcon className="h-3 w-3" />
-                            <span>
-                              {getCrossBorderAuditLabel(
-                                offering.crossBorderAuditStatus
-                              )}
-                            </span>
-                          </div>
-                        </div>
-                        <p className="text-muted-foreground mt-1 text-sm">
-                          {offering.description}
-                        </p>
-                        <div className="text-muted-foreground mt-2 flex items-center space-x-4 text-xs">
-                          <span>Provider: {offering.provider}</span>
-                          <span>Type: {offering.dataType}</span>
-                          <span>Size: {offering.size}</span>
-                          {offering.price && (
-                            <span>Price: {offering.price}</span>
-                          )}
-                          <span>Zone: {offering.dataZoneCode}</span>
-                        </div>
-                        <div className="text-muted-foreground mt-1 text-xs">
-                          <span>Location: {offering.storageLocation}</span>
-                        </div>
-                      </div>
-                      {/* <Button
-                        size="sm"
-                        onClick={() => handleRequestData(offering)}
-                      >
-                        Request
-                      </Button> */}
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Data Contracts */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Data Contracts</CardTitle>
-            <CardDescription>Manage your active data contracts</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="max-h-96 space-y-3 overflow-y-auto">
-              {dataContracts.map((contract: DataContract) => {
-                const ContractStatusIcon = getContractStatusIcon(
-                  contract.status
-                );
-                const isExpiredOrViolated =
-                  contract.isExpired || contract.isViolated;
-                const canTerminate =
-                  contract.status === "active" || contract.status === "in_use";
-
-                return (
-                  <div key={contract.id} className="rounded-lg border p-4">
-                    <div className="mb-3 flex items-center justify-between">
-                      <div className="flex-1">
-                        <div className="mb-2 flex items-center space-x-2">
-                          <ContractStatusIcon className="text-muted-foreground h-4 w-4" />
-                          <h4 className="text-sm font-medium">
-                            {contract.name}
-                          </h4>
-                          <div
-                            className={cn(
-                              "flex items-center space-x-1 rounded-md px-2 py-1 text-xs",
-                              contract.status === "active" &&
-                                "bg-green-100 text-green-800",
-                              contract.status === "transferring" &&
-                                "bg-blue-100 text-blue-800",
-                              contract.status === "in_use" &&
-                                "bg-purple-100 text-purple-800",
-                              contract.status === "suspended" &&
-                                "bg-gray-100 text-gray-800",
-                              contract.status === "expired" &&
-                                "bg-orange-100 text-orange-800",
-                              contract.status === "data_unavailable" &&
-                                "bg-red-100 text-red-800",
-                              contract.status === "violated" &&
-                                "bg-red-100 text-red-800"
-                            )}
-                          >
-                            <span>
-                              {getContractStatusLabel(contract.status)}
-                            </span>
-                          </div>
-                        </div>
-                        {contract.connectorName && (
-                          <div className="text-muted-foreground mb-1 flex items-center space-x-1 text-xs">
-                            <Globe className="h-3 w-3" />
-                            <span>Connected to: {contract.connectorName}</span>
-                          </div>
-                        )}
-                      </div>
-                      <div className="flex items-center space-x-1">
-                        <Button variant="ghost" size="sm" title="View Details">
-                          <Eye className="h-4 w-4" />
-                        </Button>
-                        {contract.accessMethods?.includes("download") && (
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            title="Download Data"
-                            onClick={() => handleDownloadFile(contract.id)}
-                            disabled={downloadingFiles.has(contract.id)}
-                          >
-                            {downloadingFiles.has(contract.id) ? (
-                              <Loader2 className="h-4 w-4 animate-spin" />
-                            ) : (
-                              <Download className="h-4 w-4" />
-                            )}
-                          </Button>
-                        )}
-                        {contract.accessMethods?.includes("api") && (
-                          <Button variant="ghost" size="sm" title="API Access">
-                            <Activity className="h-4 w-4" />
-                          </Button>
-                        )}
-                        {canTerminate && (
-                          <AlertDialog>
-                            <AlertDialogTrigger asChild>
-                              <Button
-                                variant="ghost"
-                                size="sm"
-                                title={
-                                  isExpiredOrViolated
-                                    ? "Terminate Contract (Issues Detected)"
-                                    : "Terminate Contract"
-                                }
-                                className={
-                                  isExpiredOrViolated ? "text-red-600" : ""
-                                }
-                              >
-                                <Ban className="h-4 w-4" />
-                              </Button>
-                            </AlertDialogTrigger>
-                            <AlertDialogContent>
-                              <AlertDialogHeader>
-                                <AlertDialogTitle>
-                                  Confirm Contract Termination
-                                </AlertDialogTitle>
-                                <AlertDialogDescription>
-                                  {isExpiredOrViolated ? (
-                                    <>
-                                      Issues detected with this contract:
-                                      {contract.isExpired && (
-                                        <div>• Contract has expired</div>
-                                      )}
-                                      {contract.isViolated && (
-                                        <div>
-                                          • Contract has violations (Count:{" "}
-                                          {contract.violationCount})
-                                        </div>
-                                      )}
-                                      <br />
-                                      Are you sure you want to terminate this
-                                      contract? This action cannot be undone.
-                                    </>
-                                  ) : (
-                                    "Are you sure you want to terminate this contract? This will stop all data access and cannot be undone."
-                                  )}
-                                </AlertDialogDescription>
-                              </AlertDialogHeader>
-                              <AlertDialogFooter>
-                                <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                <AlertDialogAction
-                                  className={
-                                    isExpiredOrViolated
-                                      ? "bg-red-600 hover:bg-red-700"
-                                      : ""
-                                  }
-                                  onClick={() => {
-                                    // TODO: Implement termination logic
-                                    console.log(
-                                      "Terminating contract:",
-                                      contract.id
-                                    );
-                                  }}
-                                >
-                                  {isExpiredOrViolated
-                                    ? "Force Terminate"
-                                    : "Confirm Terminate"}
-                                </AlertDialogAction>
-                              </AlertDialogFooter>
-                            </AlertDialogContent>
-                          </AlertDialog>
-                        )}
-                      </div>
-                    </div>
-
-                    {/* Contract Details */}
-                    <div className="space-y-2">
-                      <div className="grid grid-cols-1 gap-2 text-xs">
-                        <div className="flex justify-between">
-                          <span className="text-muted-foreground">
-                            Provider DID:
-                          </span>
-                          <span className="ml-2 truncate font-mono">
-                            {contract.providerDID}
-                          </span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span className="text-muted-foreground">
-                            Access Policy:
-                          </span>
-                          <span className="font-medium">{contract.policy}</span>
-                        </div>
-                        {contract.dataOfferingTitle && (
-                          <div className="flex justify-between">
-                            <span className="text-muted-foreground">
-                              Data Offering:
-                            </span>
-                            <span className="font-medium">
-                              {contract.dataOfferingTitle}
-                            </span>
-                          </div>
-                        )}
-                      </div>
-                    </div>
-
-                    {/* Usage Statistics */}
-                    <div className="mt-3 border-t pt-3">
-                      <div className="grid grid-cols-3 gap-4 text-xs">
-                        <div className="text-center">
-                          <div className="text-muted-foreground">
-                            Access Count
-                          </div>
-                          <div className="text-sm font-medium">
-                            {contract.accessCount}
-                            {contract.maxAccessCount && (
-                              <span className="text-muted-foreground">
-                                /{contract.maxAccessCount}
-                              </span>
-                            )}
-                          </div>
-                        </div>
-                        <div className="text-center">
-                          <div className="text-muted-foreground">
-                            Data Volume
-                          </div>
-                          <div className="text-sm font-medium">
-                            {contract.dataVolume}
-                          </div>
-                        </div>
-                        <div className="text-center">
-                          <div className="text-muted-foreground">
-                            Last Access
-                          </div>
-                          <div className="text-sm font-medium">
-                            {contract.lastAccessed
-                              ? new Date(
-                                  contract.lastAccessed
-                                ).toLocaleDateString()
-                              : "Never"}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Warning Information */}
-                    {(contract.isExpired || contract.isViolated) && (
-                      <div className="mt-3 rounded-md border border-red-200 bg-red-50 p-2">
-                        <div className="flex items-center space-x-2 text-xs text-red-800">
-                          <AlertTriangle className="h-4 w-4" />
-                          <div>
-                            {contract.isExpired && (
-                              <div>Contract has expired</div>
-                            )}
-                            {contract.isViolated && (
-                              <div>
-                                Contract violations detected (Count:{" "}
-                                {contract.violationCount})
-                              </div>
-                            )}
-                          </div>
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                );
-              })}
-            </div>
-          </CardContent>
-        </Card>
+        {/* Data Contract */}
+        <ContractCard />
       </div>
 
       {/* Connected Connectors */}

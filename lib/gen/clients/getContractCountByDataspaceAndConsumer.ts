@@ -18,7 +18,7 @@ function getGetContractCountByDataspaceAndConsumerUrl(dataspace: GetContractCoun
 }
 
 /**
- * @description 根据数据空间和/或消费者查询合约数量，consumer 参数是可选的。如果 consumer 为空则查询该数据空间下所有消费者的合约
+ * @description 根据数据空间和/或消费者查询合约数量，consumer 参数是可选的。如果 consumer 为空则查询该数据空间下所有消费者的合约。expired参数控制过期状态过滤：true返回过期合约，false返回未过期合约，不传则返回所有合约
  * @summary 获取指定数据空间中消费者的合约数量（支持灵活的组合查询）
  * {@link /api/v1/dataspaces/:dataspace/contracts/consumer/count}
  */

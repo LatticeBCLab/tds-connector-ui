@@ -22,6 +22,7 @@ import {
   X,
 } from "lucide-react";
 import { useState } from "react";
+import { ScrollArea } from "../ui/scroll-area";
 import { AuditProgressDialog } from "./AuditProgressDialog";
 
 export function MonitoringTab() {
@@ -176,65 +177,70 @@ export function MonitoringTab() {
             <CardTitle>Security Alerts</CardTitle>
             <CardDescription>Security events and system alerts</CardDescription>
           </CardHeader>
-          <CardContent>
-            <div className="max-h-96 space-y-3 overflow-y-auto">
-              {securityAlerts.map((alert) => (
-                <div
-                  key={alert.id}
-                  className={`rounded-lg border p-3 ${
-                    alert.resolved ? "bg-muted/50" : ""
-                  }`}
-                >
-                  <div className="flex items-start justify-between">
-                    <div className="flex-1">
-                      <div className="mb-1 flex items-center space-x-2">
-                        <h4 className="text-sm font-medium">{alert.title}</h4>
-                        <StatusBadge
-                          status={alert.severity}
-                          className="text-xs"
-                        />
-                        {alert.resolved && (
-                          <StatusBadge status="resolved" className="text-xs" />
+          <CardContent className="p-0">
+            <ScrollArea className="h-96 px-6 pb-6">
+              <div className="space-y-3">
+                {securityAlerts.map((alert) => (
+                  <div
+                    key={alert.id}
+                    className={`rounded-lg border p-3 ${
+                      alert.resolved ? "bg-muted/50" : ""
+                    }`}
+                  >
+                    <div className="flex items-start justify-between">
+                      <div className="flex-1">
+                        <div className="mb-1 flex items-center space-x-2">
+                          <h4 className="text-sm font-medium">{alert.title}</h4>
+                          <StatusBadge
+                            status={alert.severity}
+                            className="text-xs"
+                          />
+                          {alert.resolved && (
+                            <StatusBadge
+                              status="resolved"
+                              className="text-xs"
+                            />
+                          )}
+                        </div>
+                        <p className="text-muted-foreground mb-2 text-xs">
+                          {alert.description}
+                        </p>
+                        <div className="text-muted-foreground flex items-center space-x-4 text-xs">
+                          <span>Type: {alert.type}</span>
+                          <span>Source: {alert.source}</span>
+                          <span>
+                            {new Date(alert.timestamp).toLocaleString()}
+                          </span>
+                        </div>
+                      </div>
+                      <div className="flex items-center space-x-1">
+                        {!alert.resolved && (
+                          <>
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              onClick={() => resolveAlert(alert.id)}
+                            >
+                              <CheckCircle className="h-3 w-3" />
+                            </Button>
+                            <Button
+                              size="sm"
+                              variant="ghost"
+                              onClick={() => dismissAlert(alert.id)}
+                            >
+                              <X className="h-3 w-3" />
+                            </Button>
+                          </>
                         )}
+                        <Button variant="ghost" size="sm">
+                          <Eye className="h-3 w-3" />
+                        </Button>
                       </div>
-                      <p className="text-muted-foreground mb-2 text-xs">
-                        {alert.description}
-                      </p>
-                      <div className="text-muted-foreground flex items-center space-x-4 text-xs">
-                        <span>Type: {alert.type}</span>
-                        <span>Source: {alert.source}</span>
-                        <span>
-                          {new Date(alert.timestamp).toLocaleString()}
-                        </span>
-                      </div>
-                    </div>
-                    <div className="flex items-center space-x-1">
-                      {!alert.resolved && (
-                        <>
-                          <Button
-                            size="sm"
-                            variant="outline"
-                            onClick={() => resolveAlert(alert.id)}
-                          >
-                            <CheckCircle className="h-3 w-3" />
-                          </Button>
-                          <Button
-                            size="sm"
-                            variant="ghost"
-                            onClick={() => dismissAlert(alert.id)}
-                          >
-                            <X className="h-3 w-3" />
-                          </Button>
-                        </>
-                      )}
-                      <Button variant="ghost" size="sm">
-                        <Eye className="h-3 w-3" />
-                      </Button>
                     </div>
                   </div>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+            </ScrollArea>
           </CardContent>
         </Card>
       </div>

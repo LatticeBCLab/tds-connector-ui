@@ -196,7 +196,6 @@ export function ContractCard({
     return policies.map((p) => p.name).join(", ");
   };
 
-  console.log("isLoadingContracts", isLoadingContracts);
   if (isLoadingContracts) {
     return cardSkeleton(
       <div className="flex flex-col items-center gap-3 p-6">

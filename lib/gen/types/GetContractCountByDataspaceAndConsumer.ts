@@ -19,6 +19,11 @@ export type GetContractCountByDataspaceAndConsumerQueryParams = {
    * @type string | undefined
    */
   consumer?: string
+  /**
+   * @description 过期状态过滤（可选）：true=只返回过期的合约，false=只返回未过期的合约，不传=返回所有合约
+   * @type boolean | undefined
+   */
+  expired?: boolean
 }
 
 /**
