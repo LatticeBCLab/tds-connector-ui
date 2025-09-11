@@ -20,8 +20,10 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Progress } from "@/components/ui/progress";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Spinner } from "@/components/ui/spinner";
+import { useCreateResource } from "@/lib/gen/hooks/useCreateResource";
 import { useGetContractListByDataspaceAndConsumer } from "@/lib/gen/hooks/useGetContractListByDataspaceAndConsumer";
 import { useAppStore } from "@/lib/stores/app-store";
 import { cn } from "@/lib/utils";
@@ -51,6 +53,9 @@ const getContractDisplayStatus = (expiresAt: string) => {
 export function ContractCard() {
   const { userDID, currentDataSpaceId } = useAppStore();
 
+  // Initialize mutation hooks
+  const createResourceMutation = useCreateResource();
+
   // State for pagination
   const [page, setPage] = useState(1);
   const [pageSize] = useState(10);
@@ -58,6 +63,9 @@ export function ContractCard() {
   const [downloadingFiles, setDownloadingFiles] = useState<Set<string>>(
     new Set()
   );
+  const [downloadProgress, setDownloadProgress] = useState<{
+    [key: string]: number;
+  }>({});
 
   const {
     data: contractData,
@@ -112,18 +120,84 @@ export function ContractCard() {
 
   // Handle file download
   const handleDownloadFile = async (contractId: string) => {
+    // Find the contract to get the resourceId
+    const contract = allContracts.find((c) => c.id === contractId);
+    if (!contract || !contract.resourceId) {
+      toast.error("Contract or resource not found");
+      return;
+    }
+
     setDownloadingFiles((prev) => new Set(prev).add(contractId));
+    setDownloadProgress((prev) => ({ ...prev, [contractId]: 0 }));
+
     try {
-      // Simulate download process
-      await new Promise((resolve) => setTimeout(resolve, 2000));
-      toast.success("File downloaded successfully");
+      // Step 1: Preparing download
+      await new Promise((resolve) => setTimeout(resolve, 800));
+      setDownloadProgress((prev) => ({ ...prev, [contractId]: 15 }));
+
+      // Step 2: Get original resource details using the hook (manual call)
+      await new Promise((resolve) => setTimeout(resolve, 1200));
+      setDownloadProgress((prev) => ({ ...prev, [contractId]: 30 }));
+
+      // We'll use a client-side import to call the function directly
+      const { getResourceByID } = await import(
+        "@/lib/gen/clients/getResourceByID"
+      );
+      const resourceData = await getResourceByID(contract.resourceId);
+
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      setDownloadProgress((prev) => ({ ...prev, [contractId]: 50 }));
+
+      console.log(resourceData);
+
+      // Step 3: Processing data
+      await new Promise((resolve) => setTimeout(resolve, 1500));
+      setDownloadProgress((prev) => ({ ...prev, [contractId]: 65 }));
+
+      // Step 4: Create new resource with downloaded data
+      const newResourceData = {
+        config: resourceData.config,
+        dataspace: process.env.NEXT_PUBLIC_INBOUND_RESOURCE_DATASPACE_ID,
+        description: resourceData.description,
+        location: process.env.NEXT_PUBLIC_LOCATION,
+        originCountry: resourceData.originCountry,
+        //originResource: [contract.resourceId],
+        publisher: process.env.NEXT_PUBLIC_USER_DID || "",
+        status: "Active" as any,
+        title: resourceData.title || "",
+        type: resourceData.type || ("S3" as any),
+      };
+
+      await new Promise((resolve) => setTimeout(resolve, 1200));
+      setDownloadProgress((prev) => ({ ...prev, [contractId]: 80 }));
+
+      await createResourceMutation.mutateAsync({
+        data: newResourceData as any,
+      });
+
+      await new Promise((resolve) => setTimeout(resolve, 800));
+      setDownloadProgress((prev) => ({ ...prev, [contractId]: 95 }));
+
+      // Step 5: Finalizing download
+      await new Promise((resolve) => setTimeout(resolve, 600));
+      setDownloadProgress((prev) => ({ ...prev, [contractId]: 100 }));
+
+      await new Promise((resolve) => setTimeout(resolve, 500));
+
+      toast.success("Data downloaded successfully");
     } catch (error) {
-      toast.error("Failed to download file");
+      console.error("Download error:", error);
+      toast.error("Failed to download data");
     } finally {
       setDownloadingFiles((prev) => {
         const newSet = new Set(prev);
         newSet.delete(contractId);
         return newSet;
+      });
+      setDownloadProgress((prev) => {
+        const newProgress = { ...prev };
+        delete newProgress[contractId];
+        return newProgress;
       });
     }
   };
@@ -171,24 +245,6 @@ export function ContractCard() {
     );
   }
 
-  if (allContracts.length === 0) {
-    return (
-      <Card>
-        <CardHeader>
-          <CardTitle>Data Contract</CardTitle>
-          <CardDescription>Manage your active data contracts</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <EmptyState
-            icon={FileText}
-            title="No data contracts found"
-            description="You don't have any active data contracts"
-          />
-        </CardContent>
-      </Card>
-    );
-  }
-
   return (
     <Card>
       <CardHeader>
@@ -196,54 +252,59 @@ export function ContractCard() {
         <CardDescription>Manage your active data contracts</CardDescription>
       </CardHeader>
       <CardContent className="p-0">
-        <ScrollArea className="h-[480px] px-6 pb-6">
-          <div className="space-y-3">
-            {allContracts.map((contract) => {
-              const displayStatus = getContractDisplayStatus(
-                contract.expiresAt
-              );
-              const isExpired = displayStatus === "Expired";
-              const canTerminate = !isExpired;
+        {allContracts.length === 0 ? (
+          <EmptyState
+            icon={FileText}
+            title="No data contracts found"
+            description="You don't have any active data contracts"
+          />
+        ) : (
+          <ScrollArea className="h-[480px] px-6 pb-6">
+            <div className="space-y-3">
+              {allContracts.map((contract) => {
+                const displayStatus = getContractDisplayStatus(
+                  contract.expiresAt
+                );
+                const isExpired = displayStatus === "Expired";
+                const canTerminate = !isExpired;
 
-              return (
-                <div key={contract.id} className="rounded-lg border p-4">
-                  <div className="mb-3 flex items-center justify-between">
-                    <div className="flex-1">
-                      <div className="mb-2 flex items-center space-x-2">
-                        <FileText className="text-muted-foreground h-4 w-4" />
-                        <h4 className="text-sm font-medium">{contract.name}</h4>
-                        {/* Status Badge */}
-                        <div
-                          className={cn(
-                            "flex items-center space-x-1 rounded-md px-2 py-1 text-xs",
-                            isExpired
-                              ? "bg-red-100 text-red-800"
-                              : "bg-green-100 text-green-800"
-                          )}
-                        >
-                          {isExpired ? (
-                            <Clock className="h-3 w-3" />
-                          ) : (
-                            <CheckCircle className="h-3 w-3" />
-                          )}
-                          <span>{displayStatus}</span>
+                return (
+                  <div key={contract.id} className="rounded-lg border p-4">
+                    <div className="mb-3 flex items-center justify-between">
+                      <div className="flex-1">
+                        <div className="mb-2 flex items-center space-x-2">
+                          <FileText className="text-muted-foreground h-4 w-4" />
+                          <h4 className="text-sm font-medium">
+                            {contract.name}
+                          </h4>
+                          {/* Status Badge */}
+                          <div
+                            className={cn(
+                              "flex items-center space-x-1 rounded-md px-2 py-1 text-xs",
+                              isExpired
+                                ? "bg-red-100 text-red-800"
+                                : "bg-green-100 text-green-800"
+                            )}
+                          >
+                            {isExpired ? (
+                              <Clock className="h-3 w-3" />
+                            ) : (
+                              <CheckCircle className="h-3 w-3" />
+                            )}
+                            <span>{displayStatus}</span>
+                          </div>
+                        </div>
+                        <div className="text-muted-foreground mb-1 flex items-center space-x-1 text-xs">
+                          <Globe className="h-3 w-3" />
+                          <span className="truncate">
+                            Address: {contract.address}
+                          </span>
                         </div>
                       </div>
-                      <div className="text-muted-foreground mb-1 flex items-center space-x-1 text-xs">
-                        <Globe className="h-3 w-3" />
-                        <span className="truncate">
-                          Address: {contract.address}
-                        </span>
-                      </div>
-                    </div>
-                    <div className="flex items-center space-x-1">
-                      <Button variant="ghost" size="sm" title="View Details">
-                        <Eye className="h-4 w-4" />
-                      </Button>
-                      {/* Download functionality based on policy type */}
-                      {contract.policy?.some(
-                        (p: any) => p.type === "download"
-                      ) && (
+                      <div className="flex items-center space-x-1">
+                        <Button variant="ghost" size="sm" title="View Details">
+                          <Eye className="h-4 w-4" />
+                        </Button>
                         <Button
                           variant="ghost"
                           size="sm"
@@ -257,202 +318,229 @@ export function ContractCard() {
                             <Download className="h-4 w-4" />
                           )}
                         </Button>
-                      )}
-                      {contract.policy?.some((p: any) => p.type === "api") && (
-                        <Button variant="ghost" size="sm" title="API Access">
-                          <Activity className="h-4 w-4" />
-                        </Button>
-                      )}
-                      {canTerminate && (
-                        <AlertDialog>
-                          <AlertDialogTrigger asChild>
-                            <Button
-                              variant="ghost"
-                              size="sm"
-                              title={
-                                isExpired
-                                  ? "Terminate Contract (Expired)"
-                                  : "Terminate Contract"
-                              }
-                              className={isExpired ? "text-red-600" : ""}
-                            >
-                              <Ban className="h-4 w-4" />
-                            </Button>
-                          </AlertDialogTrigger>
-                          <AlertDialogContent>
-                            <AlertDialogHeader>
-                              <AlertDialogTitle>
-                                Confirm Contract Termination
-                              </AlertDialogTitle>
-                              <AlertDialogDescription>
-                                {isExpired ? (
-                                  <>
-                                    This contract has expired:
-                                    <div>
-                                      • Contract expired on:{" "}
-                                      {new Date(
-                                        contract.expiresAt
-                                      ).toLocaleDateString()}
-                                    </div>
-                                    <br />
-                                    Are you sure you want to terminate this
-                                    contract? This action cannot be undone.
-                                  </>
-                                ) : (
-                                  "Are you sure you want to terminate this contract? This will stop all data access and cannot be undone."
-                                )}
-                              </AlertDialogDescription>
-                            </AlertDialogHeader>
-                            <AlertDialogFooter>
-                              <AlertDialogCancel>Cancel</AlertDialogCancel>
-                              <AlertDialogAction
-                                className={
-                                  isExpired ? "bg-red-600 hover:bg-red-700" : ""
+                        {contract.policy?.some(
+                          (p: any) => p.type === "api"
+                        ) && (
+                          <Button variant="ghost" size="sm" title="API Access">
+                            <Activity className="h-4 w-4" />
+                          </Button>
+                        )}
+                        {canTerminate && (
+                          <AlertDialog>
+                            <AlertDialogTrigger asChild>
+                              <Button
+                                variant="ghost"
+                                size="sm"
+                                title={
+                                  isExpired
+                                    ? "Terminate Contract (Expired)"
+                                    : "Terminate Contract"
                                 }
-                                onClick={() => {
-                                  // TODO: Implement termination logic
-                                  console.log(
-                                    "Terminating contract:",
-                                    contract.id
-                                  );
-                                  toast.success(
-                                    "Contract terminated successfully"
-                                  );
-                                }}
+                                className={isExpired ? "text-red-600" : ""}
                               >
-                                {isExpired
-                                  ? "Force Terminate"
-                                  : "Confirm Terminate"}
-                              </AlertDialogAction>
-                            </AlertDialogFooter>
-                          </AlertDialogContent>
-                        </AlertDialog>
-                      )}
-                    </div>
-                  </div>
-
-                  {/* Contract Details */}
-                  <div className="space-y-2">
-                    <div className="grid grid-cols-1 gap-2 text-xs">
-                      <div className="flex justify-between">
-                        <span className="text-muted-foreground">Provider:</span>
-                        <span className="ml-2 truncate font-mono">
-                          {contract.provider}
-                        </span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="text-muted-foreground">Consumer:</span>
-                        <span className="ml-2 truncate font-mono">
-                          {contract.consumer}
-                        </span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="text-muted-foreground">
-                          Resource ID:
-                        </span>
-                        <span className="ml-2 truncate font-mono">
-                          {contract.resourceId}
-                        </span>
-                      </div>
-                      <div>
-                        <div className="text-muted-foreground mb-2 text-sm">
-                          Policies:
-                        </div>
-                        <div className="space-y-1">
-                          {contract.policy.length === 0 ? (
-                            <div className="text-muted-foreground text-sm">
-                              No Policy
-                            </div>
-                          ) : (
-                            contract.policy.map(
-                              (policy: any, index: number) => (
-                                <div
-                                  key={policy.id || index}
-                                  className="bg-muted/50 flex items-center gap-2 rounded py-1"
+                                <Ban className="h-4 w-4" />
+                              </Button>
+                            </AlertDialogTrigger>
+                            <AlertDialogContent>
+                              <AlertDialogHeader>
+                                <AlertDialogTitle>
+                                  Confirm Contract Termination
+                                </AlertDialogTitle>
+                                <AlertDialogDescription>
+                                  {isExpired ? (
+                                    <>
+                                      This contract has expired:
+                                      <div>
+                                        • Contract expired on:{" "}
+                                        {new Date(
+                                          contract.expiresAt
+                                        ).toLocaleDateString()}
+                                      </div>
+                                      <br />
+                                      Are you sure you want to terminate this
+                                      contract? This action cannot be undone.
+                                    </>
+                                  ) : (
+                                    "Are you sure you want to terminate this contract? This will stop all data access and cannot be undone."
+                                  )}
+                                </AlertDialogDescription>
+                              </AlertDialogHeader>
+                              <AlertDialogFooter>
+                                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                <AlertDialogAction
+                                  className={
+                                    isExpired
+                                      ? "bg-red-600 hover:bg-red-700"
+                                      : ""
+                                  }
+                                  onClick={() => {
+                                    // TODO: Implement termination logic
+                                    console.log(
+                                      "Terminating contract:",
+                                      contract.id
+                                    );
+                                    toast.success(
+                                      "Contract terminated successfully"
+                                    );
+                                  }}
                                 >
-                                  <Shield className="text-primary h-4 w-4" />
-                                  <span className="text-sm font-medium">
-                                    {policy.name}
-                                  </span>
-                                </div>
-                              )
-                            )
-                          )}
-                        </div>
+                                  {isExpired
+                                    ? "Force Terminate"
+                                    : "Confirm Terminate"}
+                                </AlertDialogAction>
+                              </AlertDialogFooter>
+                            </AlertDialogContent>
+                          </AlertDialog>
+                        )}
                       </div>
                     </div>
-                  </div>
 
-                  {/* Contract Information */}
-                  <div className="mt-3 border-t pt-3">
-                    <div className="grid grid-cols-2 gap-4 text-xs lg:grid-cols-4">
-                      <div className="text-center">
-                        <div className="text-muted-foreground">
-                          Max Access Count
+                    {/* Download Progress */}
+                    {downloadingFiles.has(contract.id) &&
+                      downloadProgress[contract.id] !== undefined && (
+                        <div className="my-3 space-y-2">
+                          <div className="flex items-center justify-between text-sm">
+                            <span className="text-muted-foreground">
+                              Downloading data...
+                            </span>
+                            <span className="text-muted-foreground">
+                              {downloadProgress[contract.id]}%
+                            </span>
+                          </div>
+                          <Progress
+                            value={downloadProgress[contract.id]}
+                            className="h-2"
+                          />
                         </div>
-                        <div className="text-sm font-medium">
-                          {contract.maxAccessCount || "Unlimited"}
-                        </div>
-                      </div>
-                      <div className="text-center">
-                        <div className="text-muted-foreground">Created</div>
-                        <div className="text-sm font-medium">
-                          {new Date(contract.createdAt).toLocaleDateString()}
-                        </div>
-                      </div>
-                      <div className="text-center">
-                        <div className="text-muted-foreground">Expires</div>
-                        <div className="text-sm font-medium">
-                          {new Date(contract.expiresAt).toLocaleDateString()}
-                        </div>
-                      </div>
-                      <div className="text-center">
-                        <div className="text-muted-foreground">Updated</div>
-                        <div className="text-sm font-medium">
-                          {new Date(contract.updatedAt).toLocaleDateString()}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                      )}
 
-                  {/* Warning Information */}
-                  {isExpired && (
-                    <div className="mt-3 rounded-md border border-red-200 bg-red-50 p-2">
-                      <div className="flex items-center space-x-2 text-xs text-red-800">
-                        <AlertTriangle className="h-4 w-4" />
+                    {/* Contract Details */}
+                    <div className="space-y-2">
+                      <div className="grid grid-cols-1 gap-2 text-xs">
+                        <div className="flex justify-between">
+                          <span className="text-muted-foreground">
+                            Provider:
+                          </span>
+                          <span className="ml-2 truncate font-mono">
+                            {contract.provider}
+                          </span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-muted-foreground">
+                            Consumer:
+                          </span>
+                          <span className="ml-2 truncate font-mono">
+                            {contract.consumer}
+                          </span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-muted-foreground">
+                            Resource ID:
+                          </span>
+                          <span className="ml-2 truncate font-mono">
+                            {contract.resourceId}
+                          </span>
+                        </div>
                         <div>
-                          Contract has expired on{" "}
-                          {new Date(contract.expiresAt).toLocaleDateString()}
+                          <div className="text-muted-foreground mb-2 text-sm">
+                            Policies:
+                          </div>
+                          <div className="space-y-1">
+                            {contract.policy.length === 0 ? (
+                              <div className="text-muted-foreground text-sm">
+                                No Policy
+                              </div>
+                            ) : (
+                              contract.policy.map(
+                                (policy: any, index: number) => (
+                                  <div
+                                    key={policy.id || index}
+                                    className="bg-muted/50 flex items-center gap-2 rounded py-1"
+                                  >
+                                    <Shield className="text-primary h-4 w-4" />
+                                    <span className="text-sm font-medium">
+                                      {policy.name}
+                                    </span>
+                                  </div>
+                                )
+                              )
+                            )}
+                          </div>
                         </div>
                       </div>
                     </div>
-                  )}
-                </div>
-              );
-            })}
 
-            {/* Load More Button */}
-            {hasMoreData && (
-              <div className="flex justify-center pt-4">
-                <Button
-                  onClick={handleLoadMore}
-                  variant="outline"
-                  disabled={isLoadingContracts}
-                  className="w-full"
-                >
-                  {isLoadingContracts ? (
-                    <>
-                      <Spinner variant="bars" className="mr-2 h-4 w-4" />
-                      Loading...
-                    </>
-                  ) : (
-                    "Load More"
-                  )}
-                </Button>
-              </div>
-            )}
-          </div>
-        </ScrollArea>
+                    {/* Contract Information */}
+                    <div className="mt-3 border-t pt-3">
+                      <div className="grid grid-cols-2 gap-4 text-xs lg:grid-cols-4">
+                        <div className="text-center">
+                          <div className="text-muted-foreground">
+                            Max Access Count
+                          </div>
+                          <div className="text-sm font-medium">
+                            {contract.maxAccessCount || "Unlimited"}
+                          </div>
+                        </div>
+                        <div className="text-center">
+                          <div className="text-muted-foreground">Created</div>
+                          <div className="text-sm font-medium">
+                            {new Date(contract.createdAt).toLocaleDateString()}
+                          </div>
+                        </div>
+                        <div className="text-center">
+                          <div className="text-muted-foreground">Expires</div>
+                          <div className="text-sm font-medium">
+                            {new Date(contract.expiresAt).toLocaleDateString()}
+                          </div>
+                        </div>
+                        <div className="text-center">
+                          <div className="text-muted-foreground">Updated</div>
+                          <div className="text-sm font-medium">
+                            {new Date(contract.updatedAt).toLocaleDateString()}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Warning Information */}
+                    {isExpired && (
+                      <div className="mt-3 rounded-md border border-red-200 bg-red-50 p-2">
+                        <div className="flex items-center space-x-2 text-xs text-red-800">
+                          <AlertTriangle className="h-4 w-4" />
+                          <div>
+                            Contract has expired on{" "}
+                            {new Date(contract.expiresAt).toLocaleDateString()}
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+
+              {/* Load More Button */}
+              {hasMoreData && (
+                <div className="flex justify-center pt-4">
+                  <Button
+                    onClick={handleLoadMore}
+                    variant="outline"
+                    disabled={isLoadingContracts}
+                    className="w-full"
+                  >
+                    {isLoadingContracts ? (
+                      <>
+                        <Spinner variant="bars" className="mr-2 h-4 w-4" />
+                        Loading...
+                      </>
+                    ) : (
+                      "Load More"
+                    )}
+                  </Button>
+                </div>
+              )}
+            </div>
+          </ScrollArea>
+        )}
       </CardContent>
     </Card>
   );

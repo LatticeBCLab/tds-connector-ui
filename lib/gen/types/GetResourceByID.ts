@@ -3,7 +3,7 @@
  * Do not edit manually.
  */
 
-import type { ModelsResource } from './models/Resource.ts'
+import type { ModelsResourceResponse } from './models/ResourceResponse.ts'
 import type { ResponseResponse } from './response/Response.ts'
 
 export type GetResourceByIDPathParams = {
@@ -17,7 +17,7 @@ export type GetResourceByIDPathParams = {
 /**
  * @description OK
  */
-export type GetResourceByID200 = ModelsResource
+export type GetResourceByID200 = ModelsResourceResponse
 
 /**
  * @description Bad Request
