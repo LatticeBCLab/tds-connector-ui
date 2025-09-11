@@ -2,9 +2,8 @@
 
 import { MetricCard } from "@/components/shared";
 import { useContracts } from "@/hooks";
-import { useDataSpace } from "@/lib/contexts/DataSpaceContext";
 import { useListPolicies } from "@/lib/gen/hooks/useListPolicies";
-import { CheckCircle, FileText, Globe, Shield } from "lucide-react";
+import { CheckCircle, FileText, Shield } from "lucide-react";
 import { useState } from "react";
 import { ContractTemplatesCard } from "./ContractTemplatesCard";
 import { CreateContractTemplateDialog } from "./CreateContractTemplateDialog";
@@ -20,8 +19,6 @@ export function PolicyContractsTab() {
     setIsCreateContractTemplateOpen,
     createContractTemplate,
   } = useContracts();
-
-  const { currentDataSpace } = useDataSpace();
 
   // 获取策略数据
   const { data: policiesResponse } = useListPolicies({
@@ -39,7 +36,7 @@ export function PolicyContractsTab() {
   return (
     <div className="space-y-6">
       {/* Overview Cards */}
-      <div className="grid gap-4 md:grid-cols-4">
+      <div className="grid gap-4 md:grid-cols-3">
         <MetricCard
           title="Active Policy Templates"
           value={totalPolicies}
@@ -59,12 +56,6 @@ export function PolicyContractsTab() {
           value={activeContracts.length}
           description="Currently enforced"
           icon={CheckCircle}
-        />
-        <MetricCard
-          title="Data Space"
-          value={currentDataSpace?.name || "Unknown"}
-          description="Current environment"
-          icon={Globe}
         />
       </div>
 

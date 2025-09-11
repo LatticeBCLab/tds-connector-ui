@@ -25,6 +25,7 @@ import {
 } from "@/components/ui/select";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Textarea } from "@/components/ui/textarea";
+import { useDataSpace } from "@/lib/contexts/DataSpaceContext";
 import { useCreateContractTemplate, useListPolicies } from "@/lib/gen";
 import { AlertTriangle, Shield } from "lucide-react";
 import { useState } from "react";
@@ -63,7 +64,12 @@ export function CreateContractTemplateDialog({
   onSuccess,
 }: CreateContractTemplateDialogProps) {
   // Hooks
-  const { data: policiesData, isLoading: loadingPolicies } = useListPolicies();
+  const { currentDataSpace } = useDataSpace();
+
+  const { data: policiesData, isLoading: loadingPolicies } = useListPolicies({
+    page: 1,
+    page_size: 50, // 获取足够多的策略
+  });
   const createContractTemplateMutation = useCreateContractTemplate({
     mutation: {
       onSuccess: () => {
@@ -133,6 +139,7 @@ export function CreateContractTemplateDialog({
 
     // Create contract template data
     const contractTemplateData = {
+      data_space_id: currentDataSpace?.id,
       name: formData.name,
       description: formData.description,
       policies: policiesMap,
