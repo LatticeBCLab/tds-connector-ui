@@ -16,7 +16,6 @@ export default function LanguageSwitcher() {
   const locale = useLocale();
   const pathname = usePathname();
   const [isPending, startTransition] = useTransition();
-
   const handleLanguageChange = (newLocale: string) => {
     console.log("Current pathname:", pathname);
     console.log("Current locale:", locale);
@@ -28,8 +27,8 @@ export default function LanguageSwitcher() {
   };
 
   const languages = [
-    { code: "zh", name: "中文", flag: "🇨🇳" },
-    { code: "en", name: "English", flag: "🇺🇸" },
+    { code: "zh-CN", name: "中文", flag: "🇨🇳" },
+    { code: "en-US", name: "English", flag: "🇺🇸" },
   ];
 
   const currentLanguage = languages.find((lang) => lang.code === locale);

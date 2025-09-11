@@ -16,14 +16,14 @@ import type { UseMutationOptions, QueryClient } from '@tanstack/react-query'
 import { createResourceAudit } from '../clients/createResourceAudit.ts'
 import { useMutation } from '@tanstack/react-query'
 
-export const createResourceAuditMutationKey = () => [{ url: '/api/v1/resource-audits' }] as const
+export const createResourceAuditMutationKey = () => [{ url: '/api/v1/resource-audits/create' }] as const
 
 export type CreateResourceAuditMutationKey = ReturnType<typeof createResourceAuditMutationKey>
 
 /**
  * @description 为指定资源创建新的审核记录，可选择指定审核人员
  * @summary 创建资源审核
- * {@link /api/v1/resource-audits}
+ * {@link /api/v1/resource-audits/create}
  */
 export function useCreateResourceAudit<TContext>(
   options: {

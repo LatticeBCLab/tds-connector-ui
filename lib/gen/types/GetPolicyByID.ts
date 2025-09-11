@@ -14,6 +14,14 @@ export type GetPolicyByIDPathParams = {
   id: string
 }
 
+export type GetPolicyByIDQueryParams = {
+  /**
+   * @description 语言
+   * @type string | undefined
+   */
+  lang?: string
+}
+
 /**
  * @description OK
  */
@@ -39,5 +47,6 @@ export type GetPolicyByIDQueryResponse = GetPolicyByID200
 export type GetPolicyByIDQuery = {
   Response: GetPolicyByID200
   PathParams: GetPolicyByIDPathParams
+  QueryParams: GetPolicyByIDQueryParams
   Errors: GetPolicyByID400 | GetPolicyByID404 | GetPolicyByID500
 }

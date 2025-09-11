@@ -19,6 +19,10 @@ export type ModelsContractTemplate = {
   /**
    * @type string | undefined
    */
+  dataspace_id?: string
+  /**
+   * @type string | undefined
+   */
   deleted_at?: string
   /**
    * @type string | undefined

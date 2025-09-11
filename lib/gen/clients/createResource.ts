@@ -8,14 +8,14 @@ import type { CreateResourceMutationRequest, CreateResourceMutationResponse, Cre
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 function getCreateResourceUrl() {
-  const res = { method: 'POST', url: `/tdsc/api/v1/resources` as const }
+  const res = { method: 'POST', url: `/tdsc/api/v1/resources/create` as const }
   return res
 }
 
 /**
  * @description 创建新的数据资源
  * @summary 创建资源
- * {@link /api/v1/resources}
+ * {@link /api/v1/resources/create}
  */
 export async function createResource(
   data: CreateResourceMutationRequest,

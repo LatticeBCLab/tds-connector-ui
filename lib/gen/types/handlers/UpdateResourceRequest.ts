@@ -20,7 +20,7 @@ export type HandlersUpdateResourceRequest = {
    */
   description?: string
   location?: ModelsCountry
-  origin_country?: ModelsCountry
+  originCountry?: ModelsCountry
   status?: ModelsResourceStatus
   /**
    * @type string | undefined

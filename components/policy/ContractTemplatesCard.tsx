@@ -1,6 +1,5 @@
 "use client";
 
-import { EmptyState } from "@/components/shared/EmptyState";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -12,12 +11,14 @@ import {
 } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useDataSpace } from "@/lib/contexts/DataSpaceContext";
 import {
   useListContractTemplates,
   type ModelsContractTemplate,
 } from "@/lib/gen";
 import { Edit, Eye, FileText, Plus, Trash2 } from "lucide-react";
 import { useEffect, useState } from "react";
+import { EmptyState } from "../shared/EmptyState";
 import { Spinner } from "../ui/spinner";
 
 interface ContractTemplatesCardProps {
@@ -31,6 +32,7 @@ export function ContractTemplatesCard({
   onCreateClick,
   refreshTrigger,
 }: ContractTemplatesCardProps) {
+  const { currentDataSpace } = useDataSpace();
   const [page, setPage] = useState(1);
   const [pageSize] = useState(10);
   const [allTemplates, setAllTemplates] = useState<ModelsContractTemplate[]>(
@@ -45,6 +47,7 @@ export function ContractTemplatesCard({
   } = useListContractTemplates({
     page,
     page_size: pageSize,
+    dataspace_id: currentDataSpace?.id,
   });
 
   // Accumulate templates list when data loads successfully
@@ -132,15 +135,15 @@ export function ContractTemplatesCard({
     );
   }
 
-  if (!allTemplates || allTemplates.length === 0) {
-    return (
-      <EmptyState
-        icon={FileText}
-        title="No contract templates found"
-        description="Create a new contract template to get started"
-      />
-    );
-  }
+  // if (!allTemplates || allTemplates.length === 0) {
+  //   return (
+  //     <EmptyState
+  //       icon={FileText}
+  //       title="No contract templates found"
+  //       description="Create a new contract template to get started"
+  //     />
+  //   );
+  // }
 
   return (
     <Card>
@@ -165,76 +168,84 @@ export function ContractTemplatesCard({
       </CardHeader>
       <CardContent className="p-0">
         <ScrollArea className="h-[480px] px-6 pb-6">
-          <div className="space-y-4">
-            {allTemplates.map((template) => (
-              <Card key={template.id}>
-                <CardHeader className="pb-0">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <h4 className="font-semibold">{template.name}</h4>
-                      <Badge
-                        variant={
-                          template.status === "active"
-                            ? "default"
+          {allTemplates && allTemplates.length > 0 ? (
+            <div className="space-y-4">
+              {allTemplates.map((template) => (
+                <Card key={template.id}>
+                  <CardHeader className="pb-0">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <h4 className="font-semibold">{template.name}</h4>
+                        <Badge
+                          variant={
+                            template.status === "active"
+                              ? "default"
+                              : template.status === "banned"
+                                ? "destructive"
+                                : "outline"
+                          }
+                        >
+                          {template.status === "active"
+                            ? "Active"
                             : template.status === "banned"
-                              ? "destructive"
-                              : "outline"
-                        }
-                      >
-                        {template.status === "active"
-                          ? "Active"
-                          : template.status === "banned"
-                            ? "Disabled"
-                            : template.status}
-                      </Badge>
-                    </div>
-                    <div className="flex items-center space-x-1">
-                      <Button variant="ghost" size="sm" title="View">
-                        <Eye className="h-4 w-4" />
-                      </Button>
-                      <Button variant="ghost" size="sm" title="Edit">
-                        <Edit className="h-4 w-4" />
-                      </Button>
-                      <Button variant="ghost" size="sm" title="Delete">
-                        <Trash2 className="h-4 w-4" />
-                      </Button>
-                    </div>
-                  </div>
-                </CardHeader>
-                <CardContent className="pt-0">
-                  <div className="space-y-3">
-                    <p className="text-muted-foreground text-sm">
-                      {template.description || "No description"}
-                    </p>
-
-                    <div className="flex items-center justify-end border-t pt-3">
-                      <div className="text-muted-foreground flex items-center gap-4 text-xs">
-                        <span>
-                          Created:{" "}
-                          {template.created_at
-                            ? new Date(template.created_at).toLocaleDateString(
-                                "en-US"
-                              )
-                            : "Unknown"}
-                        </span>
-                        {template.updated_at && (
-                          <>
-                            <span>•</span>
-                            <span>
-                              Updated:{" "}
-                              {new Date(template.updated_at).toLocaleDateString(
-                                "en-US"
-                              )}
-                            </span>
-                          </>
-                        )}
+                              ? "Disabled"
+                              : template.status}
+                        </Badge>
+                      </div>
+                      <div className="flex items-center space-x-1">
+                        <Button variant="ghost" size="sm" title="View">
+                          <Eye className="h-4 w-4" />
+                        </Button>
+                        <Button variant="ghost" size="sm" title="Edit">
+                          <Edit className="h-4 w-4" />
+                        </Button>
+                        <Button variant="ghost" size="sm" title="Delete">
+                          <Trash2 className="h-4 w-4" />
+                        </Button>
                       </div>
                     </div>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+                  </CardHeader>
+                  <CardContent className="pt-0">
+                    <div className="space-y-3">
+                      <p className="text-muted-foreground text-sm">
+                        {template.description || "No description"}
+                      </p>
+
+                      <div className="flex items-center justify-end border-t pt-3">
+                        <div className="text-muted-foreground flex items-center gap-4 text-xs">
+                          <span>
+                            Created:{" "}
+                            {template.created_at
+                              ? new Date(
+                                  template.created_at
+                                ).toLocaleDateString("en-US")
+                              : "Unknown"}
+                          </span>
+                          {template.updated_at && (
+                            <>
+                              <span>•</span>
+                              <span>
+                                Updated:{" "}
+                                {new Date(
+                                  template.updated_at
+                                ).toLocaleDateString("en-US")}
+                              </span>
+                            </>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          ) : (
+            <EmptyState
+              icon={FileText}
+              title="No contract templates found"
+              description="Create a new contract template to get started"
+            />
+          )}
         </ScrollArea>
         {hasMoreData && !error && (
           <div className="border-t px-6 py-4 text-center">

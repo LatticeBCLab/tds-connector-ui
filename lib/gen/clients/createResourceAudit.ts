@@ -14,14 +14,14 @@ import type {
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 function getCreateResourceAuditUrl() {
-  const res = { method: 'POST', url: `/tdsc/api/v1/resource-audits` as const }
+  const res = { method: 'POST', url: `/tdsc/api/v1/resource-audits/create` as const }
   return res
 }
 
 /**
  * @description 为指定资源创建新的审核记录，可选择指定审核人员
  * @summary 创建资源审核
- * {@link /api/v1/resource-audits}
+ * {@link /api/v1/resource-audits/create}
  */
 export async function createResourceAudit(
   data: CreateResourceAuditMutationRequest,

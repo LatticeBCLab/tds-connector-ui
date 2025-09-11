@@ -7,6 +7,10 @@ import type { ModelsTemplateStatus } from '../models/TemplateStatus.ts'
 
 export type HandlersCreateContractTemplateRequest = {
   /**
+   * @type string
+   */
+  data_space_id: string
+  /**
    * @type string | undefined
    */
   description?: string

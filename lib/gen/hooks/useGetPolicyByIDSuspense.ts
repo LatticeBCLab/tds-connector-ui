@@ -4,18 +4,30 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { GetPolicyByIDQueryResponse, GetPolicyByIDPathParams, GetPolicyByID400, GetPolicyByID404, GetPolicyByID500 } from '../types/GetPolicyByID.ts'
+import type {
+  GetPolicyByIDQueryResponse,
+  GetPolicyByIDPathParams,
+  GetPolicyByIDQueryParams,
+  GetPolicyByID400,
+  GetPolicyByID404,
+  GetPolicyByID500,
+} from '../types/GetPolicyByID.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
 import { getPolicyByID } from '../clients/getPolicyByID.ts'
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
 
-export const getPolicyByIDSuspenseQueryKey = (id: GetPolicyByIDPathParams['id']) => [{ url: '/api/v1/policy/:id', params: { id: id } }] as const
+export const getPolicyByIDSuspenseQueryKey = (id: GetPolicyByIDPathParams['id'], params?: GetPolicyByIDQueryParams) =>
+  [{ url: '/api/v1/policy/:id', params: { id: id } }, ...(params ? [params] : [])] as const
 
 export type GetPolicyByIDSuspenseQueryKey = ReturnType<typeof getPolicyByIDSuspenseQueryKey>
 
-export function getPolicyByIDSuspenseQueryOptions(id: GetPolicyByIDPathParams['id'], config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
-  const queryKey = getPolicyByIDSuspenseQueryKey(id)
+export function getPolicyByIDSuspenseQueryOptions(
+  id: GetPolicyByIDPathParams['id'],
+  params?: GetPolicyByIDQueryParams,
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+) {
+  const queryKey = getPolicyByIDSuspenseQueryKey(id, params)
   return queryOptions<
     GetPolicyByIDQueryResponse,
     ResponseErrorConfig<GetPolicyByID400 | GetPolicyByID404 | GetPolicyByID500>,
@@ -26,7 +38,7 @@ export function getPolicyByIDSuspenseQueryOptions(id: GetPolicyByIDPathParams['i
     queryKey,
     queryFn: async ({ signal }) => {
       config.signal = signal
-      return getPolicyByID(id, config)
+      return getPolicyByID(id, params, config)
     },
   })
 }
@@ -38,6 +50,7 @@ export function getPolicyByIDSuspenseQueryOptions(id: GetPolicyByIDPathParams['i
  */
 export function useGetPolicyByIDSuspense<TData = GetPolicyByIDQueryResponse, TQueryKey extends QueryKey = GetPolicyByIDSuspenseQueryKey>(
   id: GetPolicyByIDPathParams['id'],
+  params?: GetPolicyByIDQueryParams,
   options: {
     query?: Partial<
       UseSuspenseQueryOptions<GetPolicyByIDQueryResponse, ResponseErrorConfig<GetPolicyByID400 | GetPolicyByID404 | GetPolicyByID500>, TData, TQueryKey>
@@ -47,11 +60,11 @@ export function useGetPolicyByIDSuspense<TData = GetPolicyByIDQueryResponse, TQu
 ) {
   const { query: queryConfig = {}, client: config = {} } = options ?? {}
   const { client: queryClient, ...queryOptions } = queryConfig
-  const queryKey = queryOptions?.queryKey ?? getPolicyByIDSuspenseQueryKey(id)
+  const queryKey = queryOptions?.queryKey ?? getPolicyByIDSuspenseQueryKey(id, params)
 
   const query = useSuspenseQuery(
     {
-      ...getPolicyByIDSuspenseQueryOptions(id, config),
+      ...getPolicyByIDSuspenseQueryOptions(id, params, config),
       queryKey,
       ...queryOptions,
     } as unknown as UseSuspenseQueryOptions,

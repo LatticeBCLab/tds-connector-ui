@@ -32,7 +32,6 @@ import {
   Link,
   MoreHorizontal,
   Pause,
-  Plus,
   Server,
   Shield,
   Trash2,
@@ -146,6 +145,13 @@ export function OfferingsCard({
     }
   };
 
+  // Handle refresh data after creating new offering
+  const handleRefreshData = () => {
+    setPage(1);
+    setAllDataOfferings([]);
+    refetchResources();
+  };
+
   // Check if there are more pages to load
   const hasMoreData =
     resourceData?.pagination?.total_page &&
@@ -166,7 +172,10 @@ export function OfferingsCard({
         <p className="text-muted-foreground text-sm">
           Loading data offerings...
         </p>
-      </div>
+      </div>,
+      isAddOfferingOpen,
+      setIsAddOfferingOpen,
+      handleRefreshData
     );
   }
 
@@ -182,7 +191,10 @@ export function OfferingsCard({
         >
           Retry
         </Button>
-      </div>
+      </div>,
+      isAddOfferingOpen,
+      setIsAddOfferingOpen,
+      handleRefreshData
     );
   }
 
@@ -192,7 +204,10 @@ export function OfferingsCard({
         icon={Database}
         title="No data offerings found"
         description="Create a new data offering to get started"
-      />
+      />,
+      isAddOfferingOpen,
+      setIsAddOfferingOpen,
+      handleRefreshData
     );
   }
 
@@ -212,6 +227,7 @@ export function OfferingsCard({
               onOpenChange={setIsAddOfferingOpen}
               onSuccess={() => {
                 toast.success("Data offering created successfully");
+                handleRefreshData();
               }}
             />
           </div>
@@ -396,7 +412,12 @@ export function OfferingsCard({
   );
 }
 
-function cardSkeleton(children: React.ReactNode) {
+function cardSkeleton(
+  children: React.ReactNode,
+  isAddOfferingOpen: boolean,
+  setIsAddOfferingOpen: (open: boolean) => void,
+  onRefreshData?: () => void
+) {
   return (
     <Card>
       <CardHeader>
@@ -407,12 +428,14 @@ function cardSkeleton(children: React.ReactNode) {
               Manage your published data resources
             </CardDescription>
           </div>
-          <div>
-            <Button size="sm">
-              <Plus className="h-4 w-4" />
-              Add Offering
-            </Button>
-          </div>
+          <CreateDataOfferingDialog
+            open={isAddOfferingOpen}
+            onOpenChange={setIsAddOfferingOpen}
+            onSuccess={() => {
+              toast.success("Data offering created successfully");
+              onRefreshData?.();
+            }}
+          />
         </div>
       </CardHeader>
       <CardContent>{children}</CardContent>

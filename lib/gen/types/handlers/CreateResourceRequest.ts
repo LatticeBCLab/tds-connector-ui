@@ -21,11 +21,11 @@ export type HandlersCreateResourceRequest = {
    */
   description: string
   location: ModelsCountry
-  origin_country: ModelsCountry
+  originCountry: ModelsCountry
   /**
    * @type array | undefined
    */
-  origin_resource?: string[]
+  originResource?: string[]
   /**
    * @type string
    */
