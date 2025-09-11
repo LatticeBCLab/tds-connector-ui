@@ -1,0 +1,26 @@
+variables:
+  PROJECT_NAME: "tds"
+  IMAGE_NAME: "connector-ui"
+
+stages:
+  - build
+
+.job_template: &job_configuration
+  image:
+    name: $CI_REGISTRY/library/kaniko-executor
+    entrypoint: [ "" ]
+  stage: build
+  script:
+    - echo $TAG
+    - echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
+    - /kaniko/executor
+      --context $CI_PROJECT_DIR
+      --dockerfile ./Dockerfile
+      --destination $TAG
+
+build-image:
+  only:
+    - main
+  before_script:
+    - export TAG=$CI_REGISTRY/${PROJECT_NAME}/$IMAGE_NAME:latest
+  <<: *job_configuration
