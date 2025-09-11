@@ -98,8 +98,8 @@ export function CreateDataOfferingDialog({
       }
 
       // Map form data to API request format
-      const location = process.env.NEXT_PUBLIC_LOCATION || "CHINA";
-      const originCountry = dataSpace.country?.toUpperCase() || "CHINA";
+      const location = process.env.NEXT_PUBLIC_LOCATION;
+      const originCountry = dataSpace.country;
 
       // Generate config JSON based on data type
       let config: any = {};

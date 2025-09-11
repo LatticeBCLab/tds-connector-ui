@@ -2,6 +2,7 @@
 
 import { CreateDataOfferingDialog } from "@/components/data-offering/CreateDataOfferingDialog";
 import { DataOfferingDetailsDialog } from "@/components/data-offering/DataOfferingDetailsDialog";
+import { OutboundAuditDialog } from "@/components/data-offering/OutboundAuditDialog";
 import { EmptyState } from "@/components/shared/EmptyState";
 import { Button } from "@/components/ui/button";
 import {
@@ -22,19 +23,18 @@ import { useGetResourceListByDataspaceAndPublisher } from "@/lib/gen/hooks/useGe
 import { useAppStore } from "@/lib/stores/app-store";
 import { cn } from "@/lib/utils";
 import {
+  ArrowDown,
+  ArrowUp,
   ArrowUpDown,
   CheckCircle,
   Cloud,
   Database,
-  Edit,
-  Eye,
   File,
   Link,
   MoreHorizontal,
   Pause,
   Server,
   Shield,
-  Trash2,
 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { ScrollArea } from "../ui/scroll-area";
@@ -91,6 +91,10 @@ export function OfferingsCard({
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
   const [selectedOffering, setSelectedOffering] = useState<any>(null);
 
+  // State for audit dialog
+  const [isAuditOpen, setIsAuditOpen] = useState(false);
+  const [selectedResourceId, setSelectedResourceId] = useState<string>("");
+
   // API call for data offerings
   const {
     data: resourceData,
@@ -128,12 +132,6 @@ export function OfferingsCard({
     }
   }, [resourceData, page]);
 
-  // Handle view details click
-  const handleViewDetails = (offering: any) => {
-    setSelectedOffering(offering);
-    setIsDetailsOpen(true);
-  };
-
   // Handle load more
   const handleLoadMore = () => {
     if (
@@ -149,6 +147,12 @@ export function OfferingsCard({
     setPage(1);
     setAllDataOfferings([]);
     refetchResources();
+  };
+
+  // Handle audit button click
+  const handleAuditClick = (resourceId: string) => {
+    setSelectedResourceId(resourceId);
+    setIsAuditOpen(true);
   };
 
   // Check if there are more pages to load
@@ -355,20 +359,25 @@ export function OfferingsCard({
                         </Button>
                       </DropdownMenuTrigger>
                       <DropdownMenuContent align="end">
-                        <DropdownMenuItem
-                          onClick={() => handleViewDetails(offering)}
-                        >
-                          <Eye className="mr-2 size-4" />
-                          View
-                        </DropdownMenuItem>
-                        <DropdownMenuItem>
-                          <Edit className="mr-2 size-4" />
-                          Edit
-                        </DropdownMenuItem>
-                        <DropdownMenuItem className="text-destructive">
-                          <Trash2 className="mr-2 size-4" />
-                          Delete
-                        </DropdownMenuItem>
+                        {/*isOutbound表示是否可以出境
+                        boundStatus表示出入境状态
+                         */}
+                        {offering.isOutbound &&
+                          offering.boundStatus === "UNAUDITED" && (
+                            <DropdownMenuItem
+                              onClick={() => handleAuditClick(offering.id)}
+                            >
+                              <ArrowUp className="size-4" />
+                              Outbound
+                            </DropdownMenuItem>
+                          )}
+                        {!offering.isOutbound &&
+                          offering.boundStatus === "UNAUDITED" && (
+                            <DropdownMenuItem>
+                              <ArrowDown className="size-4" />
+                              Inbound
+                            </DropdownMenuItem>
+                          )}
                       </DropdownMenuContent>
                     </DropdownMenu>
                   </div>
@@ -405,6 +414,14 @@ export function OfferingsCard({
         open={isDetailsOpen}
         onOpenChange={setIsDetailsOpen}
         selectedOffering={selectedOffering}
+      />
+
+      {/* Outbound Audit Dialog */}
+      <OutboundAuditDialog
+        open={isAuditOpen}
+        onOpenChange={setIsAuditOpen}
+        resourceId={selectedResourceId}
+        onSuccess={handleRefreshData}
       />
     </>
   );
