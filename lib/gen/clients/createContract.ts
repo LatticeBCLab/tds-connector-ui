@@ -8,14 +8,14 @@ import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/cli
 import type { CreateContractMutationRequest, CreateContractMutationResponse, CreateContract400, CreateContract500 } from '../types/CreateContract.ts'
 
 function getCreateContractUrl() {
-  const res = { method: 'POST', url: `/tdsc/api/v1/contracts` as const }
+  const res = { method: 'POST', url: `/tdsc/api/v1/contracts/create` as const }
   return res
 }
 
 /**
  * @description 创建新合约
  * @summary 创建合约
- * {@link /api/v1/contracts}
+ * {@link /api/v1/contracts/create}
  */
 export async function createContract(
   data: CreateContractMutationRequest,

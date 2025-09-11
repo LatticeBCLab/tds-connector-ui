@@ -3,86 +3,108 @@
  * Do not edit manually.
  */
 
-import type { ModelsAppStore } from './AppStore.ts'
-import type { ModelsDataSpace } from './DataSpace.ts'
+import type { ModelsAppCategory } from './AppCategory.ts'
+import type { ModelsAppStatus } from './AppStatus.ts'
 
 export type ModelsApp = {
   /**
-   * @type object | undefined
-   */
-  appStore?: ModelsAppStore
-  /**
    * @type string | undefined
    */
-  appStoreId?: string
+  author?: string
   /**
+   * @description 元数据
+   */
+  category?: ModelsAppCategory
+  /**
+   * @description 时间戳
    * @type string | undefined
    */
   createdAt?: string
-  /**
-   * @description 外键关系
-   */
-  dataSpace?: ModelsDataSpace
   /**
    * @type string | undefined
    */
   dataSpaceId?: string
   /**
+   * @description 配置信息
    * @type string | undefined
    */
-  deletedAt?: string
+  defaultConfig?: string
+  /**
+   * @description 依赖列表
+   * @type array | undefined
+   */
+  dependencies?: string[]
   /**
    * @type string | undefined
    */
   description?: string
   /**
+   * @description 文档链接
    * @type string | undefined
    */
-  docs?: string
+  documentation?: string
   /**
+   * @description 统计信息
+   * @type integer | undefined
+   */
+  downloadCount?: number
+  /**
+   * @description 入口点文件
    * @type string | undefined
    */
-  endpointDocumentation?: string
+  entryPoint?: string
   /**
+   * @description 环境变量
    * @type string | undefined
    */
-  envVariables?: string
+  environmentVariables?: string
   /**
+   * @description 图标URL
+   * @type string | undefined
+   */
+  icon?: string
+  /**
+   * @description 基础信息
    * @type string | undefined
    */
   id?: string
   /**
-   * @type string | undefined
+   * @type boolean | undefined
    */
-  keywords?: string
+  isPublic?: boolean
   /**
    * @type string | undefined
    */
-  language?: string
+  name?: string
   /**
+   * @description 发布时间
    * @type string | undefined
    */
-  license?: string
+  publishedAt?: string
   /**
+   * @description 资源需求
    * @type string | undefined
    */
-  publisher?: string
+  resourceRequirements?: string
   /**
-   * @type string | undefined
+   * @description 运行次数
+   * @type integer | undefined
    */
-  runtimeEnvironment?: string
+  runCount?: number
   /**
-   * @type string | undefined
+   * @description 状态管理
    */
-  sovereign?: string
+  status?: ModelsAppStatus
   /**
-   * @type string | undefined
+   * @description 运行时信息
+   * @type array | undefined
    */
-  storageConfig?: string
+  supportedRuntimes?: string[]
   /**
-   * @type string | undefined
+   * @description 标签
+   * @type array | undefined
    */
-  title?: string
+  tags?: string[]
   /**
    * @type string | undefined
    */

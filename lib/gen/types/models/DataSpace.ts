@@ -3,20 +3,9 @@
  * Do not edit manually.
  */
 
-import type { ModelsApp } from './App.ts'
-import type { ModelsAppStore } from './AppStore.ts'
 import type { ModelsDataSpaceStatus } from './DataSpaceStatus.ts'
 
 export type ModelsDataSpace = {
-  /**
-   * @type array | undefined
-   */
-  appStores?: ModelsAppStore[]
-  /**
-   * @description 关联关系
-   * @type array | undefined
-   */
-  apps?: ModelsApp[]
   /**
    * @type string | undefined
    */

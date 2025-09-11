@@ -10,14 +10,14 @@ import type { CreateContractMutationRequest, CreateContractMutationResponse, Cre
 import { useMutation } from '@tanstack/react-query'
 import { createContract } from '../clients/createContract.ts'
 
-export const createContractMutationKey = () => [{ url: '/api/v1/contracts' }] as const
+export const createContractMutationKey = () => [{ url: '/api/v1/contracts/create' }] as const
 
 export type CreateContractMutationKey = ReturnType<typeof createContractMutationKey>
 
 /**
  * @description 创建新合约
  * @summary 创建合约
- * {@link /api/v1/contracts}
+ * {@link /api/v1/contracts/create}
  */
 export function useCreateContract<TContext>(
   options: {

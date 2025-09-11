@@ -2,24 +2,30 @@ export type { AddPolicyToContractTemplateByIDMutationKey } from './hooks/useAddP
 export type { ApproveResourceAuditByIDMutationKey } from './hooks/useApproveResourceAuditByID.ts'
 export type { BatchCreateI18NMutationKey } from './hooks/useBatchCreateI18N.ts'
 export type { CancelResourceAuditByIDMutationKey } from './hooks/useCancelResourceAuditByID.ts'
+export type { CompleteJobMutationKey } from './hooks/useCompleteJob.ts'
+export type { CreateAppMutationKey } from './hooks/useCreateApp.ts'
 export type { CreateBlockchainMutationKey } from './hooks/useCreateBlockchain.ts'
 export type { CreateConnectorMutationKey } from './hooks/useCreateConnector.ts'
 export type { CreateContractMutationKey } from './hooks/useCreateContract.ts'
 export type { CreateContractTemplateMutationKey } from './hooks/useCreateContractTemplate.ts'
 export type { CreateI18NMutationKey } from './hooks/useCreateI18N.ts'
+export type { CreateJobMutationKey } from './hooks/useCreateJob.ts'
 export type { CreatePolicyMutationKey } from './hooks/useCreatePolicy.ts'
 export type { CreateResourceMutationKey } from './hooks/useCreateResource.ts'
 export type { CreateResourceAuditMutationKey } from './hooks/useCreateResourceAudit.ts'
 export type { CreateSandboxMutationKey } from './hooks/useCreateSandbox.ts'
 export type { CreateUserMutationKey } from './hooks/useCreateUser.ts'
+export type { DeleteAppMutationKey } from './hooks/useDeleteApp.ts'
 export type { DeleteByRowIDMutationKey } from './hooks/useDeleteByRowID.ts'
 export type { DeleteContractByIDMutationKey } from './hooks/useDeleteContractByID.ts'
 export type { DeleteContractTemplateByIDMutationKey } from './hooks/useDeleteContractTemplateByID.ts'
 export type { DeleteI18nByIDMutationKey } from './hooks/useDeleteI18nByID.ts'
+export type { DeleteJobMutationKey } from './hooks/useDeleteJob.ts'
 export type { DeletePolicyFromContractTemplateByIDMutationKey } from './hooks/useDeletePolicyFromContractTemplateByID.ts'
 export type { DeleteResourceAuditByIDMutationKey } from './hooks/useDeleteResourceAuditByID.ts'
 export type { DeleteResourceByIDMutationKey } from './hooks/useDeleteResourceByID.ts'
 export type { DeleteSandboxMutationKey } from './hooks/useDeleteSandbox.ts'
+export type { FailJobMutationKey } from './hooks/useFailJob.ts'
 export type { GetQueryKey } from './hooks/useGet.ts'
 export type { GetActiveResourceCountQueryKey } from './hooks/useGetActiveResourceCount.ts'
 export type { GetActiveResourceCountByDataspaceQueryKey } from './hooks/useGetActiveResourceCountByDataspace.ts'
@@ -29,6 +35,10 @@ export type { GetAllConnectorSecurityRatingsExcludeQueryKey } from './hooks/useG
 export type { GetAllConnectorSecurityRatingsExcludeSuspenseQueryKey } from './hooks/useGetAllConnectorSecurityRatingsExcludeSuspense.ts'
 export type { GetAllDataSpacesQueryKey } from './hooks/useGetAllDataSpaces.ts'
 export type { GetAllDataSpacesSuspenseQueryKey } from './hooks/useGetAllDataSpacesSuspense.ts'
+export type { GetAppQueryKey } from './hooks/useGetApp.ts'
+export type { GetAppStatsQueryKey } from './hooks/useGetAppStats.ts'
+export type { GetAppStatsSuspenseQueryKey } from './hooks/useGetAppStatsSuspense.ts'
+export type { GetAppSuspenseQueryKey } from './hooks/useGetAppSuspense.ts'
 export type { GetBlockchainQueryKey } from './hooks/useGetBlockchain.ts'
 export type { GetBlockchainByDataSpaceQueryKey } from './hooks/useGetBlockchainByDataSpace.ts'
 export type { GetBlockchainByDataSpaceSuspenseQueryKey } from './hooks/useGetBlockchainByDataSpaceSuspense.ts'
@@ -63,6 +73,8 @@ export type { GetContractTemplatePoliciesByIDQueryKey } from './hooks/useGetCont
 export type { GetContractTemplatePoliciesByIDSuspenseQueryKey } from './hooks/useGetContractTemplatePoliciesByIDSuspense.ts'
 export type { GetContractTemplatesByStatusQueryKey } from './hooks/useGetContractTemplatesByStatus.ts'
 export type { GetContractTemplatesByStatusSuspenseQueryKey } from './hooks/useGetContractTemplatesByStatusSuspense.ts'
+export type { GetContractTemplateStatisticQueryKey } from './hooks/useGetContractTemplateStatistic.ts'
+export type { GetContractTemplateStatisticSuspenseQueryKey } from './hooks/useGetContractTemplateStatisticSuspense.ts'
 export type { GetDataSpaceByIDQueryKey } from './hooks/useGetDataSpaceByID.ts'
 export type { GetDataSpaceByIDSuspenseQueryKey } from './hooks/useGetDataSpaceByIDSuspense.ts'
 export type { GetI18nByIDQueryKey } from './hooks/useGetI18nByID.ts'
@@ -71,6 +83,10 @@ export type { GetI18nByRowIDFieldAndLangQueryKey } from './hooks/useGetI18nByRow
 export type { GetI18nByRowIDFieldAndLangSuspenseQueryKey } from './hooks/useGetI18nByRowIDFieldAndLangSuspense.ts'
 export type { GetInfoQueryKey } from './hooks/useGetInfo.ts'
 export type { GetInfoSuspenseQueryKey } from './hooks/useGetInfoSuspense.ts'
+export type { GetJobQueryKey } from './hooks/useGetJob.ts'
+export type { GetJobStatsQueryKey } from './hooks/useGetJobStats.ts'
+export type { GetJobStatsSuspenseQueryKey } from './hooks/useGetJobStatsSuspense.ts'
+export type { GetJobSuspenseQueryKey } from './hooks/useGetJobSuspense.ts'
 export type { GetOfferingIdQueryKey } from './hooks/useGetOfferingId.ts'
 export type { GetOfferingIdSuspenseQueryKey } from './hooks/useGetOfferingIdSuspense.ts'
 export type { GetOfferingsQueryKey } from './hooks/useGetOfferings.ts'
@@ -79,6 +95,8 @@ export type { GetPingQueryKey } from './hooks/useGetPing.ts'
 export type { GetPingSuspenseQueryKey } from './hooks/useGetPingSuspense.ts'
 export type { GetPolicyByIDQueryKey } from './hooks/useGetPolicyByID.ts'
 export type { GetPolicyByIDSuspenseQueryKey } from './hooks/useGetPolicyByIDSuspense.ts'
+export type { GetPublicAppsQueryKey } from './hooks/useGetPublicApps.ts'
+export type { GetPublicAppsSuspenseQueryKey } from './hooks/useGetPublicAppsSuspense.ts'
 export type { GetResourceAuditByIDQueryKey } from './hooks/useGetResourceAuditByID.ts'
 export type { GetResourceAuditByIDSuspenseQueryKey } from './hooks/useGetResourceAuditByIDSuspense.ts'
 export type { GetResourceAuditsByIDQueryKey } from './hooks/useGetResourceAuditsByID.ts'
@@ -102,12 +120,18 @@ export type { GetTotalResourceCountByDataspaceSuspenseQueryKey } from './hooks/u
 export type { GetTotalResourceCountSuspenseQueryKey } from './hooks/useGetTotalResourceCountSuspense.ts'
 export type { GetUserByDIDQueryKey } from './hooks/useGetUserByDID.ts'
 export type { GetUserByDIDSuspenseQueryKey } from './hooks/useGetUserByDIDSuspense.ts'
+export type { IncrementDownloadCountMutationKey } from './hooks/useIncrementDownloadCount.ts'
+export type { IncrementRunCountMutationKey } from './hooks/useIncrementRunCount.ts'
+export type { ListAppsQueryKey } from './hooks/useListApps.ts'
+export type { ListAppsSuspenseQueryKey } from './hooks/useListAppsSuspense.ts'
 export type { ListBlockchainsQueryKey } from './hooks/useListBlockchains.ts'
 export type { ListBlockchainsSuspenseQueryKey } from './hooks/useListBlockchainsSuspense.ts'
 export type { ListContractsQueryKey } from './hooks/useListContracts.ts'
 export type { ListContractsSuspenseQueryKey } from './hooks/useListContractsSuspense.ts'
 export type { ListContractTemplatesQueryKey } from './hooks/useListContractTemplates.ts'
 export type { ListContractTemplatesSuspenseQueryKey } from './hooks/useListContractTemplatesSuspense.ts'
+export type { ListJobsQueryKey } from './hooks/useListJobs.ts'
+export type { ListJobsSuspenseQueryKey } from './hooks/useListJobsSuspense.ts'
 export type { ListPoliciesQueryKey } from './hooks/useListPolicies.ts'
 export type { ListPoliciesSuspenseQueryKey } from './hooks/useListPoliciesSuspense.ts'
 export type { ListResourceAuditsQueryKey } from './hooks/useListResourceAudits.ts'
@@ -118,10 +142,13 @@ export type { ListSandboxesQueryKey } from './hooks/useListSandboxes.ts'
 export type { ListSandboxesSuspenseQueryKey } from './hooks/useListSandboxesSuspense.ts'
 export type { PostOfferingMutationKey } from './hooks/usePostOffering.ts'
 export type { RejectResourceAuditByIDMutationKey } from './hooks/useRejectResourceAuditByID.ts'
+export type { StartJobMutationKey } from './hooks/useStartJob.ts'
+export type { UpdateAppMutationKey } from './hooks/useUpdateApp.ts'
 export type { UpdateContractByIDMutationKey } from './hooks/useUpdateContractByID.ts'
 export type { UpdateContractTemplateByIDMutationKey } from './hooks/useUpdateContractTemplateByID.ts'
 export type { UpdateContractTemplateStatusByIDMutationKey } from './hooks/useUpdateContractTemplateStatusByID.ts'
 export type { UpdateI18nByIDMutationKey } from './hooks/useUpdateI18nByID.ts'
+export type { UpdateJobMutationKey } from './hooks/useUpdateJob.ts'
 export type { UpdateResourceAuditByIDMutationKey } from './hooks/useUpdateResourceAuditByID.ts'
 export type { UpdateResourceByIDMutationKey } from './hooks/useUpdateResourceByID.ts'
 export type { UpdateResourceOutReviewByIDMutationKey } from './hooks/useUpdateResourceOutReviewByID.ts'
@@ -165,6 +192,17 @@ export type {
   CancelResourceAuditByIDMutation,
 } from './types/CancelResourceAuditByID.ts'
 export type {
+  CompleteJobPathParams,
+  CompleteJob200,
+  CompleteJob400,
+  CompleteJob404,
+  CompleteJob500,
+  CompleteJobMutationRequest,
+  CompleteJobMutationResponse,
+  CompleteJobMutation,
+} from './types/CompleteJob.ts'
+export type { CreateApp201, CreateApp400, CreateApp500, CreateAppMutationRequest, CreateAppMutationResponse, CreateAppMutation } from './types/CreateApp.ts'
+export type {
   CreateBlockchain201,
   CreateBlockchain400,
   CreateBlockchain500,
@@ -204,6 +242,7 @@ export type {
   CreateI18NMutationResponse,
   CreateI18NMutation,
 } from './types/CreateI18N.ts'
+export type { CreateJob201, CreateJob400, CreateJob500, CreateJobMutationRequest, CreateJobMutationResponse, CreateJobMutation } from './types/CreateJob.ts'
 export type {
   CreatePolicy201,
   CreatePolicy400,
@@ -247,6 +286,15 @@ export type {
 } from './types/CreateUser.ts'
 export type { DbOfferingModel } from './types/db/OfferingModel.ts'
 export type {
+  DeleteAppPathParams,
+  DeleteApp200,
+  DeleteApp400,
+  DeleteApp404,
+  DeleteApp500,
+  DeleteAppMutationResponse,
+  DeleteAppMutation,
+} from './types/DeleteApp.ts'
+export type {
   DeleteByRowIDPathParams,
   DeleteByRowID200,
   DeleteByRowID400,
@@ -281,6 +329,15 @@ export type {
   DeleteI18nByIDMutationResponse,
   DeleteI18nByIDMutation,
 } from './types/DeleteI18nByID.ts'
+export type {
+  DeleteJobPathParams,
+  DeleteJob200,
+  DeleteJob400,
+  DeleteJob404,
+  DeleteJob500,
+  DeleteJobMutationResponse,
+  DeleteJobMutation,
+} from './types/DeleteJob.ts'
 export type {
   DeletePolicyFromContractTemplateByIDPathParams,
   DeletePolicyFromContractTemplateByID200,
@@ -317,6 +374,16 @@ export type {
   DeleteSandboxMutationResponse,
   DeleteSandboxMutation,
 } from './types/DeleteSandbox.ts'
+export type {
+  FailJobPathParams,
+  FailJob200,
+  FailJob400,
+  FailJob404,
+  FailJob500,
+  FailJobMutationRequest,
+  FailJobMutationResponse,
+  FailJobMutation,
+} from './types/FailJob.ts'
 export type { Get200, GetQueryResponse, GetQuery } from './types/Get.ts'
 export type {
   GetActiveResourceCountQueryParams,
@@ -342,6 +409,8 @@ export type {
   GetAllConnectorSecurityRatingsExcludeQuery,
 } from './types/GetAllConnectorSecurityRatingsExclude.ts'
 export type { GetAllDataSpaces200, GetAllDataSpaces500, GetAllDataSpacesQueryResponse, GetAllDataSpacesQuery } from './types/GetAllDataSpaces.ts'
+export type { GetAppPathParams, GetApp200, GetApp400, GetApp404, GetApp500, GetAppQueryResponse, GetAppQuery } from './types/GetApp.ts'
+export type { GetAppStatsQueryParams, GetAppStats200, GetAppStats400, GetAppStats500, GetAppStatsQueryResponse, GetAppStatsQuery } from './types/GetAppStats.ts'
 export type {
   GetBlockchainPathParams,
   GetBlockchain200,
@@ -491,6 +560,14 @@ export type {
   GetContractTemplatesByStatusQuery,
 } from './types/GetContractTemplatesByStatus.ts'
 export type {
+  GetContractTemplateStatisticQueryParams,
+  GetContractTemplateStatistic200,
+  GetContractTemplateStatistic400,
+  GetContractTemplateStatistic500,
+  GetContractTemplateStatisticQueryResponse,
+  GetContractTemplateStatisticQuery,
+} from './types/GetContractTemplateStatistic.ts'
+export type {
   GetDataSpaceByIDPathParams,
   GetDataSpaceByID200,
   GetDataSpaceByID400,
@@ -518,6 +595,8 @@ export type {
   GetI18nByRowIDFieldAndLangQuery,
 } from './types/GetI18nByRowIDFieldAndLang.ts'
 export type { GetInfo200, GetInfoQueryResponse, GetInfoQuery } from './types/GetInfo.ts'
+export type { GetJobPathParams, GetJob200, GetJob400, GetJob404, GetJob500, GetJobQueryResponse, GetJobQuery } from './types/GetJob.ts'
+export type { GetJobStatsQueryParams, GetJobStats200, GetJobStats400, GetJobStats500, GetJobStatsQueryResponse, GetJobStatsQuery } from './types/GetJobStats.ts'
 export type {
   GetOfferingIdPathParams,
   GetOfferingId200,
@@ -538,6 +617,14 @@ export type {
   GetPolicyByIDQueryResponse,
   GetPolicyByIDQuery,
 } from './types/GetPolicyByID.ts'
+export type {
+  GetPublicAppsQueryParams,
+  GetPublicApps200,
+  GetPublicApps400,
+  GetPublicApps500,
+  GetPublicAppsQueryResponse,
+  GetPublicAppsQuery,
+} from './types/GetPublicApps.ts'
 export type {
   GetResourceAuditByIDPathParams,
   GetResourceAuditByIDQueryParams,
@@ -638,24 +725,49 @@ export type {
 } from './types/GetUserByDID.ts'
 export type { HandlersAddPolicyToTemplateRequest } from './types/handlers/AddPolicyToTemplateRequest.ts'
 export type { HandlersApproveAuditRequest } from './types/handlers/ApproveAuditRequest.ts'
+export type { HandlersAppStatsResponse } from './types/handlers/AppStatsResponse.ts'
+export type { HandlersCreateAppRequest } from './types/handlers/CreateAppRequest.ts'
 export type { HandlersCreateBlockchainRequest } from './types/handlers/CreateBlockchainRequest.ts'
 export type { HandlersCreateConnectorRequest } from './types/handlers/CreateConnectorRequest.ts'
 export type { HandlersCreateContractRequest } from './types/handlers/CreateContractRequest.ts'
 export type { HandlersCreateContractTemplateRequest } from './types/handlers/CreateContractTemplateRequest.ts'
 export type { HandlersCreateI18nRequest } from './types/handlers/CreateI18nRequest.ts'
+export type { HandlersCreateJobRequest } from './types/handlers/CreateJobRequest.ts'
 export type { HandlersCreatePolicyRequest } from './types/handlers/CreatePolicyRequest.ts'
 export type { HandlersCreateResourceAuditRequest } from './types/handlers/CreateResourceAuditRequest.ts'
 export type { HandlersCreateResourceRequest } from './types/handlers/CreateResourceRequest.ts'
 export type { HandlersCreateSandboxRequestWithConnector } from './types/handlers/CreateSandboxRequestWithConnector.ts'
 export type { HandlersCreateUserRequest } from './types/handlers/CreateUserRequest.ts'
+export type { HandlersJobStatsResponse } from './types/handlers/JobStatsResponse.ts'
 export type { HandlersRejectAuditRequest } from './types/handlers/RejectAuditRequest.ts'
 export type { HandlersSandboxStatsResponse } from './types/handlers/SandboxStatsResponse.ts'
+export type { HandlersUpdateAppRequest } from './types/handlers/UpdateAppRequest.ts'
 export type { HandlersUpdateContractRequest } from './types/handlers/UpdateContractRequest.ts'
 export type { HandlersUpdateContractTemplateRequest } from './types/handlers/UpdateContractTemplateRequest.ts'
 export type { HandlersUpdateI18nRequest } from './types/handlers/UpdateI18nRequest.ts'
+export type { HandlersUpdateJobRequest } from './types/handlers/UpdateJobRequest.ts'
 export type { HandlersUpdateResourceAuditRequest } from './types/handlers/UpdateResourceAuditRequest.ts'
 export type { HandlersUpdateResourceRequest } from './types/handlers/UpdateResourceRequest.ts'
 export type { HandlersUpdateSandboxRequest } from './types/handlers/UpdateSandboxRequest.ts'
+export type {
+  IncrementDownloadCountPathParams,
+  IncrementDownloadCount200,
+  IncrementDownloadCount400,
+  IncrementDownloadCount404,
+  IncrementDownloadCount500,
+  IncrementDownloadCountMutationResponse,
+  IncrementDownloadCountMutation,
+} from './types/IncrementDownloadCount.ts'
+export type {
+  IncrementRunCountPathParams,
+  IncrementRunCount200,
+  IncrementRunCount400,
+  IncrementRunCount404,
+  IncrementRunCount500,
+  IncrementRunCountMutationResponse,
+  IncrementRunCountMutation,
+} from './types/IncrementRunCount.ts'
+export type { ListAppsQueryParams, ListApps200, ListApps400, ListApps500, ListAppsQueryResponse, ListAppsQuery } from './types/ListApps.ts'
 export type {
   ListBlockchainsQueryParams,
   ListBlockchains200,
@@ -679,6 +791,7 @@ export type {
   ListContractTemplatesQueryResponse,
   ListContractTemplatesQuery,
 } from './types/ListContractTemplates.ts'
+export type { ListJobsQueryParams, ListJobs200, ListJobs400, ListJobs500, ListJobsQueryResponse, ListJobsQuery } from './types/ListJobs.ts'
 export type {
   ListPoliciesQueryParams,
   ListPolicies200,
@@ -717,7 +830,8 @@ export type {
   ListSandboxesQuery,
 } from './types/ListSandboxes.ts'
 export type { ModelsApp } from './types/models/App.ts'
-export type { ModelsAppStore } from './types/models/AppStore.ts'
+export type { ModelsAppCategoryEnum, ModelsAppCategory } from './types/models/AppCategory.ts'
+export type { ModelsAppStatusEnum, ModelsAppStatus } from './types/models/AppStatus.ts'
 export type { ModelsAuditStatusEnum, ModelsAuditStatus } from './types/models/AuditStatus.ts'
 export type { ModelsAuditTypeEnum, ModelsAuditType } from './types/models/AuditType.ts'
 export type { ModelsBlockChain } from './types/models/BlockChain.ts'
@@ -737,6 +851,8 @@ export type { ModelsDataSpace } from './types/models/DataSpace.ts'
 export type { ModelsDataSpaceStatusEnum, ModelsDataSpaceStatus } from './types/models/DataSpaceStatus.ts'
 export type { ModelsDIDDocument } from './types/models/DIDDocument.ts'
 export type { ModelsI18N } from './types/models/I18N.ts'
+export type { ModelsJob } from './types/models/Job.ts'
+export type { ModelsJobStatusEnum, ModelsJobStatus } from './types/models/JobStatus.ts'
 export type { ModelsPolicyTemplate } from './types/models/PolicyTemplate.ts'
 export type { ModelsResource } from './types/models/Resource.ts'
 export type { ModelsResourceAudit } from './types/models/ResourceAudit.ts'
@@ -777,6 +893,17 @@ export type {
 export type { ResponsePaginatedResponse } from './types/response/PaginatedResponse.ts'
 export type { ResponsePagination } from './types/response/Pagination.ts'
 export type { ResponseResponse } from './types/response/Response.ts'
+export type { StartJobPathParams, StartJob200, StartJob400, StartJob404, StartJob500, StartJobMutationResponse, StartJobMutation } from './types/StartJob.ts'
+export type {
+  UpdateAppPathParams,
+  UpdateApp200,
+  UpdateApp400,
+  UpdateApp404,
+  UpdateApp500,
+  UpdateAppMutationRequest,
+  UpdateAppMutationResponse,
+  UpdateAppMutation,
+} from './types/UpdateApp.ts'
 export type {
   UpdateContractByIDPathParams,
   UpdateContractByID200,
@@ -817,6 +944,16 @@ export type {
   UpdateI18nByIDMutationResponse,
   UpdateI18nByIDMutation,
 } from './types/UpdateI18nByID.ts'
+export type {
+  UpdateJobPathParams,
+  UpdateJob200,
+  UpdateJob400,
+  UpdateJob404,
+  UpdateJob500,
+  UpdateJobMutationRequest,
+  UpdateJobMutationResponse,
+  UpdateJobMutation,
+} from './types/UpdateJob.ts'
 export type {
   UpdateResourceAuditByIDPathParams,
   UpdateResourceAuditByID200,
@@ -871,29 +1008,37 @@ export { addPolicyToContractTemplateByID } from './clients/addPolicyToContractTe
 export { approveResourceAuditByID } from './clients/approveResourceAuditByID.ts'
 export { batchCreateI18N } from './clients/batchCreateI18N.ts'
 export { cancelResourceAuditByID } from './clients/cancelResourceAuditByID.ts'
+export { completeJob } from './clients/completeJob.ts'
+export { createApp } from './clients/createApp.ts'
 export { createBlockchain } from './clients/createBlockchain.ts'
 export { createConnector } from './clients/createConnector.ts'
 export { createContract } from './clients/createContract.ts'
 export { createContractTemplate } from './clients/createContractTemplate.ts'
 export { createI18N } from './clients/createI18N.ts'
+export { createJob } from './clients/createJob.ts'
 export { createPolicy } from './clients/createPolicy.ts'
 export { createResource } from './clients/createResource.ts'
 export { createResourceAudit } from './clients/createResourceAudit.ts'
 export { createSandbox } from './clients/createSandbox.ts'
 export { createUser } from './clients/createUser.ts'
+export { deleteApp } from './clients/deleteApp.ts'
 export { deleteByRowID } from './clients/deleteByRowID.ts'
 export { deleteContractByID } from './clients/deleteContractByID.ts'
 export { deleteContractTemplateByID } from './clients/deleteContractTemplateByID.ts'
 export { deleteI18nByID } from './clients/deleteI18nByID.ts'
+export { deleteJob } from './clients/deleteJob.ts'
 export { deletePolicyFromContractTemplateByID } from './clients/deletePolicyFromContractTemplateByID.ts'
 export { deleteResourceAuditByID } from './clients/deleteResourceAuditByID.ts'
 export { deleteResourceByID } from './clients/deleteResourceByID.ts'
 export { deleteSandbox } from './clients/deleteSandbox.ts'
+export { failJob } from './clients/failJob.ts'
 export { get } from './clients/get.ts'
 export { getActiveResourceCount } from './clients/getActiveResourceCount.ts'
 export { getActiveResourceCountByDataspace } from './clients/getActiveResourceCountByDataspace.ts'
 export { getAllConnectorSecurityRatingsExclude } from './clients/getAllConnectorSecurityRatingsExclude.ts'
 export { getAllDataSpaces } from './clients/getAllDataSpaces.ts'
+export { getApp } from './clients/getApp.ts'
+export { getAppStats } from './clients/getAppStats.ts'
 export { getBlockchain } from './clients/getBlockchain.ts'
 export { getBlockchainByDataSpace } from './clients/getBlockchainByDataSpace.ts'
 export { getConnectorByDID } from './clients/getConnectorByDID.ts'
@@ -911,14 +1056,18 @@ export { getContractTemplateByID } from './clients/getContractTemplateByID.ts'
 export { getContractTemplateByName } from './clients/getContractTemplateByName.ts'
 export { getContractTemplatePoliciesByID } from './clients/getContractTemplatePoliciesByID.ts'
 export { getContractTemplatesByStatus } from './clients/getContractTemplatesByStatus.ts'
+export { getContractTemplateStatistic } from './clients/getContractTemplateStatistic.ts'
 export { getDataSpaceByID } from './clients/getDataSpaceByID.ts'
 export { getI18nByID } from './clients/getI18nByID.ts'
 export { getI18nByRowIDFieldAndLang } from './clients/getI18nByRowIDFieldAndLang.ts'
 export { getInfo } from './clients/getInfo.ts'
+export { getJob } from './clients/getJob.ts'
+export { getJobStats } from './clients/getJobStats.ts'
 export { getOfferingId } from './clients/getOfferingId.ts'
 export { getOfferings } from './clients/getOfferings.ts'
 export { getPing } from './clients/getPing.ts'
 export { getPolicyByID } from './clients/getPolicyByID.ts'
+export { getPublicApps } from './clients/getPublicApps.ts'
 export { getResourceAuditByID } from './clients/getResourceAuditByID.ts'
 export { getResourceAuditsByID } from './clients/getResourceAuditsByID.ts'
 export { getResourceByID } from './clients/getResourceByID.ts'
@@ -930,19 +1079,26 @@ export { getSandboxStats } from './clients/getSandboxStats.ts'
 export { getTotalResourceCount } from './clients/getTotalResourceCount.ts'
 export { getTotalResourceCountByDataspace } from './clients/getTotalResourceCountByDataspace.ts'
 export { getUserByDID } from './clients/getUserByDID.ts'
+export { incrementDownloadCount } from './clients/incrementDownloadCount.ts'
+export { incrementRunCount } from './clients/incrementRunCount.ts'
+export { listApps } from './clients/listApps.ts'
 export { listBlockchains } from './clients/listBlockchains.ts'
 export { listContracts } from './clients/listContracts.ts'
 export { listContractTemplates } from './clients/listContractTemplates.ts'
+export { listJobs } from './clients/listJobs.ts'
 export { listPolicies } from './clients/listPolicies.ts'
 export { listResourceAudits } from './clients/listResourceAudits.ts'
 export { listResources } from './clients/listResources.ts'
 export { listSandboxes } from './clients/listSandboxes.ts'
 export { postOffering } from './clients/postOffering.ts'
 export { rejectResourceAuditByID } from './clients/rejectResourceAuditByID.ts'
+export { startJob } from './clients/startJob.ts'
+export { updateApp } from './clients/updateApp.ts'
 export { updateContractByID } from './clients/updateContractByID.ts'
 export { updateContractTemplateByID } from './clients/updateContractTemplateByID.ts'
 export { updateContractTemplateStatusByID } from './clients/updateContractTemplateStatusByID.ts'
 export { updateI18nByID } from './clients/updateI18nByID.ts'
+export { updateJob } from './clients/updateJob.ts'
 export { updateResourceAuditByID } from './clients/updateResourceAuditByID.ts'
 export { updateResourceByID } from './clients/updateResourceByID.ts'
 export { updateResourceOutReviewByID } from './clients/updateResourceOutReviewByID.ts'
@@ -952,24 +1108,30 @@ export { addPolicyToContractTemplateByIDMutationKey, useAddPolicyToContractTempl
 export { approveResourceAuditByIDMutationKey, useApproveResourceAuditByID } from './hooks/useApproveResourceAuditByID.ts'
 export { batchCreateI18NMutationKey, useBatchCreateI18N } from './hooks/useBatchCreateI18N.ts'
 export { cancelResourceAuditByIDMutationKey, useCancelResourceAuditByID } from './hooks/useCancelResourceAuditByID.ts'
+export { completeJobMutationKey, useCompleteJob } from './hooks/useCompleteJob.ts'
+export { createAppMutationKey, useCreateApp } from './hooks/useCreateApp.ts'
 export { createBlockchainMutationKey, useCreateBlockchain } from './hooks/useCreateBlockchain.ts'
 export { createConnectorMutationKey, useCreateConnector } from './hooks/useCreateConnector.ts'
 export { createContractMutationKey, useCreateContract } from './hooks/useCreateContract.ts'
 export { createContractTemplateMutationKey, useCreateContractTemplate } from './hooks/useCreateContractTemplate.ts'
 export { createI18NMutationKey, useCreateI18N } from './hooks/useCreateI18N.ts'
+export { createJobMutationKey, useCreateJob } from './hooks/useCreateJob.ts'
 export { createPolicyMutationKey, useCreatePolicy } from './hooks/useCreatePolicy.ts'
 export { createResourceMutationKey, useCreateResource } from './hooks/useCreateResource.ts'
 export { createResourceAuditMutationKey, useCreateResourceAudit } from './hooks/useCreateResourceAudit.ts'
 export { createSandboxMutationKey, useCreateSandbox } from './hooks/useCreateSandbox.ts'
 export { createUserMutationKey, useCreateUser } from './hooks/useCreateUser.ts'
+export { deleteAppMutationKey, useDeleteApp } from './hooks/useDeleteApp.ts'
 export { deleteByRowIDMutationKey, useDeleteByRowID } from './hooks/useDeleteByRowID.ts'
 export { deleteContractByIDMutationKey, useDeleteContractByID } from './hooks/useDeleteContractByID.ts'
 export { deleteContractTemplateByIDMutationKey, useDeleteContractTemplateByID } from './hooks/useDeleteContractTemplateByID.ts'
 export { deleteI18nByIDMutationKey, useDeleteI18nByID } from './hooks/useDeleteI18nByID.ts'
+export { deleteJobMutationKey, useDeleteJob } from './hooks/useDeleteJob.ts'
 export { deletePolicyFromContractTemplateByIDMutationKey, useDeletePolicyFromContractTemplateByID } from './hooks/useDeletePolicyFromContractTemplateByID.ts'
 export { deleteResourceAuditByIDMutationKey, useDeleteResourceAuditByID } from './hooks/useDeleteResourceAuditByID.ts'
 export { deleteResourceByIDMutationKey, useDeleteResourceByID } from './hooks/useDeleteResourceByID.ts'
 export { deleteSandboxMutationKey, useDeleteSandbox } from './hooks/useDeleteSandbox.ts'
+export { failJobMutationKey, useFailJob } from './hooks/useFailJob.ts'
 export { getQueryKey, getQueryOptions, useGet } from './hooks/useGet.ts'
 export { getActiveResourceCountQueryKey, getActiveResourceCountQueryOptions, useGetActiveResourceCount } from './hooks/useGetActiveResourceCount.ts'
 export {
@@ -999,6 +1161,10 @@ export {
 } from './hooks/useGetAllConnectorSecurityRatingsExcludeSuspense.ts'
 export { getAllDataSpacesQueryKey, getAllDataSpacesQueryOptions, useGetAllDataSpaces } from './hooks/useGetAllDataSpaces.ts'
 export { getAllDataSpacesSuspenseQueryKey, getAllDataSpacesSuspenseQueryOptions, useGetAllDataSpacesSuspense } from './hooks/useGetAllDataSpacesSuspense.ts'
+export { getAppQueryKey, getAppQueryOptions, useGetApp } from './hooks/useGetApp.ts'
+export { getAppStatsQueryKey, getAppStatsQueryOptions, useGetAppStats } from './hooks/useGetAppStats.ts'
+export { getAppStatsSuspenseQueryKey, getAppStatsSuspenseQueryOptions, useGetAppStatsSuspense } from './hooks/useGetAppStatsSuspense.ts'
+export { getAppSuspenseQueryKey, getAppSuspenseQueryOptions, useGetAppSuspense } from './hooks/useGetAppSuspense.ts'
 export { getBlockchainQueryKey, getBlockchainQueryOptions, useGetBlockchain } from './hooks/useGetBlockchain.ts'
 export { getBlockchainByDataSpaceQueryKey, getBlockchainByDataSpaceQueryOptions, useGetBlockchainByDataSpace } from './hooks/useGetBlockchainByDataSpace.ts'
 export {
@@ -1125,6 +1291,16 @@ export {
   getContractTemplatesByStatusSuspenseQueryOptions,
   useGetContractTemplatesByStatusSuspense,
 } from './hooks/useGetContractTemplatesByStatusSuspense.ts'
+export {
+  getContractTemplateStatisticQueryKey,
+  getContractTemplateStatisticQueryOptions,
+  useGetContractTemplateStatistic,
+} from './hooks/useGetContractTemplateStatistic.ts'
+export {
+  getContractTemplateStatisticSuspenseQueryKey,
+  getContractTemplateStatisticSuspenseQueryOptions,
+  useGetContractTemplateStatisticSuspense,
+} from './hooks/useGetContractTemplateStatisticSuspense.ts'
 export { getDataSpaceByIDQueryKey, getDataSpaceByIDQueryOptions, useGetDataSpaceByID } from './hooks/useGetDataSpaceByID.ts'
 export { getDataSpaceByIDSuspenseQueryKey, getDataSpaceByIDSuspenseQueryOptions, useGetDataSpaceByIDSuspense } from './hooks/useGetDataSpaceByIDSuspense.ts'
 export { getI18nByIDQueryKey, getI18nByIDQueryOptions, useGetI18nByID } from './hooks/useGetI18nByID.ts'
@@ -1141,6 +1317,10 @@ export {
 } from './hooks/useGetI18nByRowIDFieldAndLangSuspense.ts'
 export { getInfoQueryKey, getInfoQueryOptions, useGetInfo } from './hooks/useGetInfo.ts'
 export { getInfoSuspenseQueryKey, getInfoSuspenseQueryOptions, useGetInfoSuspense } from './hooks/useGetInfoSuspense.ts'
+export { getJobQueryKey, getJobQueryOptions, useGetJob } from './hooks/useGetJob.ts'
+export { getJobStatsQueryKey, getJobStatsQueryOptions, useGetJobStats } from './hooks/useGetJobStats.ts'
+export { getJobStatsSuspenseQueryKey, getJobStatsSuspenseQueryOptions, useGetJobStatsSuspense } from './hooks/useGetJobStatsSuspense.ts'
+export { getJobSuspenseQueryKey, getJobSuspenseQueryOptions, useGetJobSuspense } from './hooks/useGetJobSuspense.ts'
 export { getOfferingIdQueryKey, getOfferingIdQueryOptions, useGetOfferingId } from './hooks/useGetOfferingId.ts'
 export { getOfferingIdSuspenseQueryKey, getOfferingIdSuspenseQueryOptions, useGetOfferingIdSuspense } from './hooks/useGetOfferingIdSuspense.ts'
 export { getOfferingsQueryKey, getOfferingsQueryOptions, useGetOfferings } from './hooks/useGetOfferings.ts'
@@ -1149,6 +1329,8 @@ export { getPingQueryKey, getPingQueryOptions, useGetPing } from './hooks/useGet
 export { getPingSuspenseQueryKey, getPingSuspenseQueryOptions, useGetPingSuspense } from './hooks/useGetPingSuspense.ts'
 export { getPolicyByIDQueryKey, getPolicyByIDQueryOptions, useGetPolicyByID } from './hooks/useGetPolicyByID.ts'
 export { getPolicyByIDSuspenseQueryKey, getPolicyByIDSuspenseQueryOptions, useGetPolicyByIDSuspense } from './hooks/useGetPolicyByIDSuspense.ts'
+export { getPublicAppsQueryKey, getPublicAppsQueryOptions, useGetPublicApps } from './hooks/useGetPublicApps.ts'
+export { getPublicAppsSuspenseQueryKey, getPublicAppsSuspenseQueryOptions, useGetPublicAppsSuspense } from './hooks/useGetPublicAppsSuspense.ts'
 export { getResourceAuditByIDQueryKey, getResourceAuditByIDQueryOptions, useGetResourceAuditByID } from './hooks/useGetResourceAuditByID.ts'
 export {
   getResourceAuditByIDSuspenseQueryKey,
@@ -1212,6 +1394,10 @@ export {
 } from './hooks/useGetTotalResourceCountSuspense.ts'
 export { getUserByDIDQueryKey, getUserByDIDQueryOptions, useGetUserByDID } from './hooks/useGetUserByDID.ts'
 export { getUserByDIDSuspenseQueryKey, getUserByDIDSuspenseQueryOptions, useGetUserByDIDSuspense } from './hooks/useGetUserByDIDSuspense.ts'
+export { incrementDownloadCountMutationKey, useIncrementDownloadCount } from './hooks/useIncrementDownloadCount.ts'
+export { incrementRunCountMutationKey, useIncrementRunCount } from './hooks/useIncrementRunCount.ts'
+export { listAppsQueryKey, listAppsQueryOptions, useListApps } from './hooks/useListApps.ts'
+export { listAppsSuspenseQueryKey, listAppsSuspenseQueryOptions, useListAppsSuspense } from './hooks/useListAppsSuspense.ts'
 export { listBlockchainsQueryKey, listBlockchainsQueryOptions, useListBlockchains } from './hooks/useListBlockchains.ts'
 export { listBlockchainsSuspenseQueryKey, listBlockchainsSuspenseQueryOptions, useListBlockchainsSuspense } from './hooks/useListBlockchainsSuspense.ts'
 export { listContractsQueryKey, listContractsQueryOptions, useListContracts } from './hooks/useListContracts.ts'
@@ -1222,6 +1408,8 @@ export {
   listContractTemplatesSuspenseQueryOptions,
   useListContractTemplatesSuspense,
 } from './hooks/useListContractTemplatesSuspense.ts'
+export { listJobsQueryKey, listJobsQueryOptions, useListJobs } from './hooks/useListJobs.ts'
+export { listJobsSuspenseQueryKey, listJobsSuspenseQueryOptions, useListJobsSuspense } from './hooks/useListJobsSuspense.ts'
 export { listPoliciesQueryKey, listPoliciesQueryOptions, useListPolicies } from './hooks/useListPolicies.ts'
 export { listPoliciesSuspenseQueryKey, listPoliciesSuspenseQueryOptions, useListPoliciesSuspense } from './hooks/useListPoliciesSuspense.ts'
 export { listResourceAuditsQueryKey, listResourceAuditsQueryOptions, useListResourceAudits } from './hooks/useListResourceAudits.ts'
@@ -1236,10 +1424,13 @@ export { listSandboxesQueryKey, listSandboxesQueryOptions, useListSandboxes } fr
 export { listSandboxesSuspenseQueryKey, listSandboxesSuspenseQueryOptions, useListSandboxesSuspense } from './hooks/useListSandboxesSuspense.ts'
 export { postOfferingMutationKey, usePostOffering } from './hooks/usePostOffering.ts'
 export { rejectResourceAuditByIDMutationKey, useRejectResourceAuditByID } from './hooks/useRejectResourceAuditByID.ts'
+export { startJobMutationKey, useStartJob } from './hooks/useStartJob.ts'
+export { updateAppMutationKey, useUpdateApp } from './hooks/useUpdateApp.ts'
 export { updateContractByIDMutationKey, useUpdateContractByID } from './hooks/useUpdateContractByID.ts'
 export { updateContractTemplateByIDMutationKey, useUpdateContractTemplateByID } from './hooks/useUpdateContractTemplateByID.ts'
 export { updateContractTemplateStatusByIDMutationKey, useUpdateContractTemplateStatusByID } from './hooks/useUpdateContractTemplateStatusByID.ts'
 export { updateI18nByIDMutationKey, useUpdateI18nByID } from './hooks/useUpdateI18nByID.ts'
+export { updateJobMutationKey, useUpdateJob } from './hooks/useUpdateJob.ts'
 export { updateResourceAuditByIDMutationKey, useUpdateResourceAuditByID } from './hooks/useUpdateResourceAuditByID.ts'
 export { updateResourceByIDMutationKey, useUpdateResourceByID } from './hooks/useUpdateResourceByID.ts'
 export { updateResourceOutReviewByIDMutationKey, useUpdateResourceOutReviewByID } from './hooks/useUpdateResourceOutReviewByID.ts'
@@ -1249,6 +1440,8 @@ export { getContractTemplatesByStatusPathParamsStatusEnum } from './types/GetCon
 export { getResourceAuditsByIDQueryParamsTypeEnum, getResourceAuditsByIDQueryParamsStatusEnum } from './types/GetResourceAuditsByID.ts'
 export { listResourceAuditsQueryParamsTypeEnum, listResourceAuditsQueryParamsStatusEnum } from './types/ListResourceAudits.ts'
 export { listResourcesQueryParamsTypeEnum, listResourcesQueryParamsStatusEnum, listResourcesQueryParamsCountryEnum } from './types/ListResources.ts'
+export { modelsAppCategory } from './types/models/AppCategory.ts'
+export { modelsAppStatus } from './types/models/AppStatus.ts'
 export { modelsAuditStatus } from './types/models/AuditStatus.ts'
 export { modelsAuditType } from './types/models/AuditType.ts'
 export { modelsBoundStatus } from './types/models/BoundStatus.ts'
@@ -1256,6 +1449,7 @@ export { modelsComputeBinding } from './types/models/ComputeBinding.ts'
 export { modelsConnectionType } from './types/models/ConnectionType.ts'
 export { modelsCountry } from './types/models/Country.ts'
 export { modelsDataSpaceStatus } from './types/models/DataSpaceStatus.ts'
+export { modelsJobStatus } from './types/models/JobStatus.ts'
 export { modelsResourceStatus } from './types/models/ResourceStatus.ts'
 export { modelsResourceType } from './types/models/ResourceType.ts'
 export { modelsSandboxRuntimeType } from './types/models/SandboxRuntimeType.ts'
