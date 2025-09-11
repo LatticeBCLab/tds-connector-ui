@@ -3,6 +3,10 @@ export type { ApproveResourceAuditByIDMutationKey } from './hooks/useApproveReso
 export type { BatchCreateI18NMutationKey } from './hooks/useBatchCreateI18N.ts'
 export type { CancelResourceAuditByIDMutationKey } from './hooks/useCancelResourceAuditByID.ts'
 export type { CompleteJobMutationKey } from './hooks/useCompleteJob.ts'
+export type { CountResolvedQueryKey } from './hooks/useCountResolved.ts'
+export type { CountResolvedSuspenseQueryKey } from './hooks/useCountResolvedSuspense.ts'
+export type { CountUnresolvedQueryKey } from './hooks/useCountUnresolved.ts'
+export type { CountUnresolvedSuspenseQueryKey } from './hooks/useCountUnresolvedSuspense.ts'
 export type { CreateAppMutationKey } from './hooks/useCreateApp.ts'
 export type { CreateBlockchainMutationKey } from './hooks/useCreateBlockchain.ts'
 export type { CreateConnectorMutationKey } from './hooks/useCreateConnector.ts'
@@ -122,6 +126,8 @@ export type { GetUserByDIDQueryKey } from './hooks/useGetUserByDID.ts'
 export type { GetUserByDIDSuspenseQueryKey } from './hooks/useGetUserByDIDSuspense.ts'
 export type { IncrementDownloadCountMutationKey } from './hooks/useIncrementDownloadCount.ts'
 export type { IncrementRunCountMutationKey } from './hooks/useIncrementRunCount.ts'
+export type { ListAltersQueryKey } from './hooks/useListAlters.ts'
+export type { ListAltersSuspenseQueryKey } from './hooks/useListAltersSuspense.ts'
 export type { ListAppsQueryKey } from './hooks/useListApps.ts'
 export type { ListAppsSuspenseQueryKey } from './hooks/useListAppsSuspense.ts'
 export type { ListBlockchainsQueryKey } from './hooks/useListBlockchains.ts'
@@ -132,6 +138,8 @@ export type { ListContractTemplatesQueryKey } from './hooks/useListContractTempl
 export type { ListContractTemplatesSuspenseQueryKey } from './hooks/useListContractTemplatesSuspense.ts'
 export type { ListJobsQueryKey } from './hooks/useListJobs.ts'
 export type { ListJobsSuspenseQueryKey } from './hooks/useListJobsSuspense.ts'
+export type { ListMetricsQueryKey } from './hooks/useListMetrics.ts'
+export type { ListMetricsSuspenseQueryKey } from './hooks/useListMetricsSuspense.ts'
 export type { ListPoliciesQueryKey } from './hooks/useListPolicies.ts'
 export type { ListPoliciesSuspenseQueryKey } from './hooks/useListPoliciesSuspense.ts'
 export type { ListResourceAuditsQueryKey } from './hooks/useListResourceAudits.ts'
@@ -201,6 +209,8 @@ export type {
   CompleteJobMutationResponse,
   CompleteJobMutation,
 } from './types/CompleteJob.ts'
+export type { CountResolved200, CountResolved500, CountResolvedQueryResponse, CountResolvedQuery } from './types/CountResolved.ts'
+export type { CountUnresolved200, CountUnresolved500, CountUnresolvedQueryResponse, CountUnresolvedQuery } from './types/CountUnresolved.ts'
 export type { CreateApp201, CreateApp400, CreateApp500, CreateAppMutationRequest, CreateAppMutationResponse, CreateAppMutation } from './types/CreateApp.ts'
 export type {
   CreateBlockchain201,
@@ -767,6 +777,7 @@ export type {
   IncrementRunCountMutationResponse,
   IncrementRunCountMutation,
 } from './types/IncrementRunCount.ts'
+export type { ListAlters200, ListAlters500, ListAltersQueryResponse, ListAltersQuery } from './types/ListAlters.ts'
 export type { ListAppsQueryParams, ListApps200, ListApps400, ListApps500, ListAppsQueryResponse, ListAppsQuery } from './types/ListApps.ts'
 export type {
   ListBlockchainsQueryParams,
@@ -792,6 +803,7 @@ export type {
   ListContractTemplatesQuery,
 } from './types/ListContractTemplates.ts'
 export type { ListJobsQueryParams, ListJobs200, ListJobs400, ListJobs500, ListJobsQueryResponse, ListJobsQuery } from './types/ListJobs.ts'
+export type { ListMetrics200, ListMetrics500, ListMetricsQueryResponse, ListMetricsQuery } from './types/ListMetrics.ts'
 export type {
   ListPoliciesQueryParams,
   ListPolicies200,
@@ -829,6 +841,7 @@ export type {
   ListSandboxesQueryResponse,
   ListSandboxesQuery,
 } from './types/ListSandboxes.ts'
+export type { ModelsAlert } from './types/models/Alert.ts'
 export type { ModelsApp } from './types/models/App.ts'
 export type { ModelsAppCategoryEnum, ModelsAppCategory } from './types/models/AppCategory.ts'
 export type { ModelsAppStatusEnum, ModelsAppStatus } from './types/models/AppStatus.ts'
@@ -866,7 +879,9 @@ export type { ModelsSandboxStatusEnum, ModelsSandboxStatus } from './types/model
 export type { ModelsSecurityColorEnum, ModelsSecurityColor } from './types/models/SecurityColor.ts'
 export type { ModelsSecurityLevelEnum, ModelsSecurityLevel } from './types/models/SecurityLevel.ts'
 export type { ModelsService } from './types/models/Service.ts'
+export type { ModelsSeverityEnum, ModelsSeverity } from './types/models/Severity.ts'
 export type { ModelsStartModeEnum, ModelsStartMode } from './types/models/StartMode.ts'
+export type { ModelsSystemMetrics } from './types/models/SystemMetrics.ts'
 export type { ModelsTemplateStatusEnum, ModelsTemplateStatus } from './types/models/TemplateStatus.ts'
 export type { ModelsTransaction } from './types/models/Transaction.ts'
 export type { ModelsUser } from './types/models/User.ts'
@@ -1009,6 +1024,8 @@ export { approveResourceAuditByID } from './clients/approveResourceAuditByID.ts'
 export { batchCreateI18N } from './clients/batchCreateI18N.ts'
 export { cancelResourceAuditByID } from './clients/cancelResourceAuditByID.ts'
 export { completeJob } from './clients/completeJob.ts'
+export { countResolved } from './clients/countResolved.ts'
+export { countUnresolved } from './clients/countUnresolved.ts'
 export { createApp } from './clients/createApp.ts'
 export { createBlockchain } from './clients/createBlockchain.ts'
 export { createConnector } from './clients/createConnector.ts'
@@ -1081,11 +1098,13 @@ export { getTotalResourceCountByDataspace } from './clients/getTotalResourceCoun
 export { getUserByDID } from './clients/getUserByDID.ts'
 export { incrementDownloadCount } from './clients/incrementDownloadCount.ts'
 export { incrementRunCount } from './clients/incrementRunCount.ts'
+export { listAlters } from './clients/listAlters.ts'
 export { listApps } from './clients/listApps.ts'
 export { listBlockchains } from './clients/listBlockchains.ts'
 export { listContracts } from './clients/listContracts.ts'
 export { listContractTemplates } from './clients/listContractTemplates.ts'
 export { listJobs } from './clients/listJobs.ts'
+export { listMetrics } from './clients/listMetrics.ts'
 export { listPolicies } from './clients/listPolicies.ts'
 export { listResourceAudits } from './clients/listResourceAudits.ts'
 export { listResources } from './clients/listResources.ts'
@@ -1109,6 +1128,10 @@ export { approveResourceAuditByIDMutationKey, useApproveResourceAuditByID } from
 export { batchCreateI18NMutationKey, useBatchCreateI18N } from './hooks/useBatchCreateI18N.ts'
 export { cancelResourceAuditByIDMutationKey, useCancelResourceAuditByID } from './hooks/useCancelResourceAuditByID.ts'
 export { completeJobMutationKey, useCompleteJob } from './hooks/useCompleteJob.ts'
+export { countResolvedQueryKey, countResolvedQueryOptions, useCountResolved } from './hooks/useCountResolved.ts'
+export { countResolvedSuspenseQueryKey, countResolvedSuspenseQueryOptions, useCountResolvedSuspense } from './hooks/useCountResolvedSuspense.ts'
+export { countUnresolvedQueryKey, countUnresolvedQueryOptions, useCountUnresolved } from './hooks/useCountUnresolved.ts'
+export { countUnresolvedSuspenseQueryKey, countUnresolvedSuspenseQueryOptions, useCountUnresolvedSuspense } from './hooks/useCountUnresolvedSuspense.ts'
 export { createAppMutationKey, useCreateApp } from './hooks/useCreateApp.ts'
 export { createBlockchainMutationKey, useCreateBlockchain } from './hooks/useCreateBlockchain.ts'
 export { createConnectorMutationKey, useCreateConnector } from './hooks/useCreateConnector.ts'
@@ -1396,6 +1419,8 @@ export { getUserByDIDQueryKey, getUserByDIDQueryOptions, useGetUserByDID } from 
 export { getUserByDIDSuspenseQueryKey, getUserByDIDSuspenseQueryOptions, useGetUserByDIDSuspense } from './hooks/useGetUserByDIDSuspense.ts'
 export { incrementDownloadCountMutationKey, useIncrementDownloadCount } from './hooks/useIncrementDownloadCount.ts'
 export { incrementRunCountMutationKey, useIncrementRunCount } from './hooks/useIncrementRunCount.ts'
+export { listAltersQueryKey, listAltersQueryOptions, useListAlters } from './hooks/useListAlters.ts'
+export { listAltersSuspenseQueryKey, listAltersSuspenseQueryOptions, useListAltersSuspense } from './hooks/useListAltersSuspense.ts'
 export { listAppsQueryKey, listAppsQueryOptions, useListApps } from './hooks/useListApps.ts'
 export { listAppsSuspenseQueryKey, listAppsSuspenseQueryOptions, useListAppsSuspense } from './hooks/useListAppsSuspense.ts'
 export { listBlockchainsQueryKey, listBlockchainsQueryOptions, useListBlockchains } from './hooks/useListBlockchains.ts'
@@ -1410,6 +1435,8 @@ export {
 } from './hooks/useListContractTemplatesSuspense.ts'
 export { listJobsQueryKey, listJobsQueryOptions, useListJobs } from './hooks/useListJobs.ts'
 export { listJobsSuspenseQueryKey, listJobsSuspenseQueryOptions, useListJobsSuspense } from './hooks/useListJobsSuspense.ts'
+export { listMetricsQueryKey, listMetricsQueryOptions, useListMetrics } from './hooks/useListMetrics.ts'
+export { listMetricsSuspenseQueryKey, listMetricsSuspenseQueryOptions, useListMetricsSuspense } from './hooks/useListMetricsSuspense.ts'
 export { listPoliciesQueryKey, listPoliciesQueryOptions, useListPolicies } from './hooks/useListPolicies.ts'
 export { listPoliciesSuspenseQueryKey, listPoliciesSuspenseQueryOptions, useListPoliciesSuspense } from './hooks/useListPoliciesSuspense.ts'
 export { listResourceAuditsQueryKey, listResourceAuditsQueryOptions, useListResourceAudits } from './hooks/useListResourceAudits.ts'
@@ -1457,6 +1484,7 @@ export { modelsSandboxSecurityLevel } from './types/models/SandboxSecurityLevel.
 export { modelsSandboxStatus } from './types/models/SandboxStatus.ts'
 export { modelsSecurityColor } from './types/models/SecurityColor.ts'
 export { modelsSecurityLevel } from './types/models/SecurityLevel.ts'
+export { modelsSeverity } from './types/models/Severity.ts'
 export { modelsStartMode } from './types/models/StartMode.ts'
 export { modelsTemplateStatus } from './types/models/TemplateStatus.ts'
 export { updateContractTemplateStatusByIDPathParamsStatusEnum } from './types/UpdateContractTemplateStatusByID.ts'
