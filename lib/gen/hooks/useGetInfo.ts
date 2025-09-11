@@ -4,11 +4,11 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { GetInfoQueryResponse } from '../types/GetInfo.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
-import { getInfo } from '../clients/getInfo.ts'
+import type { GetInfoQueryResponse } from '../types/GetInfo.ts'
 import { queryOptions, useQuery } from '@tanstack/react-query'
+import { getInfo } from '../clients/getInfo.ts'
 
 export const getInfoQueryKey = () => [{ url: '/info' }] as const
 

@@ -29,6 +29,7 @@ import {
   UserCheck,
   Users,
 } from "lucide-react";
+import { useLocale } from "next-intl";
 
 const policyIconMap: Record<string, any> = {
   "clock-fading": Clock,
@@ -82,6 +83,7 @@ export function PolicyTemplatesCard({
   showAddButton = false,
   onAddClick,
 }: PolicyTemplatesCardProps) {
+  const locale = useLocale();
   const {
     data: policiesResponse,
     isLoading,
@@ -89,6 +91,7 @@ export function PolicyTemplatesCard({
   } = useListPolicies({
     page: 1,
     page_size: 50, // 获取足够多的策略
+    lang: locale,
   });
 
   const policies =
@@ -266,7 +269,7 @@ export function PolicyTemplatesCard({
                                     if (fieldValue === undefined) return null;
 
                                     const displayName =
-                                      (fieldInfo as any)?.["zh-CN"] || key;
+                                      (fieldInfo as any)?.[locale] || key;
                                     const displayValue = Array.isArray(
                                       fieldValue
                                     )

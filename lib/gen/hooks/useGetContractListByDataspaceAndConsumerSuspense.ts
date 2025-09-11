@@ -4,6 +4,8 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
+import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
+import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
 import type {
   GetContractListByDataspaceAndConsumerQueryResponse,
   GetContractListByDataspaceAndConsumerPathParams,
@@ -11,10 +13,8 @@ import type {
   GetContractListByDataspaceAndConsumer400,
   GetContractListByDataspaceAndConsumer500,
 } from '../types/GetContractListByDataspaceAndConsumer.ts'
-import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
-import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
-import { getContractListByDataspaceAndConsumer } from '../clients/getContractListByDataspaceAndConsumer.ts'
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
+import { getContractListByDataspaceAndConsumer } from '../clients/getContractListByDataspaceAndConsumer.ts'
 
 export const getContractListByDataspaceAndConsumerSuspenseQueryKey = (
   dataspace: GetContractListByDataspaceAndConsumerPathParams['dataspace'],

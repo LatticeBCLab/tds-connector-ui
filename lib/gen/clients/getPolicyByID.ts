@@ -4,8 +4,15 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { GetPolicyByIDQueryResponse, GetPolicyByIDPathParams, GetPolicyByID400, GetPolicyByID404, GetPolicyByID500 } from '../types/GetPolicyByID.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
+import type {
+  GetPolicyByIDQueryResponse,
+  GetPolicyByIDPathParams,
+  GetPolicyByIDQueryParams,
+  GetPolicyByID400,
+  GetPolicyByID404,
+  GetPolicyByID500,
+} from '../types/GetPolicyByID.ts'
 
 function getGetPolicyByIDUrl(id: GetPolicyByIDPathParams['id']) {
   const res = { method: 'GET', url: `/tdsc/api/v1/policy/${id}` as const }
@@ -17,12 +24,17 @@ function getGetPolicyByIDUrl(id: GetPolicyByIDPathParams['id']) {
  * @summary 获取策略模板详情
  * {@link /api/v1/policy/:id}
  */
-export async function getPolicyByID(id: GetPolicyByIDPathParams['id'], config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
+export async function getPolicyByID(
+  id: GetPolicyByIDPathParams['id'],
+  params?: GetPolicyByIDQueryParams,
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+) {
   const { client: request = fetch, ...requestConfig } = config
 
   const res = await request<GetPolicyByIDQueryResponse, ResponseErrorConfig<GetPolicyByID400 | GetPolicyByID404 | GetPolicyByID500>, unknown>({
     method: 'GET',
     url: getGetPolicyByIDUrl(id).url.toString(),
+    params,
     ...requestConfig,
   })
   return res.data

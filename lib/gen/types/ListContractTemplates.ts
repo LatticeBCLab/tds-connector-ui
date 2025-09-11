@@ -6,14 +6,6 @@
 import type { ModelsContractTemplate } from './models/ContractTemplate.ts'
 import type { ResponseResponse } from './response/Response.ts'
 
-export const listContractTemplatesQueryParamsStatusEnum = {
-  active: 'active',
-  banned: 'banned',
-} as const
-
-export type ListContractTemplatesQueryParamsStatusEnum =
-  (typeof listContractTemplatesQueryParamsStatusEnum)[keyof typeof listContractTemplatesQueryParamsStatusEnum]
-
 export type ListContractTemplatesQueryParams = {
   /**
    * @description 页码
@@ -28,15 +20,10 @@ export type ListContractTemplatesQueryParams = {
    */
   page_size?: number
   /**
-   * @description 搜索关键词
+   * @description 数据空间id
    * @type string | undefined
    */
-  search?: string
-  /**
-   * @description 状态过滤
-   * @type string | undefined
-   */
-  status?: ListContractTemplatesQueryParamsStatusEnum
+  dataspace_id?: string
 }
 
 /**

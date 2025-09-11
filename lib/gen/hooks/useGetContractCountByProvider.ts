@@ -4,15 +4,15 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
+import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
+import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
 import type {
   GetContractCountByProviderQueryResponse,
   GetContractCountByProviderQueryParams,
   GetContractCountByProvider500,
 } from '../types/GetContractCountByProvider.ts'
-import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
-import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
-import { getContractCountByProvider } from '../clients/getContractCountByProvider.ts'
 import { queryOptions, useQuery } from '@tanstack/react-query'
+import { getContractCountByProvider } from '../clients/getContractCountByProvider.ts'
 
 export const getContractCountByProviderQueryKey = (params?: GetContractCountByProviderQueryParams) =>
   [{ url: '/api/v1/contracts/count' }, ...(params ? [params] : [])] as const

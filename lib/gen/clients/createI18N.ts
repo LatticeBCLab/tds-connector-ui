@@ -4,8 +4,8 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { CreateI18NMutationRequest, CreateI18NMutationResponse, CreateI18N400, CreateI18N500 } from '../types/CreateI18N.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
+import type { CreateI18NMutationRequest, CreateI18NMutationResponse, CreateI18N400, CreateI18N500 } from '../types/CreateI18N.ts'
 
 function getCreateI18NUrl() {
   const res = { method: 'POST', url: `/tdsc/api/v1/i18n` as const }

@@ -4,16 +4,16 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
+import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
+import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
 import type {
   GetContractCountByDataspaceAndConsumerQueryResponse,
   GetContractCountByDataspaceAndConsumerPathParams,
   GetContractCountByDataspaceAndConsumerQueryParams,
   GetContractCountByDataspaceAndConsumer500,
 } from '../types/GetContractCountByDataspaceAndConsumer.ts'
-import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
-import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
-import { getContractCountByDataspaceAndConsumer } from '../clients/getContractCountByDataspaceAndConsumer.ts'
 import { queryOptions, useQuery } from '@tanstack/react-query'
+import { getContractCountByDataspaceAndConsumer } from '../clients/getContractCountByDataspaceAndConsumer.ts'
 
 export const getContractCountByDataspaceAndConsumerQueryKey = (
   dataspace: GetContractCountByDataspaceAndConsumerPathParams['dataspace'],

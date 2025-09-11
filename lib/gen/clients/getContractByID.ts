@@ -4,6 +4,7 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
+import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type {
   GetContractByIDQueryResponse,
   GetContractByIDPathParams,
@@ -11,7 +12,6 @@ import type {
   GetContractByID404,
   GetContractByID500,
 } from '../types/GetContractByID.ts'
-import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 function getGetContractByIDUrl(id: GetContractByIDPathParams['id']) {
   const res = { method: 'GET', url: `/tdsc/api/v1/contracts/${id}` as const }

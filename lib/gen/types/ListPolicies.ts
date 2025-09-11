@@ -19,15 +19,10 @@ export type ListPoliciesQueryParams = {
    */
   page_size?: number
   /**
-   * @description 搜索关键词
+   * @description 语言
    * @type string | undefined
    */
-  search?: string
-  /**
-   * @description 安全级别
-   * @type string | undefined
-   */
-  security_level?: string
+  lang?: string
 }
 
 /**

@@ -4,8 +4,8 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { GetInfoQueryResponse } from '../types/GetInfo.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
+import type { GetInfoQueryResponse } from '../types/GetInfo.ts'
 
 function getGetInfoUrl() {
   const res = { method: 'GET', url: `/tdsc/info` as const }

@@ -4,11 +4,11 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { CreateI18NMutationRequest, CreateI18NMutationResponse, CreateI18N400, CreateI18N500 } from '../types/CreateI18N.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { UseMutationOptions, QueryClient } from '@tanstack/react-query'
-import { createI18N } from '../clients/createI18N.ts'
+import type { CreateI18NMutationRequest, CreateI18NMutationResponse, CreateI18N400, CreateI18N500 } from '../types/CreateI18N.ts'
 import { useMutation } from '@tanstack/react-query'
+import { createI18N } from '../clients/createI18N.ts'
 
 export const createI18NMutationKey = () => [{ url: '/api/v1/i18n' }] as const
 

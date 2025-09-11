@@ -4,18 +4,30 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { GetPolicyByIDQueryResponse, GetPolicyByIDPathParams, GetPolicyByID400, GetPolicyByID404, GetPolicyByID500 } from '../types/GetPolicyByID.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
-import { getPolicyByID } from '../clients/getPolicyByID.ts'
+import type {
+  GetPolicyByIDQueryResponse,
+  GetPolicyByIDPathParams,
+  GetPolicyByIDQueryParams,
+  GetPolicyByID400,
+  GetPolicyByID404,
+  GetPolicyByID500,
+} from '../types/GetPolicyByID.ts'
 import { queryOptions, useQuery } from '@tanstack/react-query'
+import { getPolicyByID } from '../clients/getPolicyByID.ts'
 
-export const getPolicyByIDQueryKey = (id: GetPolicyByIDPathParams['id']) => [{ url: '/api/v1/policy/:id', params: { id: id } }] as const
+export const getPolicyByIDQueryKey = (id: GetPolicyByIDPathParams['id'], params?: GetPolicyByIDQueryParams) =>
+  [{ url: '/api/v1/policy/:id', params: { id: id } }, ...(params ? [params] : [])] as const
 
 export type GetPolicyByIDQueryKey = ReturnType<typeof getPolicyByIDQueryKey>
 
-export function getPolicyByIDQueryOptions(id: GetPolicyByIDPathParams['id'], config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
-  const queryKey = getPolicyByIDQueryKey(id)
+export function getPolicyByIDQueryOptions(
+  id: GetPolicyByIDPathParams['id'],
+  params?: GetPolicyByIDQueryParams,
+  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+) {
+  const queryKey = getPolicyByIDQueryKey(id, params)
   return queryOptions<
     GetPolicyByIDQueryResponse,
     ResponseErrorConfig<GetPolicyByID400 | GetPolicyByID404 | GetPolicyByID500>,
@@ -26,7 +38,7 @@ export function getPolicyByIDQueryOptions(id: GetPolicyByIDPathParams['id'], con
     queryKey,
     queryFn: async ({ signal }) => {
       config.signal = signal
-      return getPolicyByID(id, config)
+      return getPolicyByID(id, params, config)
     },
   })
 }
@@ -42,6 +54,7 @@ export function useGetPolicyByID<
   TQueryKey extends QueryKey = GetPolicyByIDQueryKey,
 >(
   id: GetPolicyByIDPathParams['id'],
+  params?: GetPolicyByIDQueryParams,
   options: {
     query?: Partial<
       QueryObserverOptions<
@@ -57,11 +70,11 @@ export function useGetPolicyByID<
 ) {
   const { query: queryConfig = {}, client: config = {} } = options ?? {}
   const { client: queryClient, ...queryOptions } = queryConfig
-  const queryKey = queryOptions?.queryKey ?? getPolicyByIDQueryKey(id)
+  const queryKey = queryOptions?.queryKey ?? getPolicyByIDQueryKey(id, params)
 
   const query = useQuery(
     {
-      ...getPolicyByIDQueryOptions(id, config),
+      ...getPolicyByIDQueryOptions(id, params, config),
       queryKey,
       ...queryOptions,
     } as unknown as QueryObserverOptions,
