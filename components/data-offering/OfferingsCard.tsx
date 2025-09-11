@@ -37,7 +37,6 @@ import {
   Trash2,
 } from "lucide-react";
 import { useEffect, useState } from "react";
-import { toast } from "sonner";
 import { ScrollArea } from "../ui/scroll-area";
 
 // Data source type icon mapping
@@ -226,7 +225,6 @@ export function OfferingsCard({
               open={isAddOfferingOpen}
               onOpenChange={setIsAddOfferingOpen}
               onSuccess={() => {
-                toast.success("Data offering created successfully");
                 handleRefreshData();
               }}
             />
@@ -432,7 +430,6 @@ function cardSkeleton(
             open={isAddOfferingOpen}
             onOpenChange={setIsAddOfferingOpen}
             onSuccess={() => {
-              toast.success("Data offering created successfully");
               onRefreshData?.();
             }}
           />

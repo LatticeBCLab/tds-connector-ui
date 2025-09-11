@@ -18,25 +18,18 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Spinner } from "@/components/ui/spinner";
 import { Textarea } from "@/components/ui/textarea";
-import { useFileUpload } from "@/hooks";
+import { useCreateResource, useGetDataSpaceByID } from "@/lib/gen";
 import {
   createDataOfferingSchema,
   getDefaultValues,
   type CreateDataOfferingFormData,
 } from "@/lib/schemas/data-offering";
+import { useAppStore } from "@/lib/stores/app-store";
 import { DataSourceType } from "@/types";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  AlertCircleIcon,
-  Cloud,
-  File,
-  ImageUpIcon,
-  Link,
-  Plus,
-  Server,
-  XIcon,
-} from "lucide-react";
+import { Cloud, File, Link, Plus, Server } from "lucide-react";
 import { useCallback, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -52,75 +45,129 @@ export function CreateDataOfferingDialog({
   onOpenChange,
   onSuccess,
 }: CreateDataOfferingDialogProps) {
-  // TODO: Replace with actual API call implementation
-  const isCreating = false;
+  // Get store values
+  const { userDID, currentDataSpaceId } = useAppStore();
 
-  const form = useForm<CreateDataOfferingFormData>({
-    resolver: zodResolver(createDataOfferingSchema),
-    defaultValues: getDefaultValues("local_file"),
-  });
-
-  // File upload functionality
-  const [{ files, isDragging, errors }, fileActions] = useFileUpload({
-    maxSize: 10 * 1024 * 1024, // 10MB
-    multiple: false,
-    onUpload: (uploadedFiles) => {
-      if (uploadedFiles.length > 0) {
-        const file = uploadedFiles[0];
-        // Automatically set objectKey to file name
-        form.setValue("sourceConfig.objectKey", file.file.name);
-        // Store file reference
-        form.setValue("sourceConfig.file", file);
-      }
+  // API hooks
+  const createResourceMutation = useCreateResource();
+  const { data: dataSpace } = useGetDataSpaceByID(currentDataSpaceId || "", {
+    query: {
+      enabled: !!currentDataSpaceId,
     },
   });
 
-  const { clearFiles, ...restFileActions } = fileActions;
+  const form = useForm<CreateDataOfferingFormData>({
+    resolver: zodResolver(createDataOfferingSchema),
+    defaultValues: getDefaultValues("s3"), // Default to S3 as requested
+  });
 
   // Watch dataType changes
   const watchedDataType = form.watch("dataType");
 
   const handleDataTypeChange = useCallback(
     (newDataType: DataSourceType) => {
-      // Clean up file upload state (only for S3)
-      if (watchedDataType === "s3" && newDataType !== "s3") {
-        clearFiles();
-      }
-
       // Reset form to new data type's default values
       const newDefaults = getDefaultValues(newDataType);
       form.reset(newDefaults);
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [watchedDataType, form]
+    [form]
   );
 
   // Watch dialog open/close state, reset form
-  useEffect(
-    () => {
-      if (!open) {
-        form.reset(getDefaultValues("local_file"));
-        clearFiles();
-      }
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [open, form]
-  );
+  useEffect(() => {
+    if (!open) {
+      form.reset(getDefaultValues("s3"));
+    }
+  }, [open, form]);
 
   const onSubmit = async (data: CreateDataOfferingFormData) => {
     try {
-      // TODO: Replace with actual API call
-      console.log("Form data:", data);
-      
-      // Simulate success behavior for now
-      toast.success("Data resource created successfully");
+      if (!userDID) {
+        toast.error("User not logged in");
+        return;
+      }
+
+      if (!currentDataSpaceId) {
+        toast.error("Please select a data space first");
+        return;
+      }
+
+      if (!dataSpace) {
+        toast.error("Unable to retrieve data space information");
+        return;
+      }
+
+      // Map form data to API request format
+      const location = process.env.NEXT_PUBLIC_LOCATION || "CHINA";
+      const originCountry = dataSpace.country?.toUpperCase() || "CHINA";
+
+      // Generate config JSON based on data type
+      let config: any = {};
+      const fileSize = Math.floor(Math.random() * 100000000) + 1000000; // Random file size 1MB-100MB
+
+      switch (data.dataType) {
+        case "s3":
+          config = {
+            region: data.sourceConfig.region,
+            fileSize,
+            bucketName: data.sourceConfig.bucketName,
+            fileFormat: data.sourceConfig.fileFormat,
+            objectName: data.sourceConfig.objectName,
+          };
+          break;
+        case "local_file":
+          config = {
+            filePath: data.sourceConfig.filePath,
+            format: data.sourceConfig.format,
+            fileSize,
+          };
+          break;
+        case "nas":
+          config = {
+            serverAddress: data.sourceConfig.serverAddress,
+            sharePath: data.sourceConfig.sharePath,
+            protocol: data.sourceConfig.protocol,
+            fileSize,
+          };
+          break;
+        case "restful":
+          config = {
+            apiEndpoint: data.sourceConfig.apiEndpoint,
+            method: data.sourceConfig.method,
+            authentication: data.sourceConfig.authentication,
+          };
+          break;
+      }
+
+      // Map data type to API type
+      const typeMap = {
+        local_file: "LocalFile",
+        s3: "S3",
+        nas: "NAS",
+        restful: "RESTful",
+      } as const;
+
+      const requestData = {
+        title: data.title,
+        description: data.description,
+        dataspace: currentDataSpaceId,
+        location: location as any,
+        originCountry: originCountry as any,
+        publisher: userDID,
+        status: data.status as any,
+        type: typeMap[data.dataType] as any,
+        config,
+      };
+
+      await createResourceMutation.mutateAsync({ data: requestData });
+
+      toast.success("Data offering created successfully");
       onSuccess?.();
       onOpenChange(false);
-      form.reset();
-      clearFiles();
+      form.reset(getDefaultValues("s3"));
     } catch (error) {
-      console.error("Error submitting form:", error);
-      toast.error("Error submitting form, please try again");
+      console.error("Error creating resource:", error);
+      toast.error("Failed to create data resource, please try again");
     }
   };
 
@@ -181,6 +228,39 @@ export function CreateDataOfferingDialog({
             )}
           />
 
+          {/* Read-only fields */}
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label className="text-muted-foreground text-sm font-medium">
+                Location
+              </label>
+              <Input
+                value={process.env.NEXT_PUBLIC_LOCATION}
+                readOnly
+                className="border-border bg-muted/50 text-muted-foreground"
+              />
+            </div>
+            <div>
+              <label className="text-muted-foreground text-sm font-medium">
+                Origin Country
+              </label>
+              <Input
+                value={dataSpace?.country}
+                readOnly
+                className="border-border bg-muted/50 text-muted-foreground"
+              />
+            </div>
+          </div>
+          <div>
+            <label className="text-muted-foreground text-sm font-medium">
+              Publisher
+            </label>
+            <Input
+              value={userDID || ""}
+              readOnly
+              className="border-border bg-muted/50 text-muted-foreground"
+            />
+          </div>
           <div className="flex justify-between gap-4">
             <FormField
               control={form.control}
@@ -234,22 +314,19 @@ export function CreateDataOfferingDialog({
 
             <FormField
               control={form.control}
-              name="accessPolicy"
+              name="status"
               render={({ field }) => (
                 <FormItem className="flex-1">
-                  <FormLabel htmlFor="access-policy">Access Policy</FormLabel>
+                  <FormLabel htmlFor="status">Status</FormLabel>
                   <Select value={field.value} onValueChange={field.onChange}>
                     <FormControl>
                       <SelectTrigger className="border-border">
-                        <SelectValue placeholder="Select policy" />
+                        <SelectValue placeholder="Select status" />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value="Open">Open Access</SelectItem>
-                      <SelectItem value="Restricted">
-                        Restricted Access
-                      </SelectItem>
-                      <SelectItem value="Premium">Premium Access</SelectItem>
+                      <SelectItem value="Active">Active</SelectItem>
+                      <SelectItem value="Inactive">Inactive</SelectItem>
                     </SelectContent>
                   </Select>
                   <FormMessage />
@@ -263,15 +340,7 @@ export function CreateDataOfferingDialog({
             <LocalFileConfigSection form={form} />
           )}
 
-          {watchedDataType === "s3" && (
-            <S3ConfigSection
-              form={form}
-              files={files}
-              isDragging={isDragging}
-              errors={errors}
-              fileActions={restFileActions}
-            />
-          )}
+          {watchedDataType === "s3" && <S3ConfigSection form={form} />}
 
           {watchedDataType === "nas" && <NASConfigSection form={form} />}
 
@@ -287,8 +356,15 @@ export function CreateDataOfferingDialog({
             >
               Cancel
             </Button>
-            <Button type="submit" disabled={isCreating}>
-              {isCreating ? "Creating..." : "Create Data Resource"}
+            <Button type="submit" disabled={createResourceMutation.isPending}>
+              {createResourceMutation.isPending ? (
+                <>
+                  <Spinner variant="circle" />
+                  Creating...
+                </>
+              ) : (
+                "Create Data Resource"
+              )}
             </Button>
           </div>
         </form>
@@ -349,99 +425,11 @@ function LocalFileConfigSection({ form }: { form: any }) {
   );
 }
 
-// S3 configuration component
-function S3ConfigSection({
-  form,
-  files,
-  isDragging,
-  errors,
-  fileActions,
-}: {
-  form: any;
-  files: any[];
-  isDragging: boolean;
-  errors: string[];
-  fileActions: any;
-}) {
-  const maxSizeMB = 10;
-
+// S3 configuration component - simplified without file upload
+function S3ConfigSection({ form }: { form: any }) {
   return (
     <div className="bg-muted/50 space-y-4 rounded-lg border p-4">
       <h4 className="font-medium">S3 Storage Configuration</h4>
-
-      {/* File Upload Section */}
-      <div className="space-y-2">
-        <div className="relative">
-          <div
-            role="button"
-            onClick={fileActions.openFileDialog}
-            onDragEnter={fileActions.handleDragEnter}
-            onDragLeave={fileActions.handleDragLeave}
-            onDragOver={fileActions.handleDragOver}
-            onDrop={fileActions.handleDrop}
-            data-dragging={isDragging || undefined}
-            className="border-border hover:bg-accent/50 data-[dragging=true]:bg-accent/50 has-[input:focus]:border-ring has-[input:focus]:ring-ring/50 relative flex min-h-32 cursor-pointer flex-col items-center justify-center overflow-hidden rounded-xl border border-dashed p-4 transition-colors has-disabled:pointer-events-none has-disabled:opacity-50 has-[input:focus]:ring-[3px]"
-          >
-            <input
-              {...fileActions.getInputProps()}
-              className="sr-only"
-              aria-label="Upload file"
-            />
-            {files.length > 0 ? (
-              <div className="flex items-center space-x-2">
-                <File className="h-5 w-5 text-blue-500" />
-                <span className="text-sm font-medium">
-                  {files[0].file.name}
-                </span>
-                <span className="text-muted-foreground text-xs">
-                  ({(files[0].file.size / 1024 / 1024).toFixed(2)}MB)
-                </span>
-              </div>
-            ) : (
-              <div className="flex flex-col items-center justify-center px-4 py-3 text-center">
-                <div
-                  className="bg-background mb-2 flex size-11 shrink-0 items-center justify-center rounded-full border"
-                  aria-hidden="true"
-                >
-                  <ImageUpIcon className="size-4 opacity-60" />
-                </div>
-                <p className="mb-1.5 text-sm font-medium">
-                  Drag files here or click to upload.
-                </p>
-                <p className="text-muted-foreground text-xs">
-                  Supported formats: CSV, JSON, XML, Parquet, TXT, Excel, PDF
-                  (Max {maxSizeMB}MB)
-                </p>
-              </div>
-            )}
-          </div>
-          {files.length > 0 && (
-            <div className="absolute top-2 right-2">
-              <button
-                type="button"
-                className="focus-visible:border-ring focus-visible:ring-ring/50 z-50 flex size-6 cursor-pointer items-center justify-center rounded-full bg-black/60 text-white transition-[color,box-shadow] outline-none hover:bg-black/80 focus-visible:ring-[3px]"
-                onClick={() => {
-                  fileActions.removeFile(files[0].id);
-                  form.setValue("sourceConfig.file", undefined);
-                }}
-                aria-label="Remove file"
-              >
-                <XIcon className="size-3" aria-hidden="true" />
-              </button>
-            </div>
-          )}
-        </div>
-
-        {errors.length > 0 && (
-          <div
-            className="text-destructive flex items-center gap-1 text-xs"
-            role="alert"
-          >
-            <AlertCircleIcon className="size-3 shrink-0" />
-            <span>{errors[0]}</span>
-          </div>
-        )}
-      </div>
 
       <div className="grid grid-cols-2 gap-4">
         <FormField
@@ -465,15 +453,15 @@ function S3ConfigSection({
 
         <FormField
           control={form.control}
-          name="sourceConfig.objectKey"
+          name="sourceConfig.objectName"
           render={({ field }) => (
             <FormItem>
-              <FormLabel htmlFor="object-key">Object Key</FormLabel>
+              <FormLabel htmlFor="object-name">Object Name</FormLabel>
               <FormControl>
                 <Input
                   className="border-border"
-                  id="object-key"
-                  placeholder="data/file.csv"
+                  id="object-name"
+                  placeholder="file.csv"
                   {...field}
                 />
               </FormControl>
@@ -483,24 +471,50 @@ function S3ConfigSection({
         />
       </div>
 
-      <FormField
-        control={form.control}
-        name="sourceConfig.region"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel htmlFor="region">Region</FormLabel>
-            <FormControl>
-              <Input
-                className="border-border"
-                id="region"
-                placeholder="us-east-1"
-                {...field}
-              />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
+      <div className="grid grid-cols-2 gap-4">
+        <FormField
+          control={form.control}
+          name="sourceConfig.region"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel htmlFor="region">Region</FormLabel>
+              <FormControl>
+                <Input
+                  className="border-border"
+                  id="region"
+                  placeholder="laos-center"
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="sourceConfig.fileFormat"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel htmlFor="file-format">File Format</FormLabel>
+              <Select value={field.value} onValueChange={field.onChange}>
+                <FormControl>
+                  <SelectTrigger className="border-border">
+                    <SelectValue placeholder="Select format" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  <SelectItem value="CSV">CSV</SelectItem>
+                  <SelectItem value="JSON">JSON</SelectItem>
+                  <SelectItem value="XML">XML</SelectItem>
+                  <SelectItem value="Parquet">Parquet</SelectItem>
+                </SelectContent>
+              </Select>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+      </div>
     </div>
   );
 }

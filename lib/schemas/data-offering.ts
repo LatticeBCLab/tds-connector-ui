@@ -1,12 +1,12 @@
 import type { DataSourceType } from "@/types";
 import { z } from "zod";
 
-// Base field validation
+// Base field validation - now aligned with API requirements
 export const baseOfferingSchema = z.object({
   title: z.string().min(1, "Title is required").max(100, "Title cannot exceed 100 characters"),
   description: z.string().min(1, "Description is required").max(500, "Description cannot exceed 500 characters"),
   dataType: z.enum(["local_file", "s3", "nas", "restful"] as const),
-  accessPolicy: z.enum(["Open", "Restricted", "Premium"] as const),
+  status: z.enum(["Active", "Inactive"] as const),
 });
 
 // Local file configuration validation
@@ -15,12 +15,12 @@ export const localFileConfigSchema = z.object({
   format: z.enum(["CSV", "JSON", "XML", "Parquet"] as const),
 });
 
-// S3 configuration validation
+// S3 configuration validation - simplified per requirements
 export const s3ConfigSchema = z.object({
   bucketName: z.string().min(1, "Bucket name is required"),
-  objectKey: z.string().min(1, "Object key is required"),
+  objectName: z.string().min(1, "Object name is required"),
   region: z.string().min(1, "Region is required"),
-  file: z.any().optional(), // For storing uploaded file information
+  fileFormat: z.enum(["CSV", "JSON", "XML", "Parquet"] as const),
 });
 
 // NAS configuration validation
@@ -80,7 +80,7 @@ export const getDefaultValues = (dataType: DataSourceType): CreateDataOfferingFo
     title: "",
     description: "",
     dataType,
-    accessPolicy: "Open" as const,
+    status: "Active" as const,
   };
 
   switch (dataType) {
@@ -99,8 +99,9 @@ export const getDefaultValues = (dataType: DataSourceType): CreateDataOfferingFo
         dataType: "s3",
         sourceConfig: {
           bucketName: "",
-          objectKey: "",
-          region: "cn-north-4",
+          objectName: "",
+          region: "laos-center",
+          fileFormat: "CSV" as const,
         },
       };
     case "nas":
@@ -128,10 +129,12 @@ export const getDefaultValues = (dataType: DataSourceType): CreateDataOfferingFo
     default:
       return {
         ...base,
-        dataType: "local_file",
+        dataType: "s3", // Default to S3 as requested
         sourceConfig: {
-          filePath: "",
-          format: "CSV" as const,
+          bucketName: "",
+          objectName: "",
+          region: "laos-center",
+          fileFormat: "CSV" as const,
         },
       };
   }
