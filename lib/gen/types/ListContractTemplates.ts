@@ -3,16 +3,16 @@
  * Do not edit manually.
  */
 
-import type { ModelsContractTemplate } from './models/ContractTemplate.ts'
-import type { ResponseResponse } from './response/Response.ts'
+import type { ModelsContractTemplate } from "./models/ContractTemplate.ts";
+import type { ResponseResponse } from "./response/Response.ts";
 
 export const listContractTemplatesQueryParamsStatusEnum = {
-  active: 'active',
-  banned: 'banned',
-} as const
+  active: "active",
+  banned: "banned",
+} as const;
 
 export type ListContractTemplatesQueryParamsStatusEnum =
-  (typeof listContractTemplatesQueryParamsStatusEnum)[keyof typeof listContractTemplatesQueryParamsStatusEnum]
+  (typeof listContractTemplatesQueryParamsStatusEnum)[keyof typeof listContractTemplatesQueryParamsStatusEnum];
 
 export type ListContractTemplatesQueryParams = {
   /**
@@ -20,24 +20,26 @@ export type ListContractTemplatesQueryParams = {
    * @default 1
    * @type integer | undefined
    */
-  page?: number
+  page?: number;
   /**
    * @description 每页数量
    * @default 10
    * @type integer | undefined
    */
-  page_size?: number
+  page_size?: number;
   /**
    * @description 搜索关键词
    * @type string | undefined
    */
-  search?: string
+  search?: string;
   /**
    * @description 状态过滤
    * @type string | undefined
    */
-  status?: ListContractTemplatesQueryParamsStatusEnum
-}
+  status?: ListContractTemplatesQueryParamsStatusEnum;
+
+  dataspace_id?: string;
+};
 
 /**
  * @description OK
@@ -46,35 +48,35 @@ export type ListContractTemplates200 = {
   /**
    * @type array | undefined
    */
-  list?: ModelsContractTemplate[]
+  list?: ModelsContractTemplate[];
   /**
    * @type integer | undefined
    */
-  page?: number
+  page?: number;
   /**
    * @type integer | undefined
    */
-  page_size?: number
+  page_size?: number;
   /**
    * @type integer | undefined, int64
    */
-  total?: number
-}
+  total?: number;
+};
 
 /**
  * @description Bad Request
  */
-export type ListContractTemplates400 = ResponseResponse
+export type ListContractTemplates400 = ResponseResponse;
 
 /**
  * @description Internal Server Error
  */
-export type ListContractTemplates500 = ResponseResponse
+export type ListContractTemplates500 = ResponseResponse;
 
-export type ListContractTemplatesQueryResponse = ListContractTemplates200
+export type ListContractTemplatesQueryResponse = ListContractTemplates200;
 
 export type ListContractTemplatesQuery = {
-  Response: ListContractTemplates200
-  QueryParams: ListContractTemplatesQueryParams
-  Errors: ListContractTemplates400 | ListContractTemplates500
-}
+  Response: ListContractTemplates200;
+  QueryParams: ListContractTemplatesQueryParams;
+  Errors: ListContractTemplates400 | ListContractTemplates500;
+};

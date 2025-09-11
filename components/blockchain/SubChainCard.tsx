@@ -1,6 +1,5 @@
 "use client";
 
-import { StatusBadge } from "@/components/shared";
 import { Badge } from "@/components/ui/badge";
 import {
   Card,
@@ -16,44 +15,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import {
-  AlertCircle,
-  Building,
-  CheckCircle,
-  Clock,
-  FileSearch,
-  Folder,
-  GitBranch,
-} from "lucide-react";
+import { ModelsBlockChain, useGetBlockchain } from "@/lib/gen";
+import { Folder } from "lucide-react";
+import { useEffect, useState } from "react";
 import { EmptyState } from "../shared/EmptyState";
-
-// Sub chain type mapping
-const subChainTypes = {
-  catalog: {
-    name: "Catalog Chain",
-    description: "Data catalog contracts and directory operations",
-    icon: Folder,
-    purpose: "Data Directory Management",
-  },
-  audit: {
-    name: "Audit Chain",
-    description: "Connector operations and compliance audit trails",
-    icon: FileSearch,
-    purpose: "Audit & Compliance",
-  },
-  business: {
-    name: "Business Chain",
-    description: "Business contracts and commercial transactions",
-    icon: Building,
-    purpose: "Business Operations",
-  },
-  lineage: {
-    name: "Lineage Chain",
-    description: "Data lineage tracking and file relationship records",
-    icon: GitBranch,
-    purpose: "Data Lineage",
-  },
-};
 
 interface Transaction {
   id: string;
@@ -64,21 +29,136 @@ interface Transaction {
 }
 
 interface SubChainCardProps {
-  selectedSubChainType: "catalog" | "audit" | "business" | "lineage";
-  onSubChainTypeChange: (
-    value: "catalog" | "audit" | "business" | "lineage"
-  ) => void;
-  subChainTransactions: Transaction[];
+  subChains: ModelsBlockChain[];
 }
 
-export function SubChainCard({
-  selectedSubChainType,
-  onSubChainTypeChange,
-  subChainTransactions,
-}: SubChainCardProps) {
-  const currentSubChainInfo = subChainTypes[selectedSubChainType];
+function SubChainRealCard({
+  options,
+}: {
+  options: { label: string; value: string }[];
+}) {
+  const [id, setId] = useState(options[0].value);
+  const { data: chainData } = useGetBlockchain(+id);
 
-  if (!currentSubChainInfo) {
+  useEffect(() => {
+    if (!options.find((d) => d.value === id)) {
+      setId(options[0].value);
+    }
+  }, [options]);
+
+  return (
+    chainData && (
+      <Card>
+        <CardHeader>
+          <div className="flex items-center justify-between">
+            <div className="flex-1">
+              <CardTitle className="flex items-center gap-2">
+                {chainData.name}
+              </CardTitle>
+              <CardDescription>{chainData.description}</CardDescription>
+            </div>
+            <div className="flex items-center gap-3">
+              <Select value={id} onValueChange={setId}>
+                <SelectTrigger className="bg-background border-border w-fit border">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  {options.map(({ label, value }) => (
+                    <SelectItem key={value} value={value}>
+                      <div className="flex items-center gap-2">{label}</div>
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-4">
+            <div className="rounded-lg border p-4">
+              <div className="grid gap-3">
+                <div className="flex items-center justify-between">
+                  <h4 className="font-semibold">{chainData.name}</h4>
+                  <Badge variant="outline">ZLTC</Badge>
+                </div>
+                <div className="grid grid-cols-2 gap-4 text-sm">
+                  <div>
+                    <span className="text-muted-foreground">Chain Type:</span>
+                    <p className="font-medium">Sub Chain</p>
+                  </div>
+                  {!!chainData.subChainType && (
+                    <div>
+                      <span className="text-muted-foreground">
+                        Sub Chain Type:
+                      </span>
+                      <p className="font-medium">
+                        {chainData.subChainType.charAt(0).toUpperCase() +
+                          chainData.subChainType.slice(1)}
+                      </p>
+                    </div>
+                  )}
+                  <div>
+                    <span className="text-muted-foreground">
+                      Active Transactions:
+                    </span>
+                    <p className="font-medium">
+                      {chainData.recentTransactions?.length}
+                    </p>
+                  </div>
+                  <div>
+                    <span className="text-muted-foreground">Status:</span>
+                    <p className="font-medium">Connected</p>
+                  </div>
+                  <div>
+                    <span className="text-muted-foreground">Latest Block:</span>
+                    <p className="font-medium">
+                      {Math.floor(Math.random() * 1000000).toLocaleString()}
+                    </p>
+                  </div>
+                  <div>
+                    <span className="text-muted-foreground">Purpose:</span>
+                    <p className="font-medium">{chainData.purpose}</p>
+                  </div>
+                </div>
+                <div>
+                  <span className="text-muted-foreground">Description:</span>
+                  <p className="mt-1 text-sm">{chainData.description}</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Sub Chain Recent Transactions */}
+            <div>
+              <h5 className="mb-3 font-medium">Recent Transactions</h5>
+              <div className="space-y-2">
+                {(chainData.recentTransactions || []).slice(0, 3).map((tx) => (
+                  <div
+                    key={tx.hash}
+                    className="flex items-center justify-between rounded border p-2"
+                  >
+                    <div className="flex min-w-0 flex-1 items-center space-x-3">
+                      <div className="text-muted-foreground truncate font-mono text-xs">
+                        {tx.hash}
+                      </div>
+                    </div>
+                    <div className="shrink-0 text-right">
+                      <div className="text-muted-foreground text-xs">
+                        {new Date(tx.timestamp!).toLocaleTimeString()}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+    )
+  );
+}
+
+export function SubChainCard({ subChains }: SubChainCardProps) {
+  if (subChains.length === 0) {
     return (
       <EmptyState
         icon={Folder}
@@ -86,140 +166,11 @@ export function SubChainCard({
         description="No sub chain found"
       />
     );
+  } else {
+    const options = subChains.map((d) => ({
+      value: d.id + "",
+      label: d.name + "",
+    }));
+    return <SubChainRealCard options={options} />;
   }
-  return (
-    <Card>
-      <CardHeader>
-        <div className="flex items-center justify-between">
-          <div className="flex-1">
-            <CardTitle className="flex items-center gap-2">
-              {(() => {
-                const IconComponent = currentSubChainInfo.icon;
-                return <IconComponent className="h-5 w-5" />;
-              })()}
-              {currentSubChainInfo.name}
-            </CardTitle>
-            <CardDescription>{currentSubChainInfo.description}</CardDescription>
-          </div>
-          <div className="flex items-center gap-3">
-            <Select
-              value={selectedSubChainType}
-              onValueChange={(value) =>
-                onSubChainTypeChange(
-                  value as "catalog" | "audit" | "business" | "lineage"
-                )
-              }
-            >
-              <SelectTrigger className="bg-background border-border w-fit border">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                {Object.entries(subChainTypes).map(([key, info]) => (
-                  <SelectItem key={key} value={key}>
-                    <div className="flex items-center gap-2">
-                      {(() => {
-                        const IconComponent = info.icon;
-                        return <IconComponent className="h-4 w-4" />;
-                      })()}
-                      {info.name}
-                    </div>
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-            <StatusBadge status="connected" />
-          </div>
-        </div>
-      </CardHeader>
-      <CardContent>
-        <div className="space-y-4">
-          <div className="rounded-lg border p-4">
-            <div className="grid gap-3">
-              <div className="flex items-center justify-between">
-                <h4 className="font-semibold">{currentSubChainInfo.name}</h4>
-                <Badge variant="outline">ZLTC</Badge>
-              </div>
-              <div className="grid grid-cols-2 gap-4 text-sm">
-                <div>
-                  <span className="text-muted-foreground">Chain Type:</span>
-                  <p className="font-medium">Sub Chain</p>
-                </div>
-                <div>
-                  <span className="text-muted-foreground">Sub Chain Type:</span>
-                  <p className="font-medium">
-                    {selectedSubChainType.charAt(0).toUpperCase() +
-                      selectedSubChainType.slice(1)}
-                  </p>
-                </div>
-                <div>
-                  <span className="text-muted-foreground">
-                    Active Transactions:
-                  </span>
-                  <p className="font-medium">{subChainTransactions.length}</p>
-                </div>
-                <div>
-                  <span className="text-muted-foreground">Status:</span>
-                  <p className="font-medium">Connected</p>
-                </div>
-                <div>
-                  <span className="text-muted-foreground">Latest Block:</span>
-                  <p className="font-medium">
-                    {Math.floor(Math.random() * 1000000).toLocaleString()}
-                  </p>
-                </div>
-                <div>
-                  <span className="text-muted-foreground">Purpose:</span>
-                  <p className="font-medium">{currentSubChainInfo.purpose}</p>
-                </div>
-              </div>
-              <div>
-                <span className="text-muted-foreground">Description:</span>
-                <p className="mt-1 text-sm">
-                  {currentSubChainInfo.description}
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* Sub Chain Recent Transactions */}
-          <div>
-            <h5 className="mb-3 font-medium">Recent Transactions</h5>
-            <div className="space-y-2">
-              {subChainTransactions.slice(0, 3).map((tx) => (
-                <div
-                  key={tx.id}
-                  className="flex items-center justify-between rounded border p-2"
-                >
-                  <div className="flex items-center space-x-3">
-                    <div className="flex items-center space-x-1">
-                      {tx.status === "confirmed" ? (
-                        <CheckCircle className="h-4 w-4 text-green-500" />
-                      ) : tx.status === "failed" ? (
-                        <AlertCircle className="h-4 w-4 text-red-500" />
-                      ) : (
-                        <Clock className="h-4 w-4 text-yellow-500" />
-                      )}
-                      <span className="text-sm font-medium">
-                        {tx.type
-                          .replace("_", " ")
-                          .replace(/\b\w/g, (l) => l.toUpperCase())}
-                      </span>
-                    </div>
-                  </div>
-                  <div className="text-right">
-                    <div className="text-muted-foreground font-mono text-xs">
-                      {tx.hash.slice(0, 8)}...{tx.hash.slice(-6)}
-                    </div>
-                    <div className="text-muted-foreground text-xs">
-                      {new Date(tx.timestamp).toLocaleTimeString()}
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </CardContent>
-    </Card>
-  );
 }
