@@ -68,13 +68,15 @@ export function useSandbox(): UseSandboxReturn {
   const queryClient = useQueryClient();
   const { currentDataSpace } = useDataSpace();
   console.log("Current Data Space:", currentDataSpace);
-  // 使用useListSandboxes获取沙箱列表
+
   const { data: sandboxesData, isLoading } = useListSandboxes({
     connector_did: process.env.NEXT_PUBLIC_CONNECTOR_DID || "",
     page: 1,
     page_size: 20,
   });
+
   const { mutateAsync: getContainerApp } = useCreateApp();
+
   const { data: jobsData } = useListJobs({
     connector_did: process.env.NEXT_PUBLIC_CONNECTOR_DID || "",
     page: 1,
