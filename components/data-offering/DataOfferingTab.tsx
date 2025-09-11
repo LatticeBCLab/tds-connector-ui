@@ -18,9 +18,6 @@ export function DataOfferingTab() {
     setIsAddOfferingOpen,
     isAddContractOpen,
     setIsAddContractOpen,
-    newContract,
-    setNewContract,
-    createContract,
   } = useDataOfferings();
 
   // API calls for metrics
@@ -85,9 +82,6 @@ export function DataOfferingTab() {
         <ContractCard
           isAddContractOpen={isAddContractOpen}
           setIsAddContractOpen={setIsAddContractOpen}
-          newContract={newContract}
-          setNewContract={setNewContract}
-          createContract={createContract}
         />
       </div>
     </div>

@@ -91,6 +91,8 @@ export type { GetJobQueryKey } from './hooks/useGetJob.ts'
 export type { GetJobStatsQueryKey } from './hooks/useGetJobStats.ts'
 export type { GetJobStatsSuspenseQueryKey } from './hooks/useGetJobStatsSuspense.ts'
 export type { GetJobSuspenseQueryKey } from './hooks/useGetJobSuspense.ts'
+export type { GetMetricQueryKey } from './hooks/useGetMetric.ts'
+export type { GetMetricSuspenseQueryKey } from './hooks/useGetMetricSuspense.ts'
 export type { GetOfferingIdQueryKey } from './hooks/useGetOfferingId.ts'
 export type { GetOfferingIdSuspenseQueryKey } from './hooks/useGetOfferingIdSuspense.ts'
 export type { GetOfferingsQueryKey } from './hooks/useGetOfferings.ts'
@@ -124,6 +126,8 @@ export type { GetTotalResourceCountByDataspaceSuspenseQueryKey } from './hooks/u
 export type { GetTotalResourceCountSuspenseQueryKey } from './hooks/useGetTotalResourceCountSuspense.ts'
 export type { GetUserByDIDQueryKey } from './hooks/useGetUserByDID.ts'
 export type { GetUserByDIDSuspenseQueryKey } from './hooks/useGetUserByDIDSuspense.ts'
+export type { GetUserDIDListQueryKey } from './hooks/useGetUserDIDList.ts'
+export type { GetUserDIDListSuspenseQueryKey } from './hooks/useGetUserDIDListSuspense.ts'
 export type { IncrementDownloadCountMutationKey } from './hooks/useIncrementDownloadCount.ts'
 export type { IncrementRunCountMutationKey } from './hooks/useIncrementRunCount.ts'
 export type { ListAltersQueryKey } from './hooks/useListAlters.ts'
@@ -148,9 +152,13 @@ export type { ListResourcesQueryKey } from './hooks/useListResources.ts'
 export type { ListResourcesSuspenseQueryKey } from './hooks/useListResourcesSuspense.ts'
 export type { ListSandboxesQueryKey } from './hooks/useListSandboxes.ts'
 export type { ListSandboxesSuspenseQueryKey } from './hooks/useListSandboxesSuspense.ts'
+export type { ListUsersQueryKey } from './hooks/useListUsers.ts'
+export type { ListUsersSuspenseQueryKey } from './hooks/useListUsersSuspense.ts'
 export type { PostOfferingMutationKey } from './hooks/usePostOffering.ts'
 export type { RejectResourceAuditByIDMutationKey } from './hooks/useRejectResourceAuditByID.ts'
 export type { StartJobMutationKey } from './hooks/useStartJob.ts'
+export type { StatsQueryKey } from './hooks/useStats.ts'
+export type { StatsSuspenseQueryKey } from './hooks/useStatsSuspense.ts'
 export type { UpdateAppMutationKey } from './hooks/useUpdateApp.ts'
 export type { UpdateContractByIDMutationKey } from './hooks/useUpdateContractByID.ts'
 export type { UpdateContractTemplateByIDMutationKey } from './hooks/useUpdateContractTemplateByID.ts'
@@ -607,6 +615,7 @@ export type {
 export type { GetInfo200, GetInfoQueryResponse, GetInfoQuery } from './types/GetInfo.ts'
 export type { GetJobPathParams, GetJob200, GetJob400, GetJob404, GetJob500, GetJobQueryResponse, GetJobQuery } from './types/GetJob.ts'
 export type { GetJobStatsQueryParams, GetJobStats200, GetJobStats400, GetJobStats500, GetJobStatsQueryResponse, GetJobStatsQuery } from './types/GetJobStats.ts'
+export type { GetMetric200, GetMetric500, GetMetricQueryResponse, GetMetricQuery } from './types/GetMetric.ts'
 export type {
   GetOfferingIdPathParams,
   GetOfferingId200,
@@ -733,6 +742,14 @@ export type {
   GetUserByDIDQueryResponse,
   GetUserByDIDQuery,
 } from './types/GetUserByDID.ts'
+export type {
+  GetUserDIDListQueryParams,
+  GetUserDIDList200,
+  GetUserDIDList400,
+  GetUserDIDList500,
+  GetUserDIDListQueryResponse,
+  GetUserDIDListQuery,
+} from './types/GetUserDIDList.ts'
 export type { HandlersAddPolicyToTemplateRequest } from './types/handlers/AddPolicyToTemplateRequest.ts'
 export type { HandlersApproveAuditRequest } from './types/handlers/ApproveAuditRequest.ts'
 export type { HandlersAppStatsResponse } from './types/handlers/AppStatsResponse.ts'
@@ -841,6 +858,7 @@ export type {
   ListSandboxesQueryResponse,
   ListSandboxesQuery,
 } from './types/ListSandboxes.ts'
+export type { ListUsersQueryParams, ListUsers200, ListUsers400, ListUsers500, ListUsersQueryResponse, ListUsersQuery } from './types/ListUsers.ts'
 export type { ModelsAlert } from './types/models/Alert.ts'
 export type { ModelsApp } from './types/models/App.ts'
 export type { ModelsAppCategoryEnum, ModelsAppCategory } from './types/models/AppCategory.ts'
@@ -909,6 +927,7 @@ export type { ResponsePaginatedResponse } from './types/response/PaginatedRespon
 export type { ResponsePagination } from './types/response/Pagination.ts'
 export type { ResponseResponse } from './types/response/Response.ts'
 export type { StartJobPathParams, StartJob200, StartJob400, StartJob404, StartJob500, StartJobMutationResponse, StartJobMutation } from './types/StartJob.ts'
+export type { Stats200, Stats500, StatsQueryResponse, StatsQuery } from './types/Stats.ts'
 export type {
   UpdateAppPathParams,
   UpdateApp200,
@@ -1080,6 +1099,7 @@ export { getI18nByRowIDFieldAndLang } from './clients/getI18nByRowIDFieldAndLang
 export { getInfo } from './clients/getInfo.ts'
 export { getJob } from './clients/getJob.ts'
 export { getJobStats } from './clients/getJobStats.ts'
+export { getMetric } from './clients/getMetric.ts'
 export { getOfferingId } from './clients/getOfferingId.ts'
 export { getOfferings } from './clients/getOfferings.ts'
 export { getPing } from './clients/getPing.ts'
@@ -1096,6 +1116,7 @@ export { getSandboxStats } from './clients/getSandboxStats.ts'
 export { getTotalResourceCount } from './clients/getTotalResourceCount.ts'
 export { getTotalResourceCountByDataspace } from './clients/getTotalResourceCountByDataspace.ts'
 export { getUserByDID } from './clients/getUserByDID.ts'
+export { getUserDIDList } from './clients/getUserDIDList.ts'
 export { incrementDownloadCount } from './clients/incrementDownloadCount.ts'
 export { incrementRunCount } from './clients/incrementRunCount.ts'
 export { listAlters } from './clients/listAlters.ts'
@@ -1109,9 +1130,11 @@ export { listPolicies } from './clients/listPolicies.ts'
 export { listResourceAudits } from './clients/listResourceAudits.ts'
 export { listResources } from './clients/listResources.ts'
 export { listSandboxes } from './clients/listSandboxes.ts'
+export { listUsers } from './clients/listUsers.ts'
 export { postOffering } from './clients/postOffering.ts'
 export { rejectResourceAuditByID } from './clients/rejectResourceAuditByID.ts'
 export { startJob } from './clients/startJob.ts'
+export { stats } from './clients/stats.ts'
 export { updateApp } from './clients/updateApp.ts'
 export { updateContractByID } from './clients/updateContractByID.ts'
 export { updateContractTemplateByID } from './clients/updateContractTemplateByID.ts'
@@ -1344,6 +1367,8 @@ export { getJobQueryKey, getJobQueryOptions, useGetJob } from './hooks/useGetJob
 export { getJobStatsQueryKey, getJobStatsQueryOptions, useGetJobStats } from './hooks/useGetJobStats.ts'
 export { getJobStatsSuspenseQueryKey, getJobStatsSuspenseQueryOptions, useGetJobStatsSuspense } from './hooks/useGetJobStatsSuspense.ts'
 export { getJobSuspenseQueryKey, getJobSuspenseQueryOptions, useGetJobSuspense } from './hooks/useGetJobSuspense.ts'
+export { getMetricQueryKey, getMetricQueryOptions, useGetMetric } from './hooks/useGetMetric.ts'
+export { getMetricSuspenseQueryKey, getMetricSuspenseQueryOptions, useGetMetricSuspense } from './hooks/useGetMetricSuspense.ts'
 export { getOfferingIdQueryKey, getOfferingIdQueryOptions, useGetOfferingId } from './hooks/useGetOfferingId.ts'
 export { getOfferingIdSuspenseQueryKey, getOfferingIdSuspenseQueryOptions, useGetOfferingIdSuspense } from './hooks/useGetOfferingIdSuspense.ts'
 export { getOfferingsQueryKey, getOfferingsQueryOptions, useGetOfferings } from './hooks/useGetOfferings.ts'
@@ -1417,6 +1442,8 @@ export {
 } from './hooks/useGetTotalResourceCountSuspense.ts'
 export { getUserByDIDQueryKey, getUserByDIDQueryOptions, useGetUserByDID } from './hooks/useGetUserByDID.ts'
 export { getUserByDIDSuspenseQueryKey, getUserByDIDSuspenseQueryOptions, useGetUserByDIDSuspense } from './hooks/useGetUserByDIDSuspense.ts'
+export { getUserDIDListQueryKey, getUserDIDListQueryOptions, useGetUserDIDList } from './hooks/useGetUserDIDList.ts'
+export { getUserDIDListSuspenseQueryKey, getUserDIDListSuspenseQueryOptions, useGetUserDIDListSuspense } from './hooks/useGetUserDIDListSuspense.ts'
 export { incrementDownloadCountMutationKey, useIncrementDownloadCount } from './hooks/useIncrementDownloadCount.ts'
 export { incrementRunCountMutationKey, useIncrementRunCount } from './hooks/useIncrementRunCount.ts'
 export { listAltersQueryKey, listAltersQueryOptions, useListAlters } from './hooks/useListAlters.ts'
@@ -1449,9 +1476,13 @@ export { listResourcesQueryKey, listResourcesQueryOptions, useListResources } fr
 export { listResourcesSuspenseQueryKey, listResourcesSuspenseQueryOptions, useListResourcesSuspense } from './hooks/useListResourcesSuspense.ts'
 export { listSandboxesQueryKey, listSandboxesQueryOptions, useListSandboxes } from './hooks/useListSandboxes.ts'
 export { listSandboxesSuspenseQueryKey, listSandboxesSuspenseQueryOptions, useListSandboxesSuspense } from './hooks/useListSandboxesSuspense.ts'
+export { listUsersQueryKey, listUsersQueryOptions, useListUsers } from './hooks/useListUsers.ts'
+export { listUsersSuspenseQueryKey, listUsersSuspenseQueryOptions, useListUsersSuspense } from './hooks/useListUsersSuspense.ts'
 export { postOfferingMutationKey, usePostOffering } from './hooks/usePostOffering.ts'
 export { rejectResourceAuditByIDMutationKey, useRejectResourceAuditByID } from './hooks/useRejectResourceAuditByID.ts'
 export { startJobMutationKey, useStartJob } from './hooks/useStartJob.ts'
+export { statsQueryKey, statsQueryOptions, useStats } from './hooks/useStats.ts'
+export { statsSuspenseQueryKey, statsSuspenseQueryOptions, useStatsSuspense } from './hooks/useStatsSuspense.ts'
 export { updateAppMutationKey, useUpdateApp } from './hooks/useUpdateApp.ts'
 export { updateContractByIDMutationKey, useUpdateContractByID } from './hooks/useUpdateContractByID.ts'
 export { updateContractTemplateByIDMutationKey, useUpdateContractTemplateByID } from './hooks/useUpdateContractTemplateByID.ts'

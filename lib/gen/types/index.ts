@@ -413,6 +413,7 @@ export type {
 export type { GetInfo200, GetInfoQueryResponse, GetInfoQuery } from './GetInfo.ts'
 export type { GetJobPathParams, GetJob200, GetJob400, GetJob404, GetJob500, GetJobQueryResponse, GetJobQuery } from './GetJob.ts'
 export type { GetJobStatsQueryParams, GetJobStats200, GetJobStats400, GetJobStats500, GetJobStatsQueryResponse, GetJobStatsQuery } from './GetJobStats.ts'
+export type { GetMetric200, GetMetric500, GetMetricQueryResponse, GetMetricQuery } from './GetMetric.ts'
 export type {
   GetOfferingIdPathParams,
   GetOfferingId200,
@@ -539,6 +540,14 @@ export type {
   GetUserByDIDQueryResponse,
   GetUserByDIDQuery,
 } from './GetUserByDID.ts'
+export type {
+  GetUserDIDListQueryParams,
+  GetUserDIDList200,
+  GetUserDIDList400,
+  GetUserDIDList500,
+  GetUserDIDListQueryResponse,
+  GetUserDIDListQuery,
+} from './GetUserDIDList.ts'
 export type { HandlersAddPolicyToTemplateRequest } from './handlers/AddPolicyToTemplateRequest.ts'
 export type { HandlersApproveAuditRequest } from './handlers/ApproveAuditRequest.ts'
 export type { HandlersAppStatsResponse } from './handlers/AppStatsResponse.ts'
@@ -647,6 +656,7 @@ export type {
   ListSandboxesQueryResponse,
   ListSandboxesQuery,
 } from './ListSandboxes.ts'
+export type { ListUsersQueryParams, ListUsers200, ListUsers400, ListUsers500, ListUsersQueryResponse, ListUsersQuery } from './ListUsers.ts'
 export type { ModelsAlert } from './models/Alert.ts'
 export type { ModelsApp } from './models/App.ts'
 export type { ModelsAppCategoryEnum, ModelsAppCategory } from './models/AppCategory.ts'
@@ -715,6 +725,7 @@ export type { ResponsePaginatedResponse } from './response/PaginatedResponse.ts'
 export type { ResponsePagination } from './response/Pagination.ts'
 export type { ResponseResponse } from './response/Response.ts'
 export type { StartJobPathParams, StartJob200, StartJob400, StartJob404, StartJob500, StartJobMutationResponse, StartJobMutation } from './StartJob.ts'
+export type { Stats200, Stats500, StatsQueryResponse, StatsQuery } from './Stats.ts'
 export type {
   UpdateAppPathParams,
   UpdateApp200,
