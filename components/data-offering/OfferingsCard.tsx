@@ -2,6 +2,7 @@
 
 import { CreateDataOfferingDialog } from "@/components/data-offering/CreateDataOfferingDialog";
 import { DataOfferingDetailsDialog } from "@/components/data-offering/DataOfferingDetailsDialog";
+import { InboundAuditDialog } from "@/components/data-offering/InboundAuditDialog";
 import { OutboundAuditDialog } from "@/components/data-offering/OutboundAuditDialog";
 import { EmptyState } from "@/components/shared/EmptyState";
 import { Button } from "@/components/ui/button";
@@ -91,8 +92,9 @@ export function OfferingsCard({
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
   const [selectedOffering, setSelectedOffering] = useState<any>(null);
 
-  // State for audit dialog
-  const [isAuditOpen, setIsAuditOpen] = useState(false);
+  // State for audit dialogs
+  const [isOutboundAuditOpen, setIsOutboundAuditOpen] = useState(false);
+  const [isInboundAuditOpen, setIsInboundAuditOpen] = useState(false);
   const [selectedResourceId, setSelectedResourceId] = useState<string>("");
 
   // API call for data offerings
@@ -149,10 +151,16 @@ export function OfferingsCard({
     refetchResources();
   };
 
-  // Handle audit button click
-  const handleAuditClick = (resourceId: string) => {
+  // Handle outbound audit button click
+  const handleOutboundAuditClick = (resourceId: string) => {
     setSelectedResourceId(resourceId);
-    setIsAuditOpen(true);
+    setIsOutboundAuditOpen(true);
+  };
+
+  // Handle inbound audit button click
+  const handleInboundAuditClick = (resourceId: string) => {
+    setSelectedResourceId(resourceId);
+    setIsInboundAuditOpen(true);
   };
 
   // Check if there are more pages to load
@@ -365,7 +373,9 @@ export function OfferingsCard({
                         {offering.isOutbound &&
                           offering.boundStatus === "UNAUDITED" && (
                             <DropdownMenuItem
-                              onClick={() => handleAuditClick(offering.id)}
+                              onClick={() =>
+                                handleOutboundAuditClick(offering.id)
+                              }
                             >
                               <ArrowUp className="size-4" />
                               Outbound
@@ -373,7 +383,11 @@ export function OfferingsCard({
                           )}
                         {!offering.isOutbound &&
                           offering.boundStatus === "UNAUDITED" && (
-                            <DropdownMenuItem>
+                            <DropdownMenuItem
+                              onClick={() =>
+                                handleInboundAuditClick(offering.id)
+                              }
+                            >
                               <ArrowDown className="size-4" />
                               Inbound
                             </DropdownMenuItem>
@@ -418,8 +432,16 @@ export function OfferingsCard({
 
       {/* Outbound Audit Dialog */}
       <OutboundAuditDialog
-        open={isAuditOpen}
-        onOpenChange={setIsAuditOpen}
+        open={isOutboundAuditOpen}
+        onOpenChange={setIsOutboundAuditOpen}
+        resourceId={selectedResourceId}
+        onSuccess={handleRefreshData}
+      />
+
+      {/* Inbound Audit Dialog */}
+      <InboundAuditDialog
+        open={isInboundAuditOpen}
+        onOpenChange={setIsInboundAuditOpen}
         resourceId={selectedResourceId}
         onSuccess={handleRefreshData}
       />
