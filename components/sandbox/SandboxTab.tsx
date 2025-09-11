@@ -21,6 +21,8 @@ import {
 import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
 import { useDataOfferings, useSandbox } from "@/hooks";
+import { useGetSandboxStats } from "@/lib/gen/hooks/useGetSandboxStats";
+import { useListSandboxes } from "@/lib/gen/hooks/useListSandboxes";
 import {
   Activity,
   Clock,
@@ -60,33 +62,43 @@ export function SandboxTab() {
 
   const { dataOfferings } = useDataOfferings();
 
+  const { data: sandboxStats } = useGetSandboxStats({
+    connector_did: process.env.NEXT_PUBLIC_CONNECTOR_DID || "",
+  });
+
+  const { data: sandbox } = useListSandboxes({
+    connector_did: process.env.NEXT_PUBLIC_CONNECTOR_DID || "",
+    page: 1,
+    page_size: 10,
+  });
+  console.log(sandboxStats);
   return (
     <div className="space-y-6">
       {/* Overview Cards */}
       <div className="grid gap-4 md:grid-cols-4">
         <MetricCard
           title="Running Sandboxes"
-          value={runningSandboxes.length}
+          value={sandboxStats?.runningSandboxes || 0}
           description="Active environments"
           icon={Monitor}
           variant="primary"
         />
         <MetricCard
           title="Active Jobs"
-          value={activeJobs.length}
+          value={sandboxStats?.rSandboxes || 0}
           description="Currently processing"
           icon={Activity}
           variant="secondary"
         />
         <MetricCard
           title="Available Images"
-          value={ociImages.length}
+          value={sandboxStats?.runningSandboxes || 0}
           description="Runtime images"
           icon={Database}
         />
         <MetricCard
           title="Completed Jobs"
-          value={completedJobs.length}
+          value={sandboxStats?.totalSandboxes || 0}
           description="Total processed"
           icon={Clock}
         />

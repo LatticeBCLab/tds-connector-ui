@@ -1,5 +1,14 @@
+import { useDataSpace } from "@/lib/contexts/DataSpaceContext";
+import { useCreateApp } from "@/lib/gen/hooks/useCreateApp";
+import { useCreateSandbox } from "@/lib/gen/hooks/useCreateSandbox";
+import { useListJobs } from "@/lib/gen/hooks/useListJobs";
+import {
+  listSandboxesQueryKey,
+  useListSandboxes,
+} from "@/lib/gen/hooks/useListSandboxes";
 import { DataProcessingJob, OCIImage, SandboxEnvironment } from "@/types";
-import { useState } from "react";
+import { useQueryClient } from "@tanstack/react-query";
+import { useEffect, useState } from "react";
 
 export interface UseSandboxReturn {
   // Sandbox environments
@@ -56,40 +65,82 @@ export interface UseSandboxReturn {
 }
 
 export function useSandbox(): UseSandboxReturn {
+  const queryClient = useQueryClient();
+  const { currentDataSpace } = useDataSpace();
+  console.log("Current Data Space:", currentDataSpace);
+  // 使用useListSandboxes获取沙箱列表
+  const { data: sandboxesData, isLoading } = useListSandboxes({
+    connector_did: process.env.NEXT_PUBLIC_CONNECTOR_DID || "",
+    page: 1,
+    page_size: 20,
+  });
+  const { mutateAsync: getContainerApp } = useCreateApp();
+  const { data: jobsData } = useListJobs({
+    connector_did: process.env.NEXT_PUBLIC_CONNECTOR_DID || "",
+    page: 1,
+    page_size: 20,
+  });
+  const { mutateAsync: deleteProviderMember } = useCreateSandbox();
+
   const [sandboxEnvironments, setSandboxEnvironments] = useState<
     SandboxEnvironment[]
-  >([
-    {
-      id: "1",
-      name: "Python Analytics",
-      status: "running",
-      image: "python:3.9-analytics",
-      runtime: "python",
-      createdAt: "2024-01-15T08:00:00Z",
-      lastUsed: "2024-01-15T10:30:00Z",
-      cpuUsage: 45,
-      memoryUsage: 60,
-      memoryLimit: "2GB",
-      dataVolumes: ["/data/customer-analytics", "/data/exports"],
-      networkIsolated: true,
-      startupTime: 15,
-    },
-    {
-      id: "2",
-      name: "R Statistical Computing",
-      status: "stopped",
-      image: "r-base:4.2.0",
-      runtime: "r",
-      createdAt: "2024-01-14T14:00:00Z",
-      lastUsed: "2024-01-14T16:45:00Z",
-      cpuUsage: 0,
-      memoryUsage: 0,
-      memoryLimit: "4GB",
-      dataVolumes: ["/data/research"],
-      networkIsolated: true,
-      startupTime: 20,
-    },
-  ]);
+  >([]);
+
+  useEffect(() => {
+    if (sandboxesData?.data) {
+      const environments: SandboxEnvironment[] = sandboxesData.data.map(
+        (item: any) => ({
+          id: item.id || Date.now().toString(),
+          name: item.name || "Unnamed Sandbox",
+          status: item.status || "stopped",
+          image: item.image || "",
+          runtime: (item.runtime as SandboxEnvironment["runtime"]) || "python",
+          createdAt: item.created_at || new Date().toISOString(),
+          lastUsed: item.last_used || new Date().toISOString(),
+          cpuUsage: item.cpu_usage || 0,
+          memoryUsage: item.memory_usage || 0,
+          memoryLimit: item.memory_limit || "2GB",
+          dataVolumes: item.data_volumes || [],
+          networkIsolated: item.network_isolated || false,
+          startupTime: item.startup_time || 0,
+        })
+      );
+      setSandboxEnvironments(environments);
+    } else if (!isLoading) {
+      setSandboxEnvironments([
+        {
+          id: "1",
+          name: "Python Analytics",
+          status: "running",
+          image: "python:3.9-analytics",
+          runtime: "python",
+          createdAt: "2024-01-15T08:00:00Z",
+          lastUsed: "2024-01-15T10:30:00Z",
+          cpuUsage: 45,
+          memoryUsage: 60,
+          memoryLimit: "2GB",
+          dataVolumes: ["/data/customer-analytics", "/data/exports"],
+          networkIsolated: true,
+          startupTime: 15,
+        },
+        {
+          id: "2",
+          name: "R Statistical Computing",
+          status: "stopped",
+          image: "r-base:4.2.0",
+          runtime: "r",
+          createdAt: "2024-01-14T14:00:00Z",
+          lastUsed: "2024-01-14T16:45:00Z",
+          cpuUsage: 0,
+          memoryUsage: 0,
+          memoryLimit: "4GB",
+          dataVolumes: ["/data/research"],
+          networkIsolated: true,
+          startupTime: 20,
+        },
+      ]);
+    }
+  }, []);
 
   const [ociImages, setOciImages] = useState<OCIImage[]>([
     {
@@ -170,6 +221,31 @@ export function useSandbox(): UseSandboxReturn {
       errorMessage: "Memory limit exceeded during data loading",
     },
   ]);
+  useEffect(() => {
+    if (currentDataSpace) {
+      getContainerApp({
+        data: {
+          dataSpaceId: currentDataSpace?.id || "",
+          author: "",
+          name: "",
+          supportedRuntimes: [],
+          version: "",
+          category: "visualization",
+        },
+      }).then((res) => {
+        if (res && Array.isArray(res)) {
+          setOciImages(res as OCIImage[]);
+        } else {
+          setOciImages([]);
+        }
+      });
+    }
+    if (jobsData) {
+      if (jobsData?.data) {
+        setDataProcessingJobs(jobsData.data as DataProcessingJob[]);
+      }
+    }
+  }, [currentDataSpace, jobsData]);
 
   // Dialog states
   const [isCreateSandboxOpen, setIsCreateSandboxOpen] = useState(false);
@@ -188,6 +264,26 @@ export function useSandbox(): UseSandboxReturn {
     networkIsolated: true,
   });
 
+  const createSandboxMutation = useCreateSandbox({
+    mutation: {
+      onSuccess: (response) => {
+        console.log("Sandbox created successfully:", response);
+
+        // 成功后刷新沙箱列表
+        queryClient.invalidateQueries({
+          queryKey: listSandboxesQueryKey({
+            connector_did: process.env.NEXT_PUBLIC_CONNECTOR_DID || "",
+            page: 1,
+            page_size: 20,
+          }),
+        });
+      },
+      onError: (error) => {
+        console.error("Failed to create sandbox:", error);
+      },
+    },
+  });
+
   const [newJob, setNewJob] = useState({
     name: "",
     sandboxId: "",
@@ -197,47 +293,49 @@ export function useSandbox(): UseSandboxReturn {
 
   // Actions
   const createSandbox = async () => {
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-    const newSandboxEnv: SandboxEnvironment = {
-      id: Date.now().toString(),
-      name: newSandbox.name,
-      status: "creating",
-      image: newSandbox.image,
-      runtime: newSandbox.runtime as
-        | "python"
-        | "nodejs"
-        | "java"
-        | "r"
-        | "custom",
-      createdAt: new Date().toISOString(),
-      lastUsed: new Date().toISOString(),
-      cpuUsage: 0,
-      memoryUsage: 0,
-      memoryLimit: newSandbox.memoryLimit,
-      dataVolumes: [],
-      networkIsolated: newSandbox.networkIsolated,
-      startupTime: 0,
-    };
-    setSandboxEnvironments((prev) => [...prev, newSandboxEnv]);
-    setNewSandbox({
-      name: "",
-      runtime: "python",
-      image: "",
-      memoryLimit: "2GB",
-      networkIsolated: true,
-    });
-    setIsCreateSandboxOpen(false);
+    try {
+      const newSandboxEnv: SandboxEnvironment = {
+        id: Date.now().toString(),
+        name: newSandbox.name,
+        status: "creating",
+        image: newSandbox.image,
+        runtime: newSandbox.runtime as
+          | "python"
+          | "nodejs"
+          | "java"
+          | "r"
+          | "custom",
+        createdAt: new Date().toISOString(),
+        lastUsed: new Date().toISOString(),
+        cpuUsage: 0,
+        memoryUsage: 0,
+        memoryLimit: newSandbox.memoryLimit,
+        dataVolumes: [],
+        networkIsolated: newSandbox.networkIsolated,
+        startupTime: 0,
+      };
+      console.log(newSandbox);
+      // await createSandboxMutation.mutateAsync({
+      //   data: {
+      //     name: newSandbox.name,
+      //     runtimeType: newSandbox.runtime as ModelsSandboxRuntimeTypeEnum,
+      //     connectorDid: process.env.NEXT_PUBLIC_CONNECTOR_DID || "",
+      //     dataSpaceId: currentDataSpace?.id || "",
+      //   },
+      // });
 
-    // Simulate sandbox startup
-    setTimeout(() => {
-      setSandboxEnvironments((prev) =>
-        prev.map((env) =>
-          env.id === newSandboxEnv.id
-            ? { ...env, status: "running" as const, startupTime: 18 }
-            : env
-        )
-      );
-    }, 3000);
+      setNewSandbox({
+        name: "",
+        runtime: "python",
+        image: "",
+        memoryLimit: "2GB",
+        networkIsolated: true,
+      });
+      setIsCreateSandboxOpen(false);
+    } catch (error) {
+      console.error("Error creating sandbox:", error);
+      // 这里可以添加错误处理逻辑，比如显示错误提示
+    }
   };
 
   const createJob = async () => {
