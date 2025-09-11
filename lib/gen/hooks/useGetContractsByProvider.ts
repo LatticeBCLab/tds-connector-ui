@@ -4,8 +4,6 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
-import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
 import type {
   GetContractsByProviderQueryResponse,
   GetContractsByProviderPathParams,
@@ -13,8 +11,10 @@ import type {
   GetContractsByProvider400,
   GetContractsByProvider500,
 } from '../types/GetContractsByProvider.ts'
-import { queryOptions, useQuery } from '@tanstack/react-query'
+import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
+import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
 import { getContractsByProvider } from '../clients/getContractsByProvider.ts'
+import { queryOptions, useQuery } from '@tanstack/react-query'
 
 export const getContractsByProviderQueryKey = (provider: GetContractsByProviderPathParams['provider'], params?: GetContractsByProviderQueryParams) =>
   [{ url: '/api/v1/contracts/provider/:provider', params: { provider: provider } }, ...(params ? [params] : [])] as const

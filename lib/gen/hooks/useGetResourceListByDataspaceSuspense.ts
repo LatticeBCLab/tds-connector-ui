@@ -4,8 +4,6 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
-import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
 import type {
   GetResourceListByDataspaceQueryResponse,
   GetResourceListByDataspacePathParams,
@@ -13,8 +11,10 @@ import type {
   GetResourceListByDataspace400,
   GetResourceListByDataspace500,
 } from '../types/GetResourceListByDataspace.ts'
-import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
+import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
+import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
 import { getResourceListByDataspace } from '../clients/getResourceListByDataspace.ts'
+import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
 
 export const getResourceListByDataspaceSuspenseQueryKey = (
   dataspace: GetResourceListByDataspacePathParams['dataspace'],

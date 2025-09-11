@@ -4,11 +4,11 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
+import type { ListSandboxesQueryResponse, ListSandboxesQueryParams, ListSandboxes400, ListSandboxes500 } from '../types/ListSandboxes.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
-import type { ListSandboxesQueryResponse, ListSandboxesQueryParams, ListSandboxes400, ListSandboxes500 } from '../types/ListSandboxes.ts'
-import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
 import { listSandboxes } from '../clients/listSandboxes.ts'
+import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
 
 export const listSandboxesSuspenseQueryKey = (params: ListSandboxesQueryParams) => [{ url: '/api/v1/sandboxes' }, ...(params ? [params] : [])] as const
 

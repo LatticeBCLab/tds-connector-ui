@@ -4,8 +4,8 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { ListSandboxesQueryResponse, ListSandboxesQueryParams, ListSandboxes400, ListSandboxes500 } from '../types/ListSandboxes.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 function getListSandboxesUrl() {
   const res = { method: 'GET', url: `/tdsc/api/v1/sandboxes` as const }

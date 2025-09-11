@@ -4,13 +4,13 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type {
   GetContractCountByDataspaceAndConsumerQueryResponse,
   GetContractCountByDataspaceAndConsumerPathParams,
   GetContractCountByDataspaceAndConsumerQueryParams,
   GetContractCountByDataspaceAndConsumer500,
 } from '../types/GetContractCountByDataspaceAndConsumer.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 function getGetContractCountByDataspaceAndConsumerUrl(dataspace: GetContractCountByDataspaceAndConsumerPathParams['dataspace']) {
   const res = { method: 'GET', url: `/tdsc/api/v1/dataspaces/${dataspace}/contracts/consumer/count` as const }

@@ -4,7 +4,6 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type {
   DeleteResourceAuditByIDMutationResponse,
   DeleteResourceAuditByIDPathParams,
@@ -12,6 +11,7 @@ import type {
   DeleteResourceAuditByID404,
   DeleteResourceAuditByID500,
 } from '../types/DeleteResourceAuditByID.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 function getDeleteResourceAuditByIDUrl(id: DeleteResourceAuditByIDPathParams['id']) {
   const res = { method: 'DELETE', url: `/tdsc/api/v1/resource-audits/${id}` as const }

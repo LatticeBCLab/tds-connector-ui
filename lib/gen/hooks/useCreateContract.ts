@@ -4,11 +4,11 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
+import type { CreateContractMutationRequest, CreateContractMutationResponse, CreateContract400, CreateContract500 } from '../types/CreateContract.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { UseMutationOptions, QueryClient } from '@tanstack/react-query'
-import type { CreateContractMutationRequest, CreateContractMutationResponse, CreateContract400, CreateContract500 } from '../types/CreateContract.ts'
-import { useMutation } from '@tanstack/react-query'
 import { createContract } from '../clients/createContract.ts'
+import { useMutation } from '@tanstack/react-query'
 
 export const createContractMutationKey = () => [{ url: '/api/v1/contracts/create' }] as const
 

@@ -4,8 +4,8 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { ListPoliciesQueryResponse, ListPoliciesQueryParams, ListPolicies400, ListPolicies500 } from '../types/ListPolicies.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 function getListPoliciesUrl() {
   const res = { method: 'GET', url: `/tdsc/api/v1/policy` as const }

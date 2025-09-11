@@ -4,8 +4,6 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
-import type { UseMutationOptions, QueryClient } from '@tanstack/react-query'
 import type {
   UpdateResourceOutReviewByIDMutationRequest,
   UpdateResourceOutReviewByIDMutationResponse,
@@ -14,8 +12,10 @@ import type {
   UpdateResourceOutReviewByID404,
   UpdateResourceOutReviewByID500,
 } from '../types/UpdateResourceOutReviewByID.ts'
-import { useMutation } from '@tanstack/react-query'
+import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
+import type { UseMutationOptions, QueryClient } from '@tanstack/react-query'
 import { updateResourceOutReviewByID } from '../clients/updateResourceOutReviewByID.ts'
+import { useMutation } from '@tanstack/react-query'
 
 export const updateResourceOutReviewByIDMutationKey = () => [{ url: '/api/v1/resources/:id/out-review' }] as const
 

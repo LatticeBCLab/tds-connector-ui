@@ -4,8 +4,8 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { DeleteSandboxMutationResponse, DeleteSandboxPathParams, DeleteSandbox400, DeleteSandbox404, DeleteSandbox500 } from '../types/DeleteSandbox.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 function getDeleteSandboxUrl(id: DeleteSandboxPathParams['id']) {
   const res = { method: 'DELETE', url: `/tdsc/api/v1/sandboxes/${id}` as const }

@@ -4,16 +4,16 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
-import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
 import type {
   GetContractListByDataspaceAndProviderQueryResponse,
   GetContractListByDataspaceAndProviderQueryParams,
   GetContractListByDataspaceAndProvider400,
   GetContractListByDataspaceAndProvider500,
 } from '../types/GetContractListByDataspaceAndProvider.ts'
-import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
+import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
+import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
 import { getContractListByDataspaceAndProvider } from '../clients/getContractListByDataspaceAndProvider.ts'
+import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
 
 export const getContractListByDataspaceAndProviderSuspenseQueryKey = (params?: GetContractListByDataspaceAndProviderQueryParams) =>
   [{ url: '/api/v1/contracts/list' }, ...(params ? [params] : [])] as const

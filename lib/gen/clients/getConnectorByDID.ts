@@ -4,7 +4,6 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type {
   GetConnectorByDIDQueryResponse,
   GetConnectorByDIDPathParams,
@@ -12,6 +11,7 @@ import type {
   GetConnectorByDID404,
   GetConnectorByDID500,
 } from '../types/GetConnectorByDID.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 function getGetConnectorByDIDUrl(connector_did: GetConnectorByDIDPathParams['connector_did']) {
   const res = { method: 'GET', url: `/tdsc/api/v1/connectors/${connector_did}` as const }

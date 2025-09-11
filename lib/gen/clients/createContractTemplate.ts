@@ -4,13 +4,13 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type {
   CreateContractTemplateMutationRequest,
   CreateContractTemplateMutationResponse,
   CreateContractTemplate400,
   CreateContractTemplate500,
 } from '../types/CreateContractTemplate.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 function getCreateContractTemplateUrl() {
   const res = { method: 'POST', url: `/tdsc/api/v1/contract-templates` as const }

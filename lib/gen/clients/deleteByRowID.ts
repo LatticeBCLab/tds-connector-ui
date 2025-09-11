@@ -4,8 +4,8 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { DeleteByRowIDMutationResponse, DeleteByRowIDPathParams, DeleteByRowID400, DeleteByRowID500 } from '../types/DeleteByRowID.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 function getDeleteByRowIDUrl(row_id: DeleteByRowIDPathParams['row_id']) {
   const res = { method: 'DELETE', url: `/tdsc/api/v1/i18n/row/${row_id}` as const }

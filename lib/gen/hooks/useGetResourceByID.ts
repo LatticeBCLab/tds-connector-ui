@@ -4,8 +4,6 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
-import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
 import type {
   GetResourceByIDQueryResponse,
   GetResourceByIDPathParams,
@@ -13,8 +11,10 @@ import type {
   GetResourceByID404,
   GetResourceByID500,
 } from '../types/GetResourceByID.ts'
-import { queryOptions, useQuery } from '@tanstack/react-query'
+import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
+import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
 import { getResourceByID } from '../clients/getResourceByID.ts'
+import { queryOptions, useQuery } from '@tanstack/react-query'
 
 export const getResourceByIDQueryKey = (id: GetResourceByIDPathParams['id']) => [{ url: '/api/v1/resources/:id', params: { id: id } }] as const
 

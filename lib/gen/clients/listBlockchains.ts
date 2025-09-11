@@ -4,8 +4,8 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { ListBlockchainsQueryResponse, ListBlockchainsQueryParams, ListBlockchains500 } from '../types/ListBlockchains.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 function getListBlockchainsUrl() {
   const res = { method: 'GET', url: `/tdsc/api/v1/blockchains` as const }
