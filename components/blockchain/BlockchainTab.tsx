@@ -5,7 +5,7 @@ import { SubChainCard } from "@/components/blockchain/SubChainCard";
 import { MetricCard } from "@/components/shared";
 import { useDataSpace } from "@/lib/contexts/DataSpaceContext";
 import { useGetBlockchainByDataSpace } from "@/lib/gen";
-import { Activity, Database, Network, Shield } from "lucide-react";
+import { Database, Network, Shield } from "lucide-react";
 
 export function BlockchainTab() {
   const { currentDataSpace } = useDataSpace();
@@ -24,7 +24,7 @@ export function BlockchainTab() {
   return (
     <div className="space-y-6">
       {/* Overview Cards */}
-      <div className="grid gap-4 md:grid-cols-4">
+      <div className="grid gap-4 md:grid-cols-3">
         <MetricCard
           title="Main Chain"
           value={mainChain ? "Connected" : "Disconnected"}
@@ -38,12 +38,6 @@ export function BlockchainTab() {
           description={`${subChains.length} Connected`}
           icon={Database}
           variant="secondary"
-        />
-        <MetricCard
-          title="Recent Transactions"
-          value={"TODO"}
-          description="Last 24 hours"
-          icon={Activity}
         />
         <MetricCard
           title="Data Space"

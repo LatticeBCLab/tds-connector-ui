@@ -1,7 +1,8 @@
 "use client";
 
 import { MetricCard } from "@/components/shared";
-import { useContracts } from "@/hooks";
+import { useDataSpace } from "@/lib/contexts/DataSpaceContext";
+import { useGetContractTemplateStatistic } from "@/lib/gen";
 import { useListPolicies } from "@/lib/gen/hooks/useListPolicies";
 import { CheckCircle, FileText, Shield } from "lucide-react";
 import { useState } from "react";
@@ -10,16 +11,13 @@ import { CreateContractTemplateDialog } from "./CreateContractTemplateDialog";
 import { PolicyTemplatesCard } from "./PolicyTemplatesCard";
 
 export function PolicyContractsTab() {
+  const { currentDataSpace } = useDataSpace();
   const [refreshTrigger, setRefreshTrigger] = useState(0);
-
-  const {
-    contractTemplates,
-    activeContracts,
-    isCreateContractTemplateOpen,
-    setIsCreateContractTemplateOpen,
-    createContractTemplate,
-  } = useContracts();
-
+  const [isCreateContractTemplateOpen, setIsCreateContractTemplateOpen] =
+    useState(false);
+  const { data: statisticData } = useGetContractTemplateStatistic({
+    dataspace_id: currentDataSpace?.id || "",
+  });
   // 获取策略数据
   const { data: policiesResponse } = useListPolicies({
     page: 1,
@@ -46,14 +44,14 @@ export function PolicyContractsTab() {
         />
         <MetricCard
           title="Contract Templates"
-          value={contractTemplates.length}
+          value={statisticData?.total_count || ""}
           description="Ready to use"
           icon={FileText}
           variant="secondary"
         />
         <MetricCard
-          title="Active Contracts"
-          value={activeContracts.length}
+          title="Active Contracts Templates"
+          value={statisticData?.active_count || ""}
           description="Currently enforced"
           icon={CheckCircle}
         />
