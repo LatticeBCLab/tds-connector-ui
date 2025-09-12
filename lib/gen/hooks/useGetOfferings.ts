@@ -4,11 +4,11 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
+import type { GetOfferingsQueryResponse, GetOfferings500 } from '../types/GetOfferings.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
-import type { GetOfferingsQueryResponse, GetOfferings500 } from '../types/GetOfferings.ts'
-import { queryOptions, useQuery } from '@tanstack/react-query'
 import { getOfferings } from '../clients/getOfferings.ts'
+import { queryOptions, useQuery } from '@tanstack/react-query'
 
 export const getOfferingsQueryKey = () => [{ url: '/offerings' }] as const
 

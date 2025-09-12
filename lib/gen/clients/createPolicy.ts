@@ -4,8 +4,8 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { CreatePolicyMutationRequest, CreatePolicyMutationResponse, CreatePolicy400, CreatePolicy500 } from '../types/CreatePolicy.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 function getCreatePolicyUrl() {
   const res = { method: 'POST', url: `/tdsc/api/v1/policy` as const }

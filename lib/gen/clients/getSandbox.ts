@@ -4,8 +4,8 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { GetSandboxQueryResponse, GetSandboxPathParams, GetSandbox400, GetSandbox404, GetSandbox500 } from '../types/GetSandbox.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 function getGetSandboxUrl(id: GetSandboxPathParams['id']) {
   const res = { method: 'GET', url: `/tdsc/api/v1/sandboxes/${id}` as const }

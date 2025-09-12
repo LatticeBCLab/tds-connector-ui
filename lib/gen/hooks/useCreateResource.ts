@@ -4,11 +4,11 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
+import type { CreateResourceMutationRequest, CreateResourceMutationResponse, CreateResource400, CreateResource500 } from '../types/CreateResource.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { UseMutationOptions, QueryClient } from '@tanstack/react-query'
-import type { CreateResourceMutationRequest, CreateResourceMutationResponse, CreateResource400, CreateResource500 } from '../types/CreateResource.ts'
-import { useMutation } from '@tanstack/react-query'
 import { createResource } from '../clients/createResource.ts'
+import { useMutation } from '@tanstack/react-query'
 
 export const createResourceMutationKey = () => [{ url: '/api/v1/resources/create' }] as const
 

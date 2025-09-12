@@ -4,7 +4,6 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type {
   DeleteI18nByIDMutationResponse,
   DeleteI18nByIDPathParams,
@@ -12,6 +11,7 @@ import type {
   DeleteI18nByID404,
   DeleteI18nByID500,
 } from '../types/DeleteI18nByID.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 function getDeleteI18nByIDUrl(id: DeleteI18nByIDPathParams['id']) {
   const res = { method: 'DELETE', url: `/tdsc/api/v1/i18n/${id}` as const }

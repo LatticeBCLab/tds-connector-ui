@@ -9,6 +9,15 @@ export type {
   AddPolicyToContractTemplateByIDMutation,
 } from './AddPolicyToContractTemplateByID.ts'
 export type {
+  ApproveJobPathParams,
+  ApproveJob200,
+  ApproveJob400,
+  ApproveJob404,
+  ApproveJob500,
+  ApproveJobMutationResponse,
+  ApproveJobMutation,
+} from './ApproveJob.ts'
+export type {
   ApproveResourceAuditByIDPathParams,
   ApproveResourceAuditByID200,
   ApproveResourceAuditByID400,
@@ -691,6 +700,7 @@ export type { ModelsDataSpaceStatusEnum, ModelsDataSpaceStatus } from './models/
 export type { ModelsDIDDocument } from './models/DIDDocument.ts'
 export type { ModelsI18N } from './models/I18N.ts'
 export type { ModelsJob } from './models/Job.ts'
+export type { ModelsJobAuditStatusEnum, ModelsJobAuditStatus } from './models/JobAuditStatus.ts'
 export type { ModelsJobStatusEnum, ModelsJobStatus } from './models/JobStatus.ts'
 export type { ModelsPolicyTemplate } from './models/PolicyTemplate.ts'
 export type { ModelsResource } from './models/Resource.ts'
@@ -722,6 +732,7 @@ export type {
   PostOfferingMutationResponse,
   PostOfferingMutation,
 } from './PostOffering.ts'
+export type { RejectJobPathParams, RejectJob200, RejectJob400, RejectJob404, RejectJob500, RejectJobMutationResponse, RejectJobMutation } from './RejectJob.ts'
 export type {
   RejectResourceAuditByIDPathParams,
   RejectResourceAuditByID200,
@@ -860,6 +871,7 @@ export { modelsComputeBinding } from './models/ComputeBinding.ts'
 export { modelsConnectionType } from './models/ConnectionType.ts'
 export { modelsCountry } from './models/Country.ts'
 export { modelsDataSpaceStatus } from './models/DataSpaceStatus.ts'
+export { modelsJobAuditStatus } from './models/JobAuditStatus.ts'
 export { modelsJobStatus } from './models/JobStatus.ts'
 export { modelsResourceStatus } from './models/ResourceStatus.ts'
 export { modelsResourceType } from './models/ResourceType.ts'

@@ -4,11 +4,11 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
+import type { FailJobMutationRequest, FailJobMutationResponse, FailJobPathParams, FailJob400, FailJob404, FailJob500 } from '../types/FailJob.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { UseMutationOptions, QueryClient } from '@tanstack/react-query'
-import type { FailJobMutationRequest, FailJobMutationResponse, FailJobPathParams, FailJob400, FailJob404, FailJob500 } from '../types/FailJob.ts'
-import { useMutation } from '@tanstack/react-query'
 import { failJob } from '../clients/failJob.ts'
+import { useMutation } from '@tanstack/react-query'
 
 export const failJobMutationKey = () => [{ url: '/api/v1/jobs/:id/fail' }] as const
 

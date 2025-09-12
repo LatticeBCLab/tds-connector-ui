@@ -3,6 +3,7 @@
  * Do not edit manually.
  */
 
+import type { ModelsJobAuditStatus } from './JobAuditStatus.ts'
 import type { ModelsJobStatus } from './JobStatus.ts'
 
 export type ModelsJob = {
@@ -11,6 +12,10 @@ export type ModelsJob = {
    * @type string | undefined
    */
   appId?: string
+  /**
+   * @description 审核信息
+   */
+  auditStatus?: ModelsJobAuditStatus
   /**
    * @description 任务配置
    * @type string | undefined

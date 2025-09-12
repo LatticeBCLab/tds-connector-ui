@@ -4,8 +4,6 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
-import type { UseMutationOptions, QueryClient } from '@tanstack/react-query'
 import type {
   UpdateResourceByIDMutationRequest,
   UpdateResourceByIDMutationResponse,
@@ -14,8 +12,10 @@ import type {
   UpdateResourceByID404,
   UpdateResourceByID500,
 } from '../types/UpdateResourceByID.ts'
-import { useMutation } from '@tanstack/react-query'
+import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
+import type { UseMutationOptions, QueryClient } from '@tanstack/react-query'
 import { updateResourceByID } from '../clients/updateResourceByID.ts'
+import { useMutation } from '@tanstack/react-query'
 
 export const updateResourceByIDMutationKey = () => [{ url: '/api/v1/resources/:id' }] as const
 

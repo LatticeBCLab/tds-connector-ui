@@ -4,11 +4,11 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
+import type { GetAllDataSpacesQueryResponse, GetAllDataSpaces500 } from '../types/GetAllDataSpaces.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
-import type { GetAllDataSpacesQueryResponse, GetAllDataSpaces500 } from '../types/GetAllDataSpaces.ts'
-import { queryOptions, useQuery } from '@tanstack/react-query'
 import { getAllDataSpaces } from '../clients/getAllDataSpaces.ts'
+import { queryOptions, useQuery } from '@tanstack/react-query'
 
 export const getAllDataSpacesQueryKey = () => [{ url: '/api/v1/dataspaces/all' }] as const
 

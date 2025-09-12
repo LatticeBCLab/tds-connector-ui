@@ -4,8 +4,6 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
-import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
 import type {
   GetConnectorByDIDQueryResponse,
   GetConnectorByDIDPathParams,
@@ -13,8 +11,10 @@ import type {
   GetConnectorByDID404,
   GetConnectorByDID500,
 } from '../types/GetConnectorByDID.ts'
-import { queryOptions, useQuery } from '@tanstack/react-query'
+import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
+import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
 import { getConnectorByDID } from '../clients/getConnectorByDID.ts'
+import { queryOptions, useQuery } from '@tanstack/react-query'
 
 export const getConnectorByDIDQueryKey = (connector_did: GetConnectorByDIDPathParams['connector_did']) =>
   [{ url: '/api/v1/connectors/:connector_did', params: { connector_did: connector_did } }] as const

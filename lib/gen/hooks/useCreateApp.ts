@@ -4,11 +4,11 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
+import type { CreateAppMutationRequest, CreateAppMutationResponse, CreateApp400, CreateApp500 } from '../types/CreateApp.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { UseMutationOptions, QueryClient } from '@tanstack/react-query'
-import type { CreateAppMutationRequest, CreateAppMutationResponse, CreateApp400, CreateApp500 } from '../types/CreateApp.ts'
-import { useMutation } from '@tanstack/react-query'
 import { createApp } from '../clients/createApp.ts'
+import { useMutation } from '@tanstack/react-query'
 
 export const createAppMutationKey = () => [{ url: '/api/v1/apps' }] as const
 

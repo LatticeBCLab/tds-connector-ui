@@ -4,8 +4,6 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
-import type { UseMutationOptions, QueryClient } from '@tanstack/react-query'
 import type {
   UpdateSandboxMutationRequest,
   UpdateSandboxMutationResponse,
@@ -14,8 +12,10 @@ import type {
   UpdateSandbox404,
   UpdateSandbox500,
 } from '../types/UpdateSandbox.ts'
-import { useMutation } from '@tanstack/react-query'
+import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
+import type { UseMutationOptions, QueryClient } from '@tanstack/react-query'
 import { updateSandbox } from '../clients/updateSandbox.ts'
+import { useMutation } from '@tanstack/react-query'
 
 export const updateSandboxMutationKey = () => [{ url: '/api/v1/sandboxes/:id' }] as const
 

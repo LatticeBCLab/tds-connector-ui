@@ -4,11 +4,11 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
+import type { ListJobsQueryResponse, ListJobsQueryParams, ListJobs400, ListJobs500 } from '../types/ListJobs.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
-import type { ListJobsQueryResponse, ListJobsQueryParams, ListJobs400, ListJobs500 } from '../types/ListJobs.ts'
-import { queryOptions, useQuery } from '@tanstack/react-query'
 import { listJobs } from '../clients/listJobs.ts'
+import { queryOptions, useQuery } from '@tanstack/react-query'
 
 export const listJobsQueryKey = (params: ListJobsQueryParams) => [{ url: '/api/v1/jobs/pagination' }, ...(params ? [params] : [])] as const
 

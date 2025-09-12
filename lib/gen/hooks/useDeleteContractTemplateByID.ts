@@ -4,8 +4,6 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
-import type { UseMutationOptions, QueryClient } from '@tanstack/react-query'
 import type {
   DeleteContractTemplateByIDMutationResponse,
   DeleteContractTemplateByIDPathParams,
@@ -13,8 +11,10 @@ import type {
   DeleteContractTemplateByID404,
   DeleteContractTemplateByID500,
 } from '../types/DeleteContractTemplateByID.ts'
-import { useMutation } from '@tanstack/react-query'
+import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
+import type { UseMutationOptions, QueryClient } from '@tanstack/react-query'
 import { deleteContractTemplateByID } from '../clients/deleteContractTemplateByID.ts'
+import { useMutation } from '@tanstack/react-query'
 
 export const deleteContractTemplateByIDMutationKey = () => [{ url: '/api/v1/contract-templates/:id' }] as const
 

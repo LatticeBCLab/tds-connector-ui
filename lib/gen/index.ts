@@ -1,4 +1,5 @@
 export type { AddPolicyToContractTemplateByIDMutationKey } from './hooks/useAddPolicyToContractTemplateByID.ts'
+export type { ApproveJobMutationKey } from './hooks/useApproveJob.ts'
 export type { ApproveResourceAuditByIDMutationKey } from './hooks/useApproveResourceAuditByID.ts'
 export type { BatchCreateI18NMutationKey } from './hooks/useBatchCreateI18N.ts'
 export type { CancelResourceAuditByIDMutationKey } from './hooks/useCancelResourceAuditByID.ts'
@@ -158,6 +159,7 @@ export type { ListSandboxesSuspenseQueryKey } from './hooks/useListSandboxesSusp
 export type { ListUsersQueryKey } from './hooks/useListUsers.ts'
 export type { ListUsersSuspenseQueryKey } from './hooks/useListUsersSuspense.ts'
 export type { PostOfferingMutationKey } from './hooks/usePostOffering.ts'
+export type { RejectJobMutationKey } from './hooks/useRejectJob.ts'
 export type { RejectResourceAuditByIDMutationKey } from './hooks/useRejectResourceAuditByID.ts'
 export type { StartJobMutationKey } from './hooks/useStartJob.ts'
 export type { StatsQueryKey } from './hooks/useStats.ts'
@@ -183,6 +185,15 @@ export type {
   AddPolicyToContractTemplateByIDMutationResponse,
   AddPolicyToContractTemplateByIDMutation,
 } from './types/AddPolicyToContractTemplateByID.ts'
+export type {
+  ApproveJobPathParams,
+  ApproveJob200,
+  ApproveJob400,
+  ApproveJob404,
+  ApproveJob500,
+  ApproveJobMutationResponse,
+  ApproveJobMutation,
+} from './types/ApproveJob.ts'
 export type {
   ApproveResourceAuditByIDPathParams,
   ApproveResourceAuditByID200,
@@ -896,6 +907,7 @@ export type { ModelsDataSpaceStatusEnum, ModelsDataSpaceStatus } from './types/m
 export type { ModelsDIDDocument } from './types/models/DIDDocument.ts'
 export type { ModelsI18N } from './types/models/I18N.ts'
 export type { ModelsJob } from './types/models/Job.ts'
+export type { ModelsJobAuditStatusEnum, ModelsJobAuditStatus } from './types/models/JobAuditStatus.ts'
 export type { ModelsJobStatusEnum, ModelsJobStatus } from './types/models/JobStatus.ts'
 export type { ModelsPolicyTemplate } from './types/models/PolicyTemplate.ts'
 export type { ModelsResource } from './types/models/Resource.ts'
@@ -927,6 +939,15 @@ export type {
   PostOfferingMutationResponse,
   PostOfferingMutation,
 } from './types/PostOffering.ts'
+export type {
+  RejectJobPathParams,
+  RejectJob200,
+  RejectJob400,
+  RejectJob404,
+  RejectJob500,
+  RejectJobMutationResponse,
+  RejectJobMutation,
+} from './types/RejectJob.ts'
 export type {
   RejectResourceAuditByIDPathParams,
   RejectResourceAuditByID200,
@@ -1053,6 +1074,7 @@ export type {
   UpdateSandboxMutation,
 } from './types/UpdateSandbox.ts'
 export { addPolicyToContractTemplateByID } from './clients/addPolicyToContractTemplateByID.ts'
+export { approveJob } from './clients/approveJob.ts'
 export { approveResourceAuditByID } from './clients/approveResourceAuditByID.ts'
 export { batchCreateI18N } from './clients/batchCreateI18N.ts'
 export { cancelResourceAuditByID } from './clients/cancelResourceAuditByID.ts'
@@ -1148,6 +1170,7 @@ export { listResources } from './clients/listResources.ts'
 export { listSandboxes } from './clients/listSandboxes.ts'
 export { listUsers } from './clients/listUsers.ts'
 export { postOffering } from './clients/postOffering.ts'
+export { rejectJob } from './clients/rejectJob.ts'
 export { rejectResourceAuditByID } from './clients/rejectResourceAuditByID.ts'
 export { startJob } from './clients/startJob.ts'
 export { stats } from './clients/stats.ts'
@@ -1163,6 +1186,7 @@ export { updateResourceOutReviewByID } from './clients/updateResourceOutReviewBy
 export { updateResourceStatusByID } from './clients/updateResourceStatusByID.ts'
 export { updateSandbox } from './clients/updateSandbox.ts'
 export { addPolicyToContractTemplateByIDMutationKey, useAddPolicyToContractTemplateByID } from './hooks/useAddPolicyToContractTemplateByID.ts'
+export { approveJobMutationKey, useApproveJob } from './hooks/useApproveJob.ts'
 export { approveResourceAuditByIDMutationKey, useApproveResourceAuditByID } from './hooks/useApproveResourceAuditByID.ts'
 export { batchCreateI18NMutationKey, useBatchCreateI18N } from './hooks/useBatchCreateI18N.ts'
 export { cancelResourceAuditByIDMutationKey, useCancelResourceAuditByID } from './hooks/useCancelResourceAuditByID.ts'
@@ -1498,6 +1522,7 @@ export { listSandboxesSuspenseQueryKey, listSandboxesSuspenseQueryOptions, useLi
 export { listUsersQueryKey, listUsersQueryOptions, useListUsers } from './hooks/useListUsers.ts'
 export { listUsersSuspenseQueryKey, listUsersSuspenseQueryOptions, useListUsersSuspense } from './hooks/useListUsersSuspense.ts'
 export { postOfferingMutationKey, usePostOffering } from './hooks/usePostOffering.ts'
+export { rejectJobMutationKey, useRejectJob } from './hooks/useRejectJob.ts'
 export { rejectResourceAuditByIDMutationKey, useRejectResourceAuditByID } from './hooks/useRejectResourceAuditByID.ts'
 export { startJobMutationKey, useStartJob } from './hooks/useStartJob.ts'
 export { statsQueryKey, statsQueryOptions, useStats } from './hooks/useStats.ts'
@@ -1526,6 +1551,7 @@ export { modelsComputeBinding } from './types/models/ComputeBinding.ts'
 export { modelsConnectionType } from './types/models/ConnectionType.ts'
 export { modelsCountry } from './types/models/Country.ts'
 export { modelsDataSpaceStatus } from './types/models/DataSpaceStatus.ts'
+export { modelsJobAuditStatus } from './types/models/JobAuditStatus.ts'
 export { modelsJobStatus } from './types/models/JobStatus.ts'
 export { modelsResourceStatus } from './types/models/ResourceStatus.ts'
 export { modelsResourceType } from './types/models/ResourceType.ts'

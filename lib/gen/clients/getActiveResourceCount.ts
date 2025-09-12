@@ -4,8 +4,8 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { GetActiveResourceCountQueryResponse, GetActiveResourceCountQueryParams, GetActiveResourceCount500 } from '../types/GetActiveResourceCount.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 function getGetActiveResourceCountUrl() {
   const res = { method: 'GET', url: `/tdsc/api/v1/resources/active/count` as const }

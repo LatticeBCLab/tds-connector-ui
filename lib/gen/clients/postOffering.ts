@@ -4,8 +4,8 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { PostOfferingMutationRequest, PostOfferingMutationResponse, PostOffering400, PostOffering500 } from '../types/PostOffering.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 function getPostOfferingUrl() {
   const res = { method: 'POST', url: `/tdsc/offering` as const }

@@ -4,8 +4,8 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { GetJobStatsQueryResponse, GetJobStatsQueryParams, GetJobStats400, GetJobStats500 } from '../types/GetJobStats.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 function getGetJobStatsUrl() {
   const res = { method: 'GET', url: `/tdsc/api/v1/jobs/stats` as const }

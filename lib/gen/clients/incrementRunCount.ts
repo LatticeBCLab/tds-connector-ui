@@ -4,7 +4,6 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type {
   IncrementRunCountMutationResponse,
   IncrementRunCountPathParams,
@@ -12,6 +11,7 @@ import type {
   IncrementRunCount404,
   IncrementRunCount500,
 } from '../types/IncrementRunCount.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 function getIncrementRunCountUrl(id: IncrementRunCountPathParams['id']) {
   const res = { method: 'POST', url: `/tdsc/api/v1/apps/${id}/run` as const }

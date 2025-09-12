@@ -4,11 +4,11 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
+import type { GetJobStatsQueryResponse, GetJobStatsQueryParams, GetJobStats400, GetJobStats500 } from '../types/GetJobStats.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
-import type { GetJobStatsQueryResponse, GetJobStatsQueryParams, GetJobStats400, GetJobStats500 } from '../types/GetJobStats.ts'
-import { queryOptions, useQuery } from '@tanstack/react-query'
 import { getJobStats } from '../clients/getJobStats.ts'
+import { queryOptions, useQuery } from '@tanstack/react-query'
 
 export const getJobStatsQueryKey = (params: GetJobStatsQueryParams) => [{ url: '/api/v1/jobs/stats' }, ...(params ? [params] : [])] as const
 

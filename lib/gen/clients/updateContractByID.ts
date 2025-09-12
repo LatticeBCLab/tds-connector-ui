@@ -4,7 +4,6 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type {
   UpdateContractByIDMutationRequest,
   UpdateContractByIDMutationResponse,
@@ -13,6 +12,7 @@ import type {
   UpdateContractByID404,
   UpdateContractByID500,
 } from '../types/UpdateContractByID.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 function getUpdateContractByIDUrl(id: UpdateContractByIDPathParams['id']) {
   const res = { method: 'PUT', url: `/tdsc/api/v1/contracts/${id}` as const }

@@ -4,11 +4,11 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
+import type { GetBlockchainQueryResponse, GetBlockchainPathParams, GetBlockchain404, GetBlockchain500 } from '../types/GetBlockchain.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
-import type { GetBlockchainQueryResponse, GetBlockchainPathParams, GetBlockchain404, GetBlockchain500 } from '../types/GetBlockchain.ts'
-import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
 import { getBlockchain } from '../clients/getBlockchain.ts'
+import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
 
 export const getBlockchainSuspenseQueryKey = (id: GetBlockchainPathParams['id']) => [{ url: '/api/v1/blockchains/:id', params: { id: id } }] as const
 

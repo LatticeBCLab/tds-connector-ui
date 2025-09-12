@@ -4,7 +4,6 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type {
   GetResourcesByPublisherQueryResponse,
   GetResourcesByPublisherPathParams,
@@ -12,6 +11,7 @@ import type {
   GetResourcesByPublisher400,
   GetResourcesByPublisher500,
 } from '../types/GetResourcesByPublisher.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 function getGetResourcesByPublisherUrl(publisher: GetResourcesByPublisherPathParams['publisher']) {
   const res = { method: 'GET', url: `/tdsc/api/v1/publishers/${publisher}/resources` as const }
