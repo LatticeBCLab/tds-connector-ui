@@ -1,1 +1,0 @@
-{"type":"string","enum":["ACTIVE","INACTIVE","PENDING","ARCHIVED"],"x-enum-varnames":["DataSpaceStatusActive","DataSpaceStatusInactive","DataSpaceStatusPending","DataSpaceStatusArchived"],"x-readme-ref-name":"models.DataSpaceStatus"}

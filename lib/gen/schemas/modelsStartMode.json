@@ -1,1 +1,0 @@
-{"type":"string","enum":["ONEBOX_AUTO","TEE_AUTO","MANUAL"],"x-enum-comments":{"StartModeManual":"手动启动","StartModeOneboxAuto":"一体机自动启动","StartModeTeeAuto":"TEE环境自动启动"},"x-enum-descriptions":["一体机自动启动","TEE环境自动启动","手动启动"],"x-enum-varnames":["StartModeOneboxAuto","StartModeTeeAuto","StartModeManual"],"x-readme-ref-name":"models.StartMode"}

@@ -1,1 +1,0 @@
-{"type":"string","enum":["creating","running","stopped","suspended","error","deleting"],"x-enum-varnames":["SandboxStatusCreating","SandboxStatusRunning","SandboxStatusStopped","SandboxStatusSuspended","SandboxStatusError","SandboxStatusDeleting"],"x-readme-ref-name":"models.SandboxStatus"}

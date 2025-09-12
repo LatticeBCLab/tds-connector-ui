@@ -59,7 +59,7 @@ export function DataTraceabilityDialog({
       enabled: open && !!resourceId,
     },
   });
-
+  console.log(traceData)
   // 构建溯源链路树结构
   const traceabilityTree = useMemo(() => {
     if (!resourceData) return [];
@@ -77,12 +77,12 @@ export function DataTraceabilityDialog({
         level,
         children: [],
       };
-
+      
       // 如果有追踪数据，构建子节点
-      if (traces && traces.length > 0) {
-        node.children = traces.flatMap(trace => {
-          if (trace.resource?.id) {
-            return buildTree(trace.resource, [], level + 1);
+      if (traces[level]?.parent_data?.id !== "") {
+        node.children = traces[level].parent_data.flatMap(trace => {
+          if (trace.id) {
+            return buildTree(trace, traces, level + 1);
           }
           return [];
         });

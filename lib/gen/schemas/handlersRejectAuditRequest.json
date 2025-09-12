@@ -1,1 +1,0 @@
-{"type":"object","required":["auditor","reason"],"properties":{"auditor":{"type":"string","example":"did:example:auditor123"},"comments":{"type":"string","example":"详细审核意见"},"reason":{"type":"string","example":"不符合规范要求"}},"x-readme-ref-name":"handlers.RejectAuditRequest"}

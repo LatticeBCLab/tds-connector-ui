@@ -1,1 +1,0 @@
-{"type":"object","properties":{"cancelledJobs":{"type":"integer"},"completedJobs":{"type":"integer"},"failedJobs":{"type":"integer"},"pendingJobs":{"type":"integer"},"runningJobs":{"type":"integer"},"totalJobs":{"type":"integer"}},"x-readme-ref-name":"handlers.JobStatsResponse"}

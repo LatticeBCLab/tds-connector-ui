@@ -1,1 +1,0 @@
-{"type":"string","enum":["LocalFile","S3","NAS","RESTful"],"x-enum-varnames":["LocalFile","S3","NAS","RESTful"],"x-readme-ref-name":"models.ResourceType"}

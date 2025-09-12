@@ -1,1 +1,0 @@
-{"type":"object","required":["value"],"properties":{"value":{"type":"string","example":"更新后的值"}},"x-readme-ref-name":"handlers.UpdateI18nRequest"}
