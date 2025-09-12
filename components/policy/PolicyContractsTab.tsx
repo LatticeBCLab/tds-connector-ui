@@ -46,14 +46,14 @@ export function PolicyContractsTab() {
         />
         <MetricCard
           title={t("contractTemplates")}
-          value={statisticData?.total_count || ""}
+          value={statisticData?.total_count || "0"}
           description={t("readyToUse")}
           icon={FileText}
           variant="secondary"
         />
         <MetricCard
           title={t("activeContractTemplates")}
-          value={statisticData?.active_count || ""}
+          value={statisticData?.active_count || "0"}
           description={t("currentlyEnforced")}
           icon={CheckCircle}
         />
