@@ -5,12 +5,14 @@ import { useDataSpace } from "@/lib/contexts/DataSpaceContext";
 import { useGetContractTemplateStatistic } from "@/lib/gen";
 import { useListPolicies } from "@/lib/gen/hooks/useListPolicies";
 import { CheckCircle, FileText, Shield } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { ContractTemplatesCard } from "./ContractTemplatesCard";
 import { CreateContractTemplateDialog } from "./CreateContractTemplateDialog";
 import { PolicyTemplatesCard } from "./PolicyTemplatesCard";
 
 export function PolicyContractsTab() {
+  const t = useTranslations("Policy");
   const { currentDataSpace } = useDataSpace();
   const [refreshTrigger, setRefreshTrigger] = useState(0);
   const [isCreateContractTemplateOpen, setIsCreateContractTemplateOpen] =
@@ -36,23 +38,23 @@ export function PolicyContractsTab() {
       {/* Overview Cards */}
       <div className="grid gap-4 md:grid-cols-3">
         <MetricCard
-          title="Active Policy Templates"
+          title={t("activePolicyTemplates")}
           value={totalPolicies}
-          description="Currently available"
+          description={t("currentlyAvailable")}
           icon={Shield}
           variant="primary"
         />
         <MetricCard
-          title="Contract Templates"
+          title={t("contractTemplates")}
           value={statisticData?.total_count || ""}
-          description="Ready to use"
+          description={t("readyToUse")}
           icon={FileText}
           variant="secondary"
         />
         <MetricCard
-          title="Active Contracts Templates"
+          title={t("activeContractTemplates")}
           value={statisticData?.active_count || ""}
-          description="Currently enforced"
+          description={t("currentlyEnforced")}
           icon={CheckCircle}
         />
       </div>
