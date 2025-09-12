@@ -13,6 +13,13 @@ const nextConfig = {
   },
   images: {
     unoptimized: true,
+    domains: ['example.com', 'localhost'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '**',
+      },
+    ],
   },
   async rewrites() {
     const baseUrl = process.env.TDSC_BASE_URL || 'http://172.22.0.75:8080';

@@ -12,7 +12,8 @@ import {
 import { Spinner } from "@/components/ui/spinner";
 import { useToast } from "@/hooks/use-toast";
 import { useGetConnectorByDID } from "@/lib/gen/hooks/useGetConnectorByDID";
-import { useGetUserByDID } from "@/lib/gen/hooks/useGetUserByDID";
+import { useGetTerminal } from "@/lib/gen/hooks/useGetTerminal";
+import { useGetUser } from "@/lib/gen/hooks/useGetUser";
 import { useAppStore } from "@/lib/stores/app-store";
 import {
   AlertCircle,
@@ -25,6 +26,7 @@ import {
   IdCard,
   Key,
   Lock,
+  Monitor,
   Shield,
   Tag,
   User,
@@ -54,9 +56,20 @@ export function IdentityTab() {
     data: userData,
     isLoading: isLoadingUser,
     error: userError,
-  } = useGetUserByDID(userDID || "", {
+  } = useGetUser(userDID || "", {
     query: {
       enabled: !!userDID,
+    },
+  });
+
+  // Fetch terminal data
+  const {
+    data: terminalData,
+    isLoading: isLoadingTerminal,
+    error: terminalError,
+  } = useGetTerminal(process.env.NEXT_PUBLIC_TERMINAL_DID || "", {
+    query: {
+      enabled: !!process.env.NEXT_PUBLIC_TERMINAL_DID,
     },
   });
 
@@ -867,6 +880,232 @@ export function IdentityTab() {
                   </h4>
                   <p className="text-sm text-yellow-600">
                     {t("connectorDidNotSet")}
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
+          )}
+
+          {/* 可信终端卡片 */}
+          {process.env.NEXT_PUBLIC_TERMINAL_DID ? (
+            isLoadingTerminal ? (
+              <LoadingDisplay title="Loading Terminal..." />
+            ) : terminalError ? (
+              <ErrorDisplay error={terminalError} title="Terminal Load Error" />
+            ) : (
+              <Card className="border-border border">
+                <CardHeader className="border-b border-gray-200 pb-6">
+                  <CardTitle className="text-xl font-bold md:text-2xl">
+                    Trusted Terminal
+                  </CardTitle>
+                  <CardDescription className="text-muted-foreground">
+                    Trusted computing terminal information
+                  </CardDescription>
+                </CardHeader>
+
+                {/* 基本信息部分 */}
+                <CardContent className="px-6">
+                  <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                    <div>
+                      <p className="text-muted-foreground mb-1 text-sm">
+                        Terminal DID
+                      </p>
+                      <div className="flex items-center gap-2">
+                        <code className="bg-muted line-clamp-1 flex-grow rounded-lg font-mono text-sm break-all">
+                          {terminalData?.terminalDid ||
+                            process.env.NEXT_PUBLIC_TERMINAL_DID}
+                        </code>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() =>
+                            copyToClipboard(
+                              terminalData?.terminalDid ||
+                                process.env.NEXT_PUBLIC_TERMINAL_DID ||
+                                "",
+                              "Terminal DID"
+                            )
+                          }
+                        >
+                          <Copy className="h-4 w-4" />
+                        </Button>
+                      </div>
+                    </div>
+
+                    <div>
+                      <p className="text-muted-foreground mb-1 text-sm">
+                        Terminal Name
+                      </p>
+                      <div className="bg-muted rounded-lg">
+                        <span className="font-medium">
+                          {terminalData?.terminalName || t("noName")}
+                        </span>
+                      </div>
+                    </div>
+
+                    <div>
+                      <p className="text-muted-foreground mb-1 text-sm">
+                        Version
+                      </p>
+                      <div className="bg-muted rounded-lg">
+                        <span className="font-medium">
+                          {terminalData?.version || t("noVersion")}
+                        </span>
+                      </div>
+                    </div>
+
+                    <div>
+                      <p className="text-muted-foreground mb-1 text-sm">
+                        Status
+                      </p>
+                      <div className="bg-muted rounded-lg">
+                        <span className="flex items-center gap-1 font-medium text-green-600">
+                          <CheckCircle className="h-4 w-4" />
+                          {terminalData?.status || "Connected"}
+                        </span>
+                      </div>
+                    </div>
+
+                    <div>
+                      <p className="text-muted-foreground mb-1 text-sm">
+                        {t("creationTime")}
+                      </p>
+                      <div className="bg-muted rounded-lg">
+                        <span className="font-medium">
+                          {terminalData?.createdAt || t("noCreationTime")}
+                        </span>
+                      </div>
+                    </div>
+
+                    <div>
+                      <p className="text-muted-foreground mb-1 text-sm">
+                        Service Endpoint
+                      </p>
+                      <div className="bg-muted rounded-lg">
+                        <a
+                          href={terminalData?.serviceEndpoint}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-primary truncate font-medium hover:underline"
+                        >
+                          {terminalData?.serviceEndpoint || "No endpoint"}
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+
+                {/* 终端详细信息 */}
+                <div className="border-t border-gray-100">
+                  <CardContent className="p-6">
+                    <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                      {/* 公钥信息 */}
+                      <Card className="border-border border">
+                        <CardHeader className="pb-0">
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-3">
+                              <div className="bg-primary/10 rounded-lg p-2">
+                                <Key className="text-primary h-5 w-5" />
+                              </div>
+                              <CardTitle className="text-lg">
+                                {t("publicKeyInfo")}
+                              </CardTitle>
+                            </div>
+                            <Badge variant="secondary" className="text-xs">
+                              Verification
+                            </Badge>
+                          </div>
+                        </CardHeader>
+                        <CardContent>
+                          <div className="space-y-3">
+                            <div>
+                              <p className="text-muted-foreground mb-1 text-sm">
+                                {t("algorithmType")}
+                              </p>
+                              <code className="bg-muted block rounded font-mono text-sm">
+                                {terminalData?.publicKeyType || "Unknown"}
+                              </code>
+                            </div>
+                            <div>
+                              <p className="text-muted-foreground mb-1 text-sm">
+                                {t("publicKeyBase58")}
+                              </p>
+                              <div className="flex items-center gap-2">
+                                <code className="bg-muted flex-1 truncate rounded font-mono text-sm break-all">
+                                  {terminalData?.publicKeyBase58 ||
+                                    t("noPublicKey")}
+                                </code>
+                                <Button
+                                  variant="ghost"
+                                  size="sm"
+                                  onClick={() =>
+                                    copyToClipboard(
+                                      terminalData?.publicKeyBase58 || "",
+                                      t("publicKeyBase58")
+                                    )
+                                  }
+                                >
+                                  <Copy className="h-4 w-4" />
+                                </Button>
+                              </div>
+                            </div>
+                          </div>
+                        </CardContent>
+                      </Card>
+
+                      {/* 服务信息 */}
+                      <Card className="border-border border">
+                        <CardHeader className="pb-0">
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-3">
+                              <div className="bg-primary/10 rounded-lg p-2">
+                                <Monitor className="text-primary h-5 w-5" />
+                              </div>
+                              <CardTitle className="text-lg">
+                                Terminal Service
+                              </CardTitle>
+                            </div>
+                            <Badge variant="secondary" className="text-xs">
+                              {t("service")}
+                            </Badge>
+                          </div>
+                        </CardHeader>
+                        <CardContent>
+                          <div className="space-y-3">
+                            <div>
+                              <p className="text-muted-foreground mb-1 text-sm">
+                                {t("serviceType")}
+                              </p>
+                              <code className="bg-muted block rounded font-mono text-sm">
+                                {terminalData?.serviceType || "Unknown"}
+                              </code>
+                            </div>
+                            <div>
+                              <p className="text-muted-foreground mb-1 text-sm">
+                                Service ID
+                              </p>
+                              <code className="bg-muted block rounded font-mono text-sm break-all">
+                                {terminalData?.serviceId || "Unknown"}
+                              </code>
+                            </div>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    </div>
+                  </CardContent>
+                </div>
+              </Card>
+            )
+          ) : (
+            <Card className="border-yellow-200 bg-yellow-50">
+              <CardContent className="flex items-center gap-3 p-6">
+                <AlertCircle className="h-5 w-5 text-yellow-500" />
+                <div>
+                  <h4 className="font-medium text-yellow-800">
+                    Terminal Not Configured
+                  </h4>
+                  <p className="text-sm text-yellow-600">
+                    Terminal DID is not set in environment variables
                   </p>
                 </div>
               </CardContent>

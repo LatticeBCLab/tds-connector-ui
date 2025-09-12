@@ -10,7 +10,7 @@ import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from
 import { listJobs } from '../clients/listJobs.ts'
 import { queryOptions, useQuery } from '@tanstack/react-query'
 
-export const listJobsQueryKey = (params: ListJobsQueryParams) => [{ url: '/api/v1/jobs' }, ...(params ? [params] : [])] as const
+export const listJobsQueryKey = (params: ListJobsQueryParams) => [{ url: '/api/v1/jobs/pagination' }, ...(params ? [params] : [])] as const
 
 export type ListJobsQueryKey = ReturnType<typeof listJobsQueryKey>
 
@@ -29,7 +29,7 @@ export function listJobsQueryOptions(params: ListJobsQueryParams, config: Partia
 /**
  * @description 分页获取Job列表，支持按名称搜索和状态过滤
  * @summary 获取Job列表
- * {@link /api/v1/jobs}
+ * {@link /api/v1/jobs/pagination}
  */
 export function useListJobs<TData = ListJobsQueryResponse, TQueryData = ListJobsQueryResponse, TQueryKey extends QueryKey = ListJobsQueryKey>(
   params: ListJobsQueryParams,

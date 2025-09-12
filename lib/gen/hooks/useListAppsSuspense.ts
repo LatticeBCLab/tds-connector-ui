@@ -10,7 +10,7 @@ import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryRe
 import { listApps } from '../clients/listApps.ts'
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
 
-export const listAppsSuspenseQueryKey = (params: ListAppsQueryParams) => [{ url: '/api/v1/apps' }, ...(params ? [params] : [])] as const
+export const listAppsSuspenseQueryKey = (params: ListAppsQueryParams) => [{ url: '/api/v1/apps/pagination' }, ...(params ? [params] : [])] as const
 
 export type ListAppsSuspenseQueryKey = ReturnType<typeof listAppsSuspenseQueryKey>
 
@@ -29,7 +29,7 @@ export function listAppsSuspenseQueryOptions(params: ListAppsQueryParams, config
 /**
  * @description 分页获取App列表，支持按名称搜索和分类过滤
  * @summary 获取App列表
- * {@link /api/v1/apps}
+ * {@link /api/v1/apps/pagination}
  */
 export function useListAppsSuspense<TData = ListAppsQueryResponse, TQueryKey extends QueryKey = ListAppsSuspenseQueryKey>(
   params: ListAppsQueryParams,

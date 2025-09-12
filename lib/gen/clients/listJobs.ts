@@ -8,14 +8,14 @@ import type { ListJobsQueryResponse, ListJobsQueryParams, ListJobs400, ListJobs5
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 function getListJobsUrl() {
-  const res = { method: 'GET', url: `/tdsc/api/v1/jobs` as const }
+  const res = { method: 'GET', url: `/tdsc/api/v1/jobs/pagination` as const }
   return res
 }
 
 /**
  * @description 分页获取Job列表，支持按名称搜索和状态过滤
  * @summary 获取Job列表
- * {@link /api/v1/jobs}
+ * {@link /api/v1/jobs/pagination}
  */
 export async function listJobs(params: ListJobsQueryParams, config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
   const { client: request = fetch, ...requestConfig } = config

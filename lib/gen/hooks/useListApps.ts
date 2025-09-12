@@ -10,7 +10,7 @@ import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from
 import { listApps } from '../clients/listApps.ts'
 import { queryOptions, useQuery } from '@tanstack/react-query'
 
-export const listAppsQueryKey = (params: ListAppsQueryParams) => [{ url: '/api/v1/apps' }, ...(params ? [params] : [])] as const
+export const listAppsQueryKey = (params: ListAppsQueryParams) => [{ url: '/api/v1/apps/pagination' }, ...(params ? [params] : [])] as const
 
 export type ListAppsQueryKey = ReturnType<typeof listAppsQueryKey>
 
@@ -29,7 +29,7 @@ export function listAppsQueryOptions(params: ListAppsQueryParams, config: Partia
 /**
  * @description 分页获取App列表，支持按名称搜索和分类过滤
  * @summary 获取App列表
- * {@link /api/v1/apps}
+ * {@link /api/v1/apps/pagination}
  */
 export function useListApps<TData = ListAppsQueryResponse, TQueryData = ListAppsQueryResponse, TQueryKey extends QueryKey = ListAppsQueryKey>(
   params: ListAppsQueryParams,

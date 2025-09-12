@@ -10,7 +10,8 @@ import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryRe
 import { listSandboxes } from '../clients/listSandboxes.ts'
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
 
-export const listSandboxesSuspenseQueryKey = (params: ListSandboxesQueryParams) => [{ url: '/api/v1/sandboxes' }, ...(params ? [params] : [])] as const
+export const listSandboxesSuspenseQueryKey = (params: ListSandboxesQueryParams) =>
+  [{ url: '/api/v1/sandboxes/pagination' }, ...(params ? [params] : [])] as const
 
 export type ListSandboxesSuspenseQueryKey = ReturnType<typeof listSandboxesSuspenseQueryKey>
 
@@ -29,7 +30,7 @@ export function listSandboxesSuspenseQueryOptions(params: ListSandboxesQueryPara
 /**
  * @description 分页获取沙箱列表，支持按名称搜索和状态过滤
  * @summary 获取沙箱列表
- * {@link /api/v1/sandboxes}
+ * {@link /api/v1/sandboxes/pagination}
  */
 export function useListSandboxesSuspense<TData = ListSandboxesQueryResponse, TQueryKey extends QueryKey = ListSandboxesSuspenseQueryKey>(
   params: ListSandboxesQueryParams,

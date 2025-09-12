@@ -8,14 +8,14 @@ import type { ListSandboxesQueryResponse, ListSandboxesQueryParams, ListSandboxe
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 function getListSandboxesUrl() {
-  const res = { method: 'GET', url: `/tdsc/api/v1/sandboxes` as const }
+  const res = { method: 'GET', url: `/tdsc/api/v1/sandboxes/pagination` as const }
   return res
 }
 
 /**
  * @description 分页获取沙箱列表，支持按名称搜索和状态过滤
  * @summary 获取沙箱列表
- * {@link /api/v1/sandboxes}
+ * {@link /api/v1/sandboxes/pagination}
  */
 export async function listSandboxes(params: ListSandboxesQueryParams, config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
   const { client: request = fetch, ...requestConfig } = config
