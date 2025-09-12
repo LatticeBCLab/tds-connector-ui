@@ -16,17 +16,10 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { ModelsBlockChain, useGetBlockchain } from "@/lib/gen";
-import { Folder } from "lucide-react";
+import { Folder, Shield } from "lucide-react";
 import { useEffect, useState } from "react";
 import { EmptyState } from "../shared/EmptyState";
-
-interface Transaction {
-  id: string;
-  type: string;
-  hash: string;
-  timestamp: string;
-  status: "confirmed" | "failed" | "pending";
-}
+import { Spinner } from "../ui/spinner";
 
 interface SubChainCardProps {
   subChains: ModelsBlockChain[];
@@ -38,13 +31,34 @@ function SubChainRealCard({
   options: { label: string; value: string }[];
 }) {
   const [id, setId] = useState(options[0].value);
-  const { data: chainData } = useGetBlockchain(+id);
+  const { data: chainData, isLoading } = useGetBlockchain(+id);
 
   useEffect(() => {
     if (!options.find((d) => d.value === id)) {
       setId(options[0].value);
     }
-  }, [options]);
+  }, [id, options]);
+
+  if (isLoading) {
+    return (
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Shield className="h-5 w-5" />
+            Sub Chain
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="flex flex-col items-center gap-3 p-6">
+            <Spinner variant="bars" />
+            <p className="text-muted-foreground text-sm">
+              Loading sub chain...
+            </p>
+          </div>
+        </CardContent>
+      </Card>
+    );
+  }
 
   return (
     chainData && (
@@ -160,11 +174,21 @@ function SubChainRealCard({
 export function SubChainCard({ subChains }: SubChainCardProps) {
   if (subChains.length === 0) {
     return (
-      <EmptyState
-        icon={Folder}
-        title="No sub chain found"
-        description="No sub chain found"
-      />
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Shield className="h-5 w-5" />
+            Sub Chain
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <EmptyState
+            icon={Folder}
+            title="No sub chain found"
+            description="No sub chain found"
+          />
+        </CardContent>
+      </Card>
     );
   } else {
     const options = subChains.map((d) => ({

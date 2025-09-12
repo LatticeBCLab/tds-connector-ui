@@ -36,12 +36,6 @@ export function DataConsumptionTab() {
     (c: DataContract) => c.status === "active" || c.status === "in_use"
   ).length;
 
-  // Handle request for data access
-  const handleRequestData = (offering: any) => {
-    setSelectedOffering(offering);
-    setIsRequestDataOpen(true);
-  };
-
   return (
     <div className="space-y-6">
       {/* Overview Cards */}
@@ -62,7 +56,7 @@ export function DataConsumptionTab() {
         />
         <MetricCard
           title="Connected Partners"
-          value={0}
+          value={2}
           description="Trusted connectors"
           icon={Users}
         />

@@ -11,6 +11,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { Spinner } from "@/components/ui/spinner";
 import { useListPolicies } from "@/lib/gen/hooks/useListPolicies";
 import {
   Clock,
@@ -120,10 +121,9 @@ export function PolicyTemplatesCard({
           </div>
         </CardHeader>
         <CardContent>
-          <div className="flex items-center justify-center py-8">
-            <div className="text-muted-foreground text-sm">
-              Loading policies...
-            </div>
+          <div className="flex flex-col items-center gap-3 p-6">
+            <Spinner variant="bars" />
+            <p className="text-muted-foreground text-sm">Loading policies...</p>
           </div>
         </CardContent>
       </Card>
