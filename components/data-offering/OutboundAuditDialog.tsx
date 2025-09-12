@@ -2,7 +2,6 @@
 
 import { DateTimePicker } from "@/components/DateTimePicker";
 import { Button } from "@/components/ui/button";
-import { useTranslations } from "next-intl";
 import {
   Dialog,
   DialogContent,
@@ -22,15 +21,12 @@ import { Input } from "@/components/ui/input";
 import { Progress } from "@/components/ui/progress";
 import { Spinner } from "@/components/ui/spinner";
 import { Textarea } from "@/components/ui/textarea";
-import {
-  useApproveResourceAuditByID,
-  useCreateResourceAudit,
-  useGetUserDIDList,
-} from "@/lib/gen";
+import { useApproveResourceAuditByID, useCreateResourceAudit } from "@/lib/gen";
 import { useAppStore } from "@/lib/stores/app-store";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AlertCircle, CheckCircle, Clock, Loader2 } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -119,11 +115,7 @@ export function OutboundAuditDialog({
     },
   });
 
-  const { data: userDIDList } = useGetUserDIDList();
-  const auditor =
-    userDIDList?.filter(
-      (userDID) => userDID !== process.env.NEXT_PUBLIC_USER_DID
-    )[0] || "";
+  const auditor = process.env.NEXT_PUBLIC_USER_DID + "2";
 
   // Reset form and state when dialog opens/closes
   useEffect(() => {
@@ -318,16 +310,14 @@ export function OutboundAuditDialog({
       <DialogContent className="max-w-2xl">
         <DialogHeader>
           <DialogTitle>{t("title")}</DialogTitle>
-          <DialogDescription>
-            {t("description")}
-          </DialogDescription>
+          <DialogDescription>{t("description")}</DialogDescription>
         </DialogHeader>
 
         {currentStep === "form" && (
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
               {/* Read-only auditor field */}
-              <div>
+              <div className="hidden">
                 <label className="text-muted-foreground text-sm font-medium">
                   {t("fields.auditor")}
                 </label>
@@ -453,9 +443,7 @@ export function OutboundAuditDialog({
         {currentStep === "completed" && (
           <div className="space-y-4 py-8 text-center">
             <CheckCircle className="mx-auto h-16 w-16 text-green-500" />
-            <h3 className="text-lg font-semibold">
-              {t("completion.title")}
-            </h3>
+            <h3 className="text-lg font-semibold">{t("completion.title")}</h3>
             <p className="text-muted-foreground">
               {t("completion.description")}
             </p>

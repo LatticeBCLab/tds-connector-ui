@@ -1,8 +1,7 @@
 "use client";
 
-import { ActionDialog } from "@/components/shared";
+import { StatusBadge } from "@/components/shared";
 import { Button } from "@/components/ui/button";
-import { useTranslations } from "next-intl";
 import {
   Dialog,
   DialogClose,
@@ -32,6 +31,7 @@ import {
   Shield,
   XCircle,
 } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 // Data source type icon mapping
 const getDataSourceIcon = (type: DataSourceType) => {
