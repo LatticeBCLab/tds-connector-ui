@@ -8,14 +8,14 @@ import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/cli
 import type { CreateJobMutationRequest, CreateJobMutationResponse, CreateJob400, CreateJob500 } from '../types/CreateJob.ts'
 
 function getCreateJobUrl() {
-  const res = { method: 'POST', url: `/tdsc/api/v1/jobs` as const }
+  const res = { method: 'POST', url: `/tdsc/api/v1/jobs/create` as const }
   return res
 }
 
 /**
  * @description 创建新的数据处理任务
  * @summary 创建Job
- * {@link /api/v1/jobs}
+ * {@link /api/v1/jobs/create}
  */
 export async function createJob(data: CreateJobMutationRequest, config: Partial<RequestConfig<CreateJobMutationRequest>> & { client?: typeof fetch } = {}) {
   const { client: request = fetch, ...requestConfig } = config

@@ -62,7 +62,7 @@ const getDataSourceLabel = (type: string) => {
 
 export function CatalogCard() {
   const t = useTranslations('DataConsumption');
-  const { currentDataSpaceId, userDID } = useAppStore();
+  const { currentDataSpaceId } = useAppStore();
 
   // State for pagination
   const [page, setPage] = useState(1);

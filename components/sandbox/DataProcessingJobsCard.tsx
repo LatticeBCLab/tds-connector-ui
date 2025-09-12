@@ -1,6 +1,6 @@
 "use client";
 
-import { ActionDialog, StatusBadge } from "@/components/shared";
+import { StatusBadge } from "@/components/shared";
 import { EmptyState } from "@/components/shared/EmptyState";
 import { Button } from "@/components/ui/button";
 import {
@@ -10,18 +10,10 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Textarea } from "@/components/ui/textarea";
-import { Activity, Edit, Eye, Play, Plus, Trash2 } from "lucide-react";
+import { useGetSandbox } from "@/lib/gen";
+import { Activity, Edit, Eye, Play, Trash2 } from "lucide-react";
+import { CreateJobDialog } from "./CreateJobDialog";
 
 // 定义Job的数据类型
 interface Job {
@@ -44,53 +36,34 @@ interface Job {
   updatedAt: string;
 }
 
-interface SandboxEnvironment {
-  id: string;
-  name: string;
-  runtimeType: string;
-  status?: string;
-}
-
-interface DataOffering {
-  id: string;
-  title: string;
-}
+// Interfaces moved to CreateJobDialog component as they are no longer needed here
 
 interface DataProcessingJobsCardProps {
   jobs: Job[];
-  sandboxes: SandboxEnvironment[];
-  dataOfferings: DataOffering[];
-  isCreateJobOpen: boolean;
-  setIsCreateJobOpen: (open: boolean) => void;
-  newJob: any;
-  setNewJob: (job: any) => void;
-  createJob: () => void;
   runJob: (id: string) => void;
+  onJobCreated?: () => void;
 }
+
+// 沙盒名称显示组件
+const SandboxName = ({ sandboxId }: { sandboxId: string }) => {
+  const { data: sandboxData } = useGetSandbox(sandboxId, {
+    query: { enabled: !!sandboxId },
+  });
+  return sandboxData?.name || "Unknown Sandbox";
+};
 
 export function DataProcessingJobsCard({
   jobs,
-  sandboxes,
-  dataOfferings,
-  isCreateJobOpen,
-  setIsCreateJobOpen,
-  newJob,
-  setNewJob,
-  createJob,
   runJob,
+  onJobCreated,
 }: DataProcessingJobsCardProps) {
+  console.log("jobs", jobs);
   // 格式化数据大小显示
   const formatDataSize = (sizeInMb: number) => {
     if (sizeInMb >= 1024) {
       return `${(sizeInMb / 1024).toFixed(1)} GB`;
     }
     return `${sizeInMb} MB`;
-  };
-
-  // 根据sandboxId查找sandbox名称
-  const getSandboxName = (sandboxId: string) => {
-    const sandbox = sandboxes.find((s) => s.id === sandboxId);
-    return sandbox ? sandbox.name : "Unknown Sandbox";
   };
 
   // 计算任务持续时间
@@ -102,7 +75,7 @@ export function DataProcessingJobsCard({
     const hours = Math.floor(durationMs / (1000 * 60 * 60));
     const minutes = Math.floor((durationMs % (1000 * 60 * 60)) / (1000 * 60));
     const seconds = Math.floor((durationMs % (1000 * 60)) / 1000);
-    
+
     if (hours > 0) {
       return `${hours}h ${minutes}m ${seconds}s`;
     } else if (minutes > 0) {
@@ -120,108 +93,7 @@ export function DataProcessingJobsCard({
             <CardTitle>Data Processing Jobs</CardTitle>
             <CardDescription>Manage data processing tasks</CardDescription>
           </div>
-          <ActionDialog
-            trigger={
-              <Button size="sm" variant="secondary">
-                <Plus className="h-4 w-4" />
-                New Job
-              </Button>
-            }
-            title="Create Processing Job"
-            description="Configure a new data processing task"
-            open={isCreateJobOpen}
-            onOpenChange={setIsCreateJobOpen}
-            maxWidth="lg"
-          >
-            <div className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="job-name">Job Name</Label>
-                <Input
-                  id="job-name"
-                  value={newJob.name}
-                  onChange={(e) =>
-                    setNewJob({ ...newJob, name: e.target.value })
-                  }
-                  placeholder="Customer Segmentation Analysis"
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="job-description">Description</Label>
-                <Input
-                  id="job-description"
-                  value={newJob.description}
-                  onChange={(e) =>
-                    setNewJob({ ...newJob, description: e.target.value })
-                  }
-                  placeholder="Analyze customer data for segmentation"
-                />
-              </div>
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label htmlFor="sandbox">Sandbox Environment</Label>
-                  <Select
-                    value={newJob.sandboxId}
-                    onValueChange={(value) =>
-                      setNewJob({ ...newJob, sandboxId: value })
-                    }
-                  >
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select sandbox" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {sandboxes.map((sandbox) => (
-                        <SelectItem key={sandbox.id} value={sandbox.id}>
-                          {sandbox.name} ({sandbox.runtimeType})
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="data-offering">Data Offering</Label>
-                  <Select
-                    value={newJob.dataOfferingId}
-                    onValueChange={(value) =>
-                      setNewJob({ ...newJob, dataOfferingId: value })
-                    }
-                  >
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select data" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {dataOfferings.map((offering) => (
-                        <SelectItem key={offering.id} value={offering.id}>
-                          {offering.title}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="script">Processing Script</Label>
-                <Textarea
-                  id="script"
-                  value={newJob.script}
-                  onChange={(e) =>
-                    setNewJob({ ...newJob, script: e.target.value })
-                  }
-                  placeholder="import pandas as pd&#10;# Your data processing code here"
-                  className="font-mono text-sm"
-                  rows={8}
-                />
-              </div>
-              <div className="flex justify-end space-x-2">
-                <Button
-                  variant="outline"
-                  onClick={() => setIsCreateJobOpen(false)}
-                >
-                  Cancel
-                </Button>
-                <Button onClick={createJob}>Create Job</Button>
-              </div>
-            </div>
-          </ActionDialog>
+          <CreateJobDialog onSuccess={onJobCreated} />
         </div>
       </CardHeader>
       <CardContent className="p-0">
@@ -241,30 +113,38 @@ export function DataProcessingJobsCard({
                       </div>
                       <div className="text-muted-foreground space-y-1 text-xs">
                         <div>
-                          Sandbox: {getSandboxName(job.sandboxId)}
+                          Sandbox: <SandboxName sandboxId={job.sandboxId} />
                         </div>
-                        <div>
-                          Created: {new Date(job.createdAt).toLocaleString('zh-CN')}
+                        <div className="space-x-4">
+                          <span>
+                            Created:{" "}
+                            {new Date(job.createdAt).toLocaleString("zh-CN")}
+                          </span>
+                          {job.startedAt && (
+                            <span>
+                              Started:{" "}
+                              {new Date(job.startedAt).toLocaleString("zh-CN")}
+                            </span>
+                          )}
+                          {job.endedAt && (
+                            <span>
+                              Ended:{" "}
+                              {new Date(job.endedAt).toLocaleString("zh-CN")}
+                            </span>
+                          )}
+                          {job.startedAt && (
+                            <span>
+                              Duration:{" "}
+                              {getJobDuration(job.startedAt, job.endedAt)}
+                            </span>
+                          )}
                         </div>
-                        {job.startedAt && (
-                          <div>
-                            Started: {new Date(job.startedAt).toLocaleString('zh-CN')}
-                          </div>
-                        )}
-                        {job.endedAt && (
-                          <div>
-                            Ended: {new Date(job.endedAt).toLocaleString('zh-CN')}
-                          </div>
-                        )}
-                        {job.startedAt && (
-                          <div>
-                            Duration: {getJobDuration(job.startedAt, job.endedAt)}
-                          </div>
-                        )}
-                        <div>Input: {formatDataSize(job.inputDataSize)}</div>
+                        {/* <div>Input: {formatDataSize(job.inputDataSize)}</div>
                         {job.outputDataSize > 0 && (
-                          <div>Output: {formatDataSize(job.outputDataSize)}</div>
-                        )}
+                          <div>
+                            Output: {formatDataSize(job.outputDataSize)}
+                          </div>
+                        )} */}
                         {job.errorMessage && (
                           <div className="text-red-600">
                             Error: {job.errorMessage}
@@ -273,7 +153,8 @@ export function DataProcessingJobsCard({
                       </div>
                     </div>
                     <div className="flex items-center space-x-1">
-                      {(job.status === "pending" || job.status === "queued") && (
+                      {(job.status === "pending" ||
+                        job.status === "queued") && (
                         <Button
                           size="sm"
                           variant="outline"
@@ -297,11 +178,11 @@ export function DataProcessingJobsCard({
                 </div>
               ))
             ) : (
-              <div className="text-center py-8 text-muted-foreground">
-                <EmptyState 
-                  icon={Activity} 
-                  title="No processing jobs found" 
-                  description="Create one to start processing data." 
+              <div className="text-muted-foreground py-8 text-center">
+                <EmptyState
+                  icon={Activity}
+                  title="No processing jobs found"
+                  description="Create one to start processing data."
                 />
               </div>
             )}
