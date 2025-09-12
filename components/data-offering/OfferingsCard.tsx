@@ -2,6 +2,7 @@
 
 import { CreateDataOfferingDialog } from "@/components/data-offering/CreateDataOfferingDialog";
 import { DataOfferingDetailsDialog } from "@/components/data-offering/DataOfferingDetailsDialog";
+import { DataTraceabilityDialog } from "@/components/data-offering/DataTraceabilityDialog";
 import { InboundAuditDialog } from "@/components/data-offering/InboundAuditDialog";
 import { OutboundAuditDialog } from "@/components/data-offering/OutboundAuditDialog";
 import { EmptyState } from "@/components/shared/EmptyState";
@@ -30,6 +31,7 @@ import {
   Cloud,
   Database,
   File,
+  GitBranch,
   Link,
   MoreHorizontal,
   Pause,
@@ -98,6 +100,9 @@ export function OfferingsCard({
   const [isInboundAuditOpen, setIsInboundAuditOpen] = useState(false);
   const [selectedResourceId, setSelectedResourceId] = useState<string>("");
 
+  // State for data traceability dialog
+  const [isTraceabilityOpen, setIsTraceabilityOpen] = useState(false);
+
   // API call for data offerings
   const {
     data: resourceData,
@@ -162,6 +167,12 @@ export function OfferingsCard({
   const handleInboundAuditClick = (resourceId: string) => {
     setSelectedResourceId(resourceId);
     setIsInboundAuditOpen(true);
+  };
+
+  // Handle data traceability button click
+  const handleTraceabilityClick = (resourceId: string) => {
+    setSelectedResourceId(resourceId);
+    setIsTraceabilityOpen(true);
   };
 
   // Check if there are more pages to load
@@ -375,7 +386,7 @@ export function OfferingsCard({
                       </div>
                     </div>
                     {/* Action Buttons */}
-                    {offering.boundStatus !== "APPROVED" && (
+                    { (
                       <DropdownMenu>
                         <DropdownMenuTrigger asChild>
                           <Button variant="ghost" size="sm">
@@ -408,6 +419,12 @@ export function OfferingsCard({
                                   {t("actions.inbound")}
                               </DropdownMenuItem>
                             )}
+                          <DropdownMenuItem
+                            onClick={() => handleTraceabilityClick(offering.id)}
+                          >
+                            <GitBranch className="size-4" />
+                            {t("actions.dataTrace")}
+                          </DropdownMenuItem>
                         </DropdownMenuContent>
                       </DropdownMenu>
                     )}
@@ -461,6 +478,13 @@ export function OfferingsCard({
         onOpenChange={setIsInboundAuditOpen}
         resourceId={selectedResourceId}
         onSuccess={handleRefreshData}
+      />
+
+      {/* Data Traceability Dialog */}
+      <DataTraceabilityDialog
+        open={isTraceabilityOpen}
+        onOpenChange={setIsTraceabilityOpen}
+        resourceId={selectedResourceId}
       />
     </>
   );

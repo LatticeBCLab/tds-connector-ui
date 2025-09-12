@@ -1,1 +1,0 @@
-{"type":"string","enum":["UNAUDITED","PENDING","APPROVED","REJECTED"],"x-enum-comments":{"Approved":"已审核","Pending":"审核表中 pending 状态","Rejected":"已审核","Unaudited":"未提交审核，审核表中没有状态，即不在审核表中"},"x-enum-descriptions":["未提交审核，审核表中没有状态，即不在审核表中","审核表中 pending 状态","已审核","已审核"],"x-enum-varnames":["Unaudited","Pending","Approved","Rejected"],"x-readme-ref-name":"models.boundStatus"}

@@ -234,7 +234,7 @@ export function CreateDataOfferingDialog({
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label className="text-muted-foreground text-sm font-medium">
-                Location
+                {t("fields.location.label")}
               </label>
               <Input
                 value={process.env.NEXT_PUBLIC_LOCATION}
@@ -244,7 +244,7 @@ export function CreateDataOfferingDialog({
             </div>
             <div>
               <label className="text-muted-foreground text-sm font-medium">
-                Origin Country
+                {t("fields.originCountry.label")}
               </label>
               <Input
                 value={dataSpace?.country}
@@ -255,7 +255,7 @@ export function CreateDataOfferingDialog({
           </div>
           <div>
             <label className="text-muted-foreground text-sm font-medium">
-              Publisher
+              {t("fields.publisher.label")}
             </label>
             <Input
               value={userDID || ""}

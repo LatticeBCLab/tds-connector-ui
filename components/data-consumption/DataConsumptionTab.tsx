@@ -108,7 +108,7 @@ export function DataConsumptionTab() {
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="api">{t("dialog.apiAccess")}</SelectItem>
-                <SelectItem value="download">{t("dialog.download")}</SelectItem>
+                <SelectItem value="download">{t("dialog.c")}</SelectItem>
               </SelectContent>
             </Select>
           </div>

@@ -1012,7 +1012,7 @@ export function IdentityTab() {
                               </CardTitle>
                             </div>
                             <Badge variant="secondary" className="text-xs">
-                              Verification
+                              {t("publickeyVerification")}
                             </Badge>
                           </div>
                         </CardHeader>
@@ -1062,7 +1062,7 @@ export function IdentityTab() {
                                 <Monitor className="text-primary h-5 w-5" />
                               </div>
                               <CardTitle className="text-lg">
-                                Terminal Service
+                                {t("terminalService")}
                               </CardTitle>
                             </div>
                             <Badge variant="secondary" className="text-xs">
@@ -1082,7 +1082,7 @@ export function IdentityTab() {
                             </div>
                             <div>
                               <p className="text-muted-foreground mb-1 text-sm">
-                                Service ID
+                                {t("serviceId")}
                               </p>
                               <code className="bg-muted block rounded font-mono text-sm break-all">
                                 {terminalData?.serviceId || "Unknown"}

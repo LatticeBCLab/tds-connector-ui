@@ -184,6 +184,12 @@
     }
   },
   "Identity": {
+    "userName": "User Name",
+    "issuerName": "issuerName",
+    "vaildFrom": "vaildFrom",
+    "terminalService": "terminalService",
+    "serviceId": "serviceId",
+    "publickeyVerification": "publickeyVerification",
     "connectorIdentity": "Connector Identity",
     "userIdentity": "User Identity",
     "connectorDescription": "Connector identity information and associated DID document details",
@@ -496,6 +502,15 @@
       "headerValue": {
         "label": "Header Value",
         "placeholder": "API key value"
+      },
+      "location": {
+        "label": "Location"
+      },
+      "originCountry": {
+        "label": "Origin Country"
+      },
+      "publisher": {
+        "label": "Publisher"
       }
     },
     "sections": {
@@ -571,6 +586,7 @@
       "checkEURequirements": "Check EU Requirements",
       "runComplianceCheck": "Run Compliance Check",
       "submitAuditRequest": "Submit Audit Request",
+      "dataTraceability": "Data Traceability",
       "close": "Close"
     }
   },
@@ -730,7 +746,8 @@
     },
     "actions": {
       "outbound": "Outbound",
-      "inbound": "Inbound"
+      "inbound": "Inbound",
+      "dataTrace": "数据溯源"
     },
     "common": {
       "loading": "Loading...",
@@ -943,6 +960,18 @@
       "networkOut": "Network Out",
       "securityAlerts": "Security Alerts",
       "securityEventsAndAlerts": "Security events and system alerts"
+    }
+  },
+  "dataTraceabilityDialog": {
+    "title": "Data Traceability",
+    "description": "View the complete data lineage and traceability chain for this resource",
+    "loading": "Loading traceability information...",
+    "error": "Failed to load traceability information",
+    "noData": "No traceability information available",
+    "resourceInfo": "Resource Information",
+    "traceabilityChain": "Traceability Chain",
+    "buttons": {
+      "close": "Close"
     }
   }
 }

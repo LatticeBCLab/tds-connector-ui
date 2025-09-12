@@ -1,1 +1,0 @@
-{"type":"string","enum":["INFO","WARNING","CRITICAL"],"x-enum-varnames":["SeverityInfo","SeverityWarning","SeverityCritical"],"x-readme-ref-name":"models.Severity"}

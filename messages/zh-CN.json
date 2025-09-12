@@ -184,6 +184,12 @@
     }
   },
   "Identity": {
+    "userName": "用户名",
+    "issuerName": "发布者用户名",
+    "vaildFrom": "有效日期",
+    "terminalService": "终端服务",
+    "serviceId": "服务ID",
+    "publickeyVerification": "已验证",
     "connectorIdentity": "连接器身份",
     "userIdentity": "用户身份",
     "connectorDescription": "连接器身份信息和相关DID文档详情",
@@ -496,6 +502,15 @@
       "headerValue": {
         "label": "请求头值",
         "placeholder": "API密钥值"
+      },
+      "location": {
+        "label": "位置"
+      },
+      "originCountry": {
+        "label": "原产国"
+      },
+      "publisher": {
+        "label": "发布者"
       }
     },
     "sections": {
@@ -710,6 +725,18 @@
       },
       "warning": {
         "expired": "合约已过期"
+      },
+      "dataTraceabilityDialog": {
+        "title": "数据溯源",
+        "loading": "正在加载溯源信息...",
+        "description": "数据溯源",
+        "error": "加载溯源信息失败",
+        "noData": "暂无溯源信息",
+        "resourceInfo": "资源信息",
+        "traceabilityChain": "溯源链路",
+        "buttons": {
+          "close": "关闭"
+        }
       }
     },
     "dataSource": {
@@ -730,7 +757,8 @@
     },
     "actions": {
       "outbound": "出境",
-      "inbound": "入境"
+      "inbound": "入境",
+      "dataTrace": "数据溯源"
     },
     "common": {
       "loading": "加载中...",
@@ -758,6 +786,7 @@
       "selectAccessMode": "选择您想要访问数据的方式",
       "accessMode": "访问模式",
       "apiAccess": "API 访问",
+      "download": "下载",
       "downloadAccess": "下载访问",
       "purpose": "用途",
       "purposePlaceholder": "描述您计划如何使用这些数据...",
@@ -942,6 +971,18 @@
       "networkOut": "网络出站",
       "securityAlerts": "安全告警",
       "securityEventsAndAlerts": "安全事件和系统告警"
+    }
+  },
+  "dataTraceabilityDialog": {
+    "title": "数据溯源",
+    "description": "查看该资源的完整数据血缘和溯源链路",
+    "loading": "正在加载溯源信息...",
+    "error": "加载溯源信息失败",
+    "noData": "暂无溯源信息",
+    "resourceInfo": "资源信息",
+    "traceabilityChain": "溯源链路",
+    "buttons": {
+      "close": "关闭"
     }
   }
 }

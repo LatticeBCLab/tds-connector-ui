@@ -1,1 +1,0 @@
-{"type":"string","enum":["OUTBOUND","INBOUND"],"x-enum-comments":{"AuditTypeInbound":"入境审核：资源进入目标国","AuditTypeOutbound":"出境审核：资源从发布国出境"},"x-enum-descriptions":["出境审核：资源从发布国出境","入境审核：资源进入目标国"],"x-enum-varnames":["AuditTypeOutbound","AuditTypeInbound"],"x-readme-ref-name":"models.AuditType"}
