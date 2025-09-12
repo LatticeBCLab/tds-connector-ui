@@ -4,6 +4,8 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
+import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
+import type { UseMutationOptions, QueryClient } from '@tanstack/react-query'
 import type {
   RejectResourceAuditByIDMutationRequest,
   RejectResourceAuditByIDMutationResponse,
@@ -12,10 +14,8 @@ import type {
   RejectResourceAuditByID404,
   RejectResourceAuditByID500,
 } from '../types/RejectResourceAuditByID.ts'
-import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
-import type { UseMutationOptions, QueryClient } from '@tanstack/react-query'
-import { rejectResourceAuditByID } from '../clients/rejectResourceAuditByID.ts'
 import { useMutation } from '@tanstack/react-query'
+import { rejectResourceAuditByID } from '../clients/rejectResourceAuditByID.ts'
 
 export const rejectResourceAuditByIDMutationKey = () => [{ url: '/api/v1/resource-audits/:id/reject' }] as const
 

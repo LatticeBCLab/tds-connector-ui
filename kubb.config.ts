@@ -9,7 +9,7 @@ export default defineConfig(() => {
     name: 'tds-connector-api',
     root: '.',
     input: {
-      path: 'http://localhost:8080/swagger/doc.json',
+      path: 'http://172.22.0.75:8080/swagger/doc.json',
     },
     output: {
       path: './lib/gen',

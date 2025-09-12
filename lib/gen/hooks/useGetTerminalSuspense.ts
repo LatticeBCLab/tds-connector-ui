@@ -4,11 +4,11 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { GetTerminalQueryResponse, GetTerminalPathParams, GetTerminal400, GetTerminal404, GetTerminal500 } from '../types/GetTerminal.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
-import { getTerminal } from '../clients/getTerminal.ts'
+import type { GetTerminalQueryResponse, GetTerminalPathParams, GetTerminal400, GetTerminal404, GetTerminal500 } from '../types/GetTerminal.ts'
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
+import { getTerminal } from '../clients/getTerminal.ts'
 
 export const getTerminalSuspenseQueryKey = (terminal_did: GetTerminalPathParams['terminal_did']) =>
   [{ url: '/api/v1/terminals/:terminal_did', params: { terminal_did: terminal_did } }] as const

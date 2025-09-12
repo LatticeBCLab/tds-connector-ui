@@ -4,11 +4,11 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { ListResourcesQueryResponse, ListResourcesQueryParams, ListResources400, ListResources500 } from '../types/ListResources.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
-import { listResources } from '../clients/listResources.ts'
+import type { ListResourcesQueryResponse, ListResourcesQueryParams, ListResources400, ListResources500 } from '../types/ListResources.ts'
 import { queryOptions, useQuery } from '@tanstack/react-query'
+import { listResources } from '../clients/listResources.ts'
 
 export const listResourcesQueryKey = (params?: ListResourcesQueryParams) => [{ url: '/api/v1/resources' }, ...(params ? [params] : [])] as const
 

@@ -4,6 +4,8 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
+import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
+import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
 import type {
   GetPolicyByIDQueryResponse,
   GetPolicyByIDPathParams,
@@ -12,10 +14,8 @@ import type {
   GetPolicyByID404,
   GetPolicyByID500,
 } from '../types/GetPolicyByID.ts'
-import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
-import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
-import { getPolicyByID } from '../clients/getPolicyByID.ts'
 import { queryOptions, useQuery } from '@tanstack/react-query'
+import { getPolicyByID } from '../clients/getPolicyByID.ts'
 
 export const getPolicyByIDQueryKey = (id: GetPolicyByIDPathParams['id'], params?: GetPolicyByIDQueryParams) =>
   [{ url: '/api/v1/policy/:id', params: { id: id } }, ...(params ? [params] : [])] as const

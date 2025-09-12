@@ -339,15 +339,15 @@ export function CreateDataOfferingDialog({
 
           {/* Render different configuration areas based on data source type */}
           {watchedDataType === "local_file" && (
-            <LocalFileConfigSection form={form} />
+            <LocalFileConfigSection form={form} t={t} />
           )}
 
-          {watchedDataType === "s3" && <S3ConfigSection form={form} />}
+          {watchedDataType === "s3" && <S3ConfigSection form={form} t={t} />}
 
-          {watchedDataType === "nas" && <NASConfigSection form={form} />}
+          {watchedDataType === "nas" && <NASConfigSection form={form} t={t} />}
 
           {watchedDataType === "restful" && (
-            <RESTfulConfigSection form={form} />
+            <RESTfulConfigSection form={form} t={t} />
           )}
 
           <div className="flex justify-end space-x-2">
@@ -376,7 +376,7 @@ export function CreateDataOfferingDialog({
 }
 
 // Local file configuration component
-function LocalFileConfigSection({ form }: { form: any }) {
+function LocalFileConfigSection({ form, t }: { form: any; t: (key: string) => string }) {
   return (
     <div className="bg-muted/50 space-y-4 rounded-lg border p-4">
       <h4 className="font-medium">{t("sections.localFile.title")}</h4>
@@ -428,7 +428,7 @@ function LocalFileConfigSection({ form }: { form: any }) {
 }
 
 // S3 configuration component - simplified without file upload
-function S3ConfigSection({ form }: { form: any }) {
+function S3ConfigSection({ form, t }: { form: any; t: (key: string) => string }) {
   return (
     <div className="bg-muted/50 space-y-4 rounded-lg border p-4">
       <h4 className="font-medium">{t("sections.s3.title")}</h4>
@@ -522,7 +522,7 @@ function S3ConfigSection({ form }: { form: any }) {
 }
 
 // NAS configuration component
-function NASConfigSection({ form }: { form: any }) {
+function NASConfigSection({ form, t }: { form: any; t: (key: string) => string }) {
   return (
     <div className="bg-muted/50 space-y-4 rounded-lg border p-4">
       <h4 className="font-medium">{t("sections.nas.title")}</h4>
@@ -594,9 +594,8 @@ function NASConfigSection({ form }: { form: any }) {
 }
 
 // RESTful configuration component
-function RESTfulConfigSection({ form }: { form: any }) {
+function RESTfulConfigSection({ form, t }: { form: any; t: (key: string) => string }) {
   const watchedAuthType = form.watch("sourceConfig.authentication.type");
-
   return (
     <div className="bg-muted/50 space-y-4 rounded-lg border p-4">
       <h4 className="font-medium">{t("sections.restful.title")}</h4>

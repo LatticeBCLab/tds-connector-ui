@@ -4,8 +4,8 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { DeleteJobMutationResponse, DeleteJobPathParams, DeleteJob400, DeleteJob404, DeleteJob500 } from '../types/DeleteJob.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
+import type { DeleteJobMutationResponse, DeleteJobPathParams, DeleteJob400, DeleteJob404, DeleteJob500 } from '../types/DeleteJob.ts'
 
 function getDeleteJobUrl(id: DeleteJobPathParams['id']) {
   const res = { method: 'DELETE', url: `/tdsc/api/v1/jobs/${id}` as const }

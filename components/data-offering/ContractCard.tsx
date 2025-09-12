@@ -182,7 +182,8 @@ export function ContractCard({
       <div className="flex flex-col items-center gap-3 p-6">
         <Spinner variant="bars" />
         <p className="text-muted-foreground text-sm">{t("contract.loading")}</p>
-      </div>
+      </div>,
+      t
     );
   }
 
@@ -198,7 +199,8 @@ export function ContractCard({
         >
           {t("common.retry")}
         </Button>
-      </div>
+      </div>,
+      t
     );
   }
 
@@ -479,9 +481,7 @@ export function ContractCard({
   );
 }
 
-function cardSkeleton(children: React.ReactNode) {
-  
-  const t = useTranslations("DataOffering");
+function cardSkeleton(children: React.ReactNode,t: any) {
   return (
     <Card>
       <CardHeader>

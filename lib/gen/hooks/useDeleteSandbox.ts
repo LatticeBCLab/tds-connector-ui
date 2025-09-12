@@ -4,11 +4,11 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { DeleteSandboxMutationResponse, DeleteSandboxPathParams, DeleteSandbox400, DeleteSandbox404, DeleteSandbox500 } from '../types/DeleteSandbox.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { UseMutationOptions, QueryClient } from '@tanstack/react-query'
-import { deleteSandbox } from '../clients/deleteSandbox.ts'
+import type { DeleteSandboxMutationResponse, DeleteSandboxPathParams, DeleteSandbox400, DeleteSandbox404, DeleteSandbox500 } from '../types/DeleteSandbox.ts'
 import { useMutation } from '@tanstack/react-query'
+import { deleteSandbox } from '../clients/deleteSandbox.ts'
 
 export const deleteSandboxMutationKey = () => [{ url: '/api/v1/sandboxes/:id' }] as const
 

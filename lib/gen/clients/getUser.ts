@@ -4,8 +4,8 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { GetUserQueryResponse, GetUserPathParams, GetUser400, GetUser404, GetUser500 } from '../types/GetUser.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
+import type { GetUserQueryResponse, GetUserPathParams, GetUser400, GetUser404, GetUser500 } from '../types/GetUser.ts'
 
 function getGetUserUrl(user_did: GetUserPathParams['user_did']) {
   const res = { method: 'GET', url: `/tdsc/api/v1/users/${user_did}` as const }

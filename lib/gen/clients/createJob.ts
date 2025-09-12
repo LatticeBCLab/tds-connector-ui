@@ -4,8 +4,8 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { CreateJobMutationRequest, CreateJobMutationResponse, CreateJob400, CreateJob500 } from '../types/CreateJob.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
+import type { CreateJobMutationRequest, CreateJobMutationResponse, CreateJob400, CreateJob500 } from '../types/CreateJob.ts'
 
 function getCreateJobUrl() {
   const res = { method: 'POST', url: `/tdsc/api/v1/jobs` as const }

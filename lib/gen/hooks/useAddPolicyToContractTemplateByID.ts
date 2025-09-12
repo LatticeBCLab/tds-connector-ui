@@ -4,6 +4,8 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
+import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
+import type { UseMutationOptions, QueryClient } from '@tanstack/react-query'
 import type {
   AddPolicyToContractTemplateByIDMutationRequest,
   AddPolicyToContractTemplateByIDMutationResponse,
@@ -12,10 +14,8 @@ import type {
   AddPolicyToContractTemplateByID404,
   AddPolicyToContractTemplateByID500,
 } from '../types/AddPolicyToContractTemplateByID.ts'
-import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
-import type { UseMutationOptions, QueryClient } from '@tanstack/react-query'
-import { addPolicyToContractTemplateByID } from '../clients/addPolicyToContractTemplateByID.ts'
 import { useMutation } from '@tanstack/react-query'
+import { addPolicyToContractTemplateByID } from '../clients/addPolicyToContractTemplateByID.ts'
 
 export const addPolicyToContractTemplateByIDMutationKey = () => [{ url: '/api/v1/contract-templates/:id/policies' }] as const
 

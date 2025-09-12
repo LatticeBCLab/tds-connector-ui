@@ -4,8 +4,8 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { GetAppStatsQueryResponse, GetAppStatsQueryParams, GetAppStats400, GetAppStats500 } from '../types/GetAppStats.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
+import type { GetAppStatsQueryResponse, GetAppStatsQueryParams, GetAppStats400, GetAppStats500 } from '../types/GetAppStats.ts'
 
 function getGetAppStatsUrl() {
   const res = { method: 'GET', url: `/tdsc/api/v1/apps/stats` as const }

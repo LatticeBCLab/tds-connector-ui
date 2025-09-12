@@ -4,6 +4,8 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
+import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
+import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
 import type {
   GetContractTemplatePoliciesByIDQueryResponse,
   GetContractTemplatePoliciesByIDPathParams,
@@ -11,10 +13,8 @@ import type {
   GetContractTemplatePoliciesByID404,
   GetContractTemplatePoliciesByID500,
 } from '../types/GetContractTemplatePoliciesByID.ts'
-import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
-import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
-import { getContractTemplatePoliciesByID } from '../clients/getContractTemplatePoliciesByID.ts'
 import { queryOptions, useQuery } from '@tanstack/react-query'
+import { getContractTemplatePoliciesByID } from '../clients/getContractTemplatePoliciesByID.ts'
 
 export const getContractTemplatePoliciesByIDQueryKey = (id: GetContractTemplatePoliciesByIDPathParams['id']) =>
   [{ url: '/api/v1/contract-templates/:id/policies', params: { id: id } }] as const

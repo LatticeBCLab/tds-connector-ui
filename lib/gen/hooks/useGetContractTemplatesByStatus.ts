@@ -4,6 +4,8 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
+import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
+import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
 import type {
   GetContractTemplatesByStatusQueryResponse,
   GetContractTemplatesByStatusPathParams,
@@ -11,10 +13,8 @@ import type {
   GetContractTemplatesByStatus400,
   GetContractTemplatesByStatus500,
 } from '../types/GetContractTemplatesByStatus.ts'
-import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
-import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
-import { getContractTemplatesByStatus } from '../clients/getContractTemplatesByStatus.ts'
 import { queryOptions, useQuery } from '@tanstack/react-query'
+import { getContractTemplatesByStatus } from '../clients/getContractTemplatesByStatus.ts'
 
 export const getContractTemplatesByStatusQueryKey = (
   status: GetContractTemplatesByStatusPathParams['status'],

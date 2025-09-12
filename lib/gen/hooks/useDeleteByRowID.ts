@@ -4,11 +4,11 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { DeleteByRowIDMutationResponse, DeleteByRowIDPathParams, DeleteByRowID400, DeleteByRowID500 } from '../types/DeleteByRowID.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { UseMutationOptions, QueryClient } from '@tanstack/react-query'
-import { deleteByRowID } from '../clients/deleteByRowID.ts'
+import type { DeleteByRowIDMutationResponse, DeleteByRowIDPathParams, DeleteByRowID400, DeleteByRowID500 } from '../types/DeleteByRowID.ts'
 import { useMutation } from '@tanstack/react-query'
+import { deleteByRowID } from '../clients/deleteByRowID.ts'
 
 export const deleteByRowIDMutationKey = () => [{ url: '/api/v1/i18n/row/:row_id' }] as const
 

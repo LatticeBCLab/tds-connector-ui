@@ -4,11 +4,11 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { ListAppsQueryResponse, ListAppsQueryParams, ListApps400, ListApps500 } from '../types/ListApps.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
-import { listApps } from '../clients/listApps.ts'
+import type { ListAppsQueryResponse, ListAppsQueryParams, ListApps400, ListApps500 } from '../types/ListApps.ts'
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
+import { listApps } from '../clients/listApps.ts'
 
 export const listAppsSuspenseQueryKey = (params: ListAppsQueryParams) => [{ url: '/api/v1/apps/pagination' }, ...(params ? [params] : [])] as const
 

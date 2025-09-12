@@ -4,6 +4,7 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
+import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type {
   GetDataSpaceByIDQueryResponse,
   GetDataSpaceByIDPathParams,
@@ -11,7 +12,6 @@ import type {
   GetDataSpaceByID404,
   GetDataSpaceByID500,
 } from '../types/GetDataSpaceByID.ts'
-import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 function getGetDataSpaceByIDUrl(id: GetDataSpaceByIDPathParams['id']) {
   const res = { method: 'GET', url: `/tdsc/api/v1/dataspaces/detail/${id}` as const }

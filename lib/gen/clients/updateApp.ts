@@ -4,8 +4,8 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { UpdateAppMutationRequest, UpdateAppMutationResponse, UpdateAppPathParams, UpdateApp400, UpdateApp404, UpdateApp500 } from '../types/UpdateApp.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
+import type { UpdateAppMutationRequest, UpdateAppMutationResponse, UpdateAppPathParams, UpdateApp400, UpdateApp404, UpdateApp500 } from '../types/UpdateApp.ts'
 
 function getUpdateAppUrl(id: UpdateAppPathParams['id']) {
   const res = { method: 'PUT', url: `/tdsc/api/v1/apps/${id}` as const }

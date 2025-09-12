@@ -4,6 +4,8 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
+import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
+import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
 import type {
   GetResourceAuditsByIDQueryResponse,
   GetResourceAuditsByIDPathParams,
@@ -11,10 +13,8 @@ import type {
   GetResourceAuditsByID400,
   GetResourceAuditsByID500,
 } from '../types/GetResourceAuditsByID.ts'
-import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
-import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
-import { getResourceAuditsByID } from '../clients/getResourceAuditsByID.ts'
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
+import { getResourceAuditsByID } from '../clients/getResourceAuditsByID.ts'
 
 export const getResourceAuditsByIDSuspenseQueryKey = (id: GetResourceAuditsByIDPathParams['id'], params?: GetResourceAuditsByIDQueryParams) =>
   [{ url: '/api/v1/resources/:id/audits', params: { id: id } }, ...(params ? [params] : [])] as const

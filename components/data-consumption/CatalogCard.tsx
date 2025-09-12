@@ -2,12 +2,13 @@
 
 import { EmptyState } from "@/components/shared/EmptyState";
 import { Button } from "@/components/ui/button";
+import { useTranslations } from "next-intl";
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
+    Card,
+    CardContent,
+    CardDescription,
+    CardHeader,
+    CardTitle,
 } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Spinner } from "@/components/ui/spinner";
@@ -15,15 +16,15 @@ import { useGetResourceListByDataspaceAndPublisher } from "@/lib/gen/hooks/useGe
 import { useAppStore } from "@/lib/stores/app-store";
 import { cn } from "@/lib/utils";
 import {
-  ArrowUpDown,
-  CheckCircle,
-  Cloud,
-  Database,
-  File,
-  Link,
-  Pause,
-  Server,
-  Shield,
+    ArrowUpDown,
+    CheckCircle,
+    Cloud,
+    Database,
+    File,
+    Link,
+    Pause,
+    Server,
+    Shield,
 } from "lucide-react";
 import { useEffect, useState } from "react";
 
@@ -60,6 +61,7 @@ const getDataSourceLabel = (type: string) => {
 };
 
 export function CatalogCard() {
+  const t = useTranslations('DataConsumption');
   const { currentDataSpaceId, userDID } = useAppStore();
 
   // State for pagination
@@ -121,7 +123,7 @@ export function CatalogCard() {
 
   // Format file size
   const formatFileSize = (bytes: number) => {
-    if (!bytes) return "N/A";
+    if (!bytes) return t('catalog.notAvailable');
     const sizes = ["Bytes", "KB", "MB", "GB"];
     const i = Math.floor(Math.log(bytes) / Math.log(1024));
     return Math.round((bytes / Math.pow(1024, i)) * 100) / 100 + " " + sizes[i];
@@ -133,9 +135,9 @@ export function CatalogCard() {
         <CardHeader>
           <div className="flex items-center justify-between">
             <div>
-              <CardTitle>Data Catalog</CardTitle>
+              <CardTitle>{t('catalog.title')}</CardTitle>
               <CardDescription>
-                Discover and request data from other connectors
+                {t('catalog.description')}
               </CardDescription>
             </div>
           </div>
@@ -144,7 +146,7 @@ export function CatalogCard() {
           <div className="flex flex-col items-center gap-3 p-6">
             <Spinner variant="bars" />
             <p className="text-muted-foreground text-sm">
-              Loading data catalog...
+              {t('catalog.loading')}
             </p>
           </div>
         </CardContent>
@@ -158,23 +160,23 @@ export function CatalogCard() {
         <CardHeader>
           <div className="flex items-center justify-between">
             <div>
-              <CardTitle>Data Catalog</CardTitle>
+              <CardTitle>{t('catalog.title')}</CardTitle>
               <CardDescription>
-                Discover and request data from other connectors
+                {t('catalog.description')}
               </CardDescription>
             </div>
           </div>
         </CardHeader>
         <CardContent>
           <div className="p-6 text-center">
-            <p>Error loading data catalog</p>
+            <p>{t('catalog.error')}</p>
             <Button
               onClick={() => refetchResources()}
               variant="outline"
               size="sm"
               className="mt-2"
             >
-              Retry
+              {t('common.retry')}
             </Button>
           </div>
         </CardContent>
@@ -198,8 +200,8 @@ export function CatalogCard() {
         <CardContent>
           <EmptyState
             icon={Database}
-            title="No data offerings found"
-            description="No data offerings available for consumption"
+            title={t('catalog.noDataFound')}
+            description={t('catalog.noDataDescription')}
           />
         </CardContent>
       </Card>
@@ -263,7 +265,7 @@ export function CatalogCard() {
                         )}
                       >
                         <Shield className="h-3 w-3" />
-                        <span>{offering.boundStatus || "N/A"}</span>
+                        <span>{offering.boundStatus || t('catalog.notAvailable')}</span>
                       </div>
                       {/* Outbound/Inbound Badge */}
                       {offering.isOutbound !== undefined && (
@@ -277,7 +279,7 @@ export function CatalogCard() {
                         >
                           <ArrowUpDown className="h-3 w-3" />
                           <span>
-                            {offering.isOutbound ? "Outbound" : "Inbound"}
+                            {offering.isOutbound ? t('catalog.outbound') : t('catalog.inbound')}
                           </span>
                         </div>
                       )}
@@ -287,14 +289,14 @@ export function CatalogCard() {
                     </p>
                     <div className="text-muted-foreground mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs">
                       <div className="flex items-center space-x-1">
-                        <span>Type:</span>
+                        <span>{t('catalog.type')}:</span>
                         <span className="font-medium">
                           {getDataSourceLabel(offering.type)}
                         </span>
                       </div>
                       {offering.config?.fileFormat && (
                         <div className="flex items-center space-x-1">
-                          <span>Format:</span>
+                          <span>{t('catalog.format')}:</span>
                           <span className="font-medium">
                             {offering.config.fileFormat}
                           </span>
@@ -302,7 +304,7 @@ export function CatalogCard() {
                       )}
                       {offering.config?.fileSize && (
                         <div className="flex items-center space-x-1">
-                          <span>Size:</span>
+                          <span>{t('catalog.size')}:</span>
                           <span className="font-medium">
                             {formatFileSize(offering.config.fileSize)}
                           </span>
@@ -310,7 +312,7 @@ export function CatalogCard() {
                       )}
                       {offering.originCountry && (
                         <div className="flex items-center space-x-1">
-                          <span>Origin:</span>
+                          <span>{t('catalog.origin')}:</span>
                           <span className="font-medium">
                             {offering.originCountry}
                           </span>
@@ -318,14 +320,14 @@ export function CatalogCard() {
                       )}
                       {offering.location && (
                         <div className="flex items-center space-x-1">
-                          <span>Location:</span>
+                          <span>{t('catalog.location')}:</span>
                           <span className="font-medium">
                             {offering.location}
                           </span>
                         </div>
                       )}
                       <div className="flex items-center space-x-1">
-                        <span>Created:</span>
+                        <span>{t('catalog.created')}:</span>
                         <span>
                           {new Date(offering.createdAt).toLocaleDateString()}
                         </span>
@@ -349,10 +351,10 @@ export function CatalogCard() {
                   {isLoadingResources ? (
                     <>
                       <Spinner variant="bars" className="mr-2 h-4 w-4" />
-                      Loading...
+                      {t('common.loading')}
                     </>
                   ) : (
-                    "Load More"
+                    t('common.loadMore')
                   )}
                 </Button>
               </div>

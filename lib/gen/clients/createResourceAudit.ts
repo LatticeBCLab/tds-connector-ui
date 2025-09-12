@@ -4,6 +4,7 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
+import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type {
   CreateResourceAuditMutationRequest,
   CreateResourceAuditMutationResponse,
@@ -11,7 +12,6 @@ import type {
   CreateResourceAudit404,
   CreateResourceAudit500,
 } from '../types/CreateResourceAudit.ts'
-import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 function getCreateResourceAuditUrl() {
   const res = { method: 'POST', url: `/tdsc/api/v1/resource-audits/create` as const }

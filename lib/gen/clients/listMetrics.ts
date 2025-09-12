@@ -4,8 +4,8 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { ListMetricsQueryResponse, ListMetrics500 } from '../types/ListMetrics.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
+import type { ListMetricsQueryResponse, ListMetrics500 } from '../types/ListMetrics.ts'
 
 function getListMetricsUrl() {
   const res = { method: 'GET', url: `/tdsc/api/v1/metrics` as const }

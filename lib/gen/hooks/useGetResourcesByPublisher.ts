@@ -4,6 +4,8 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
+import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
+import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
 import type {
   GetResourcesByPublisherQueryResponse,
   GetResourcesByPublisherPathParams,
@@ -11,10 +13,8 @@ import type {
   GetResourcesByPublisher400,
   GetResourcesByPublisher500,
 } from '../types/GetResourcesByPublisher.ts'
-import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
-import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
-import { getResourcesByPublisher } from '../clients/getResourcesByPublisher.ts'
 import { queryOptions, useQuery } from '@tanstack/react-query'
+import { getResourcesByPublisher } from '../clients/getResourcesByPublisher.ts'
 
 export const getResourcesByPublisherQueryKey = (publisher: GetResourcesByPublisherPathParams['publisher'], params?: GetResourcesByPublisherQueryParams) =>
   [{ url: '/api/v1/publishers/:publisher/resources', params: { publisher: publisher } }, ...(params ? [params] : [])] as const

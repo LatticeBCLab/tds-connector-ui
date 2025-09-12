@@ -4,11 +4,11 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { CountResolvedQueryResponse, CountResolved500 } from '../types/CountResolved.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
-import { countResolved } from '../clients/countResolved.ts'
+import type { CountResolvedQueryResponse, CountResolved500 } from '../types/CountResolved.ts'
 import { queryOptions, useQuery } from '@tanstack/react-query'
+import { countResolved } from '../clients/countResolved.ts'
 
 export const countResolvedQueryKey = () => [{ url: '/api/v1/alters/resolved' }] as const
 

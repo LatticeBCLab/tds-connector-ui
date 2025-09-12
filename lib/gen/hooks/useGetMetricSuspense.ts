@@ -4,11 +4,11 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { GetMetricQueryResponse, GetMetric500 } from '../types/GetMetric.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
-import { getMetric } from '../clients/getMetric.ts'
+import type { GetMetricQueryResponse, GetMetric500 } from '../types/GetMetric.ts'
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
+import { getMetric } from '../clients/getMetric.ts'
 
 export const getMetricSuspenseQueryKey = () => [{ url: '/api/v1/metrics/metric' }] as const
 

@@ -4,6 +4,8 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
+import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
+import type { UseMutationOptions, QueryClient } from '@tanstack/react-query'
 import type {
   CreateResourceAuditMutationRequest,
   CreateResourceAuditMutationResponse,
@@ -11,10 +13,8 @@ import type {
   CreateResourceAudit404,
   CreateResourceAudit500,
 } from '../types/CreateResourceAudit.ts'
-import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
-import type { UseMutationOptions, QueryClient } from '@tanstack/react-query'
-import { createResourceAudit } from '../clients/createResourceAudit.ts'
 import { useMutation } from '@tanstack/react-query'
+import { createResourceAudit } from '../clients/createResourceAudit.ts'
 
 export const createResourceAuditMutationKey = () => [{ url: '/api/v1/resource-audits/create' }] as const
 

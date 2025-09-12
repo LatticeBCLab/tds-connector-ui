@@ -187,6 +187,7 @@ export function OfferingsCard({
       </div>,
       isAddOfferingOpen,
       setIsAddOfferingOpen,
+      t,
       handleRefreshData
     );
   }
@@ -206,6 +207,7 @@ export function OfferingsCard({
       </div>,
       isAddOfferingOpen,
       setIsAddOfferingOpen,
+      t,
       handleRefreshData
     );
   }
@@ -219,6 +221,7 @@ export function OfferingsCard({
       />,
       isAddOfferingOpen,
       setIsAddOfferingOpen,
+      t,
       handleRefreshData
     );
   }
@@ -461,10 +464,9 @@ function cardSkeleton(
   children: React.ReactNode,
   isAddOfferingOpen: boolean,
   setIsAddOfferingOpen: (open: boolean) => void,
+  t: any,
   onRefreshData?: () => void
 ) {
-
-  const t = useTranslations("DataOffering");
   return (
     <Card>
       <CardHeader>

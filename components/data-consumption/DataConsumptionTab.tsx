@@ -4,21 +4,23 @@ import { ActionDialog, MetricCard } from "@/components/shared";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { useDataOfferings } from "@/hooks";
 import type { DataContract } from "@/types";
 import { Activity, Database, ExternalLink, Users } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { CatalogCard } from "./CatalogCard";
 import { ConnectorCard } from "./ConnectorCard";
 import { ContractCard } from "./ContractCard";
 
 export function DataConsumptionTab() {
+  const t = useTranslations("DataConsumption");
   const {
     dataRequests,
     dataContracts,
@@ -41,29 +43,29 @@ export function DataConsumptionTab() {
       {/* Overview Cards */}
       <div className="grid gap-4 md:grid-cols-4">
         <MetricCard
-          title="Available Data"
+          title={t("metrics.availableData")}
           value={externalOfferings.length}
-          description="External offerings"
+          description={t("metrics.externalOfferings")}
           icon={Database}
           variant="primary"
         />
         <MetricCard
-          title="Active Contracts"
+          title={t("metrics.activeContracts")}
           value={activeContractsCount}
-          description="In use/active"
+          description={t("metrics.inUseActive")}
           icon={Activity}
           variant="secondary"
         />
         <MetricCard
-          title="Connected Partners"
+          title={t("metrics.connectedPartners")}
           value={2}
-          description="Trusted connectors"
+          description={t("metrics.trustedConnectors")}
           icon={Users}
         />
         <MetricCard
-          title="Total Contracts"
+          title={t("metrics.totalContracts")}
           value={dataContracts.length}
-          description="All time"
+          description={t("metrics.allTime")}
           icon={ExternalLink}
         />
       </div>
@@ -82,10 +84,10 @@ export function DataConsumptionTab() {
       {/* Data Request Dialog */}
       <ActionDialog
         trigger={null}
-        title="Request Data Access"
+        title={t("dialog.requestDataAccess")}
         description={
           selectedOffering
-            ? `Request access to "${selectedOffering.title}" from ${selectedOffering.provider}`
+            ? `${t("dialog.requestAccessTo")} "${selectedOffering.title}" ${t("dialog.from")} ${selectedOffering.provider}`
             : undefined
         }
         open={isRequestDataOpen}
@@ -94,7 +96,7 @@ export function DataConsumptionTab() {
       >
         <div className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="access-mode">Access Mode</Label>
+            <Label htmlFor="access-mode">{t("dialog.accessMode")}</Label>
             <Select
               value={newRequest.accessMode}
               onValueChange={(value: "api" | "download") =>
@@ -105,20 +107,20 @@ export function DataConsumptionTab() {
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="api">API Access</SelectItem>
-                <SelectItem value="download">Download</SelectItem>
+                <SelectItem value="api">{t("dialog.apiAccess")}</SelectItem>
+                <SelectItem value="download">{t("dialog.download")}</SelectItem>
               </SelectContent>
             </Select>
           </div>
           <div className="space-y-2">
-            <Label htmlFor="purpose">Purpose</Label>
+            <Label htmlFor="purpose">{t("dialog.purpose")}</Label>
             <Textarea
               id="purpose"
               value={newRequest.purpose}
               onChange={(e) =>
                 setNewRequest({ ...newRequest, purpose: e.target.value })
               }
-              placeholder="Describe the intended use of this data..."
+              placeholder={t("dialog.purposePlaceholder")}
             />
           </div>
           <div className="flex justify-end space-x-2">
@@ -126,9 +128,9 @@ export function DataConsumptionTab() {
               variant="outline"
               onClick={() => setIsRequestDataOpen(false)}
             >
-              Cancel
+              {t("dialog.cancel")}
             </Button>
-            <Button onClick={requestData}>Submit Request</Button>
+            <Button onClick={requestData}>{t("dialog.submitRequest")}</Button>
           </div>
         </div>
       </ActionDialog>

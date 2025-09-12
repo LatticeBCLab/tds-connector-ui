@@ -4,8 +4,8 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { GetOfferingsQueryResponse, GetOfferings500 } from '../types/GetOfferings.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
+import type { GetOfferingsQueryResponse, GetOfferings500 } from '../types/GetOfferings.ts'
 
 function getGetOfferingsUrl() {
   const res = { method: 'GET', url: `/tdsc/offerings` as const }

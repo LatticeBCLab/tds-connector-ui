@@ -4,15 +4,15 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
+import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
+import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
 import type {
   GetAllConnectorSecurityRatingsExcludeQueryResponse,
   GetAllConnectorSecurityRatingsExcludeQueryParams,
   GetAllConnectorSecurityRatingsExclude500,
 } from '../types/GetAllConnectorSecurityRatingsExclude.ts'
-import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
-import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
-import { getAllConnectorSecurityRatingsExclude } from '../clients/getAllConnectorSecurityRatingsExclude.ts'
 import { queryOptions, useQuery } from '@tanstack/react-query'
+import { getAllConnectorSecurityRatingsExclude } from '../clients/getAllConnectorSecurityRatingsExclude.ts'
 
 export const getAllConnectorSecurityRatingsExcludeQueryKey = (params?: GetAllConnectorSecurityRatingsExcludeQueryParams) =>
   [{ url: '/api/v1/csr/others' }, ...(params ? [params] : [])] as const

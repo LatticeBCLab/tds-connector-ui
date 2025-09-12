@@ -4,8 +4,8 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { DeleteAppMutationResponse, DeleteAppPathParams, DeleteApp400, DeleteApp404, DeleteApp500 } from '../types/DeleteApp.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
+import type { DeleteAppMutationResponse, DeleteAppPathParams, DeleteApp400, DeleteApp404, DeleteApp500 } from '../types/DeleteApp.ts'
 
 function getDeleteAppUrl(id: DeleteAppPathParams['id']) {
   const res = { method: 'DELETE', url: `/tdsc/api/v1/apps/${id}` as const }

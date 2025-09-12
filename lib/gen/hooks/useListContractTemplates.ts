@@ -4,16 +4,16 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
+import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
+import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
 import type {
   ListContractTemplatesQueryResponse,
   ListContractTemplatesQueryParams,
   ListContractTemplates400,
   ListContractTemplates500,
 } from '../types/ListContractTemplates.ts'
-import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
-import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
-import { listContractTemplates } from '../clients/listContractTemplates.ts'
 import { queryOptions, useQuery } from '@tanstack/react-query'
+import { listContractTemplates } from '../clients/listContractTemplates.ts'
 
 export const listContractTemplatesQueryKey = (params?: ListContractTemplatesQueryParams) =>
   [{ url: '/api/v1/contract-templates' }, ...(params ? [params] : [])] as const

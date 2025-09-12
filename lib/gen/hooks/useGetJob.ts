@@ -4,11 +4,11 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { GetJobQueryResponse, GetJobPathParams, GetJob400, GetJob404, GetJob500 } from '../types/GetJob.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
-import { getJob } from '../clients/getJob.ts'
+import type { GetJobQueryResponse, GetJobPathParams, GetJob400, GetJob404, GetJob500 } from '../types/GetJob.ts'
 import { queryOptions, useQuery } from '@tanstack/react-query'
+import { getJob } from '../clients/getJob.ts'
 
 export const getJobQueryKey = (id: GetJobPathParams['id']) => [{ url: '/api/v1/jobs/:id', params: { id: id } }] as const
 

@@ -4,11 +4,11 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { BatchCreateI18NMutationRequest, BatchCreateI18NMutationResponse, BatchCreateI18N400, BatchCreateI18N500 } from '../types/BatchCreateI18N.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { UseMutationOptions, QueryClient } from '@tanstack/react-query'
-import { batchCreateI18N } from '../clients/batchCreateI18N.ts'
+import type { BatchCreateI18NMutationRequest, BatchCreateI18NMutationResponse, BatchCreateI18N400, BatchCreateI18N500 } from '../types/BatchCreateI18N.ts'
 import { useMutation } from '@tanstack/react-query'
+import { batchCreateI18N } from '../clients/batchCreateI18N.ts'
 
 export const batchCreateI18NMutationKey = () => [{ url: '/api/v1/i18n/batch' }] as const
 

@@ -4,6 +4,7 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
+import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type {
   UpdateSandboxMutationRequest,
   UpdateSandboxMutationResponse,
@@ -12,7 +13,6 @@ import type {
   UpdateSandbox404,
   UpdateSandbox500,
 } from '../types/UpdateSandbox.ts'
-import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 function getUpdateSandboxUrl(id: UpdateSandboxPathParams['id']) {
   const res = { method: 'PUT', url: `/tdsc/api/v1/sandboxes/${id}` as const }
