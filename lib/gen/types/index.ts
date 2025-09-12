@@ -242,6 +242,41 @@ export type {
   GetAllConnectorSecurityRatingsExcludeQuery,
 } from './GetAllConnectorSecurityRatingsExclude.ts'
 export type { GetAllDataSpaces200, GetAllDataSpaces500, GetAllDataSpacesQueryResponse, GetAllDataSpacesQuery } from './GetAllDataSpaces.ts'
+export type {
+  GetApiV1TracesQueryParams,
+  GetApiV1Traces200,
+  GetApiV1Traces400,
+  GetApiV1Traces500,
+  GetApiV1TracesQueryResponse,
+  GetApiV1TracesQuery,
+} from './GetApiV1Traces.ts'
+export type {
+  GetApiV1TracesIdPathParams,
+  GetApiV1TracesId200,
+  GetApiV1TracesId400,
+  GetApiV1TracesId404,
+  GetApiV1TracesId500,
+  GetApiV1TracesIdQueryResponse,
+  GetApiV1TracesIdQuery,
+} from './GetApiV1TracesId.ts'
+export type {
+  GetApiV1TracesIdChainPathParams,
+  GetApiV1TracesIdChain200,
+  GetApiV1TracesIdChain400,
+  GetApiV1TracesIdChain404,
+  GetApiV1TracesIdChain500,
+  GetApiV1TracesIdChainQueryResponse,
+  GetApiV1TracesIdChainQuery,
+} from './GetApiV1TracesIdChain.ts'
+export type {
+  GetApiV1TracesResourceIdPathParams,
+  GetApiV1TracesResourceIdQueryParams,
+  GetApiV1TracesResourceId200,
+  GetApiV1TracesResourceId400,
+  GetApiV1TracesResourceId500,
+  GetApiV1TracesResourceIdQueryResponse,
+  GetApiV1TracesResourceIdQuery,
+} from './GetApiV1TracesResourceId.ts'
 export type { GetAppPathParams, GetApp200, GetApp400, GetApp404, GetApp500, GetAppQueryResponse, GetAppQuery } from './GetApp.ts'
 export type { GetAppStatsQueryParams, GetAppStats200, GetAppStats400, GetAppStats500, GetAppStatsQueryResponse, GetAppStatsQuery } from './GetAppStats.ts'
 export type {
@@ -440,6 +475,14 @@ export type {
   GetOfferingIdQuery,
 } from './GetOfferingId.ts'
 export type { GetOfferings200, GetOfferings500, GetOfferingsQueryResponse, GetOfferingsQuery } from './GetOfferings.ts'
+export type {
+  GetOwnDataSpacesQueryParams,
+  GetOwnDataSpaces200,
+  GetOwnDataSpaces400,
+  GetOwnDataSpaces500,
+  GetOwnDataSpacesQueryResponse,
+  GetOwnDataSpacesQuery,
+} from './GetOwnDataSpaces.ts'
 export type { GetPing200, GetPingQueryResponse, GetPingQuery } from './GetPing.ts'
 export type {
   GetPolicyByIDPathParams,
@@ -720,6 +763,7 @@ export type { ModelsStartModeEnum, ModelsStartMode } from './models/StartMode.ts
 export type { ModelsSystemMetrics } from './models/SystemMetrics.ts'
 export type { ModelsTemplateStatusEnum, ModelsTemplateStatus } from './models/TemplateStatus.ts'
 export type { ModelsTerminal } from './models/Terminal.ts'
+export type { ModelsTrace } from './models/Trace.ts'
 export type { ModelsTransaction } from './models/Transaction.ts'
 export type { ModelsUser } from './models/User.ts'
 export type { ModelsVerifiableCredential } from './models/VerifiableCredential.ts'

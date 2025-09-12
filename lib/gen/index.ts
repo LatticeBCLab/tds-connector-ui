@@ -41,6 +41,14 @@ export type { GetAllConnectorSecurityRatingsExcludeQueryKey } from './hooks/useG
 export type { GetAllConnectorSecurityRatingsExcludeSuspenseQueryKey } from './hooks/useGetAllConnectorSecurityRatingsExcludeSuspense.ts'
 export type { GetAllDataSpacesQueryKey } from './hooks/useGetAllDataSpaces.ts'
 export type { GetAllDataSpacesSuspenseQueryKey } from './hooks/useGetAllDataSpacesSuspense.ts'
+export type { GetApiV1TracesQueryKey } from './hooks/useGetApiV1Traces.ts'
+export type { GetApiV1TracesIdQueryKey } from './hooks/useGetApiV1TracesId.ts'
+export type { GetApiV1TracesIdChainQueryKey } from './hooks/useGetApiV1TracesIdChain.ts'
+export type { GetApiV1TracesIdChainSuspenseQueryKey } from './hooks/useGetApiV1TracesIdChainSuspense.ts'
+export type { GetApiV1TracesIdSuspenseQueryKey } from './hooks/useGetApiV1TracesIdSuspense.ts'
+export type { GetApiV1TracesResourceIdQueryKey } from './hooks/useGetApiV1TracesResourceId.ts'
+export type { GetApiV1TracesResourceIdSuspenseQueryKey } from './hooks/useGetApiV1TracesResourceIdSuspense.ts'
+export type { GetApiV1TracesSuspenseQueryKey } from './hooks/useGetApiV1TracesSuspense.ts'
 export type { GetAppQueryKey } from './hooks/useGetApp.ts'
 export type { GetAppStatsQueryKey } from './hooks/useGetAppStats.ts'
 export type { GetAppStatsSuspenseQueryKey } from './hooks/useGetAppStatsSuspense.ts'
@@ -99,6 +107,8 @@ export type { GetOfferingIdQueryKey } from './hooks/useGetOfferingId.ts'
 export type { GetOfferingIdSuspenseQueryKey } from './hooks/useGetOfferingIdSuspense.ts'
 export type { GetOfferingsQueryKey } from './hooks/useGetOfferings.ts'
 export type { GetOfferingsSuspenseQueryKey } from './hooks/useGetOfferingsSuspense.ts'
+export type { GetOwnDataSpacesQueryKey } from './hooks/useGetOwnDataSpaces.ts'
+export type { GetOwnDataSpacesSuspenseQueryKey } from './hooks/useGetOwnDataSpacesSuspense.ts'
 export type { GetPingQueryKey } from './hooks/useGetPing.ts'
 export type { GetPingSuspenseQueryKey } from './hooks/useGetPingSuspense.ts'
 export type { GetPolicyByIDQueryKey } from './hooks/useGetPolicyByID.ts'
@@ -449,6 +459,41 @@ export type {
   GetAllConnectorSecurityRatingsExcludeQuery,
 } from './types/GetAllConnectorSecurityRatingsExclude.ts'
 export type { GetAllDataSpaces200, GetAllDataSpaces500, GetAllDataSpacesQueryResponse, GetAllDataSpacesQuery } from './types/GetAllDataSpaces.ts'
+export type {
+  GetApiV1TracesQueryParams,
+  GetApiV1Traces200,
+  GetApiV1Traces400,
+  GetApiV1Traces500,
+  GetApiV1TracesQueryResponse,
+  GetApiV1TracesQuery,
+} from './types/GetApiV1Traces.ts'
+export type {
+  GetApiV1TracesIdPathParams,
+  GetApiV1TracesId200,
+  GetApiV1TracesId400,
+  GetApiV1TracesId404,
+  GetApiV1TracesId500,
+  GetApiV1TracesIdQueryResponse,
+  GetApiV1TracesIdQuery,
+} from './types/GetApiV1TracesId.ts'
+export type {
+  GetApiV1TracesIdChainPathParams,
+  GetApiV1TracesIdChain200,
+  GetApiV1TracesIdChain400,
+  GetApiV1TracesIdChain404,
+  GetApiV1TracesIdChain500,
+  GetApiV1TracesIdChainQueryResponse,
+  GetApiV1TracesIdChainQuery,
+} from './types/GetApiV1TracesIdChain.ts'
+export type {
+  GetApiV1TracesResourceIdPathParams,
+  GetApiV1TracesResourceIdQueryParams,
+  GetApiV1TracesResourceId200,
+  GetApiV1TracesResourceId400,
+  GetApiV1TracesResourceId500,
+  GetApiV1TracesResourceIdQueryResponse,
+  GetApiV1TracesResourceIdQuery,
+} from './types/GetApiV1TracesResourceId.ts'
 export type { GetAppPathParams, GetApp200, GetApp400, GetApp404, GetApp500, GetAppQueryResponse, GetAppQuery } from './types/GetApp.ts'
 export type { GetAppStatsQueryParams, GetAppStats200, GetAppStats400, GetAppStats500, GetAppStatsQueryResponse, GetAppStatsQuery } from './types/GetAppStats.ts'
 export type {
@@ -647,6 +692,14 @@ export type {
   GetOfferingIdQuery,
 } from './types/GetOfferingId.ts'
 export type { GetOfferings200, GetOfferings500, GetOfferingsQueryResponse, GetOfferingsQuery } from './types/GetOfferings.ts'
+export type {
+  GetOwnDataSpacesQueryParams,
+  GetOwnDataSpaces200,
+  GetOwnDataSpaces400,
+  GetOwnDataSpaces500,
+  GetOwnDataSpacesQueryResponse,
+  GetOwnDataSpacesQuery,
+} from './types/GetOwnDataSpaces.ts'
 export type { GetPing200, GetPingQueryResponse, GetPingQuery } from './types/GetPing.ts'
 export type {
   GetPolicyByIDPathParams,
@@ -927,6 +980,7 @@ export type { ModelsStartModeEnum, ModelsStartMode } from './types/models/StartM
 export type { ModelsSystemMetrics } from './types/models/SystemMetrics.ts'
 export type { ModelsTemplateStatusEnum, ModelsTemplateStatus } from './types/models/TemplateStatus.ts'
 export type { ModelsTerminal } from './types/models/Terminal.ts'
+export type { ModelsTrace } from './types/models/Trace.ts'
 export type { ModelsTransaction } from './types/models/Transaction.ts'
 export type { ModelsUser } from './types/models/User.ts'
 export type { ModelsVerifiableCredential } from './types/models/VerifiableCredential.ts'
@@ -1110,6 +1164,10 @@ export { getActiveResourceCount } from './clients/getActiveResourceCount.ts'
 export { getActiveResourceCountByDataspace } from './clients/getActiveResourceCountByDataspace.ts'
 export { getAllConnectorSecurityRatingsExclude } from './clients/getAllConnectorSecurityRatingsExclude.ts'
 export { getAllDataSpaces } from './clients/getAllDataSpaces.ts'
+export { getApiV1Traces } from './clients/getApiV1Traces.ts'
+export { getApiV1TracesId } from './clients/getApiV1TracesId.ts'
+export { getApiV1TracesIdChain } from './clients/getApiV1TracesIdChain.ts'
+export { getApiV1TracesResourceId } from './clients/getApiV1TracesResourceId.ts'
 export { getApp } from './clients/getApp.ts'
 export { getAppStats } from './clients/getAppStats.ts'
 export { getBlockchain } from './clients/getBlockchain.ts'
@@ -1139,6 +1197,7 @@ export { getJobStats } from './clients/getJobStats.ts'
 export { getMetric } from './clients/getMetric.ts'
 export { getOfferingId } from './clients/getOfferingId.ts'
 export { getOfferings } from './clients/getOfferings.ts'
+export { getOwnDataSpaces } from './clients/getOwnDataSpaces.ts'
 export { getPing } from './clients/getPing.ts'
 export { getPolicyByID } from './clients/getPolicyByID.ts'
 export { getPublicApps } from './clients/getPublicApps.ts'
@@ -1248,6 +1307,22 @@ export {
 } from './hooks/useGetAllConnectorSecurityRatingsExcludeSuspense.ts'
 export { getAllDataSpacesQueryKey, getAllDataSpacesQueryOptions, useGetAllDataSpaces } from './hooks/useGetAllDataSpaces.ts'
 export { getAllDataSpacesSuspenseQueryKey, getAllDataSpacesSuspenseQueryOptions, useGetAllDataSpacesSuspense } from './hooks/useGetAllDataSpacesSuspense.ts'
+export { getApiV1TracesQueryKey, getApiV1TracesQueryOptions, useGetApiV1Traces } from './hooks/useGetApiV1Traces.ts'
+export { getApiV1TracesIdQueryKey, getApiV1TracesIdQueryOptions, useGetApiV1TracesId } from './hooks/useGetApiV1TracesId.ts'
+export { getApiV1TracesIdChainQueryKey, getApiV1TracesIdChainQueryOptions, useGetApiV1TracesIdChain } from './hooks/useGetApiV1TracesIdChain.ts'
+export {
+  getApiV1TracesIdChainSuspenseQueryKey,
+  getApiV1TracesIdChainSuspenseQueryOptions,
+  useGetApiV1TracesIdChainSuspense,
+} from './hooks/useGetApiV1TracesIdChainSuspense.ts'
+export { getApiV1TracesIdSuspenseQueryKey, getApiV1TracesIdSuspenseQueryOptions, useGetApiV1TracesIdSuspense } from './hooks/useGetApiV1TracesIdSuspense.ts'
+export { getApiV1TracesResourceIdQueryKey, getApiV1TracesResourceIdQueryOptions, useGetApiV1TracesResourceId } from './hooks/useGetApiV1TracesResourceId.ts'
+export {
+  getApiV1TracesResourceIdSuspenseQueryKey,
+  getApiV1TracesResourceIdSuspenseQueryOptions,
+  useGetApiV1TracesResourceIdSuspense,
+} from './hooks/useGetApiV1TracesResourceIdSuspense.ts'
+export { getApiV1TracesSuspenseQueryKey, getApiV1TracesSuspenseQueryOptions, useGetApiV1TracesSuspense } from './hooks/useGetApiV1TracesSuspense.ts'
 export { getAppQueryKey, getAppQueryOptions, useGetApp } from './hooks/useGetApp.ts'
 export { getAppStatsQueryKey, getAppStatsQueryOptions, useGetAppStats } from './hooks/useGetAppStats.ts'
 export { getAppStatsSuspenseQueryKey, getAppStatsSuspenseQueryOptions, useGetAppStatsSuspense } from './hooks/useGetAppStatsSuspense.ts'
@@ -1414,6 +1489,8 @@ export { getOfferingIdQueryKey, getOfferingIdQueryOptions, useGetOfferingId } fr
 export { getOfferingIdSuspenseQueryKey, getOfferingIdSuspenseQueryOptions, useGetOfferingIdSuspense } from './hooks/useGetOfferingIdSuspense.ts'
 export { getOfferingsQueryKey, getOfferingsQueryOptions, useGetOfferings } from './hooks/useGetOfferings.ts'
 export { getOfferingsSuspenseQueryKey, getOfferingsSuspenseQueryOptions, useGetOfferingsSuspense } from './hooks/useGetOfferingsSuspense.ts'
+export { getOwnDataSpacesQueryKey, getOwnDataSpacesQueryOptions, useGetOwnDataSpaces } from './hooks/useGetOwnDataSpaces.ts'
+export { getOwnDataSpacesSuspenseQueryKey, getOwnDataSpacesSuspenseQueryOptions, useGetOwnDataSpacesSuspense } from './hooks/useGetOwnDataSpacesSuspense.ts'
 export { getPingQueryKey, getPingQueryOptions, useGetPing } from './hooks/useGetPing.ts'
 export { getPingSuspenseQueryKey, getPingSuspenseQueryOptions, useGetPingSuspense } from './hooks/useGetPingSuspense.ts'
 export { getPolicyByIDQueryKey, getPolicyByIDQueryOptions, useGetPolicyByID } from './hooks/useGetPolicyByID.ts'
