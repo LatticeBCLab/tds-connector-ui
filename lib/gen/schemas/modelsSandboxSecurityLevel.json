@@ -1,0 +1,1 @@
+{"type":"string","enum":["public","private","confidential"],"x-enum-varnames":["SandboxSecurityPublic","SandboxSecurityPrivate","SandboxSecurityConfidential"],"x-readme-ref-name":"models.SandboxSecurityLevel"}

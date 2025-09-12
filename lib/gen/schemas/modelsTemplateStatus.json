@@ -1,0 +1,1 @@
+{"type":"string","enum":["active","banned"],"x-enum-varnames":["TemplateStatusActive","TemplateStatusBanned"],"x-readme-ref-name":"models.TemplateStatus"}

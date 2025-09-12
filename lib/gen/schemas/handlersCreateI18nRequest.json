@@ -1,0 +1,1 @@
+{"type":"object","required":["field","lang_code","row_id","value"],"properties":{"field":{"type":"string","example":"name"},"lang_code":{"type":"string","example":"zh-CN"},"row_id":{"type":"string","example":"user_123"},"value":{"type":"string","example":"用户名"}},"x-readme-ref-name":"handlers.CreateI18nRequest"}

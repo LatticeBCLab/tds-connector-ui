@@ -1,0 +1,1 @@
+{"type":"object","properties":{"code":{"description":"响应码","type":"integer","example":200},"data":{"description":"响应数据"},"error":{"description":"错误信息","type":"string","example":"error info"},"message":{"description":"响应消息","type":"string","example":"success"}},"x-readme-ref-name":"response.Response"}

@@ -1,0 +1,1 @@
+{"type":"object","properties":{"id":{"type":"string"},"serviceEndpoint":{"type":"string"},"type":{"type":"string"}},"x-readme-ref-name":"models.Service"}

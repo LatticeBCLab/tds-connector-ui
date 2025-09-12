@@ -1,0 +1,1 @@
+{"type":"object","required":["policy_id"],"properties":{"policy_id":{"type":"string","example":"policy-123"}},"x-readme-ref-name":"handlers.AddPolicyToTemplateRequest"}

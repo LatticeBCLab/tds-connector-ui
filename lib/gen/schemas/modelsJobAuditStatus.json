@@ -1,0 +1,1 @@
+{"type":"string","enum":["PENDING","APPROVED","REJECTED"],"x-enum-comments":{"JobAuditStatusApproved":"已通过","JobAuditStatusPending":"待审核","JobAuditStatusRejected":"已拒绝"},"x-enum-descriptions":["待审核","已通过","已拒绝"],"x-enum-varnames":["JobAuditStatusPending","JobAuditStatusApproved","JobAuditStatusRejected"],"x-readme-ref-name":"models.JobAuditStatus"}

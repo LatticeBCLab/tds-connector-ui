@@ -1,0 +1,1 @@
+{"type":"string","enum":["INTERNET","DEDICATED","ISOLATED"],"x-enum-comments":{"ConnectionTypeDedicated":"专线连接","ConnectionTypeInternet":"互联网连接","ConnectionTypeIsolated":"物理隔离"},"x-enum-descriptions":["互联网连接","专线连接","物理隔离"],"x-enum-varnames":["ConnectionTypeInternet","ConnectionTypeDedicated","ConnectionTypeIsolated"],"x-readme-ref-name":"models.ConnectionType"}
