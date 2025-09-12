@@ -115,6 +115,14 @@ export type {
   CreateSandboxMutationResponse,
   CreateSandboxMutation,
 } from './CreateSandbox.ts'
+export type {
+  CreateTerminal201,
+  CreateTerminal400,
+  CreateTerminal500,
+  CreateTerminalMutationRequest,
+  CreateTerminalMutationResponse,
+  CreateTerminalMutation,
+} from './CreateTerminal.ts'
 export type { CreateUser201, CreateUser400, CreateUser500, CreateUserMutationRequest, CreateUserMutationResponse, CreateUserMutation } from './CreateUser.ts'
 export type { DbOfferingModel } from './db/OfferingModel.ts'
 export type { DeleteAppPathParams, DeleteApp200, DeleteApp400, DeleteApp404, DeleteApp500, DeleteAppMutationResponse, DeleteAppMutation } from './DeleteApp.ts'
@@ -516,6 +524,15 @@ export type {
   GetSandboxStatsQuery,
 } from './GetSandboxStats.ts'
 export type {
+  GetTerminalPathParams,
+  GetTerminal200,
+  GetTerminal400,
+  GetTerminal404,
+  GetTerminal500,
+  GetTerminalQueryResponse,
+  GetTerminalQuery,
+} from './GetTerminal.ts'
+export type {
   GetTotalResourceCountQueryParams,
   GetTotalResourceCount200,
   GetTotalResourceCount500,
@@ -531,15 +548,7 @@ export type {
   GetTotalResourceCountByDataspaceQueryResponse,
   GetTotalResourceCountByDataspaceQuery,
 } from './GetTotalResourceCountByDataspace.ts'
-export type {
-  GetUserByDIDPathParams,
-  GetUserByDID200,
-  GetUserByDID400,
-  GetUserByDID404,
-  GetUserByDID500,
-  GetUserByDIDQueryResponse,
-  GetUserByDIDQuery,
-} from './GetUserByDID.ts'
+export type { GetUserPathParams, GetUser200, GetUser400, GetUser404, GetUser500, GetUserQueryResponse, GetUserQuery } from './GetUser.ts'
 export type {
   GetUserDIDListQueryParams,
   GetUserDIDList200,
@@ -562,6 +571,7 @@ export type { HandlersCreatePolicyRequest } from './handlers/CreatePolicyRequest
 export type { HandlersCreateResourceAuditRequest } from './handlers/CreateResourceAuditRequest.ts'
 export type { HandlersCreateResourceRequest } from './handlers/CreateResourceRequest.ts'
 export type { HandlersCreateSandboxRequestWithConnector } from './handlers/CreateSandboxRequestWithConnector.ts'
+export type { HandlersCreateTerminalRequest } from './handlers/CreateTerminalRequest.ts'
 export type { HandlersCreateUserRequest } from './handlers/CreateUserRequest.ts'
 export type { HandlersJobStatsResponse } from './handlers/JobStatsResponse.ts'
 export type { HandlersRejectAuditRequest } from './handlers/RejectAuditRequest.ts'
@@ -699,6 +709,7 @@ export type { ModelsSeverityEnum, ModelsSeverity } from './models/Severity.ts'
 export type { ModelsStartModeEnum, ModelsStartMode } from './models/StartMode.ts'
 export type { ModelsSystemMetrics } from './models/SystemMetrics.ts'
 export type { ModelsTemplateStatusEnum, ModelsTemplateStatus } from './models/TemplateStatus.ts'
+export type { ModelsTerminal } from './models/Terminal.ts'
 export type { ModelsTransaction } from './models/Transaction.ts'
 export type { ModelsUser } from './models/User.ts'
 export type { ModelsVerifiableCredential } from './models/VerifiableCredential.ts'

@@ -10,21 +10,35 @@ import {
 import { ModelsBlockChain, useGetBlockchain } from "@/lib/gen";
 import { LinkIcon, Shield } from "lucide-react";
 import { EmptyState } from "../shared/EmptyState";
-
-interface Transaction {
-  id: string;
-  type: string;
-  hash: string;
-  timestamp: string;
-  status: "confirmed" | "failed" | "pending";
-}
+import { Spinner } from "../ui/spinner";
 
 interface MainChainCardProps {
   mainChain?: ModelsBlockChain;
 }
 
 function MainChainRealCard({ id }: { id: number }) {
-  const { data: chainData } = useGetBlockchain(id);
+  const { data: chainData, isLoading } = useGetBlockchain(id);
+
+  if (isLoading) {
+    return (
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Shield className="h-5 w-5" />
+            Main Chain (Identity Chain)
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="flex flex-col items-center gap-3 p-6">
+            <Spinner variant="bars" />
+            <p className="text-muted-foreground text-sm">
+              Loading main chain...
+            </p>
+          </div>
+        </CardContent>
+      </Card>
+    );
+  }
 
   return (
     chainData && (
@@ -40,7 +54,6 @@ function MainChainRealCard({ id }: { id: number }) {
                 DID registration and identity verification
               </CardDescription>
             </div>
-            {/* <StatusBadge status={mainChain?.status || "disconnected"} /> */}
           </div>
         </CardHeader>
         <CardContent>
@@ -49,7 +62,6 @@ function MainChainRealCard({ id }: { id: number }) {
               <div className="grid gap-3">
                 <div className="flex items-center justify-between">
                   <h4 className="font-semibold">{chainData.name}</h4>
-                  {/* <Badge variant="outline">{chainData.type}</Badge> */}
                 </div>
                 <div className="grid grid-cols-2 gap-4 text-sm">
                   <div>
@@ -111,11 +123,21 @@ function MainChainRealCard({ id }: { id: number }) {
 export function MainChainCard({ mainChain }: MainChainCardProps) {
   if (!mainChain || !mainChain.id) {
     return (
-      <EmptyState
-        icon={LinkIcon}
-        title="No main chain found"
-        description="No main chain found"
-      />
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Shield className="h-5 w-5" />
+            Main Chain (Identity Chain)
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <EmptyState
+            icon={LinkIcon}
+            title="No main chain found"
+            description="No main chain found"
+          />
+        </CardContent>
+      </Card>
     );
   } else {
     return <MainChainRealCard id={mainChain.id} />;

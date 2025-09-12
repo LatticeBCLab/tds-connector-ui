@@ -9,29 +9,25 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
-import {
-  useCountResolved,
-  useCountUnresolved,
-  useListAlters,
-  useListMetrics,
-} from "@/lib/gen";
+import { useGetMetric, useListAlters } from "@/lib/gen";
+import { useStats } from "@/lib/gen/hooks/useStats";
 import { Activity, AlertTriangle, CheckCircle, Shield } from "lucide-react";
 import { useEffect } from "react";
 import { ScrollArea } from "../ui/scroll-area";
 
 export function MonitoringTab() {
   const { data: alterList } = useListAlters();
-  const { data: resolvedData } = useCountResolved();
-  const { data: unResolvedData } = useCountUnresolved();
-  const { data: metricsList, refetch } = useListMetrics();
+  const { data: latestMetrics, refetch } = useGetMetric();
+  const { data: statsData } = useStats();
 
-  console.log(alterList, resolvedData, unResolvedData, metricsList);
-
-  const latestMetrics = metricsList?.[metricsList.length - 1];
+  // Extract stats data
+  const totalAlerts = statsData?.data?.total_alerts ?? 0;
+  const criticalAlerts = statsData?.data?.critical_alerts ?? 0;
+  const unresolvedIssues = statsData?.data?.unresolved_issues ?? 0;
 
   useEffect(() => {
     const handler = () => refetch();
-    const timer = setInterval(handler, 1000);
+    const timer = setInterval(handler, 2_000);
     return () => clearInterval(timer);
   });
 
@@ -40,18 +36,18 @@ export function MonitoringTab() {
       {/* Overview Cards */}
       <div className="grid gap-4 md:grid-cols-4">
         <MetricCard
-          title="System Health"
-          value="Active"
-          description="System operational"
-          icon={CheckCircle}
+          title="Total Alerts"
+          value={totalAlerts}
+          description="All system alerts"
+          icon={Shield}
           variant="primary"
         />
         <MetricCard
           title="Critical Alerts"
-          value={"TODO"}
+          value={criticalAlerts}
           description="Require attention"
           icon={AlertTriangle}
-          variant={false ? "secondary" : "default"}
+          variant={criticalAlerts > 0 ? "secondary" : "default"}
         />
         <MetricCard
           title="System Performance"
@@ -61,9 +57,9 @@ export function MonitoringTab() {
         />
         <MetricCard
           title="Unresolved Issues"
-          value={unResolvedData + ""}
-          description="Total alerts"
-          icon={Shield}
+          value={unresolvedIssues}
+          description="Outstanding issues"
+          icon={CheckCircle}
         />
       </div>
 
@@ -78,10 +74,6 @@ export function MonitoringTab() {
                   Real-time system performance indicators
                 </CardDescription>
               </div>
-              {/* <Button size="sm" variant="outline" onClick={refreshMetrics}>
-                <RefreshCw className="h-4 w-4" />
-                Refresh
-              </Button> */}
             </div>
           </CardHeader>
           <CardContent>
@@ -174,29 +166,6 @@ export function MonitoringTab() {
                           </span>
                         </div>
                       </div>
-                      {/* <div className="flex items-center space-x-1">
-                        {!alert.resolved && (
-                          <>
-                            <Button
-                              size="sm"
-                              variant="outline"
-                              onClick={() => resolveAlert(alert.id)}
-                            >
-                              <CheckCircle className="h-3 w-3" />
-                            </Button>
-                            <Button
-                              size="sm"
-                              variant="ghost"
-                              onClick={() => dismissAlert(alert.id)}
-                            >
-                              <X className="h-3 w-3" />
-                            </Button>
-                          </>
-                        )}
-                        <Button variant="ghost" size="sm">
-                          <Eye className="h-3 w-3" />
-                        </Button>
-                      </div> */}
                     </div>
                   </div>
                 ))}

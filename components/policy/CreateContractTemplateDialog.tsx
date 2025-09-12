@@ -69,7 +69,7 @@ export function CreateContractTemplateDialog({
 
   const { data: policiesData, isLoading: loadingPolicies } = useListPolicies({
     page: 1,
-    page_size: 50, // 获取足够多的策略
+    page_size: 50,
   });
   const createContractTemplateMutation = useCreateContractTemplate({
     mutation: {
@@ -123,6 +123,12 @@ export function CreateContractTemplateDialog({
       newErrors.push(t("createContractDialog.policyRequired"));
     }
 
+    if (!currentDataSpace?.id) {
+      newErrors.push("Data space is required");
+      setErrors(newErrors);
+      return;
+    }
+
     if (newErrors.length > 0) {
       setErrors(newErrors);
       return;
@@ -140,7 +146,7 @@ export function CreateContractTemplateDialog({
 
     // Create contract template data
     const contractTemplateData = {
-      data_space_id: currentDataSpace?.id,
+      data_space_id: currentDataSpace.id,
       name: formData.name,
       description: formData.description,
       policies: policiesMap,
@@ -175,7 +181,7 @@ export function CreateContractTemplateDialog({
           </DialogDescription>
         </DialogHeader>
 
-        <div className="space-y-6 py-4">
+        <div className="space-y-6">
           {/* Error Messages */}
           {errors.length > 0 && (
             <Alert variant="destructive">
@@ -240,7 +246,7 @@ export function CreateContractTemplateDialog({
             </div>
           </div>
           {/* Policy Selection */}
-          <div className="space-y-4">
+          <div className="space-y-2">
             <div className="flex items-center justify-between">
               <Label className="text-base font-semibold">{t("createContractDialog.selectPolicies")}</Label>
               {selectedPolicyIds.length > 0 && (
@@ -281,7 +287,7 @@ export function CreateContractTemplateDialog({
                             : "hover:bg-muted/50"
                         }`}
                       >
-                        <CardHeader className="pb-2">
+                        <CardHeader>
                           <div className="flex items-start justify-between">
                             <div className="min-w-0 flex-1 space-y-2">
                               <div className="flex items-start justify-between gap-3">
@@ -330,7 +336,7 @@ export function CreateContractTemplateDialog({
                             </div>
                           </div>
                         </CardHeader>
-                        <CardContent className="pt-0">
+                        <CardContent>
                           <div className="text-muted-foreground flex flex-col gap-2 text-xs">
                             <span>{t("createContractDialog.policyId")}: {policy.id}</span>
                             {policy.created_at && (
