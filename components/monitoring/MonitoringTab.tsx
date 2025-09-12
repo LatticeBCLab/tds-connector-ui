@@ -1,6 +1,7 @@
 "use client";
 
 import { MetricCard, StatusBadge } from "@/components/shared";
+import { useTranslations } from 'next-intl';
 import {
   Card,
   CardContent,
@@ -16,6 +17,7 @@ import { useEffect } from "react";
 import { ScrollArea } from "../ui/scroll-area";
 
 export function MonitoringTab() {
+  const t = useTranslations('Monitoring.MonitoringTab');
   const { data: alterList } = useListAlters();
   const { data: latestMetrics, refetch } = useGetMetric();
   const { data: statsData } = useStats();
@@ -36,29 +38,29 @@ export function MonitoringTab() {
       {/* Overview Cards */}
       <div className="grid gap-4 md:grid-cols-4">
         <MetricCard
-          title="Total Alerts"
+          title={t('totalAlerts')}
           value={totalAlerts}
-          description="All system alerts"
+          description={t('allSystemAlerts')}
           icon={Shield}
           variant="primary"
         />
         <MetricCard
-          title="Critical Alerts"
+          title={t('criticalAlerts')}
           value={criticalAlerts}
-          description="Require attention"
+          description={t('requireAttention')}
           icon={AlertTriangle}
           variant={criticalAlerts > 0 ? "secondary" : "default"}
         />
         <MetricCard
-          title="System Performance"
-          value="Optimal"
-          description="Performance metrics"
+          title={t('systemPerformance')}
+          value={t('optimal')}
+          description={t('performanceMetrics')}
           icon={Activity}
         />
         <MetricCard
-          title="Unresolved Issues"
+          title={t('unresolvedIssues')}
           value={unresolvedIssues}
-          description="Outstanding issues"
+          description={t('outstandingIssues')}
           icon={CheckCircle}
         />
       </div>
@@ -69,9 +71,9 @@ export function MonitoringTab() {
           <CardHeader>
             <div className="flex items-center justify-between">
               <div>
-                <CardTitle>System Metrics</CardTitle>
+                <CardTitle>{t('systemMetrics')}</CardTitle>
                 <CardDescription>
-                  Real-time system performance indicators
+                  {t('realTimeIndicators')}
                 </CardDescription>
               </div>
             </div>
@@ -81,7 +83,7 @@ export function MonitoringTab() {
               <div className="space-y-4">
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
-                    <span className="text-sm font-medium">CPU Usage</span>
+                    <span className="text-sm font-medium">{t('cpuUsage')}</span>
                     <span className="text-muted-foreground text-sm">
                       {latestMetrics.cpuPercent}%
                     </span>
@@ -91,7 +93,7 @@ export function MonitoringTab() {
 
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
-                    <span className="text-sm font-medium">Memory Usage</span>
+                    <span className="text-sm font-medium">{t('memoryUsage')}</span>
                     <span className="text-muted-foreground text-sm">
                       {latestMetrics.memPercent}%
                     </span>
@@ -101,7 +103,7 @@ export function MonitoringTab() {
 
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
-                    <span className="text-sm font-medium">Disk Usage</span>
+                    <span className="text-sm font-medium">{t('diskUsage')}</span>
                     <span className="text-muted-foreground text-sm">
                       {latestMetrics.diskPercent}%
                     </span>
@@ -111,13 +113,13 @@ export function MonitoringTab() {
 
                 <div className="grid grid-cols-2 gap-4 pt-4">
                   <div className="space-y-1">
-                    <div className="text-sm font-medium">Network In</div>
+                    <div className="text-sm font-medium">{t('networkIn')}</div>
                     <div className="text-2xl font-bold text-green-600">
                       {latestMetrics.netInBytes} KB/s
                     </div>
                   </div>
                   <div className="space-y-1">
-                    <div className="text-sm font-medium">Network Out</div>
+                    <div className="text-sm font-medium">{t('networkOut')}</div>
                     <div className="text-2xl font-bold text-blue-600">
                       {latestMetrics.netOutBytes} KB/s
                     </div>
@@ -131,8 +133,8 @@ export function MonitoringTab() {
         {/* Security Alerts */}
         <Card>
           <CardHeader>
-            <CardTitle>Security Alerts</CardTitle>
-            <CardDescription>Security events and system alerts</CardDescription>
+            <CardTitle>{t('securityAlerts')}</CardTitle>
+            <CardDescription>{t('securityEventsAndAlerts')}</CardDescription>
           </CardHeader>
           <CardContent className="p-0">
             <ScrollArea className="h-96 px-6 pb-6">

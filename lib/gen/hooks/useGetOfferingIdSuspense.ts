@@ -4,11 +4,11 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { GetOfferingIdQueryResponse, GetOfferingIdPathParams, GetOfferingId400, GetOfferingId500 } from '../types/GetOfferingId.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
-import { getOfferingId } from '../clients/getOfferingId.ts'
+import type { GetOfferingIdQueryResponse, GetOfferingIdPathParams, GetOfferingId400, GetOfferingId500 } from '../types/GetOfferingId.ts'
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
+import { getOfferingId } from '../clients/getOfferingId.ts'
 
 export const getOfferingIdSuspenseQueryKey = (id: GetOfferingIdPathParams['id']) => [{ url: '/offering/:id', params: { id: id } }] as const
 

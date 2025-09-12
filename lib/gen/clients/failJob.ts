@@ -4,8 +4,8 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { FailJobMutationRequest, FailJobMutationResponse, FailJobPathParams, FailJob400, FailJob404, FailJob500 } from '../types/FailJob.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
+import type { FailJobMutationRequest, FailJobMutationResponse, FailJobPathParams, FailJob400, FailJob404, FailJob500 } from '../types/FailJob.ts'
 
 function getFailJobUrl(id: FailJobPathParams['id']) {
   const res = { method: 'POST', url: `/tdsc/api/v1/jobs/${id}/fail` as const }

@@ -4,8 +4,8 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { GetTotalResourceCountQueryResponse, GetTotalResourceCountQueryParams, GetTotalResourceCount500 } from '../types/GetTotalResourceCount.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
+import type { GetTotalResourceCountQueryResponse, GetTotalResourceCountQueryParams, GetTotalResourceCount500 } from '../types/GetTotalResourceCount.ts'
 
 function getGetTotalResourceCountUrl() {
   const res = { method: 'GET', url: `/tdsc/api/v1/resources/total/count` as const }

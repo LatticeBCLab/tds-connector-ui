@@ -25,6 +25,7 @@ import { useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
+import { useTranslations } from "next-intl";
 
 // Form validation schema
 const createJobSchema = z.object({
@@ -44,6 +45,7 @@ interface CreateJobDialogProps {
 }
 
 export function CreateJobDialog({ trigger, onSuccess }: CreateJobDialogProps) {
+  const t = useTranslations('Sandbox.CreateJobDialog');
   const [open, setOpen] = useState(false);
   const { currentDataSpace } = useDataSpace();
 
@@ -136,27 +138,27 @@ export function CreateJobDialog({ trigger, onSuccess }: CreateJobDialogProps) {
   const defaultTrigger = (
     <Button size="sm" variant="secondary">
       <Plus className="h-4 w-4" />
-      New Job
+      {t('newJob')}
     </Button>
   );
 
   return (
     <ActionDialog
       trigger={trigger || defaultTrigger}
-      title="Create Processing Job"
-      description="Configure a new data processing task"
+      title={t('title')}
+      description={t('description')}
       open={open}
       onOpenChange={setOpen}
       maxWidth="lg"
     >
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         <div className="space-y-2">
-          <Label htmlFor="name">Job Name</Label>
+          <Label htmlFor="name">{t('jobName')}</Label>
           <Input
             id="name"
             className="border-border"
             {...register("name")}
-            placeholder="Customer Segmentation Analysis"
+            placeholder={t('jobNamePlaceholder')}
           />
           {errors.name && (
             <p className="text-sm text-red-600">{errors.name.message}</p>
@@ -164,12 +166,12 @@ export function CreateJobDialog({ trigger, onSuccess }: CreateJobDialogProps) {
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="description">Description</Label>
+          <Label htmlFor="description">{t('descriptionLabel')}</Label>
           <Input
             id="description"
             className="border-border"
             {...register("description")}
-            placeholder="Analyze customer data for segmentation"
+            placeholder={t('descriptionPlaceholder')}
           />
           {errors.description && (
             <p className="text-sm text-red-600">{errors.description.message}</p>
@@ -178,18 +180,18 @@ export function CreateJobDialog({ trigger, onSuccess }: CreateJobDialogProps) {
 
         <div className="grid grid-cols-2 gap-4">
           <div className="space-y-2">
-            <Label htmlFor="app">Application</Label>
+            <Label htmlFor="app">{t('application')}</Label>
             <Select
               value={watch("appId")}
               onValueChange={(value) => setValue("appId", value)}
             >
               <SelectTrigger className="border-border">
-                <SelectValue placeholder="Select application" />
+                <SelectValue placeholder={t('selectApplication')} />
               </SelectTrigger>
               <SelectContent>
                 {appsLoading ? (
                   <SelectItem value="loading" disabled>
-                    Loading applications...
+                    {t('loadingApplications')}
                   </SelectItem>
                 ) : (
                   appsData?.data?.map((app: any) => (
@@ -206,18 +208,18 @@ export function CreateJobDialog({ trigger, onSuccess }: CreateJobDialogProps) {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="sandbox">Sandbox Environment</Label>
+            <Label htmlFor="sandbox">{t('sandboxEnvironment')}</Label>
             <Select
               value={watch("sandboxId")}
               onValueChange={(value) => setValue("sandboxId", value)}
             >
               <SelectTrigger className="border-border">
-                <SelectValue placeholder="Select sandbox" />
+                <SelectValue placeholder={t('selectSandbox')} />
               </SelectTrigger>
               <SelectContent>
                 {sandboxesLoading ? (
                   <SelectItem value="loading" disabled>
-                    Loading sandboxes...
+                    {t('loadingSandboxes')}
                   </SelectItem>
                 ) : (
                   sandboxesData?.data?.map((sandbox: any) => (
@@ -235,18 +237,18 @@ export function CreateJobDialog({ trigger, onSuccess }: CreateJobDialogProps) {
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="resource">Data Resource</Label>
+          <Label htmlFor="resource">{t('dataResource')}</Label>
           <Select
             value={watch("resourceId")}
             onValueChange={(value) => setValue("resourceId", value)}
           >
             <SelectTrigger className="border-border">
-              <SelectValue placeholder="Select data resource" />
+              <SelectValue placeholder={t('selectDataResource')} />
             </SelectTrigger>
             <SelectContent>
               {resourcesLoading ? (
                 <SelectItem value="loading" disabled>
-                  Loading resources...
+                  {t('loadingResources')}
                 </SelectItem>
               ) : (
                 resourcesData?.data?.map((resource: any ) => (
@@ -263,11 +265,11 @@ export function CreateJobDialog({ trigger, onSuccess }: CreateJobDialogProps) {
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="script">Processing Script</Label>
+          <Label htmlFor="script">{t('processingScript')}</Label>
           <Textarea
             id="script"
             {...register("processingScript")}
-            placeholder="import pandas as pd&#10;# Your data processing code here"
+            placeholder={t('processingScriptPlaceholder')}
             className="font-mono text-sm border-border"
             rows={8}
           />
@@ -282,10 +284,10 @@ export function CreateJobDialog({ trigger, onSuccess }: CreateJobDialogProps) {
             variant="outline"
             onClick={() => setOpen(false)}
           >
-            Cancel
+            {t('cancel')}
           </Button>
           <Button type="submit" disabled={isSubmitting}>
-            {isSubmitting ? "Creating..." : "Create Job"}
+            {isSubmitting ? t('creating') : t('createJob')}
           </Button>
         </div>
       </form>

@@ -12,6 +12,7 @@ import {
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Clock, Database, Tag, User } from "lucide-react";
 import Image from "next/image";
+import { useTranslations } from 'next-intl';
 
 // 定义App的数据类型
 interface App {
@@ -45,6 +46,7 @@ interface AppsCardProps {
 }
 
 export function AppsCard({ apps }: AppsCardProps) {
+  const t = useTranslations('Sandbox.AppsCard');
   // 格式化计数显示
   const formatCount = (count: number) => {
     if (count >= 1000000) {
@@ -101,9 +103,9 @@ export function AppsCard({ apps }: AppsCardProps) {
       <CardHeader>
         <div className="flex items-center justify-between">
           <div>
-            <CardTitle>Verified Applications</CardTitle>
+            <CardTitle>{t('title')}</CardTitle>
             <CardDescription>
-              Published and verified apps ready for deployment
+              {t('description')}
             </CardDescription>
           </div>
           <div className="text-muted-foreground text-sm">
@@ -285,8 +287,8 @@ export function AppsCard({ apps }: AppsCardProps) {
           <div className="py-8 text-center">
             <EmptyState
               icon={Database}
-              title="No applications found"
-              description="No container images are available at the moment."
+              title={t('noApplicationsFound')}
+              description={t('noContainerImages')}
             />
           </div>
         )}

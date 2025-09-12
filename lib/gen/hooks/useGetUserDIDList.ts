@@ -4,11 +4,11 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { GetUserDIDListQueryResponse, GetUserDIDListQueryParams, GetUserDIDList400, GetUserDIDList500 } from '../types/GetUserDIDList.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
-import { getUserDIDList } from '../clients/getUserDIDList.ts'
+import type { GetUserDIDListQueryResponse, GetUserDIDListQueryParams, GetUserDIDList400, GetUserDIDList500 } from '../types/GetUserDIDList.ts'
 import { queryOptions, useQuery } from '@tanstack/react-query'
+import { getUserDIDList } from '../clients/getUserDIDList.ts'
 
 export const getUserDIDListQueryKey = (params?: GetUserDIDListQueryParams) => [{ url: '/api/v1/users/dids' }, ...(params ? [params] : [])] as const
 

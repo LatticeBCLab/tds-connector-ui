@@ -1,6 +1,7 @@
 "use client";
 
 import { StatusBadge } from "@/components/shared";
+import { useTranslations } from 'next-intl';
 import { EmptyState } from "@/components/shared/EmptyState";
 import { Button } from "@/components/ui/button";
 import {
@@ -57,6 +58,7 @@ export function DataProcessingJobsCard({
   runJob,
   onJobCreated,
 }: DataProcessingJobsCardProps) {
+  const t = useTranslations('Sandbox.DataProcessingJobsCard');
   console.log("jobs", jobs);
   // 格式化数据大小显示
   const formatDataSize = (sizeInMb: number) => {
@@ -90,8 +92,8 @@ export function DataProcessingJobsCard({
       <CardHeader>
         <div className="flex items-center justify-between">
           <div>
-            <CardTitle>Data Processing Jobs</CardTitle>
-            <CardDescription>Manage data processing tasks</CardDescription>
+            <CardTitle>{t('title')}</CardTitle>
+            <CardDescription>{t('description')}</CardDescription>
           </div>
           <CreateJobDialog onSuccess={onJobCreated} />
         </div>
@@ -181,8 +183,8 @@ export function DataProcessingJobsCard({
               <div className="text-muted-foreground py-8 text-center">
                 <EmptyState
                   icon={Activity}
-                  title="No processing jobs found"
-                  description="Create one to start processing data."
+                  title={t('noJobsFound')}
+                  description={t('createJobToStart')}
                 />
               </div>
             )}

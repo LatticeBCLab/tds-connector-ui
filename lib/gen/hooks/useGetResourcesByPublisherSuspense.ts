@@ -4,6 +4,8 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
+import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
+import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
 import type {
   GetResourcesByPublisherQueryResponse,
   GetResourcesByPublisherPathParams,
@@ -11,10 +13,8 @@ import type {
   GetResourcesByPublisher400,
   GetResourcesByPublisher500,
 } from '../types/GetResourcesByPublisher.ts'
-import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
-import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
-import { getResourcesByPublisher } from '../clients/getResourcesByPublisher.ts'
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
+import { getResourcesByPublisher } from '../clients/getResourcesByPublisher.ts'
 
 export const getResourcesByPublisherSuspenseQueryKey = (
   publisher: GetResourcesByPublisherPathParams['publisher'],

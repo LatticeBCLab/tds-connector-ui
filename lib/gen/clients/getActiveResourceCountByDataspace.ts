@@ -4,6 +4,7 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
+import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type {
   GetActiveResourceCountByDataspaceQueryResponse,
   GetActiveResourceCountByDataspacePathParams,
@@ -11,7 +12,6 @@ import type {
   GetActiveResourceCountByDataspace400,
   GetActiveResourceCountByDataspace500,
 } from '../types/GetActiveResourceCountByDataspace.ts'
-import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 function getGetActiveResourceCountByDataspaceUrl(dataspace: GetActiveResourceCountByDataspacePathParams['dataspace']) {
   const res = { method: 'GET', url: `/tdsc/api/v1/dataspaces/${dataspace}/resources/active/count` as const }

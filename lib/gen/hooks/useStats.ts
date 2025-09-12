@@ -4,11 +4,11 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { StatsQueryResponse, Stats500 } from '../types/Stats.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
-import { stats } from '../clients/stats.ts'
+import type { StatsQueryResponse, Stats500 } from '../types/Stats.ts'
 import { queryOptions, useQuery } from '@tanstack/react-query'
+import { stats } from '../clients/stats.ts'
 
 export const statsQueryKey = () => [{ url: '/api/v1/alters/stats' }] as const
 

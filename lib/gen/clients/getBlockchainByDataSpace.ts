@@ -4,6 +4,7 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
+import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type {
   GetBlockchainByDataSpaceQueryResponse,
   GetBlockchainByDataSpacePathParams,
@@ -11,7 +12,6 @@ import type {
   GetBlockchainByDataSpace404,
   GetBlockchainByDataSpace500,
 } from '../types/GetBlockchainByDataSpace.ts'
-import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 function getGetBlockchainByDataSpaceUrl(data_space_id: GetBlockchainByDataSpacePathParams['data_space_id']) {
   const res = { method: 'GET', url: `/tdsc/api/v1/blockchains/dataspace/${data_space_id}` as const }

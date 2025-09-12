@@ -4,11 +4,11 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { ListUsersQueryResponse, ListUsersQueryParams, ListUsers400, ListUsers500 } from '../types/ListUsers.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
-import { listUsers } from '../clients/listUsers.ts'
+import type { ListUsersQueryResponse, ListUsersQueryParams, ListUsers400, ListUsers500 } from '../types/ListUsers.ts'
 import { queryOptions, useQuery } from '@tanstack/react-query'
+import { listUsers } from '../clients/listUsers.ts'
 
 export const listUsersQueryKey = (params?: ListUsersQueryParams) => [{ url: '/api/v1/users' }, ...(params ? [params] : [])] as const
 

@@ -4,11 +4,11 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { CreateConnectorMutationRequest, CreateConnectorMutationResponse, CreateConnector400, CreateConnector500 } from '../types/CreateConnector.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { UseMutationOptions, QueryClient } from '@tanstack/react-query'
-import { createConnector } from '../clients/createConnector.ts'
+import type { CreateConnectorMutationRequest, CreateConnectorMutationResponse, CreateConnector400, CreateConnector500 } from '../types/CreateConnector.ts'
 import { useMutation } from '@tanstack/react-query'
+import { createConnector } from '../clients/createConnector.ts'
 
 export const createConnectorMutationKey = () => [{ url: '/api/v1/connectors' }] as const
 

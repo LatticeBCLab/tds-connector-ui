@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from 'next-intl'
 import { ActionDialog, StatusBadge } from "@/components/shared";
 import { EmptyState } from "@/components/shared/EmptyState";
 import { Button } from "@/components/ui/button";
@@ -68,6 +69,7 @@ export function SandboxEnvironmentsCard({
   stopSandbox,
   ociImages,
 }: SandboxEnvironmentsCardProps) {
+  const t = useTranslations('Sandbox.SandboxEnvironmentsCard')
   const formatMemory = (memoryMb: number) => {
     if (memoryMb >= 1024) {
       return `${(memoryMb / 1024).toFixed(1)} GB`;
@@ -84,39 +86,39 @@ export function SandboxEnvironmentsCard({
       <CardHeader>
         <div className="flex items-center justify-between">
           <div>
-            <CardTitle>Sandbox Environments</CardTitle>
+            <CardTitle>{t('title')}</CardTitle>
             <CardDescription>
-              Isolated environments for secure data processing
+              {t('description')}
             </CardDescription>
           </div>
           <ActionDialog
             trigger={
               <Button size="sm">
                 <Plus className="h-4 w-4" />
-                Create Sandbox
+                {t('createSandbox')}
               </Button>
             }
-            title="Create Sandbox Environment"
-            description="Set up a new isolated environment for data processing"
+            title={t('createSandboxTitle')}
+            description={t('createSandboxDescription')}
             open={isCreateSandboxOpen}
             onOpenChange={setIsCreateSandboxOpen}
             maxWidth="md"
           >
             <div className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="sandbox-name">Environment Name</Label>
+                <Label htmlFor="sandbox-name">{t('environmentName')}</Label>
                 <Input
                   id="sandbox-name"
                   value={newSandbox.name}
                   onChange={(e) =>
                     setNewSandbox({ ...newSandbox, name: e.target.value })
                   }
-                  placeholder="Python Analytics"
+                  placeholder={t('environmentNamePlaceholder')}
                 />
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="runtime">Runtime</Label>
+                  <Label htmlFor="runtime">{t('runtime')}</Label>
                   <Select
                     value={newSandbox.runtime}
                     onValueChange={(value) =>
@@ -137,7 +139,7 @@ export function SandboxEnvironmentsCard({
                   </Select>
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="memory-limit">Memory Limit</Label>
+                  <Label htmlFor="memory-limit">{t('memoryLimit')}</Label>
                   <Select
                     value={newSandbox.memoryLimit}
                     onValueChange={(value) =>
@@ -157,7 +159,7 @@ export function SandboxEnvironmentsCard({
                 </div>
               </div>
               <div className="space-y-2">
-                <Label htmlFor="image">Container Image</Label>
+                <Label htmlFor="image">{t('containerImage')}</Label>
                 <Select
                   value={newSandbox.image}
                   onValueChange={(value) =>
@@ -165,7 +167,7 @@ export function SandboxEnvironmentsCard({
                   }
                 >
                   <SelectTrigger>
-                    <SelectValue placeholder="Select image" />
+                    <SelectValue placeholder={t('selectImage')} />
                   </SelectTrigger>
                   <SelectContent>
                     {ociImages.map((image) => (
@@ -187,16 +189,16 @@ export function SandboxEnvironmentsCard({
                     })
                   }
                 />
-                <Label htmlFor="network-isolated">Network Isolation</Label>
+                <Label htmlFor="network-isolated">{t('networkIsolation')}</Label>
               </div>
               <div className="flex justify-end space-x-2">
                 <Button
                   variant="outline"
                   onClick={() => setIsCreateSandboxOpen(false)}
                 >
-                  Cancel
+                  {t('cancel')}
                 </Button>
-                <Button onClick={createSandbox}>Create Sandbox</Button>
+                <Button onClick={createSandbox}>{t('createSandbox')}</Button>
               </div>
             </div>
           </ActionDialog>
@@ -308,8 +310,8 @@ export function SandboxEnvironmentsCard({
               <div className="text-muted-foreground py-8 text-center">
                 <EmptyState
                   icon={Database}
-                  title="No sandbox environments found"
-                  description="Create one to get started."
+                  title={t('noSandboxFound')}
+                  description={t('createOneToGetStarted')}
                 />
               </div>
             )}

@@ -4,11 +4,11 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { GetAllDataSpacesQueryResponse, GetAllDataSpaces500 } from '../types/GetAllDataSpaces.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
-import { getAllDataSpaces } from '../clients/getAllDataSpaces.ts'
+import type { GetAllDataSpacesQueryResponse, GetAllDataSpaces500 } from '../types/GetAllDataSpaces.ts'
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
+import { getAllDataSpaces } from '../clients/getAllDataSpaces.ts'
 
 export const getAllDataSpacesSuspenseQueryKey = () => [{ url: '/api/v1/dataspaces/all' }] as const
 

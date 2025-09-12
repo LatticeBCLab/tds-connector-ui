@@ -4,6 +4,7 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
+import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type {
   UpdateI18nByIDMutationRequest,
   UpdateI18nByIDMutationResponse,
@@ -12,7 +13,6 @@ import type {
   UpdateI18nByID404,
   UpdateI18nByID500,
 } from '../types/UpdateI18nByID.ts'
-import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 function getUpdateI18nByIDUrl(id: UpdateI18nByIDPathParams['id']) {
   const res = { method: 'PUT', url: `/tdsc/api/v1/i18n/${id}` as const }

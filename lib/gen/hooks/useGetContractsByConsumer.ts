@@ -4,6 +4,8 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
+import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
+import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
 import type {
   GetContractsByConsumerQueryResponse,
   GetContractsByConsumerPathParams,
@@ -11,10 +13,8 @@ import type {
   GetContractsByConsumer400,
   GetContractsByConsumer500,
 } from '../types/GetContractsByConsumer.ts'
-import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
-import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
-import { getContractsByConsumer } from '../clients/getContractsByConsumer.ts'
 import { queryOptions, useQuery } from '@tanstack/react-query'
+import { getContractsByConsumer } from '../clients/getContractsByConsumer.ts'
 
 export const getContractsByConsumerQueryKey = (consumer: GetContractsByConsumerPathParams['consumer'], params?: GetContractsByConsumerQueryParams) =>
   [{ url: '/api/v1/contracts/consumer/:consumer', params: { consumer: consumer } }, ...(params ? [params] : [])] as const

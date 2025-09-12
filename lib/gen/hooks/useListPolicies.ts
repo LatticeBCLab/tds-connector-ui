@@ -4,11 +4,11 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { ListPoliciesQueryResponse, ListPoliciesQueryParams, ListPolicies400, ListPolicies500 } from '../types/ListPolicies.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
-import { listPolicies } from '../clients/listPolicies.ts'
+import type { ListPoliciesQueryResponse, ListPoliciesQueryParams, ListPolicies400, ListPolicies500 } from '../types/ListPolicies.ts'
 import { queryOptions, useQuery } from '@tanstack/react-query'
+import { listPolicies } from '../clients/listPolicies.ts'
 
 export const listPoliciesQueryKey = (params?: ListPoliciesQueryParams) => [{ url: '/api/v1/policy' }, ...(params ? [params] : [])] as const
 

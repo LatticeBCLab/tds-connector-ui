@@ -4,11 +4,11 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { CreateBlockchainMutationRequest, CreateBlockchainMutationResponse, CreateBlockchain400, CreateBlockchain500 } from '../types/CreateBlockchain.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { UseMutationOptions, QueryClient } from '@tanstack/react-query'
-import { createBlockchain } from '../clients/createBlockchain.ts'
+import type { CreateBlockchainMutationRequest, CreateBlockchainMutationResponse, CreateBlockchain400, CreateBlockchain500 } from '../types/CreateBlockchain.ts'
 import { useMutation } from '@tanstack/react-query'
+import { createBlockchain } from '../clients/createBlockchain.ts'
 
 export const createBlockchainMutationKey = () => [{ url: '/api/v1/blockchains' }] as const
 

@@ -4,6 +4,8 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
+import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
+import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
 import type {
   GetDataSpaceByIDQueryResponse,
   GetDataSpaceByIDPathParams,
@@ -11,10 +13,8 @@ import type {
   GetDataSpaceByID404,
   GetDataSpaceByID500,
 } from '../types/GetDataSpaceByID.ts'
-import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
-import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
-import { getDataSpaceByID } from '../clients/getDataSpaceByID.ts'
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
+import { getDataSpaceByID } from '../clients/getDataSpaceByID.ts'
 
 export const getDataSpaceByIDSuspenseQueryKey = (id: GetDataSpaceByIDPathParams['id']) =>
   [{ url: '/api/v1/dataspaces/detail/:id', params: { id: id } }] as const

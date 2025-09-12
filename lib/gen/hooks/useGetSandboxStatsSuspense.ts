@@ -4,11 +4,11 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { GetSandboxStatsQueryResponse, GetSandboxStatsQueryParams, GetSandboxStats400, GetSandboxStats500 } from '../types/GetSandboxStats.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
-import { getSandboxStats } from '../clients/getSandboxStats.ts'
+import type { GetSandboxStatsQueryResponse, GetSandboxStatsQueryParams, GetSandboxStats400, GetSandboxStats500 } from '../types/GetSandboxStats.ts'
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
+import { getSandboxStats } from '../clients/getSandboxStats.ts'
 
 export const getSandboxStatsSuspenseQueryKey = (params: GetSandboxStatsQueryParams) =>
   [{ url: '/api/v1/sandboxes/stats' }, ...(params ? [params] : [])] as const

@@ -4,6 +4,8 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
+import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
+import type { UseMutationOptions, QueryClient } from '@tanstack/react-query'
 import type {
   UpdateContractTemplateByIDMutationRequest,
   UpdateContractTemplateByIDMutationResponse,
@@ -12,10 +14,8 @@ import type {
   UpdateContractTemplateByID404,
   UpdateContractTemplateByID500,
 } from '../types/UpdateContractTemplateByID.ts'
-import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
-import type { UseMutationOptions, QueryClient } from '@tanstack/react-query'
-import { updateContractTemplateByID } from '../clients/updateContractTemplateByID.ts'
 import { useMutation } from '@tanstack/react-query'
+import { updateContractTemplateByID } from '../clients/updateContractTemplateByID.ts'
 
 export const updateContractTemplateByIDMutationKey = () => [{ url: '/api/v1/contract-templates/:id' }] as const
 

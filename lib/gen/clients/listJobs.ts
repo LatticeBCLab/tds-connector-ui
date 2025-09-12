@@ -4,8 +4,8 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { ListJobsQueryResponse, ListJobsQueryParams, ListJobs400, ListJobs500 } from '../types/ListJobs.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
+import type { ListJobsQueryResponse, ListJobsQueryParams, ListJobs400, ListJobs500 } from '../types/ListJobs.ts'
 
 function getListJobsUrl() {
   const res = { method: 'GET', url: `/tdsc/api/v1/jobs/pagination` as const }

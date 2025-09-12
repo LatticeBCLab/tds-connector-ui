@@ -4,8 +4,8 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { GetAllDataSpacesQueryResponse, GetAllDataSpaces500 } from '../types/GetAllDataSpaces.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
+import type { GetAllDataSpacesQueryResponse, GetAllDataSpaces500 } from '../types/GetAllDataSpaces.ts'
 
 function getGetAllDataSpacesUrl() {
   const res = { method: 'GET', url: `/tdsc/api/v1/dataspaces/all` as const }

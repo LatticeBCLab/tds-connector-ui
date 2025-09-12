@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/card";
 import { ModelsBlockChain, useGetBlockchain } from "@/lib/gen";
 import { LinkIcon, Shield } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { EmptyState } from "../shared/EmptyState";
 import { Spinner } from "../ui/spinner";
 
@@ -17,6 +18,7 @@ interface MainChainCardProps {
 }
 
 function MainChainRealCard({ id }: { id: number }) {
+  const t = useTranslations("Settings.blockchain");
   const { data: chainData, isLoading } = useGetBlockchain(id);
 
   if (isLoading) {
@@ -25,14 +27,14 @@ function MainChainRealCard({ id }: { id: number }) {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Shield className="h-5 w-5" />
-            Main Chain (Identity Chain)
+            {t("mainChainIdentityChain")}
           </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="flex flex-col items-center gap-3 p-6">
             <Spinner variant="bars" />
             <p className="text-muted-foreground text-sm">
-              Loading main chain...
+              {t("loadingMainChain")}
             </p>
           </div>
         </CardContent>
@@ -48,10 +50,10 @@ function MainChainRealCard({ id }: { id: number }) {
             <div>
               <CardTitle className="flex items-center gap-2">
                 <Shield className="h-5 w-5" />
-                Main Chain (Identity Chain)
+                {t("mainChainIdentityChain")}
               </CardTitle>
               <CardDescription>
-                DID registration and identity verification
+                {t("didRegistrationAndVerification")}
               </CardDescription>
             </div>
           </div>
@@ -65,26 +67,26 @@ function MainChainRealCard({ id }: { id: number }) {
                 </div>
                 <div className="grid grid-cols-2 gap-4 text-sm">
                   <div>
-                    <span className="text-muted-foreground">Chain ID:</span>
+                    <span className="text-muted-foreground">{t("chainId")}:</span>
                     <p className="font-medium">{chainData.id}</p>
                   </div>
                   <div>
                     <span className="text-muted-foreground">
-                      Consensus Nodes:
+                      {t("consensusNodes")}:
                     </span>
                     <p className="font-medium">{chainData.consensusNodes}</p>
                   </div>
                   <div>
-                    <span className="text-muted-foreground">Block Height:</span>
+                    <span className="text-muted-foreground">{t("blockHeight")}:</span>
                     <p className="font-medium">{chainData.height}</p>
                   </div>
                   <div>
-                    <span className="text-muted-foreground">Purpose:</span>
+                    <span className="text-muted-foreground">{t("purpose")}:</span>
                     <p className="font-medium">{chainData.purpose}</p>
                   </div>
                 </div>
                 <div>
-                  <span className="text-muted-foreground">Description:</span>
+                  <span className="text-muted-foreground">{t("description")}:</span>
                   <p className="mt-1 text-sm">{chainData.description}</p>
                 </div>
               </div>
@@ -92,7 +94,7 @@ function MainChainRealCard({ id }: { id: number }) {
 
             {/* Main Chain Recent Transactions */}
             <div>
-              <h5 className="mb-3 font-medium">Recent Transactions</h5>
+              <h5 className="mb-3 font-medium">{t("recentTransactions")}</h5>
               <div className="space-y-2">
                 {(chainData.recentTransactions || []).slice(0, 3).map((tx) => (
                   <div
@@ -121,20 +123,22 @@ function MainChainRealCard({ id }: { id: number }) {
 }
 
 export function MainChainCard({ mainChain }: MainChainCardProps) {
+  const t = useTranslations("Settings.blockchain");
+  
   if (!mainChain || !mainChain.id) {
     return (
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Shield className="h-5 w-5" />
-            Main Chain (Identity Chain)
+            {t("mainChainIdentityChain")}
           </CardTitle>
         </CardHeader>
         <CardContent>
           <EmptyState
             icon={LinkIcon}
-            title="No main chain found"
-            description="No main chain found"
+            title={t("noMainChainFound")}
+            description={t("noMainChainFound")}
           />
         </CardContent>
       </Card>

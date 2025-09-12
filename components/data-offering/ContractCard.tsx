@@ -116,8 +116,8 @@ export function ContractCard({
   } = useGetContractListByDataspaceAndProvider(
     {
       page,
-      dataspace: currentDataSpaceId || "",
       page_size: pageSize,
+      dataspace: currentDataSpaceId || "",
       provider: userDID || "",
     },
     {

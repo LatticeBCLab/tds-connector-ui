@@ -4,6 +4,7 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
+import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type {
   GetResourceListByDataspaceQueryResponse,
   GetResourceListByDataspacePathParams,
@@ -11,7 +12,6 @@ import type {
   GetResourceListByDataspace400,
   GetResourceListByDataspace500,
 } from '../types/GetResourceListByDataspace.ts'
-import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 function getGetResourceListByDataspaceUrl(dataspace: GetResourceListByDataspacePathParams['dataspace']) {
   const res = { method: 'GET', url: `/tdsc/api/v1/dataspaces/${dataspace}/resources/list` as const }

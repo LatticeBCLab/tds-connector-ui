@@ -4,11 +4,11 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { CreateJobMutationRequest, CreateJobMutationResponse, CreateJob400, CreateJob500 } from '../types/CreateJob.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { UseMutationOptions, QueryClient } from '@tanstack/react-query'
-import { createJob } from '../clients/createJob.ts'
+import type { CreateJobMutationRequest, CreateJobMutationResponse, CreateJob400, CreateJob500 } from '../types/CreateJob.ts'
 import { useMutation } from '@tanstack/react-query'
+import { createJob } from '../clients/createJob.ts'
 
 export const createJobMutationKey = () => [{ url: '/api/v1/jobs/create' }] as const
 

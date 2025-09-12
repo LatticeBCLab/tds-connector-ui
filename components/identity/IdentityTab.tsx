@@ -896,10 +896,10 @@ export function IdentityTab() {
               <Card className="border-border border">
                 <CardHeader className="border-b border-gray-200 pb-6">
                   <CardTitle className="text-xl font-bold md:text-2xl">
-                    Trusted Terminal
+                    {t("terminal.title")}
                   </CardTitle>
                   <CardDescription className="text-muted-foreground">
-                    Trusted computing terminal information
+                    {t("terminal.description")}
                   </CardDescription>
                 </CardHeader>
 
@@ -908,7 +908,7 @@ export function IdentityTab() {
                   <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                     <div>
                       <p className="text-muted-foreground mb-1 text-sm">
-                        Terminal DID
+                        {t("terminal.DID")}
                       </p>
                       <div className="flex items-center gap-2">
                         <code className="bg-muted line-clamp-1 flex-grow rounded-lg font-mono text-sm break-all">
@@ -934,7 +934,7 @@ export function IdentityTab() {
 
                     <div>
                       <p className="text-muted-foreground mb-1 text-sm">
-                        Terminal Name
+                        {t("terminal.name")}
                       </p>
                       <div className="bg-muted rounded-lg">
                         <span className="font-medium">
@@ -945,7 +945,7 @@ export function IdentityTab() {
 
                     <div>
                       <p className="text-muted-foreground mb-1 text-sm">
-                        Version
+                        {t("terminal.version")}
                       </p>
                       <div className="bg-muted rounded-lg">
                         <span className="font-medium">
@@ -956,7 +956,7 @@ export function IdentityTab() {
 
                     <div>
                       <p className="text-muted-foreground mb-1 text-sm">
-                        Status
+                        {t("terminal.status")}
                       </p>
                       <div className="bg-muted rounded-lg">
                         <span className="flex items-center gap-1 font-medium text-green-600">
@@ -979,7 +979,7 @@ export function IdentityTab() {
 
                     <div>
                       <p className="text-muted-foreground mb-1 text-sm">
-                        Service Endpoint
+                        {t("terminal.endpoint")}
                       </p>
                       <div className="bg-muted rounded-lg">
                         <a

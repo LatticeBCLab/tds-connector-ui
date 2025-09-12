@@ -4,6 +4,7 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
+import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type {
   CompleteJobMutationRequest,
   CompleteJobMutationResponse,
@@ -12,7 +13,6 @@ import type {
   CompleteJob404,
   CompleteJob500,
 } from '../types/CompleteJob.ts'
-import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 function getCompleteJobUrl(id: CompleteJobPathParams['id']) {
   const res = { method: 'POST', url: `/tdsc/api/v1/jobs/${id}/complete` as const }

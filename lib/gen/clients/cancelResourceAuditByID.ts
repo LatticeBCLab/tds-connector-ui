@@ -4,6 +4,7 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
+import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type {
   CancelResourceAuditByIDMutationResponse,
   CancelResourceAuditByIDPathParams,
@@ -11,7 +12,6 @@ import type {
   CancelResourceAuditByID404,
   CancelResourceAuditByID500,
 } from '../types/CancelResourceAuditByID.ts'
-import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 function getCancelResourceAuditByIDUrl(id: CancelResourceAuditByIDPathParams['id']) {
   const res = { method: 'POST', url: `/tdsc/api/v1/resource-audits/${id}/cancel` as const }

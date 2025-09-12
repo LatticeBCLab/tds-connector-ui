@@ -4,11 +4,11 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { DeleteJobMutationResponse, DeleteJobPathParams, DeleteJob400, DeleteJob404, DeleteJob500 } from '../types/DeleteJob.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { UseMutationOptions, QueryClient } from '@tanstack/react-query'
-import { deleteJob } from '../clients/deleteJob.ts'
+import type { DeleteJobMutationResponse, DeleteJobPathParams, DeleteJob400, DeleteJob404, DeleteJob500 } from '../types/DeleteJob.ts'
 import { useMutation } from '@tanstack/react-query'
+import { deleteJob } from '../clients/deleteJob.ts'
 
 export const deleteJobMutationKey = () => [{ url: '/api/v1/jobs/:id' }] as const
 

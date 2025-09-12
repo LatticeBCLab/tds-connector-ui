@@ -4,8 +4,8 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { CreateTerminalMutationRequest, CreateTerminalMutationResponse, CreateTerminal400, CreateTerminal500 } from '../types/CreateTerminal.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
+import type { CreateTerminalMutationRequest, CreateTerminalMutationResponse, CreateTerminal400, CreateTerminal500 } from '../types/CreateTerminal.ts'
 
 function getCreateTerminalUrl() {
   const res = { method: 'POST', url: `/tdsc/api/v1/terminals` as const }

@@ -4,11 +4,11 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { GetI18nByIDQueryResponse, GetI18nByIDPathParams, GetI18nByID400, GetI18nByID404, GetI18nByID500 } from '../types/GetI18nByID.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
-import { getI18nByID } from '../clients/getI18nByID.ts'
+import type { GetI18nByIDQueryResponse, GetI18nByIDPathParams, GetI18nByID400, GetI18nByID404, GetI18nByID500 } from '../types/GetI18nByID.ts'
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
+import { getI18nByID } from '../clients/getI18nByID.ts'
 
 export const getI18nByIDSuspenseQueryKey = (id: GetI18nByIDPathParams['id']) => [{ url: '/api/v1/i18n/:id', params: { id: id } }] as const
 

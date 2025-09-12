@@ -4,11 +4,11 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { GetPingQueryResponse } from '../types/GetPing.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
-import { getPing } from '../clients/getPing.ts'
+import type { GetPingQueryResponse } from '../types/GetPing.ts'
 import { queryOptions, useQuery } from '@tanstack/react-query'
+import { getPing } from '../clients/getPing.ts'
 
 export const getPingQueryKey = () => [{ url: '/ping' }] as const
 

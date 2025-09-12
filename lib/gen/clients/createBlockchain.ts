@@ -4,8 +4,8 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { CreateBlockchainMutationRequest, CreateBlockchainMutationResponse, CreateBlockchain400, CreateBlockchain500 } from '../types/CreateBlockchain.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
+import type { CreateBlockchainMutationRequest, CreateBlockchainMutationResponse, CreateBlockchain400, CreateBlockchain500 } from '../types/CreateBlockchain.ts'
 
 function getCreateBlockchainUrl() {
   const res = { method: 'POST', url: `/tdsc/api/v1/blockchains` as const }

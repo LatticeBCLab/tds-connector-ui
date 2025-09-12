@@ -6,8 +6,10 @@ import { MetricCard } from "@/components/shared";
 import { useDataSpace } from "@/lib/contexts/DataSpaceContext";
 import { useGetBlockchainByDataSpace } from "@/lib/gen";
 import { Database, Network, Shield } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 export function BlockchainTab() {
+  const t = useTranslations("Settings.blockchain");
   const { currentDataSpace } = useDataSpace();
 
   const { data: blockchainNetworks = [] } = useGetBlockchainByDataSpace(
@@ -26,23 +28,23 @@ export function BlockchainTab() {
       {/* Overview Cards */}
       <div className="grid gap-4 md:grid-cols-3">
         <MetricCard
-          title="Main Chain"
-          value={mainChain ? "Connected" : "Disconnected"}
-          description="Identity Chain (DID)"
+          title={t("mainChain")}
+          value={mainChain ? t("connected") : t("disconnected")}
+          description={t("identityChain")}
           icon={Shield}
           variant="primary"
         />
         <MetricCard
-          title="Sub Chains"
+          title={t("subChains")}
           value={subChains.length}
-          description={`${subChains.length} Connected`}
+          description={`${subChains.length} ${t("connected")}`}
           icon={Database}
           variant="secondary"
         />
         <MetricCard
-          title="Data Space"
-          value={currentDataSpace?.name || "No data space"}
-          description="Current environment"
+          title={t("dataSpace")}
+          value={currentDataSpace?.name || t("noDataSpace")}
+          description={t("currentEnvironment")}
           icon={Network}
         />
       </div>

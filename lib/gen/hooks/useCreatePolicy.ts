@@ -4,11 +4,11 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { CreatePolicyMutationRequest, CreatePolicyMutationResponse, CreatePolicy400, CreatePolicy500 } from '../types/CreatePolicy.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { UseMutationOptions, QueryClient } from '@tanstack/react-query'
-import { createPolicy } from '../clients/createPolicy.ts'
+import type { CreatePolicyMutationRequest, CreatePolicyMutationResponse, CreatePolicy400, CreatePolicy500 } from '../types/CreatePolicy.ts'
 import { useMutation } from '@tanstack/react-query'
+import { createPolicy } from '../clients/createPolicy.ts'
 
 export const createPolicyMutationKey = () => [{ url: '/api/v1/policy' }] as const
 

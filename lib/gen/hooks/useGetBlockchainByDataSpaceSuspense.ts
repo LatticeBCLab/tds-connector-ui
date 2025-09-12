@@ -4,6 +4,8 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
+import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
+import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
 import type {
   GetBlockchainByDataSpaceQueryResponse,
   GetBlockchainByDataSpacePathParams,
@@ -11,10 +13,8 @@ import type {
   GetBlockchainByDataSpace404,
   GetBlockchainByDataSpace500,
 } from '../types/GetBlockchainByDataSpace.ts'
-import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
-import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
-import { getBlockchainByDataSpace } from '../clients/getBlockchainByDataSpace.ts'
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
+import { getBlockchainByDataSpace } from '../clients/getBlockchainByDataSpace.ts'
 
 export const getBlockchainByDataSpaceSuspenseQueryKey = (data_space_id: GetBlockchainByDataSpacePathParams['data_space_id']) =>
   [{ url: '/api/v1/blockchains/dataspace/:data_space_id', params: { data_space_id: data_space_id } }] as const

@@ -12,6 +12,7 @@ import { Progress } from "@/components/ui/progress";
 import { cn } from "@/lib/utils";
 import { AlertCircle, CheckCircle, Clock, Loader2, Pause, Play, X } from "lucide-react";
 import { useEffect, useState } from "react";
+import { useTranslations } from 'next-intl';
 
 export interface AuditStage {
   id: string;
@@ -27,25 +28,25 @@ interface AuditProgressDialogProps {
   onComplete?: () => void;
 }
 
-const AUDIT_STAGES: AuditStage[] = [
+const getAuditStages = (t: any): AuditStage[] => [
   {
     id: "sensitivity",
-    name: "Sensitivity Check",
-    description: "Check sensitive information and classification in data",
+    name: t('sensitivityCheck'),
+    description: t('sensitivityCheckDescription'),
     status: "pending",
     progress: 0,
   },
   {
     id: "privacy",
-    name: "Personal Information Check",
-    description: "Identify and verify personal privacy data",
+    name: t('personalInfoCheck'),
+    description: t('personalInfoCheckDescription'),
     status: "pending",
     progress: 0,
   },
   {
     id: "compliance",
-    name: "Compliance Check",
-    description: "Verify regulatory and policy compliance",
+    name: t('complianceCheck'),
+    description: t('complianceCheckDescription'),
     status: "pending",
     progress: 0,
   },
@@ -56,7 +57,8 @@ export function AuditProgressDialog({
   onOpenChange,
   onComplete,
 }: AuditProgressDialogProps) {
-  const [stages, setStages] = useState<AuditStage[]>(AUDIT_STAGES);
+  const t = useTranslations('Monitoring.AuditProgressDialog');
+  const [stages, setStages] = useState<AuditStage[]>(getAuditStages(t));
   const [currentStageIndex, setCurrentStageIndex] = useState(-1);
   const [isRunning, setIsRunning] = useState(false);
 
@@ -64,7 +66,7 @@ export function AuditProgressDialog({
     setIsRunning(true);
     setCurrentStageIndex(0);
     setStages(
-      AUDIT_STAGES.map((stage) => ({
+      getAuditStages(t).map((stage) => ({
         ...stage,
         status: "pending",
         progress: 0,
@@ -168,9 +170,9 @@ export function AuditProgressDialog({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-2xl">
         <DialogHeader>
-          <DialogTitle>Data Audit</DialogTitle>
+          <DialogTitle>{t('dataAudit')}</DialogTitle>
           <DialogDescription>
-            Performing comprehensive audit checks on system data
+            {t('dataAuditDescription')}
           </DialogDescription>
         </DialogHeader>
 
@@ -227,22 +229,22 @@ export function AuditProgressDialog({
               <>
                 <Button variant="outline" onClick={() => onOpenChange(false)}>
                   <X className="size-4" />
-                  Close
+                  {t('close')}
                 </Button>
                 <Button onClick={startAudit}>
                   <Play className="size-4" />
-                  Start
+                  {t('start')}
                 </Button>
               </>
             ) : (
               <>
                 <Button variant="outline" onClick={stopAudit}>
                   <Pause className="size-4" />
-                  Stop
+                  {t('stop')}
                 </Button>
                 <Button variant="secondary" disabled>
                   <Loader2 className="size-4 animate-spin" />
-                  Auditing
+                  {t('auditing')}
                 </Button>
               </>
             )}

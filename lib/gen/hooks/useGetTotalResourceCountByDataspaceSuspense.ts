@@ -4,6 +4,8 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
+import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
+import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
 import type {
   GetTotalResourceCountByDataspaceQueryResponse,
   GetTotalResourceCountByDataspacePathParams,
@@ -11,10 +13,8 @@ import type {
   GetTotalResourceCountByDataspace400,
   GetTotalResourceCountByDataspace500,
 } from '../types/GetTotalResourceCountByDataspace.ts'
-import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
-import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
-import { getTotalResourceCountByDataspace } from '../clients/getTotalResourceCountByDataspace.ts'
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
+import { getTotalResourceCountByDataspace } from '../clients/getTotalResourceCountByDataspace.ts'
 
 export const getTotalResourceCountByDataspaceSuspenseQueryKey = (
   dataspace: GetTotalResourceCountByDataspacePathParams['dataspace'],
