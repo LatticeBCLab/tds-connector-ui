@@ -9,14 +9,18 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Progress } from "@/components/ui/progress";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useGetSandbox } from "@/lib/gen";
-import { Activity, ShieldCheck } from "lucide-react";
+import { useApproveJob } from "@/lib/gen/hooks/useApproveJob";
+import { useCreateResource } from "@/lib/gen/hooks/useCreateResource";
+import { useAppStore } from "@/lib/stores/app-store";
+import { Activity, Download } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
+import { toast } from "sonner";
 import { Button } from "../ui/button";
 import { CreateJobDialog } from "./CreateJobDialog";
-import { JobAuditDialog } from "./JobAuditDialog";
 
 // 定义Job的数据类型
 interface Job {
@@ -62,32 +66,108 @@ export function DataProcessingJobsCard({
   onJobCreated,
 }: DataProcessingJobsCardProps) {
   const t = useTranslations("Sandbox.DataProcessingJobsCard");
-  const [isAuditDialogOpen, setIsAuditDialogOpen] = useState(false);
-  const [selectedJob, setSelectedJob] = useState<Job | null>(null);
+  const { currentDataSpaceId } = useAppStore();
+  const [processingJobId, setProcessingJobId] = useState<string | null>(null);
+  const [auditProgress, setAuditProgress] = useState(0);
+  const [downloadProgress, setDownloadProgress] = useState(0);
+  const [currentStep, setCurrentStep] = useState<
+    "idle" | "approving" | "downloading" | "completed"
+  >("idle");
 
-  console.log("jobs", jobs);
+  const approveJobMutation = useApproveJob();
+  const createResourceMutation = useCreateResource();
 
-  // 处理审核按钮点击
-  const handleAuditClick = (job: Job) => {
-    setSelectedJob(job);
-    setIsAuditDialogOpen(true);
-  };
+  const handleAuditClick = async (job: Job) => {
+    try {
+      setProcessingJobId(job.id);
+      setCurrentStep("approving");
+      setAuditProgress(0);
+      setDownloadProgress(0);
 
-  // 审核成功后的回调
-  const handleAuditSuccess = () => {
-    setSelectedJob(null);
-    onJobCreated?.(); // 刷新数据
-  };
+      // Step 1: Approve the job with progress simulation
+      const approveInterval = setInterval(() => {
+        setAuditProgress((prev) => {
+          if (prev >= 90) {
+            clearInterval(approveInterval);
+            return 90;
+          }
+          return prev + 5;
+        });
+      }, 500);
 
-  // 格式化数据大小显示
-  const formatDataSize = (sizeInMb: number) => {
-    if (sizeInMb >= 1024) {
-      return `${(sizeInMb / 1024).toFixed(1)} GB`;
+      await approveJobMutation.mutateAsync({ id: job.id });
+      clearInterval(approveInterval);
+      setAuditProgress(100);
+
+      // Wait a moment before starting resource creation
+      await new Promise((resolve) => setTimeout(resolve, 500));
+
+      // Step 2: Create resource with progress simulation
+      setCurrentStep("downloading");
+      const downloadInterval = setInterval(() => {
+        setDownloadProgress((prev) => {
+          if (prev >= 90) {
+            clearInterval(downloadInterval);
+            return 90;
+          }
+          return prev + 5;
+        });
+      }, 600);
+
+      // Get resource details for the new resource
+      const { getResourceByID } = await import(
+        "@/lib/gen/clients/getResourceByID"
+      );
+      const resourceData = await getResourceByID(job.resourceId);
+
+      const location = process.env.NEXT_PUBLIC_LOCATION;
+      const publisher = process.env.NEXT_PUBLIC_USER_DID || "";
+      const originCountry = resourceData?.originCountry;
+
+      // Generate random config for LocalFile type
+      const config = {
+        filePath: `/data/processed/${job.name.replace(/\s+/g, "_")}_${Date.now()}.json`,
+        format: "JSON",
+        fileSize: Math.floor(Math.random() * 50000000) + 1000000, // 1MB to 50MB
+      };
+
+      const newResourceData = {
+        config,
+        dataspace: currentDataSpaceId || "",
+        description: job.description,
+        location: location as any,
+        originCountry: originCountry as any,
+        publisher,
+        status: "Active" as any,
+        title: job.name,
+        type: "LocalFile" as any,
+      };
+
+      await createResourceMutation.mutateAsync({ data: newResourceData });
+      clearInterval(downloadInterval);
+      setDownloadProgress(100);
+
+      setCurrentStep("completed");
+      toast.success("Job approved and resource created successfully");
+
+      // Reset after 2 seconds
+      setTimeout(() => {
+        setProcessingJobId(null);
+        setCurrentStep("idle");
+        setAuditProgress(0);
+        setDownloadProgress(0);
+        onJobCreated?.();
+      }, 2000);
+    } catch (error) {
+      console.error("Error processing job:", error);
+      toast.error("Failed to process job");
+      setProcessingJobId(null);
+      setCurrentStep("idle");
+      setAuditProgress(0);
+      setDownloadProgress(0);
     }
-    return `${sizeInMb} MB`;
   };
 
-  // 计算任务持续时间
   const getJobDuration = (startedAt: string | null, endedAt: string | null) => {
     if (!startedAt) return null;
     const start = new Date(startedAt);
@@ -163,40 +243,50 @@ export function DataProcessingJobsCard({
                             </span>
                           )}
                         </div>
-                        {/* <div>Input: {formatDataSize(job.inputDataSize)}</div>
-                        {job.outputDataSize > 0 && (
-                          <div>
-                            Output: {formatDataSize(job.outputDataSize)}
-                          </div>
-                        )} */}
                         {job.errorMessage && (
                           <div className="text-red-600">
                             Error: {job.errorMessage}
                           </div>
                         )}
                       </div>
+
+                      {/* Progress bars for current processing job */}
+                      {processingJobId === job.id && (
+                        <div className="mt-3 space-y-2">
+                          {currentStep === "approving" && (
+                            <div className="space-y-1">
+                              <div className="flex justify-between text-xs">
+                                <span>Approving Job...</span>
+                                <span>{auditProgress}%</span>
+                              </div>
+                              <Progress value={auditProgress} className="h-2" />
+                            </div>
+                          )}
+                          {currentStep === "downloading" && (
+                            <div className="space-y-1">
+                              <div className="flex justify-between text-xs">
+                                <span>Creating Resource...</span>
+                                <span>{downloadProgress}%</span>
+                              </div>
+                              <Progress
+                                value={downloadProgress}
+                                className="h-2"
+                              />
+                            </div>
+                          )}
+                          {currentStep === "completed" && (
+                            <div className="space-y-1">
+                              <div className="flex justify-between text-xs text-green-600">
+                                <span>Completed Successfully!</span>
+                                <span>100%</span>
+                              </div>
+                              <Progress value={100} className="h-2" />
+                            </div>
+                          )}
+                        </div>
+                      )}
                     </div>
                     <div className="flex items-center space-x-1">
-                      {/* {(job.status === "pending" ||
-                        job.status === "queued") && (
-                        <Button
-                          size="sm"
-                          variant="outline"
-                          onClick={() => runJob(job.id)}
-                          title="运行任务"
-                        >
-                          <Play className="h-4 w-4" />
-                        </Button>
-                      )}
-                      <Button variant="ghost" size="sm" title="查看详情">
-                        <Eye className="h-4 w-4" />
-                      </Button>
-                      <Button variant="ghost" size="sm" title="编辑任务">
-                        <Edit className="h-4 w-4" />
-                      </Button>
-                      <Button variant="ghost" size="sm" title="删除任务">
-                        <Trash2 className="h-4 w-4" />
-                      </Button> */}
                       {job.status === "completed" &&
                         job.auditStatus !== "APPROVED" && (
                           <Button
@@ -204,8 +294,9 @@ export function DataProcessingJobsCard({
                             size="sm"
                             title="Audit"
                             onClick={() => handleAuditClick(job)}
+                            disabled={processingJobId === job.id}
                           >
-                            <ShieldCheck className="h-4 w-4" />
+                            <Download className="h-4 w-4" />
                           </Button>
                         )}
                     </div>
@@ -224,21 +315,6 @@ export function DataProcessingJobsCard({
           </div>
         </ScrollArea>
       </CardContent>
-
-      {/* Job Audit Dialog */}
-      {selectedJob && (
-        <JobAuditDialog
-          open={isAuditDialogOpen}
-          onOpenChange={setIsAuditDialogOpen}
-          job={{
-            id: selectedJob.id,
-            name: selectedJob.name,
-            description: selectedJob.description,
-            resource_id: selectedJob.resourceId,
-          }}
-          onSuccess={handleAuditSuccess}
-        />
-      )}
     </Card>
   );
 }

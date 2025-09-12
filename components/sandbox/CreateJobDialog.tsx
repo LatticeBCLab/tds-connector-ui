@@ -21,11 +21,11 @@ import { modelsJobStatus } from "@/lib/gen/types/models/JobStatus";
 import { useAppStore } from "@/lib/stores/app-store";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Plus } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
-import { useTranslations } from "next-intl";
 
 // Form validation schema
 const createJobSchema = z.object({
@@ -45,7 +45,7 @@ interface CreateJobDialogProps {
 }
 
 export function CreateJobDialog({ trigger, onSuccess }: CreateJobDialogProps) {
-  const t = useTranslations('Sandbox.CreateJobDialog');
+  const t = useTranslations("Sandbox.CreateJobDialog");
   const [open, setOpen] = useState(false);
   const { currentDataSpace } = useDataSpace();
 
@@ -77,16 +77,20 @@ export function CreateJobDialog({ trigger, onSuccess }: CreateJobDialogProps) {
   });
 
   // Get connector DID from environment variable (same as other components)
-  const { data: sandboxesData, isLoading: sandboxesLoading } = useListSandboxes({
-    connector_did: process.env.NEXT_PUBLIC_CONNECTOR_DID || "",
-  });
+  const { data: sandboxesData, isLoading: sandboxesLoading } = useListSandboxes(
+    {
+      connector_did: process.env.NEXT_PUBLIC_CONNECTOR_DID || "",
+    }
+  );
 
-  const { currentDataSpaceId } = useAppStore();
-  const { data: resourcesData, isLoading: resourcesLoading } = useGetResourceListByDataspaceAndPublisher({
-    page: 1,
-    page_size: 100,
-    dataspace: currentDataSpaceId || "",
-  });
+  const { currentDataSpaceId, userDID } = useAppStore();
+  const { data: resourcesData, isLoading: resourcesLoading } =
+    useGetResourceListByDataspaceAndPublisher({
+      page: 1,
+      page_size: 100,
+      dataspace: currentDataSpaceId || "",
+      publisher: userDID || "",
+    });
   console.log(resourcesData);
 
   const createJobMutation = useCreateJob({
@@ -106,7 +110,9 @@ export function CreateJobDialog({ trigger, onSuccess }: CreateJobDialogProps) {
 
   // Get connector DID from selected sandbox
   const selectedSandbox = useMemo(() => {
-    return sandboxesData?.data?.find((sandbox: any) => sandbox.id === selectedSandboxId);
+    return sandboxesData?.data?.find(
+      (sandbox: any) => sandbox.id === selectedSandboxId
+    );
   }, [sandboxesData, selectedSandboxId]);
 
   const onSubmit = async (data: CreateJobFormData) => {
@@ -127,7 +133,7 @@ export function CreateJobDialog({ trigger, onSuccess }: CreateJobDialogProps) {
           connectorDid: selectedSandbox.connectorDid,
           configuration: "{}", // Default empty configuration
           inputDataSize: 0, // Default value
-          status: modelsJobStatus.JobStatusPending, // Default status
+          status: modelsJobStatus.JobStatusRunning, // Default status
         },
       });
     } catch (error) {
@@ -138,27 +144,27 @@ export function CreateJobDialog({ trigger, onSuccess }: CreateJobDialogProps) {
   const defaultTrigger = (
     <Button size="sm" variant="secondary">
       <Plus className="h-4 w-4" />
-      {t('newJob')}
+      {t("newJob")}
     </Button>
   );
 
   return (
     <ActionDialog
       trigger={trigger || defaultTrigger}
-      title={t('title')}
-      description={t('description')}
+      title={t("title")}
+      description={t("description")}
       open={open}
       onOpenChange={setOpen}
       maxWidth="lg"
     >
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         <div className="space-y-2">
-          <Label htmlFor="name">{t('jobName')}</Label>
+          <Label htmlFor="name">{t("jobName")}</Label>
           <Input
             id="name"
             className="border-border"
             {...register("name")}
-            placeholder={t('jobNamePlaceholder')}
+            placeholder={t("jobNamePlaceholder")}
           />
           {errors.name && (
             <p className="text-sm text-red-600">{errors.name.message}</p>
@@ -166,12 +172,12 @@ export function CreateJobDialog({ trigger, onSuccess }: CreateJobDialogProps) {
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="description">{t('descriptionLabel')}</Label>
+          <Label htmlFor="description">{t("descriptionLabel")}</Label>
           <Input
             id="description"
             className="border-border"
             {...register("description")}
-            placeholder={t('descriptionPlaceholder')}
+            placeholder={t("descriptionPlaceholder")}
           />
           {errors.description && (
             <p className="text-sm text-red-600">{errors.description.message}</p>
@@ -180,18 +186,18 @@ export function CreateJobDialog({ trigger, onSuccess }: CreateJobDialogProps) {
 
         <div className="grid grid-cols-2 gap-4">
           <div className="space-y-2">
-            <Label htmlFor="app">{t('application')}</Label>
+            <Label htmlFor="app">{t("application")}</Label>
             <Select
               value={watch("appId")}
               onValueChange={(value) => setValue("appId", value)}
             >
-              <SelectTrigger className="border-border">
-                <SelectValue placeholder={t('selectApplication')} />
+              <SelectTrigger className="border-border w-full">
+                <SelectValue placeholder={t("selectApplication")} />
               </SelectTrigger>
               <SelectContent>
                 {appsLoading ? (
                   <SelectItem value="loading" disabled>
-                    {t('loadingApplications')}
+                    {t("loadingApplications")}
                   </SelectItem>
                 ) : (
                   appsData?.data?.map((app: any) => (
@@ -208,18 +214,18 @@ export function CreateJobDialog({ trigger, onSuccess }: CreateJobDialogProps) {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="sandbox">{t('sandboxEnvironment')}</Label>
+            <Label htmlFor="sandbox">{t("sandboxEnvironment")}</Label>
             <Select
               value={watch("sandboxId")}
               onValueChange={(value) => setValue("sandboxId", value)}
             >
-              <SelectTrigger className="border-border">
-                <SelectValue placeholder={t('selectSandbox')} />
+              <SelectTrigger className="border-border w-full">
+                <SelectValue placeholder={t("selectSandbox")} />
               </SelectTrigger>
               <SelectContent>
                 {sandboxesLoading ? (
                   <SelectItem value="loading" disabled>
-                    {t('loadingSandboxes')}
+                    {t("loadingSandboxes")}
                   </SelectItem>
                 ) : (
                   sandboxesData?.data?.map((sandbox: any) => (
@@ -237,21 +243,21 @@ export function CreateJobDialog({ trigger, onSuccess }: CreateJobDialogProps) {
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="resource">{t('dataResource')}</Label>
+          <Label htmlFor="resource">{t("dataResource")}</Label>
           <Select
             value={watch("resourceId")}
             onValueChange={(value) => setValue("resourceId", value)}
           >
             <SelectTrigger className="border-border">
-              <SelectValue placeholder={t('selectDataResource')} />
+              <SelectValue placeholder={t("selectDataResource")} />
             </SelectTrigger>
             <SelectContent>
               {resourcesLoading ? (
                 <SelectItem value="loading" disabled>
-                  {t('loadingResources')}
+                  {t("loadingResources")}
                 </SelectItem>
               ) : (
-                resourcesData?.data?.map((resource: any ) => (
+                resourcesData?.data?.map((resource: any) => (
                   <SelectItem key={resource.id} value={resource.id || ""}>
                     {resource.title}
                   </SelectItem>
@@ -265,16 +271,18 @@ export function CreateJobDialog({ trigger, onSuccess }: CreateJobDialogProps) {
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="script">{t('processingScript')}</Label>
+          <Label htmlFor="script">{t("processingScript")}</Label>
           <Textarea
             id="script"
             {...register("processingScript")}
-            placeholder={t('processingScriptPlaceholder')}
-            className="font-mono text-sm border-border"
+            placeholder={t("processingScriptPlaceholder")}
+            className="border-border font-mono text-sm"
             rows={8}
           />
           {errors.processingScript && (
-            <p className="text-sm text-red-600">{errors.processingScript.message}</p>
+            <p className="text-sm text-red-600">
+              {errors.processingScript.message}
+            </p>
           )}
         </div>
 
@@ -284,10 +292,10 @@ export function CreateJobDialog({ trigger, onSuccess }: CreateJobDialogProps) {
             variant="outline"
             onClick={() => setOpen(false)}
           >
-            {t('cancel')}
+            {t("cancel")}
           </Button>
           <Button type="submit" disabled={isSubmitting}>
-            {isSubmitting ? t('creating') : t('createJob')}
+            {isSubmitting ? t("creating") : t("createJob")}
           </Button>
         </div>
       </form>

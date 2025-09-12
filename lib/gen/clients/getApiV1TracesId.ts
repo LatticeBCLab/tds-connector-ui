@@ -4,7 +4,6 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type {
   GetApiV1TracesIdQueryResponse,
   GetApiV1TracesIdPathParams,
@@ -12,6 +11,7 @@ import type {
   GetApiV1TracesId404,
   GetApiV1TracesId500,
 } from '../types/GetApiV1TracesId.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 function getGetApiV1TracesIdUrl(id: GetApiV1TracesIdPathParams['id']) {
   const res = { method: 'GET', url: `/tdsc/api/v1/traces/${id}` as const }

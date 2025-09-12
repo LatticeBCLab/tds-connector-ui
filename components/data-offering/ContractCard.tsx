@@ -23,7 +23,7 @@ import {
 } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Spinner } from "@/components/ui/spinner";
-import { useGetContractListByDataspaceAndProvider } from "@/lib/gen/hooks/useGetContractListByDataspaceAndProvider";
+import { useGetContractListByProviderAndFromDataSpace } from "@/lib/gen";
 import { useAppStore } from "@/lib/stores/app-store";
 import { cn } from "@/lib/utils";
 import { ContractStatus } from "@/types";
@@ -113,12 +113,13 @@ export function ContractCard({
     isLoading: isLoadingContracts,
     error: contractError,
     refetch: refetchContracts,
-  } = useGetContractListByDataspaceAndProvider(
+  } = useGetContractListByProviderAndFromDataSpace(
     {
       page,
       page_size: pageSize,
-      dataspace: currentDataSpaceId || "",
       provider: userDID || "",
+      from_data_space_id: currentDataSpaceId || "",
+      from_connect_did: process.env.NEXT_PUBLIC_CONNECTOR_DID || "",
     },
     {
       query: {

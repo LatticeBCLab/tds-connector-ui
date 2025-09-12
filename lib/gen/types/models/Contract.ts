@@ -24,6 +24,16 @@ export type ModelsContract = {
    */
   expiresAt?: string
   /**
+   * @description 来源连接DID
+   * @type string | undefined
+   */
+  fromConnectDid?: string
+  /**
+   * @description 来源数据空间ID
+   * @type string | undefined
+   */
+  fromDataSpaceId?: string
+  /**
    * @type string | undefined
    */
   hash?: string
@@ -56,6 +66,16 @@ export type ModelsContract = {
    * @type string | undefined
    */
   resourceId?: string
+  /**
+   * @description 目标连接DID
+   * @type string | undefined
+   */
+  toConnectDid?: string
+  /**
+   * @description 目标数据空间ID
+   * @type string | undefined
+   */
+  toDataSpaceId?: string
   /**
    * @type string | undefined
    */

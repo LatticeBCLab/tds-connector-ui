@@ -243,6 +243,14 @@ export type {
 } from './GetAllConnectorSecurityRatingsExclude.ts'
 export type { GetAllDataSpaces200, GetAllDataSpaces500, GetAllDataSpacesQueryResponse, GetAllDataSpacesQuery } from './GetAllDataSpaces.ts'
 export type {
+  GetApiV1TracesQueryParams,
+  GetApiV1Traces200,
+  GetApiV1Traces400,
+  GetApiV1Traces500,
+  GetApiV1TracesQueryResponse,
+  GetApiV1TracesQuery,
+} from './GetApiV1Traces.ts'
+export type {
   GetApiV1TracesIdPathParams,
   GetApiV1TracesId200,
   GetApiV1TracesId400,
@@ -251,6 +259,24 @@ export type {
   GetApiV1TracesIdQueryResponse,
   GetApiV1TracesIdQuery,
 } from './GetApiV1TracesId.ts'
+export type {
+  GetApiV1TracesIdChainPathParams,
+  GetApiV1TracesIdChain200,
+  GetApiV1TracesIdChain400,
+  GetApiV1TracesIdChain404,
+  GetApiV1TracesIdChain500,
+  GetApiV1TracesIdChainQueryResponse,
+  GetApiV1TracesIdChainQuery,
+} from './GetApiV1TracesIdChain.ts'
+export type {
+  GetApiV1TracesResourceIdPathParams,
+  GetApiV1TracesResourceIdQueryParams,
+  GetApiV1TracesResourceId200,
+  GetApiV1TracesResourceId400,
+  GetApiV1TracesResourceId500,
+  GetApiV1TracesResourceIdQueryResponse,
+  GetApiV1TracesResourceIdQuery,
+} from './GetApiV1TracesResourceId.ts'
 export type { GetAppPathParams, GetApp200, GetApp400, GetApp404, GetApp500, GetAppQueryResponse, GetAppQuery } from './GetApp.ts'
 export type { GetAppStatsQueryParams, GetAppStats200, GetAppStats400, GetAppStats500, GetAppStatsQueryResponse, GetAppStatsQuery } from './GetAppStats.ts'
 export type {
@@ -321,6 +347,14 @@ export type {
   GetContractCountByProviderQuery,
 } from './GetContractCountByProvider.ts'
 export type {
+  GetContractListByConsumerAndToDataSpaceQueryParams,
+  GetContractListByConsumerAndToDataSpace200,
+  GetContractListByConsumerAndToDataSpace400,
+  GetContractListByConsumerAndToDataSpace500,
+  GetContractListByConsumerAndToDataSpaceQueryResponse,
+  GetContractListByConsumerAndToDataSpaceQuery,
+} from './GetContractListByConsumerAndToDataSpace.ts'
+export type {
   GetContractListByDataspacePathParams,
   GetContractListByDataspaceQueryParams,
   GetContractListByDataspace200,
@@ -346,6 +380,14 @@ export type {
   GetContractListByDataspaceAndProviderQueryResponse,
   GetContractListByDataspaceAndProviderQuery,
 } from './GetContractListByDataspaceAndProvider.ts'
+export type {
+  GetContractListByProviderAndFromDataSpaceQueryParams,
+  GetContractListByProviderAndFromDataSpace200,
+  GetContractListByProviderAndFromDataSpace400,
+  GetContractListByProviderAndFromDataSpace500,
+  GetContractListByProviderAndFromDataSpaceQueryResponse,
+  GetContractListByProviderAndFromDataSpaceQuery,
+} from './GetContractListByProviderAndFromDataSpace.ts'
 export type {
   GetContractsByConsumerPathParams,
   GetContractsByConsumerQueryParams,
@@ -449,6 +491,14 @@ export type {
   GetOfferingIdQuery,
 } from './GetOfferingId.ts'
 export type { GetOfferings200, GetOfferings500, GetOfferingsQueryResponse, GetOfferingsQuery } from './GetOfferings.ts'
+export type {
+  GetOwnDataSpacesQueryParams,
+  GetOwnDataSpaces200,
+  GetOwnDataSpaces400,
+  GetOwnDataSpaces500,
+  GetOwnDataSpacesQueryResponse,
+  GetOwnDataSpacesQuery,
+} from './GetOwnDataSpaces.ts'
 export type { GetPing200, GetPingQueryResponse, GetPingQuery } from './GetPing.ts'
 export type {
   GetPolicyByIDPathParams,
@@ -566,24 +616,6 @@ export type {
   GetTotalResourceCountByDataspaceQueryResponse,
   GetTotalResourceCountByDataspaceQuery,
 } from './GetTotalResourceCountByDataspace.ts'
-export type {
-  GetTraceChainPathParams,
-  GetTraceChain200,
-  GetTraceChain400,
-  GetTraceChain404,
-  GetTraceChain500,
-  GetTraceChainQueryResponse,
-  GetTraceChainQuery,
-} from './GetTraceChain.ts'
-export type {
-  GetTracesByResourceIDPathParams,
-  GetTracesByResourceIDQueryParams,
-  GetTracesByResourceID200,
-  GetTracesByResourceID400,
-  GetTracesByResourceID500,
-  GetTracesByResourceIDQueryResponse,
-  GetTracesByResourceIDQuery,
-} from './GetTracesByResourceID.ts'
 export type { GetUserPathParams, GetUser200, GetUser400, GetUser404, GetUser500, GetUserQueryResponse, GetUserQuery } from './GetUser.ts'
 export type {
   GetUserDIDListQueryParams,
@@ -648,6 +680,14 @@ export type {
   ListBlockchainsQuery,
 } from './ListBlockchains.ts'
 export type {
+  ListConnectorsQueryParams,
+  ListConnectors200,
+  ListConnectors400,
+  ListConnectors500,
+  ListConnectorsQueryResponse,
+  ListConnectorsQuery,
+} from './ListConnectors.ts'
+export type {
   ListContractsQueryParams,
   ListContracts200,
   ListContracts400,
@@ -702,7 +742,6 @@ export type {
   ListSandboxesQueryResponse,
   ListSandboxesQuery,
 } from './ListSandboxes.ts'
-export type { ListTracesQueryParams, ListTraces200, ListTraces400, ListTraces500, ListTracesQueryResponse, ListTracesQuery } from './ListTraces.ts'
 export type { ListUsersQueryParams, ListUsers200, ListUsers400, ListUsers500, ListUsersQueryResponse, ListUsersQuery } from './ListUsers.ts'
 export type { ModelsAlert } from './models/Alert.ts'
 export type { ModelsApp } from './models/App.ts'
