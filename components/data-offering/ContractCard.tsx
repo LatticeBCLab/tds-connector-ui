@@ -42,6 +42,7 @@ import {
   Shield,
   WifiOff,
 } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
@@ -68,24 +69,24 @@ const getContractStatusIcon = (status: ContractStatus) => {
 };
 
 // Contract status label mapping
-const getContractStatusLabel = (status: ContractStatus) => {
+const getContractStatusLabel = (status: ContractStatus, t: any) => {
   switch (status) {
     case "active":
-      return "Active";
+      return t("contract.status.active");
     case "transferring":
-      return "Transferring";
+      return t("contract.status.transferring");
     case "in_use":
-      return "In Use";
+      return t("contract.status.in_use");
     case "suspended":
-      return "Suspended";
+      return t("contract.status.suspended");
     case "expired":
-      return "Expired";
+      return t("contract.status.expired");
     case "data_unavailable":
-      return "Data Unavailable";
+      return t("contract.status.data_unavailable");
     case "violated":
-      return "Violated";
+      return t("contract.status.violated");
     default:
-      return "Unknown";
+      return t("contract.status.unknown");
   }
 };
 
@@ -98,6 +99,7 @@ export function ContractCard({
   isAddContractOpen,
   setIsAddContractOpen,
 }: ContractCardProps) {
+  const t = useTranslations("DataOffering");
   const { userDID, currentDataSpaceId } = useAppStore();
 
   // State for pagination
@@ -179,7 +181,7 @@ export function ContractCard({
     return cardSkeleton(
       <div className="flex flex-col items-center gap-3 p-6">
         <Spinner variant="bars" />
-        <p className="text-muted-foreground text-sm">Loading contracts...</p>
+        <p className="text-muted-foreground text-sm">{t("contract.loading")}</p>
       </div>
     );
   }
@@ -187,14 +189,14 @@ export function ContractCard({
   if (contractError) {
     return cardSkeleton(
       <div className="p-6 text-center">
-        <p>Error loading contracts</p>
+        <p>{t("contract.error")}</p>
         <Button
           onClick={() => refetchContracts()}
           variant="outline"
           size="sm"
           className="mt-2"
         >
-          Retry
+          {t("common.retry")}
         </Button>
       </div>
     );
@@ -205,9 +207,9 @@ export function ContractCard({
       <CardHeader>
         <div className="flex items-center justify-between">
           <div>
-            <CardTitle>Data Contract</CardTitle>
+            <CardTitle>{t("contract.title")}</CardTitle>
             <CardDescription>
-              Show the data usage contract information
+              {t("contract.description")}
             </CardDescription>
           </div>
           <CreateContractDialog
@@ -222,8 +224,8 @@ export function ContractCard({
           {allContracts.length === 0 ? (
             <EmptyState
               icon={FileText}
-              title="No contracts found"
-              description="Create a new contract to get started"
+              title={t("contract.empty.title")}
+              description={t("contract.empty.description")}
             />
           ) : (
             <div className="space-y-3">
@@ -255,7 +257,8 @@ export function ContractCard({
                           >
                             <span>
                               {getContractStatusLabel(
-                                displayStatus as ContractStatus
+                                displayStatus as ContractStatus,
+                                t
                               )}
                             </span>
                           </div>
@@ -287,24 +290,23 @@ export function ContractCard({
                             <AlertDialogContent>
                               <AlertDialogHeader>
                                 <AlertDialogTitle>
-                                  Confirm Contract Suspension
+                                  {t("contract.suspend.title")}
                                 </AlertDialogTitle>
                                 <AlertDialogDescription>
                                   {isExpired ? (
                                     <>
-                                      Issues detected with this contract:
-                                      <div>• Contract has expired</div>
+                                      {t("contract.suspend.issuesDetected")}:
+                                      <div>• {t("contract.suspend.contractExpired")}</div>
                                       <br />
-                                      Are you sure you want to suspend this
-                                      contract? This action cannot be undone.
+                                      {t("contract.suspend.confirmExpired")}
                                     </>
                                   ) : (
-                                    "Are you sure you want to suspend this contract? This will immediately stop data access and cannot be undone."
+                                    t("contract.suspend.description")
                                   )}
                                 </AlertDialogDescription>
                               </AlertDialogHeader>
                               <AlertDialogFooter>
-                                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                <AlertDialogCancel>{t("common.cancel")}</AlertDialogCancel>
                                 <AlertDialogAction
                                   className={
                                     isExpired
@@ -318,13 +320,13 @@ export function ContractCard({
                                       contract.id
                                     );
                                     toast.success(
-                                      "Contract suspended successfully"
+                                      t("contract.suspend.success")
                                     );
                                   }}
                                 >
                                   {isExpired
-                                    ? "Force Suspend"
-                                    : "Confirm Suspend"}
+                                    ? t("contract.suspend.forceSuspend")
+                                    : t("contract.suspend.confirm")}
                                 </AlertDialogAction>
                               </AlertDialogFooter>
                             </AlertDialogContent>
@@ -337,7 +339,7 @@ export function ContractCard({
                     <div className="mb-3">
                       <div className="flex justify-between text-xs">
                         <span className="text-muted-foreground">
-                          Contract Address:
+                          {t("contract.fields.contractAddress")}:
                         </span>
                         <span className="text-muted-foreground ml-2 font-mono break-all">
                           {contract.address}
@@ -350,7 +352,7 @@ export function ContractCard({
                       <div className="grid grid-cols-1 gap-2 text-xs">
                         <div className="flex justify-between">
                           <span className="text-muted-foreground">
-                            Provider:
+                            {t("contract.fields.provider")}:
                           </span>
                           <span className="ml-2 truncate font-mono">
                             {contract.provider}
@@ -358,7 +360,7 @@ export function ContractCard({
                         </div>
                         <div className="flex justify-between">
                           <span className="text-muted-foreground">
-                            Consumer:
+                            {t("contract.fields.consumer")}:
                           </span>
                           <span className="ml-2 truncate font-mono">
                             {contract.consumer}
@@ -366,7 +368,7 @@ export function ContractCard({
                         </div>
                         <div className="flex justify-between">
                           <span className="text-muted-foreground">
-                            Resource ID:
+                            {t("contract.fields.resourceId")}:
                           </span>
                           <span className="ml-2 truncate font-mono">
                             {contract.resourceId || "N/A"}
@@ -374,12 +376,12 @@ export function ContractCard({
                         </div>
                         <div>
                           <div className="text-muted-foreground mb-2 text-sm">
-                            Policies:
+                            {t("contract.fields.policies")}:
                           </div>
                           <div className="space-y-1">
                             {contract.policy.length === 0 ? (
                               <div className="text-muted-foreground text-sm">
-                                No Policy
+                                {t("contract.fields.noPolicy")}
                               </div>
                             ) : (
                               contract.policy.map(
@@ -406,15 +408,15 @@ export function ContractCard({
                       <div className="grid grid-cols-3 gap-4 text-xs">
                         <div className="text-center">
                           <div className="text-muted-foreground">
-                            Max Access
+                            {t("contract.fields.maxAccess")}
                           </div>
                           <div className="text-sm font-medium">
-                            {contract.maxAccessCount || "Unlimited"}
+                            {contract.maxAccessCount || t("contract.fields.unlimited")}
                           </div>
                         </div>
                         <div className="text-center">
                           <div className="text-muted-foreground">
-                            Created Date
+                            {t("contract.fields.createdDate")}
                           </div>
                           <div className="text-sm font-medium">
                             {new Date(contract.createdAt).toLocaleDateString()}
@@ -422,7 +424,7 @@ export function ContractCard({
                         </div>
                         <div className="text-center">
                           <div className="text-muted-foreground">
-                            Expiration Date
+                            {t("contract.fields.expirationDate")}
                           </div>
                           <div
                             className={cn(
@@ -441,7 +443,7 @@ export function ContractCard({
                       <div className="mt-3 rounded-md border border-red-200 bg-red-50 p-2">
                         <div className="flex items-center space-x-2 text-xs text-red-800">
                           <AlertTriangle className="h-4 w-4" />
-                          <div>Contract has expired</div>
+                          <div>{t("contract.warning.expired")}</div>
                         </div>
                       </div>
                     )}
@@ -461,10 +463,10 @@ export function ContractCard({
                     {isLoadingContracts ? (
                       <>
                         <Spinner variant="bars" className="mr-2 h-4 w-4" />
-                        Loading...
+                        {t("common.loading")}
                       </>
                     ) : (
-                      "Load More"
+                      t("common.loadMore")
                     )}
                   </Button>
                 </div>
@@ -478,20 +480,22 @@ export function ContractCard({
 }
 
 function cardSkeleton(children: React.ReactNode) {
+  
+  const t = useTranslations("DataOffering");
   return (
     <Card>
       <CardHeader>
         <div className="flex items-center justify-between">
           <div>
-            <CardTitle>Data Contract</CardTitle>
+            <CardTitle>{t("contract.title")}</CardTitle>
             <CardDescription>
-              Show the data usage contract information
+              {t("contract.description")}
             </CardDescription>
           </div>
           <div>
             <Button size="sm">
               <Plus className="h-4 w-4" />
-              Add Contract
+              {t("contract.addContract")}
             </Button>
           </div>
         </div>

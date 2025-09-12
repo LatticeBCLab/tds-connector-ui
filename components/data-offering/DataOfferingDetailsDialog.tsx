@@ -1,7 +1,8 @@
 "use client";
 
-import { StatusBadge } from "@/components/shared";
+import { ActionDialog } from "@/components/shared";
 import { Button } from "@/components/ui/button";
+import { useTranslations } from "next-intl";
 import {
   Dialog,
   DialogClose,
@@ -149,6 +150,7 @@ export function DataOfferingDetailsDialog({
   onOpenChange,
   selectedOffering,
 }: DataOfferingDetailsDialogProps) {
+  const t = useTranslations("dataOfferingDetailsDialog");
   if (!selectedOffering) {
     return null;
   }
@@ -158,7 +160,7 @@ export function DataOfferingDetailsDialog({
       <DialogContent className="flex flex-col gap-0 p-0 sm:max-h-[min(640px,80vh)] sm:max-w-3xl [&>button:last-child]:top-3.5">
         <DialogHeader className="contents space-y-0 text-left">
           <DialogTitle className="border-b px-6 py-4 text-base">
-            Data Details: {selectedOffering.title}
+            {t("title")}: {selectedOffering.title}
           </DialogTitle>
           <div className="overflow-y-auto">
             <DialogDescription asChild>
@@ -167,16 +169,16 @@ export function DataOfferingDetailsDialog({
                   {/* Basic Information */}
                   <div className="space-y-4">
                     <h3 className="text-base font-semibold">
-                      Basic Information
+                      {t("sections.basicInformation")}
                     </h3>
                     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                       <div className="space-y-2">
-                        <Label className="text-muted-foreground">Title</Label>
+                        <Label className="text-muted-foreground">{t("fields.title")}</Label>
                         <p className="text-sm">{selectedOffering.title}</p>
                       </div>
                       <div className="space-y-2">
                         <Label className="text-muted-foreground">
-                          Data Zone Code
+                          {t("fields.dataZoneCode")}
                         </Label>
                         <p className="bg-muted text-muted-foreground/80 rounded px-2 py-1 font-mono text-sm break-all">
                           {selectedOffering.dataZoneCode}
@@ -184,7 +186,7 @@ export function DataOfferingDetailsDialog({
                       </div>
                       <div className="col-span-full space-y-2">
                         <Label className="text-muted-foreground">
-                          Description
+                          {t("fields.description")}
                         </Label>
                         <p className="text-sm">
                           {selectedOffering.description}
@@ -196,12 +198,12 @@ export function DataOfferingDetailsDialog({
                   {/* Status Information */}
                   <div className="space-y-4">
                     <h3 className="text-base font-semibold">
-                      Status Information
+                      {t("sections.statusInformation")}
                     </h3>
                     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                       <div className="space-y-2">
                         <Label className="text-muted-foreground">
-                          Data Status
+                          {t("fields.dataStatus")}
                         </Label>
                         <div>
                           <StatusBadge status={selectedOffering.status} />
@@ -209,7 +211,7 @@ export function DataOfferingDetailsDialog({
                       </div>
                       <div className="space-y-2">
                         <Label className="text-muted-foreground">
-                          Registration Status
+                          {t("fields.registrationStatus")}
                         </Label>
                         <div className="flex items-center space-x-2">
                           {(() => {
@@ -225,7 +227,7 @@ export function DataOfferingDetailsDialog({
                       </div>
                       <div className="space-y-2">
                         <Label className="text-muted-foreground">
-                          Hosting Status
+                          {t("fields.hostingStatus")}
                         </Label>
                         <div className="flex items-center space-x-2">
                           {(() => {
@@ -243,7 +245,7 @@ export function DataOfferingDetailsDialog({
                       </div>
                       <div className="space-y-2">
                         <Label className="text-muted-foreground">
-                          Cross-border Audit
+                          {t("fields.crossBorderAudit")}
                         </Label>
                         <div className="flex items-center space-x-2">
                           {(() => {
@@ -265,12 +267,12 @@ export function DataOfferingDetailsDialog({
                   {/* Storage Information */}
                   <div className="space-y-4">
                     <h3 className="text-base font-semibold">
-                      Storage Information
+                      {t("sections.storageInformation")}
                     </h3>
                     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                       <div className="space-y-2">
                         <Label className="text-muted-foreground">
-                          Storage Location
+                          {t("fields.storageLocation")}
                         </Label>
                         <p className="text-sm break-all">
                           {selectedOffering.storageLocation}
@@ -278,7 +280,7 @@ export function DataOfferingDetailsDialog({
                       </div>
                       <div className="space-y-2">
                         <Label className="text-muted-foreground">
-                          Data Type
+                          {t("fields.dataType")}
                         </Label>
                         <div className="flex items-center space-x-2">
                           {(() => {
@@ -294,7 +296,7 @@ export function DataOfferingDetailsDialog({
                       </div>
                       <div className="col-span-full space-y-2">
                         <Label className="text-muted-foreground">
-                          Access Policy
+                          {t("fields.accessPolicy")}
                         </Label>
                         <p className="text-sm">
                           {selectedOffering.accessPolicy}
@@ -306,12 +308,12 @@ export function DataOfferingDetailsDialog({
                   {/* Traceability Information */}
                   <div className="space-y-4">
                     <h3 className="text-base font-semibold">
-                      Data Traceability Information
+                      {t("sections.traceabilityInformation")}
                     </h3>
                     <div className="space-y-3">
                       <div className="space-y-2">
                         <Label className="text-muted-foreground">
-                          Data Source
+                          {t("fields.dataSource")}
                         </Label>
                         <p className="text-sm break-all">
                           {selectedOffering.traceabilityInfo.dataSource}
@@ -320,7 +322,7 @@ export function DataOfferingDetailsDialog({
                       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                         <div className="space-y-2">
                           <Label className="text-muted-foreground">
-                            Blockchain Main Chain ID
+                            {t("fields.blockchainMainChainId")}
                           </Label>
                           <p className="bg-muted rounded px-2 py-1 font-mono text-xs break-all">
                             {
@@ -331,7 +333,7 @@ export function DataOfferingDetailsDialog({
                         </div>
                         <div className="space-y-2">
                           <Label className="text-muted-foreground">
-                            Owner DID
+                            {t("fields.ownerDID")}
                           </Label>
                           <p className="bg-muted rounded px-2 py-1 font-mono text-xs break-all">
                             {selectedOffering.traceabilityInfo.ownerDID}
@@ -340,7 +342,7 @@ export function DataOfferingDetailsDialog({
                       </div>
                       <div className="space-y-2">
                         <Label className="text-muted-foreground">
-                          Traceability Hash
+                          {t("fields.traceabilityHash")}
                         </Label>
                         <p className="bg-muted rounded px-2 py-1 font-mono text-xs break-all">
                           {selectedOffering.traceabilityInfo.traceabilityHash}
@@ -351,11 +353,11 @@ export function DataOfferingDetailsDialog({
 
                   {/* Metadata */}
                   <div className="space-y-4">
-                    <h3 className="text-base font-semibold">Metadata</h3>
+                    <h3 className="text-base font-semibold">{t("sections.metadata")}</h3>
                     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                       <div className="space-y-2">
                         <Label className="text-muted-foreground">
-                          Created Date
+                          {t("fields.createdDate")}
                         </Label>
                         <p className="text-sm">
                           {new Date(
@@ -364,7 +366,7 @@ export function DataOfferingDetailsDialog({
                         </p>
                       </div>
                       <div className="space-y-2">
-                        <Label className="text-muted-foreground">Data ID</Label>
+                        <Label className="text-muted-foreground">{t("fields.dataId")}</Label>
                         <p className="font-mono text-xs break-all">
                           {selectedOffering.id}
                         </p>
@@ -376,7 +378,7 @@ export function DataOfferingDetailsDialog({
                   {selectedOffering.sourceConfig && (
                     <div className="space-y-4">
                       <h3 className="text-base font-semibold">
-                        Source Configuration
+                        {t("sections.sourceConfiguration")}
                       </h3>
                       <div className="bg-muted rounded-lg p-4">
                         <pre className="text-muted-foreground text-xs break-all whitespace-pre-wrap">
@@ -393,7 +395,7 @@ export function DataOfferingDetailsDialog({
                   {/* Cross-border Audit Actions */}
                   <div className="space-y-4 border-t pt-4">
                     <h3 className="text-base font-semibold">
-                      Cross-border Audit Actions
+                      {t("sections.crossBorderAuditActions")}
                     </h3>
                     <div className="flex flex-wrap gap-2">
                       <Button
@@ -412,7 +414,7 @@ export function DataOfferingDetailsDialog({
                           );
                         }}
                       >
-                        Check US Requirements
+{t("buttons.checkUSRequirements")}
                       </Button>
                       <Button
                         className="text-xs"
@@ -430,7 +432,7 @@ export function DataOfferingDetailsDialog({
                           );
                         }}
                       >
-                        Check EU Requirements
+{t("buttons.checkEURequirements")}
                       </Button>
                       <Button
                         className="text-xs"
@@ -456,7 +458,7 @@ export function DataOfferingDetailsDialog({
                           );
                         }}
                       >
-                        Run Compliance Check
+{t("buttons.runComplianceCheck")}
                       </Button>
                       {selectedOffering?.crossBorderAuditStatus ===
                         "pending" && (
@@ -476,7 +478,7 @@ export function DataOfferingDetailsDialog({
                             );
                           }}
                         >
-                          Submit Audit Request
+{t("buttons.submitAuditRequest")}
                         </Button>
                       )}
                     </div>
@@ -486,7 +488,7 @@ export function DataOfferingDetailsDialog({
             </DialogDescription>
             <DialogFooter className="px-6 pb-6 sm:justify-end">
               <DialogClose asChild>
-                <Button onClick={() => onOpenChange(false)}>Close</Button>
+                <Button onClick={() => onOpenChange(false)}>{t("buttons.close")}</Button>
               </DialogClose>
             </DialogFooter>
           </div>

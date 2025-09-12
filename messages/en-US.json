@@ -275,7 +275,7 @@
        "delete": "Delete",
        "errorLoading": "Error loading contract templates",
        "retry": "Retry",
-       "createContract": "Create Contract",
+       "createContract": "Create Contract Template",
        "preConfiguredContracts": "Pre-configured contracts combining multiple policies",
        "noDescription": "No description",
        "created": "Created",
@@ -324,6 +324,385 @@
       "createdAt": "Created At",
       "addPolicy": "Add Policy",
       "policyConfiguration": "Policy Configuration"
+    }
+  },
+  "createContractDialog": {
+    "title": "Create Contract",
+    "description": "Create a new data sharing contract with specified policies",
+    "trigger": {
+      "addContract": "Add Contract"
+    },
+    "fields": {
+      "contractName": {
+        "label": "Contract Name",
+        "placeholder": "Data Sharing Contract"
+      },
+      "provider": {
+        "label": "Provider"
+      },
+      "consumer": {
+        "label": "Consumer",
+        "placeholder": "Select consumer"
+      },
+      "expirationDateTime": {
+        "label": "Expiration Date Time",
+        "placeholder": "Select expiration date and time"
+      },
+      "maxAccessCount": {
+        "label": "Max Access Count",
+        "placeholder": "100"
+      },
+      "resource": {
+        "label": "Resource",
+        "placeholder": "Select resource"
+      },
+      "policies": {
+        "label": "Policies"
+      }
+    },
+    "actions": {
+      "cancel": "Cancel",
+      "creating": "Creating...",
+      "createContract": "Create Contract"
+    },
+    "errors": {
+      "providerNotConfigured": "Provider DID not configured",
+      "createFailed": "Failed to create contract"
+    },
+    "success": {
+      "contractCreated": "Contract created successfully"
+    }
+  },
+  "createDataOfferingDialog": {
+    "title": "Create Data Offering",
+    "description": "Create a new data offering to share with other participants",
+    "trigger": {
+      "addDataOffering": "Add Data Offering"
+    },
+    "fields": {
+      "title": {
+        "label": "Title",
+        "placeholder": "Customer Analytics Dataset"
+      },
+      "description": {
+        "label": "Description",
+        "placeholder": "Describe your data offering..."
+      },
+      "keywords": {
+        "label": "Keywords",
+        "placeholder": "analytics, customer, dataset"
+      },
+      "format": {
+        "label": "Format",
+        "placeholder": "CSV, JSON, XML"
+      },
+      "accessUrl": {
+        "label": "Access URL",
+        "placeholder": "https://api.example.com/data"
+      },
+      "dataType": {
+        "label": "Data Source Type"
+      },
+      "status": {
+        "label": "Status"
+      },
+      "filePath": {
+        "label": "File Path",
+        "placeholder": "/path/to/your/file.csv"
+      },
+      "fileFormat": {
+        "label": "File Format"
+      },
+      "bucketName": {
+        "label": "Bucket Name",
+        "placeholder": "my-data-bucket"
+      },
+      "objectName": {
+        "label": "Object Name",
+        "placeholder": "file.csv"
+      },
+      "region": {
+        "label": "Region",
+        "placeholder": "laos-center"
+      },
+      "serverAddress": {
+        "label": "Server Address",
+        "placeholder": "192.168.1.100"
+      },
+      "sharePath": {
+        "label": "Share Path",
+        "placeholder": "/shared/data"
+      },
+      "protocol": {
+        "label": "Protocol"
+      },
+      "apiEndpoint": {
+        "label": "API Endpoint",
+        "placeholder": "https://api.example.com/data"
+      },
+      "method": {
+        "label": "Request Method"
+      },
+      "authenticationType": {
+        "label": "Authentication Type"
+      },
+      "username": {
+        "label": "Username",
+        "placeholder": "Username"
+      },
+      "password": {
+        "label": "Password",
+        "placeholder": "Password"
+      },
+      "headerName": {
+        "label": "Header Name",
+        "placeholder": "X-API-Key"
+      },
+      "headerValue": {
+        "label": "Header Value",
+        "placeholder": "API key value"
+      }
+    },
+    "sections": {
+      "localFile": {
+        "title": "Local File Configuration"
+      },
+      "s3": {
+        "title": "S3 Storage Configuration"
+      },
+      "nas": {
+        "title": "NAS Storage Configuration"
+      },
+      "restful": {
+        "title": "RESTful API Configuration"
+      },
+      "basicAuth": {
+        "title": "Basic Authentication"
+      },
+      "apiKeyAuth": {
+        "title": "API Key Authentication"
+      }
+    },
+    "actions": {
+      "cancel": "Cancel",
+      "creating": "Creating...",
+      "createOffering": "Create Offering"
+    },
+    "errors": {
+      "userNotLoggedIn": "User not logged in",
+      "selectDataSpaceFirst": "Please select a data space first",
+      "unableToRetrieveDataSpace": "Unable to retrieve data space information",
+      "createFailed": "Failed to create data offering, please try again"
+    },
+    "success": {
+      "dataOfferingCreated": "Data offering created successfully"
+    }
+  },
+  "dataOfferingDetailsDialog": {
+    "title": "Data Details",
+    "description": "View detailed information about this data offering",
+    "sections": {
+      "basicInformation": "Basic Information",
+      "statusInformation": "Status Information",
+      "storageInformation": "Storage Information",
+      "traceabilityInformation": "Data Traceability Information",
+      "metadata": "Metadata",
+      "sourceConfiguration": "Source Configuration",
+      "crossBorderAuditActions": "Cross-Border Audit Actions"
+    },
+    "fields": {
+      "title": "Title",
+      "description": "Description",
+      "keywords": "Keywords",
+      "format": "Format",
+      "accessUrl": "Access URL",
+      "dataZoneCode": "Data Zone Code",
+      "dataStatus": "Data Status",
+      "registrationStatus": "Registration Status",
+      "hostingStatus": "Hosting Status",
+      "crossBorderAudit": "Cross-Border Audit",
+      "storageLocation": "Storage Location",
+      "dataType": "Data Type",
+      "accessPolicy": "Access Policy",
+      "dataSource": "Data Source",
+      "blockchainMainChainId": "Blockchain Main Chain ID",
+      "ownerDID": "Owner DID",
+      "traceabilityHash": "Traceability Hash",
+      "createdDate": "Created Date",
+      "dataId": "Data ID"
+    },
+    "buttons": {
+      "checkUSRequirements": "Check US Requirements",
+      "checkEURequirements": "Check EU Requirements",
+      "runComplianceCheck": "Run Compliance Check",
+      "submitAuditRequest": "Submit Audit Request",
+      "close": "Close"
+    }
+  },
+  "inboundAuditDialog": {
+    "title": "Inbound Data Audit",
+    "description": {
+      "form": "Submit resource for inbound audit review",
+      "audit": "Automated audit in progress...",
+      "completed": "Audit completed successfully"
+    },
+    "sections": {
+      "dataResourceInformation": "Data Resource Information",
+      "auditConfiguration": "Audit Configuration"
+    },
+    "fields": {
+      "resourceTitle": "Resource Title",
+      "resourceId": "Resource ID",
+      "targetRegion": "Target Region",
+      "targetRegionPlaceholder": "Select target region",
+      "auditType": "Audit Type",
+      "auditor": "Auditor",
+      "comments": "Comments",
+      "commentsPlaceholder": "Enter audit comments...",
+      "expiresAt": "Expires At",
+      "expiresAtPlaceholder": "Select expiration date and time"
+    },
+    "buttons": {
+      "cancel": "Cancel",
+      "creating": "Creating...",
+      "startAudit": "Start Audit",
+      "processingAudit": "Processing Audit...",
+      "close": "Close"
+    },
+    "messages": {
+      "auditCompleted": "Audit Completed Successfully",
+      "auditCompletedDescription": "The inbound data audit has been completed and passed."
+    }
+  },
+  "outboundAuditDialog": {
+    "title": "Outbound Data Audit",
+    "description": "Create and process outbound data audits for cross-border compliance",
+    "sections": {
+      "dataResourceInformation": "Data Resource Information",
+      "auditConfiguration": "Audit Configuration"
+    },
+    "fields": {
+      "resourceTitle": "Resource Title",
+      "resourceId": "Resource ID",
+      "targetRegion": "Target Region",
+      "targetRegionPlaceholder": "Select target region",
+      "auditType": "Audit Type",
+      "auditor": "Auditor",
+      "comments": "Comments",
+      "commentsPlaceholder": "Enter audit comments...",
+      "expirationDateTime": "Expiration Date Time",
+      "expirationDateTimePlaceholder": "Select expiration date and time"
+    },
+    "buttons": {
+      "cancel": "Cancel",
+      "creating": "Creating...",
+      "createAudit": "Create Audit",
+      "processingAudit": "Processing Audit...",
+      "close": "Close"
+    },
+    "completion": {
+      "title": "Audit Completed Successfully",
+      "description": "The outbound data audit has been completed and passed."
+    }
+  },
+  "DataOffering": {
+    "metrics": {
+      "activeOfferings": {
+        "title": "Active Offerings",
+        "description": "Available for consumption"
+      },
+      "dataContracts": {
+        "title": "Data Contracts",
+        "description": "Signed data usage contracts"
+      },
+      "totalOfferings": {
+        "title": "Total Offerings",
+        "description": "All data offerings"
+      }
+    },
+    "offerings": {
+      "title": "Data Offerings",
+      "description": "Manage your published data resources",
+      "loading": "Loading data offerings...",
+      "error": "Error loading data offerings",
+      "empty": {
+        "title": "No data offerings found",
+        "description": "Create a new data offering to get started"
+      }
+    },
+    "contract": {
+      "title": "Data Contract",
+      "description": "Show the data usage contract information",
+      "loading": "Loading contracts...",
+      "error": "Error loading contracts",
+      "addContract": "Add Contract",
+      "empty": {
+        "title": "No contracts found",
+        "description": "Create a new contract to get started"
+      },
+      "status": {
+        "active": "Active",
+        "transferring": "Transferring",
+        "in_use": "In Use",
+        "suspended": "Suspended",
+        "expired": "Expired",
+        "data_unavailable": "Data Unavailable",
+        "violated": "Violated",
+        "unknown": "Unknown"
+      },
+      "suspend": {
+        "title": "Suspend Contract",
+        "description": "Are you sure you want to suspend this contract? This will immediately stop data access and cannot be undone.",
+        "confirm": "Confirm Suspend",
+        "forceSuspend": "Force Suspend",
+        "suspending": "Suspending...",
+        "success": "Contract suspended successfully",
+        "issuesDetected": "Issues detected with this contract",
+        "contractExpired": "Contract has expired",
+        "confirmExpired": "Are you sure you want to suspend this contract? This action cannot be undone."
+      },
+      "fields": {
+        "contractAddress": "Contract Address",
+        "provider": "Provider",
+        "consumer": "Consumer",
+        "resourceId": "Resource ID",
+        "policies": "Policies",
+        "noPolicy": "No Policy",
+        "maxAccess": "Max Access",
+        "unlimited": "Unlimited",
+        "createdDate": "Created Date",
+        "expirationDate": "Expiration Date"
+      },
+      "warning": {
+        "expired": "Contract has expired"
+      }
+    },
+    "dataSource": {
+      "localFile": "Local File",
+      "s3Storage": "S3 Storage",
+      "nasStorage": "NAS Storage",
+      "restfulApi": "RESTful API",
+      "unknown": "Unknown"
+    },
+    "filter": {
+      "all": "All",
+      "outbound": "Outbound",
+      "inbound": "Inbound"
+    },
+    "direction": {
+      "outbound": "Outbound",
+      "inbound": "Inbound"
+    },
+    "actions": {
+      "outbound": "Outbound",
+      "inbound": "Inbound"
+    },
+    "common": {
+      "loading": "Loading...",
+      "loadMore": "Load More",
+      "tryAgain": "Try Again",
+      "retry": "Retry",
+      "cancel": "Cancel"
     }
   }
 }

@@ -37,6 +37,7 @@ import {
   Server,
   Shield,
 } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { ScrollArea } from "../ui/scroll-area";
 
@@ -57,18 +58,18 @@ const getDataSourceIcon = (type: string) => {
 };
 
 // Data source type label mapping
-const getDataSourceLabel = (type: string) => {
+const getDataSourceLabel = (type: string, t: any) => {
   switch (type?.toLowerCase()) {
     case "local_file":
-      return "Local File";
+      return t("dataSource.localFile");
     case "s3":
-      return "S3 Storage";
+      return t("dataSource.s3Storage");
     case "nas":
-      return "NAS Storage";
+      return t("dataSource.nasStorage");
     case "restful":
-      return "RESTful API";
+      return t("dataSource.restfulApi");
     default:
-      return type || "Unknown";
+      return type || t("dataSource.unknown");
   }
 };
 
@@ -81,6 +82,7 @@ export function OfferingsCard({
   isAddOfferingOpen,
   setIsAddOfferingOpen,
 }: OfferingsCardProps) {
+  const t = useTranslations("DataOffering");
   const { userDID, currentDataSpaceId } = useAppStore();
 
   // State for pagination
@@ -181,7 +183,7 @@ export function OfferingsCard({
       <div className="flex flex-col items-center gap-3 p-6">
         <Spinner variant="bars" />
         <p className="text-muted-foreground text-sm">
-          Loading data offerings...
+          {t("offerings.loading")}
         </p>
       </div>,
       isAddOfferingOpen,
@@ -193,14 +195,14 @@ export function OfferingsCard({
   if (resourceError) {
     return cardSkeleton(
       <div className="p-6 text-center">
-        <p>Error loading data offerings</p>
+        <p>{t("offerings.error")}</p>
         <Button
           onClick={() => refetchResources()}
           variant="outline"
           size="sm"
           className="mt-2"
         >
-          Retry
+          {t("common.retry")}
         </Button>
       </div>,
       isAddOfferingOpen,
@@ -213,8 +215,8 @@ export function OfferingsCard({
     return cardSkeleton(
       <EmptyState
         icon={Database}
-        title="No data offerings found"
-        description="Create a new data offering to get started"
+        title={t("offerings.empty.title")}
+        description={t("offerings.empty.description")}
       />,
       isAddOfferingOpen,
       setIsAddOfferingOpen,
@@ -228,9 +230,9 @@ export function OfferingsCard({
         <CardHeader>
           <div className="flex items-center justify-between">
             <div>
-              <CardTitle>Data Offerings</CardTitle>
+              <CardTitle>{t("offerings.title")}</CardTitle>
               <CardDescription>
-                Manage your published data resources
+                {t("offerings.description")}
               </CardDescription>
             </div>
             <CreateDataOfferingDialog
@@ -304,7 +306,7 @@ export function OfferingsCard({
                           >
                             <ArrowUpDown className="h-3 w-3" />
                             <span>
-                              {offering.isOutbound ? "Outbound" : "Inbound"}
+                              {offering.isOutbound ? t("direction.outbound") : t("direction.inbound")}
                             </span>
                           </div>
                         )}
@@ -316,7 +318,7 @@ export function OfferingsCard({
                         <div className="flex items-center space-x-1">
                           <span>Type:</span>
                           <span className="font-medium">
-                            {getDataSourceLabel(offering.type)}
+                            {getDataSourceLabel(offering.type, t)}
                           </span>
                         </div>
                         {offering.config?.fileFormat && (
@@ -378,7 +380,7 @@ export function OfferingsCard({
                               }
                             >
                               <ArrowUp className="size-4" />
-                              Outbound
+                              {t("actions.outbound")}
                             </DropdownMenuItem>
                           )}
                         {!offering.isOutbound &&
@@ -389,7 +391,7 @@ export function OfferingsCard({
                               }
                             >
                               <ArrowDown className="size-4" />
-                              Inbound
+                              {t("actions.inbound")}
                             </DropdownMenuItem>
                           )}
                       </DropdownMenuContent>
@@ -410,10 +412,10 @@ export function OfferingsCard({
                     {isLoadingResources ? (
                       <>
                         <Spinner variant="bars" className="mr-2 h-4 w-4" />
-                        Loading...
+                        {t("common.loading")}
                       </>
                     ) : (
-                      "Load More"
+                      t("common.loadMore")
                     )}
                   </Button>
                 </div>
@@ -455,14 +457,16 @@ function cardSkeleton(
   setIsAddOfferingOpen: (open: boolean) => void,
   onRefreshData?: () => void
 ) {
+  
+  const t = useTranslations("DataOffering");
   return (
     <Card>
       <CardHeader>
         <div className="flex items-center justify-between">
           <div>
-            <CardTitle>Data Offerings</CardTitle>
+            <CardTitle>{t("offerings.title")}</CardTitle>
             <CardDescription>
-              Manage your published data resources
+              {t("offerings.description")}
             </CardDescription>
           </div>
           <CreateDataOfferingDialog

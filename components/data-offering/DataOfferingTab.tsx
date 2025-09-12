@@ -9,8 +9,10 @@ import { useGetActiveResourceCountByDataspace } from "@/lib/gen/hooks/useGetActi
 import { useGetContractCountByDataspaceAndProvider } from "@/lib/gen/hooks/useGetContractCountByDataspaceAndProvider";
 import { useGetTotalResourceCountByDataspace } from "@/lib/gen/hooks/useGetTotalResourceCountByDataspace";
 import { Database, FileText, Globe } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 export function DataOfferingTab() {
+  const t = useTranslations("DataOffering");
   const { currentDataSpace } = useDataSpace();
 
   const {
@@ -50,23 +52,23 @@ export function DataOfferingTab() {
       {/* Overview Cards */}
       <div className="grid gap-4 md:grid-cols-3">
         <MetricCard
-          title="Active Offerings"
+          title={t("metrics.activeOfferings.title")}
           value={activeOfferingsCount}
-          description="Available for consumption"
+          description={t("metrics.activeOfferings.description")}
           icon={Database}
           variant="primary"
         />
         <MetricCard
-          title="Data Contracts"
+          title={t("metrics.dataContracts.title")}
           value={dataContractsCount}
-          description="Signed data usage contracts"
+          description={t("metrics.dataContracts.description")}
           icon={FileText}
           variant="secondary"
         />
         <MetricCard
-          title="Total Offerings"
+          title={t("metrics.totalOfferings.title")}
           value={totalOfferingsCount}
-          description="All data offerings"
+          description={t("metrics.totalOfferings.description")}
           icon={Globe}
         />
       </div>

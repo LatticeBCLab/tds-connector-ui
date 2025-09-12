@@ -2,6 +2,7 @@
 
 import { DateTimePicker } from "@/components/DateTimePicker";
 import { Button } from "@/components/ui/button";
+import { useTranslations } from "next-intl";
 import {
   Dialog,
   DialogContent,
@@ -93,6 +94,7 @@ export function OutboundAuditDialog({
   resourceId,
   onSuccess,
 }: OutboundAuditDialogProps) {
+  const t = useTranslations("outboundAuditDialog");
   const { currentDataSpaceId } = useAppStore();
   const [currentStep, setCurrentStep] = useState<
     "form" | "audit" | "completed"
@@ -307,9 +309,9 @@ export function OutboundAuditDialog({
     <Dialog open={open} onOpenChange={handleClose}>
       <DialogContent className="max-w-2xl">
         <DialogHeader>
-          <DialogTitle>Outbound Data Audit</DialogTitle>
+          <DialogTitle>{t("title")}</DialogTitle>
           <DialogDescription>
-            Create and process outbound data audit for cross-border compliance
+            {t("description")}
           </DialogDescription>
         </DialogHeader>
 
@@ -319,7 +321,7 @@ export function OutboundAuditDialog({
               {/* Read-only auditor field */}
               <div>
                 <label className="text-muted-foreground text-sm font-medium">
-                  Auditor
+                  {t("fields.auditor")}
                 </label>
                 <Input
                   value={auditor}
@@ -333,10 +335,10 @@ export function OutboundAuditDialog({
                 name="comments"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Comments</FormLabel>
+                    <FormLabel>{t("fields.comments")}</FormLabel>
                     <FormControl>
                       <Textarea
-                        placeholder="Enter audit comments..."
+                        placeholder={t("fields.commentsPlaceholder")}
                         className="border-border"
                         {...field}
                       />
@@ -351,12 +353,12 @@ export function OutboundAuditDialog({
                 name="expires_at"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Expiration DateTime</FormLabel>
+                    <FormLabel>{t("fields.expirationDateTime")}</FormLabel>
                     <FormControl>
                       <DateTimePicker
                         value={field.value}
                         onChange={field.onChange}
-                        placeholder="Select expiration date and time"
+                        placeholder={t("fields.expirationDateTimePlaceholder")}
                       />
                     </FormControl>
                     <FormMessage />
@@ -366,16 +368,16 @@ export function OutboundAuditDialog({
 
               <div className="flex justify-end space-x-2 pt-4">
                 <Button type="button" variant="outline" onClick={handleClose}>
-                  Cancel
+                  {t("buttons.cancel")}
                 </Button>
                 <Button type="submit" disabled={createAuditMutation.isPending}>
                   {createAuditMutation.isPending ? (
                     <>
                       <Spinner variant="circle" />
-                      Creating...
+                      {t("buttons.creating")}
                     </>
                   ) : (
-                    "Create Audit"
+                    t("buttons.createAudit")
                   )}
                 </Button>
               </div>
@@ -434,7 +436,7 @@ export function OutboundAuditDialog({
             <div className="flex justify-center pt-4">
               <Button variant="secondary" disabled>
                 <Loader2 className="size-4 animate-spin" />
-                Processing Audit...
+                {t("buttons.processingAudit")}
               </Button>
             </div>
           </div>
@@ -444,10 +446,10 @@ export function OutboundAuditDialog({
           <div className="space-y-4 py-8 text-center">
             <CheckCircle className="mx-auto h-16 w-16 text-green-500" />
             <h3 className="text-lg font-semibold">
-              Audit Completed Successfully
+              {t("completion.title")}
             </h3>
             <p className="text-muted-foreground">
-              The outbound data audit has been completed and approved.
+              {t("completion.description")}
             </p>
           </div>
         )}

@@ -275,7 +275,7 @@
        "delete": "删除",
        "errorLoading": "加载合约模板时出错",
        "retry": "重试",
-       "createContract": "创建合约",
+       "createContract": "创建合约模板",
        "preConfiguredContracts": "预配置的合约，结合多个策略",
        "noDescription": "无描述",
        "created": "创建",
@@ -324,6 +324,385 @@
       "createdAt": "创建时间",
       "addPolicy": "新增策略",
       "policyConfiguration": "策略信息"
+    }
+  },
+  "createContractDialog": {
+    "title": "创建合约",
+    "description": "创建一个新的数据共享合约，指定相关策略",
+    "trigger": {
+      "addContract": "添加合约"
+    },
+    "fields": {
+      "contractName": {
+        "label": "合约名称",
+        "placeholder": "数据共享合约"
+      },
+      "provider": {
+        "label": "提供方"
+      },
+      "consumer": {
+        "label": "消费方",
+        "placeholder": "选择消费方"
+      },
+      "expirationDateTime": {
+        "label": "过期时间",
+        "placeholder": "选择过期日期和时间"
+      },
+      "maxAccessCount": {
+        "label": "最大访问次数",
+        "placeholder": "100"
+      },
+      "resource": {
+        "label": "资源",
+        "placeholder": "选择资源"
+      },
+      "policies": {
+        "label": "策略"
+      }
+    },
+    "actions": {
+      "cancel": "取消",
+      "creating": "创建中...",
+      "createContract": "创建合约"
+    },
+    "errors": {
+      "providerNotConfigured": "提供方DID未配置",
+      "createFailed": "创建合约失败"
+    },
+    "success": {
+      "contractCreated": "合约创建成功"
+    }
+  },
+  "createDataOfferingDialog": {
+    "title": "创建数据资源",
+    "description": "创建一个新的数据产品与其他参与者共享",
+    "trigger": {
+      "addDataOffering": "添加数据资源"
+    },
+    "fields": {
+      "title": {
+        "label": "标题",
+        "placeholder": "客户分析数据集"
+      },
+      "description": {
+        "label": "描述",
+        "placeholder": "描述您的数据产品..."
+      },
+      "keywords": {
+        "label": "关键词",
+        "placeholder": "分析, 客户, 数据集"
+      },
+      "format": {
+        "label": "格式",
+        "placeholder": "CSV, JSON, XML"
+      },
+      "accessUrl": {
+        "label": "访问URL",
+        "placeholder": "https://api.example.com/data"
+      },
+      "dataType": {
+        "label": "数据源类型"
+      },
+      "status": {
+        "label": "状态"
+      },
+      "filePath": {
+        "label": "文件路径",
+        "placeholder": "/path/to/your/file.csv"
+      },
+      "fileFormat": {
+        "label": "文件格式"
+      },
+      "bucketName": {
+        "label": "存储桶名称",
+        "placeholder": "my-data-bucket"
+      },
+      "objectName": {
+        "label": "对象名称",
+        "placeholder": "file.csv"
+      },
+      "region": {
+        "label": "区域",
+        "placeholder": "laos-center"
+      },
+      "serverAddress": {
+        "label": "服务器地址",
+        "placeholder": "192.168.1.100"
+      },
+      "sharePath": {
+        "label": "共享路径",
+        "placeholder": "/shared/data"
+      },
+      "protocol": {
+        "label": "协议"
+      },
+      "apiEndpoint": {
+        "label": "API端点",
+        "placeholder": "https://api.example.com/data"
+      },
+      "method": {
+        "label": "请求方法"
+      },
+      "authenticationType": {
+        "label": "认证类型"
+      },
+      "username": {
+        "label": "用户名",
+        "placeholder": "用户名"
+      },
+      "password": {
+        "label": "密码",
+        "placeholder": "密码"
+      },
+      "headerName": {
+        "label": "请求头名称",
+        "placeholder": "X-API-Key"
+      },
+      "headerValue": {
+        "label": "请求头值",
+        "placeholder": "API密钥值"
+      }
+    },
+    "sections": {
+      "localFile": {
+        "title": "本地文件配置"
+      },
+      "s3": {
+        "title": "S3存储配置"
+      },
+      "nas": {
+        "title": "NAS存储配置"
+      },
+      "restful": {
+        "title": "RESTful API配置"
+      },
+      "basicAuth": {
+        "title": "基础认证"
+      },
+      "apiKeyAuth": {
+        "title": "API密钥认证"
+      }
+    },
+    "actions": {
+      "cancel": "取消",
+      "creating": "创建中...",
+      "createOffering": "创建数据资源"
+    },
+    "errors": {
+      "userNotLoggedIn": "用户未登录",
+      "selectDataSpaceFirst": "请先选择数据空间",
+      "unableToRetrieveDataSpace": "无法获取数据空间信息",
+      "createFailed": "创建数据资源失败，请重试"
+    },
+    "success": {
+      "dataOfferingCreated": "数据产品创建成功"
+    }
+  },
+  "dataOfferingDetailsDialog": {
+    "title": "数据详情",
+    "description": "查看此数据产品的详细信息",
+    "sections": {
+      "basicInformation": "基本信息",
+      "statusInformation": "状态信息",
+      "storageInformation": "存储信息",
+      "traceabilityInformation": "数据溯源信息",
+      "metadata": "元数据",
+      "sourceConfiguration": "源配置",
+      "crossBorderAuditActions": "跨境审计操作"
+    },
+    "fields": {
+      "title": "标题",
+      "description": "描述",
+      "keywords": "关键词",
+      "format": "格式",
+      "accessUrl": "访问URL",
+      "dataZoneCode": "数据区域代码",
+      "dataStatus": "数据状态",
+      "registrationStatus": "注册状态",
+      "hostingStatus": "托管状态",
+      "crossBorderAudit": "跨境审计",
+      "storageLocation": "存储位置",
+      "dataType": "数据类型",
+      "accessPolicy": "访问策略",
+      "dataSource": "数据源",
+      "blockchainMainChainId": "区块链主链ID",
+      "ownerDID": "所有者DID",
+      "traceabilityHash": "溯源哈希",
+      "createdDate": "创建日期",
+      "dataId": "数据ID"
+    },
+    "buttons": {
+      "checkUSRequirements": "检查美国要求",
+      "checkEURequirements": "检查欧盟要求",
+      "runComplianceCheck": "运行合规检查",
+      "submitAuditRequest": "提交审计请求",
+      "close": "关闭"
+    }
+  },
+  "inboundAuditDialog": {
+    "title": "入境数据审计",
+    "description": {
+      "form": "提交资源进行入境审计审查",
+      "audit": "自动审计进行中...",
+      "completed": "审计成功完成"
+    },
+    "sections": {
+      "dataResourceInformation": "数据资源信息",
+      "auditConfiguration": "审计配置"
+    },
+    "fields": {
+      "resourceTitle": "资源标题",
+      "resourceId": "资源ID",
+      "targetRegion": "目标区域",
+      "targetRegionPlaceholder": "选择目标区域",
+      "auditType": "审计类型",
+      "auditor": "审计员",
+      "comments": "备注",
+      "commentsPlaceholder": "输入审计备注...",
+      "expiresAt": "过期时间",
+      "expiresAtPlaceholder": "选择过期日期和时间"
+    },
+    "buttons": {
+      "cancel": "取消",
+      "creating": "创建中...",
+      "startAudit": "开始审计",
+      "processingAudit": "处理审计中...",
+      "close": "关闭"
+    },
+    "messages": {
+      "auditCompleted": "审计成功完成",
+      "auditCompletedDescription": "入境数据审计已完成并通过。"
+    }
+  },
+  "outboundAuditDialog": {
+    "title": "出境数据审计",
+    "description": "创建和处理出境数据审计以符合跨境合规要求",
+    "sections": {
+      "dataResourceInformation": "数据资源信息",
+      "auditConfiguration": "审计配置"
+    },
+    "fields": {
+      "resourceTitle": "资源标题",
+      "resourceId": "资源ID",
+      "targetRegion": "目标区域",
+      "targetRegionPlaceholder": "选择目标区域",
+      "auditType": "审计类型",
+      "auditor": "审计员",
+      "comments": "备注",
+      "commentsPlaceholder": "输入审计备注...",
+      "expirationDateTime": "过期时间",
+      "expirationDateTimePlaceholder": "选择过期日期和时间"
+    },
+    "buttons": {
+      "cancel": "取消",
+      "creating": "创建中...",
+      "createAudit": "创建审计",
+      "processingAudit": "处理审计中...",
+      "close": "关闭"
+    },
+    "completion": {
+      "title": "审计成功完成",
+      "description": "出境数据审计已完成并通过。"
+    }
+  },
+  "DataOffering": {
+    "metrics": {
+      "activeOfferings": {
+        "title": "活跃数据",
+        "description": "可供消费的数据"
+      },
+      "dataContracts": {
+        "title": "数据合约",
+        "description": "已签署的数据使用合约"
+      },
+      "totalOfferings": {
+        "title": "总数据量",
+        "description": "所有数据资源"
+      }
+    },
+    "offerings": {
+      "title": "数据资源",
+      "description": "管理您发布的数据资源",
+      "loading": "正在加载数据资源...",
+      "error": "加载数据资源时出错",
+      "empty": {
+        "title": "未找到数据资源",
+        "description": "创建新的数据资源以开始使用"
+      }
+    },
+    "contract": {
+      "title": "数据合约",
+      "description": "显示数据使用合约信息",
+      "loading": "正在加载合约...",
+      "error": "加载合约时出错",
+      "addContract": "添加合约",
+      "empty": {
+        "title": "未找到合约",
+        "description": "创建新的合约以开始使用"
+      },
+      "status": {
+        "active": "活跃",
+        "transferring": "传输中",
+        "in_use": "使用中",
+        "suspended": "已暂停",
+        "expired": "已过期",
+        "data_unavailable": "数据不可用",
+        "violated": "已违规",
+        "unknown": "未知"
+      },
+      "suspend": {
+        "title": "暂停合约",
+        "description": "您确定要暂停此合约吗？这将立即停止数据访问且无法撤销。",
+        "confirm": "确认暂停",
+        "forceSuspend": "强制暂停",
+        "suspending": "暂停中...",
+        "success": "合约暂停成功",
+        "issuesDetected": "检测到此合约存在问题",
+        "contractExpired": "合约已过期",
+        "confirmExpired": "您确定要暂停此合约吗？此操作无法撤销。"
+      },
+      "fields": {
+        "contractAddress": "合约地址",
+        "provider": "提供方",
+        "consumer": "消费方",
+        "resourceId": "资源ID",
+        "policies": "策略",
+        "noPolicy": "无策略",
+        "maxAccess": "最大访问次数",
+        "unlimited": "无限制",
+        "createdDate": "创建日期",
+        "expirationDate": "过期日期"
+      },
+      "warning": {
+        "expired": "合约已过期"
+      }
+    },
+    "dataSource": {
+      "localFile": "本地文件",
+      "s3Storage": "S3存储",
+      "nasStorage": "NAS存储",
+      "restfulApi": "RESTful API",
+      "unknown": "未知"
+    },
+    "filter": {
+      "all": "全部",
+      "outbound": "出站",
+      "inbound": "入站"
+    },
+    "direction": {
+      "outbound": "出站",
+      "inbound": "入站"
+    },
+    "actions": {
+      "outbound": "出站",
+      "inbound": "入站"
+    },
+    "common": {
+      "loading": "加载中...",
+      "loadMore": "加载更多",
+      "tryAgain": "重试",
+      "retry": "重试",
+      "cancel": "取消"
     }
   }
 }

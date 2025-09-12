@@ -3,6 +3,7 @@
 import { DateTimePicker } from "@/components/DateTimePicker";
 import { ActionDialog } from "@/components/shared";
 import { Button } from "@/components/ui/button";
+import { useTranslations } from "next-intl";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
   Form,
@@ -59,6 +60,7 @@ export function CreateContractDialog({
   onOpenChange,
   onSuccess,
 }: CreateContractDialogProps) {
+  const t = useTranslations("createContractDialog");
   const { userDID, currentDataSpaceId } = useAppStore();
   const [selectedPolicies, setSelectedPolicies] = useState<string[]>([]);
 
@@ -148,7 +150,7 @@ export function CreateContractDialog({
   const onSubmit = async (data: CreateContractFormData) => {
     try {
       if (!provider) {
-        toast.error("Provider DID not configured");
+        toast.error(t("errors.providerNotConfigured"));
         return;
       }
 
@@ -176,14 +178,14 @@ export function CreateContractDialog({
 
       await createContractMutation.mutateAsync({ data: contractData });
 
-      toast.success("Contract created successfully");
+      toast.success(t("success.contractCreated"));
       onSuccess?.();
       onOpenChange(false);
       form.reset();
       setSelectedPolicies([]);
     } catch (error) {
       console.error("Error creating contract:", error);
-      toast.error("Failed to create contract");
+      toast.error(t("errors.createFailed"));
     }
   };
 
@@ -192,11 +194,11 @@ export function CreateContractDialog({
       trigger={
         <Button size="sm" variant="secondary">
           <Plus className="h-4 w-4" />
-          Add Contract
+          {t("trigger.addContract")}
         </Button>
       }
-      title="Create Contract"
-      description="Create a new data sharing contract with specified policies"
+      title={t("title")}
+      description={t("description")}
       open={open}
       onOpenChange={onOpenChange}
       maxWidth="lg"
@@ -208,10 +210,10 @@ export function CreateContractDialog({
             name="name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Contract Name</FormLabel>
+                <FormLabel>{t("fields.contractName.label")}</FormLabel>
                 <FormControl>
                   <Input
-                    placeholder="Data Sharing Contract"
+                    placeholder={t("fields.contractName.placeholder")}
                     className="border-border"
                     {...field}
                   />
@@ -224,7 +226,7 @@ export function CreateContractDialog({
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label className="text-muted-foreground text-sm font-medium">
-                Provider
+                {t("fields.provider.label")}
               </label>
               <Input
                 value={provider}
@@ -237,11 +239,11 @@ export function CreateContractDialog({
               name="consumer"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Consumer</FormLabel>
+                  <FormLabel>{t("fields.consumer.label")}</FormLabel>
                   <Select value={field.value} onValueChange={field.onChange}>
                     <FormControl>
                       <SelectTrigger className="border-border">
-                        <SelectValue placeholder="Select consumer" />
+                        <SelectValue placeholder={t("fields.consumer.placeholder")} />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
@@ -264,12 +266,12 @@ export function CreateContractDialog({
               name="expires_at"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Expiration DateTime</FormLabel>
+                  <FormLabel>{t("fields.expirationDateTime.label")}</FormLabel>
                   <FormControl>
                     <DateTimePicker
                       value={field.value}
                       onChange={field.onChange}
-                      placeholder="Select expiration date and time"
+                      placeholder={t("fields.expirationDateTime.placeholder")}
                     />
                   </FormControl>
                   <FormMessage />
@@ -282,12 +284,12 @@ export function CreateContractDialog({
               name="max_access_count"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Max Access Count</FormLabel>
+                  <FormLabel>{t("fields.maxAccessCount.label")}</FormLabel>
                   <FormControl>
                     <Input
                       type="number"
                       min="1"
-                      placeholder="100"
+                      placeholder={t("fields.maxAccessCount.placeholder")}
                       className="border-border"
                       {...field}
                       onChange={(e) =>
@@ -306,11 +308,11 @@ export function CreateContractDialog({
             name="resource_id"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Resource</FormLabel>
+                <FormLabel>{t("fields.resource.label")}</FormLabel>
                 <Select value={field.value} onValueChange={field.onChange}>
                   <FormControl>
                     <SelectTrigger className="border-border">
-                      <SelectValue placeholder="Select resource" />
+                      <SelectValue placeholder={t("fields.resource.placeholder")} />
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
@@ -333,7 +335,7 @@ export function CreateContractDialog({
             name="policy"
             render={() => (
               <FormItem>
-                <FormLabel>Policies</FormLabel>
+                <FormLabel>{t("fields.policies.label")}</FormLabel>
                 <div className="rounded-md">
                   <ScrollArea className="h-48 p-2">
                     <div className="space-y-3">
@@ -395,16 +397,16 @@ export function CreateContractDialog({
               variant="outline"
               onClick={() => onOpenChange(false)}
             >
-              Cancel
+              {t("actions.cancel")}
             </Button>
             <Button type="submit" disabled={createContractMutation.isPending}>
               {createContractMutation.isPending ? (
                 <>
                   <Spinner variant="circle" />
-                  Creating...
+                  {t("actions.creating")}
                 </>
               ) : (
-                "Create Contract"
+                t("actions.createContract")
               )}
             </Button>
           </div>

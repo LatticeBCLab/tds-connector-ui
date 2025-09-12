@@ -2,6 +2,7 @@
 
 import { ActionDialog } from "@/components/shared";
 import { Button } from "@/components/ui/button";
+import { useTranslations } from "next-intl";
 import {
   Form,
   FormControl,
@@ -45,6 +46,7 @@ export function CreateDataOfferingDialog({
   onOpenChange,
   onSuccess,
 }: CreateDataOfferingDialogProps) {
+  const t = useTranslations("createDataOfferingDialog");
   // Get store values
   const { userDID, currentDataSpaceId } = useAppStore();
 
@@ -83,17 +85,17 @@ export function CreateDataOfferingDialog({
   const onSubmit = async (data: CreateDataOfferingFormData) => {
     try {
       if (!userDID) {
-        toast.error("User not logged in");
+        toast.error(t("errors.userNotLoggedIn"));
         return;
       }
 
       if (!currentDataSpaceId) {
-        toast.error("Please select a data space first");
+        toast.error(t("errors.selectDataSpaceFirst"));
         return;
       }
 
       if (!dataSpace) {
-        toast.error("Unable to retrieve data space information");
+        toast.error(t("errors.unableToRetrieveDataSpace"));
         return;
       }
 
@@ -161,13 +163,13 @@ export function CreateDataOfferingDialog({
 
       await createResourceMutation.mutateAsync({ data: requestData });
 
-      toast.success("Data offering created successfully");
+      toast.success(t("success.dataOfferingCreated"));
       onSuccess?.();
       onOpenChange(false);
       form.reset(getDefaultValues("s3"));
     } catch (error) {
       console.error("Error creating resource:", error);
-      toast.error("Failed to create data resource, please try again");
+      toast.error(t("errors.createFailed"));
     }
   };
 
@@ -176,11 +178,11 @@ export function CreateDataOfferingDialog({
       trigger={
         <Button size="sm">
           <Plus className="h-4 w-4" />
-          Add Offering
+          {t("trigger.addDataOffering")}
         </Button>
       }
-      title="Create Data Offering"
-      description="Configure a new data resource to share with other connectors"
+      title={t("title")}
+      description={t("description")}
       open={open}
       onOpenChange={onOpenChange}
       maxWidth="md"
@@ -193,12 +195,12 @@ export function CreateDataOfferingDialog({
             name="title"
             render={({ field }) => (
               <FormItem>
-                <FormLabel htmlFor="offering-title">Title</FormLabel>
+                <FormLabel htmlFor="offering-title">{t("fields.title.label")}</FormLabel>
                 <FormControl>
                   <Input
                     className="border-border"
                     id="offering-title"
-                    placeholder="Customer Analytics Dataset"
+                    placeholder={t("fields.title.placeholder")}
                     {...field}
                   />
                 </FormControl>
@@ -213,13 +215,13 @@ export function CreateDataOfferingDialog({
             render={({ field }) => (
               <FormItem>
                 <FormLabel htmlFor="offering-description">
-                  Description
+                  {t("fields.description.label")}
                 </FormLabel>
                 <FormControl>
                   <Textarea
                     className="border-border"
                     id="offering-description"
-                    placeholder="Describe your data offering..."
+                    placeholder={t("fields.description.placeholder")}
                     {...field}
                   />
                 </FormControl>
@@ -267,7 +269,7 @@ export function CreateDataOfferingDialog({
               name="dataType"
               render={({ field }) => (
                 <FormItem className="flex-1">
-                  <FormLabel htmlFor="data-type">Data Source Type</FormLabel>
+                  <FormLabel htmlFor="data-type">{t("fields.dataType.label")}</FormLabel>
                   <Select
                     value={field.value}
                     onValueChange={(value: DataSourceType) => {
@@ -317,7 +319,7 @@ export function CreateDataOfferingDialog({
               name="status"
               render={({ field }) => (
                 <FormItem className="flex-1">
-                  <FormLabel htmlFor="status">Status</FormLabel>
+                  <FormLabel htmlFor="status">{t("fields.status.label")}</FormLabel>
                   <Select value={field.value} onValueChange={field.onChange}>
                     <FormControl>
                       <SelectTrigger className="border-border">
@@ -354,16 +356,16 @@ export function CreateDataOfferingDialog({
               variant="outline"
               onClick={() => onOpenChange(false)}
             >
-              Cancel
+              {t("actions.cancel")}
             </Button>
             <Button type="submit" disabled={createResourceMutation.isPending}>
               {createResourceMutation.isPending ? (
                 <>
                   <Spinner variant="circle" />
-                  Creating...
+                  {t("actions.creating")}
                 </>
               ) : (
-                "Create Data Resource"
+                t("actions.createOffering")
               )}
             </Button>
           </div>
@@ -377,19 +379,19 @@ export function CreateDataOfferingDialog({
 function LocalFileConfigSection({ form }: { form: any }) {
   return (
     <div className="bg-muted/50 space-y-4 rounded-lg border p-4">
-      <h4 className="font-medium">Local File Configuration</h4>
+      <h4 className="font-medium">{t("sections.localFile.title")}</h4>
 
       <FormField
         control={form.control}
         name="sourceConfig.filePath"
         render={({ field }) => (
           <FormItem>
-            <FormLabel htmlFor="file-path">File Path</FormLabel>
+            <FormLabel htmlFor="file-path">{t("fields.filePath.label")}</FormLabel>
             <FormControl>
               <Input
                 className="border-border"
                 id="file-path"
-                placeholder="/path/to/your/file.csv"
+                placeholder={t("fields.filePath.placeholder")}
                 {...field}
               />
             </FormControl>
@@ -403,7 +405,7 @@ function LocalFileConfigSection({ form }: { form: any }) {
         name="sourceConfig.format"
         render={({ field }) => (
           <FormItem>
-            <FormLabel htmlFor="file-format">File Format</FormLabel>
+            <FormLabel htmlFor="file-format">{t("fields.fileFormat.label")}</FormLabel>
             <Select value={field.value} onValueChange={field.onChange}>
               <FormControl>
                 <SelectTrigger className="border-border">
@@ -429,7 +431,7 @@ function LocalFileConfigSection({ form }: { form: any }) {
 function S3ConfigSection({ form }: { form: any }) {
   return (
     <div className="bg-muted/50 space-y-4 rounded-lg border p-4">
-      <h4 className="font-medium">S3 Storage Configuration</h4>
+      <h4 className="font-medium">{t("sections.s3.title")}</h4>
 
       <div className="grid grid-cols-2 gap-4">
         <FormField
@@ -437,12 +439,12 @@ function S3ConfigSection({ form }: { form: any }) {
           name="sourceConfig.bucketName"
           render={({ field }) => (
             <FormItem>
-              <FormLabel htmlFor="bucket-name">Bucket Name</FormLabel>
+              <FormLabel htmlFor="bucket-name">{t("fields.bucketName.label")}</FormLabel>
               <FormControl>
                 <Input
                   className="border-border"
                   id="bucket-name"
-                  placeholder="my-data-bucket"
+                  placeholder={t("fields.bucketName.placeholder")}
                   {...field}
                 />
               </FormControl>
@@ -456,12 +458,12 @@ function S3ConfigSection({ form }: { form: any }) {
           name="sourceConfig.objectName"
           render={({ field }) => (
             <FormItem>
-              <FormLabel htmlFor="object-name">Object Name</FormLabel>
+              <FormLabel htmlFor="object-name">{t("fields.objectName.label")}</FormLabel>
               <FormControl>
                 <Input
                   className="border-border"
                   id="object-name"
-                  placeholder="file.csv"
+                  placeholder={t("fields.objectName.placeholder")}
                   {...field}
                 />
               </FormControl>
@@ -477,12 +479,12 @@ function S3ConfigSection({ form }: { form: any }) {
           name="sourceConfig.region"
           render={({ field }) => (
             <FormItem>
-              <FormLabel htmlFor="region">Region</FormLabel>
+              <FormLabel htmlFor="region">{t("fields.region.label")}</FormLabel>
               <FormControl>
                 <Input
                   className="border-border"
                   id="region"
-                  placeholder="laos-center"
+                  placeholder={t("fields.region.placeholder")}
                   {...field}
                 />
               </FormControl>
@@ -523,7 +525,7 @@ function S3ConfigSection({ form }: { form: any }) {
 function NASConfigSection({ form }: { form: any }) {
   return (
     <div className="bg-muted/50 space-y-4 rounded-lg border p-4">
-      <h4 className="font-medium">NAS Storage Configuration</h4>
+      <h4 className="font-medium">{t("sections.nas.title")}</h4>
 
       <div className="grid grid-cols-2 gap-4">
         <FormField
@@ -531,12 +533,12 @@ function NASConfigSection({ form }: { form: any }) {
           name="sourceConfig.serverAddress"
           render={({ field }) => (
             <FormItem>
-              <FormLabel htmlFor="server-address">Server Address</FormLabel>
+              <FormLabel htmlFor="server-address">{t("fields.serverAddress.label")}</FormLabel>
               <FormControl>
                 <Input
                   className="border-border"
                   id="server-address"
-                  placeholder="192.168.1.100"
+                  placeholder={t("fields.serverAddress.placeholder")}
                   {...field}
                 />
               </FormControl>
@@ -550,12 +552,12 @@ function NASConfigSection({ form }: { form: any }) {
           name="sourceConfig.sharePath"
           render={({ field }) => (
             <FormItem>
-              <FormLabel htmlFor="share-path">Share Path</FormLabel>
+              <FormLabel htmlFor="share-path">{t("fields.sharePath.label")}</FormLabel>
               <FormControl>
                 <Input
                   className="border-border"
                   id="share-path"
-                  placeholder="/shared/data"
+                  placeholder={t("fields.sharePath.placeholder")}
                   {...field}
                 />
               </FormControl>
@@ -570,7 +572,7 @@ function NASConfigSection({ form }: { form: any }) {
         name="sourceConfig.protocol"
         render={({ field }) => (
           <FormItem>
-            <FormLabel htmlFor="protocol">Protocol</FormLabel>
+            <FormLabel htmlFor="protocol">{t("fields.protocol.label")}</FormLabel>
             <Select value={field.value} onValueChange={field.onChange}>
               <FormControl>
                 <SelectTrigger className="border-border">
@@ -597,19 +599,19 @@ function RESTfulConfigSection({ form }: { form: any }) {
 
   return (
     <div className="bg-muted/50 space-y-4 rounded-lg border p-4">
-      <h4 className="font-medium">RESTful API Configuration</h4>
+      <h4 className="font-medium">{t("sections.restful.title")}</h4>
 
       <FormField
         control={form.control}
         name="sourceConfig.apiEndpoint"
         render={({ field }) => (
           <FormItem>
-            <FormLabel htmlFor="api-endpoint">API Endpoint</FormLabel>
+            <FormLabel htmlFor="api-endpoint">{t("fields.apiEndpoint.label")}</FormLabel>
             <FormControl>
               <Input
                 className="border-border"
                 id="api-endpoint"
-                placeholder="https://api.example.com/data"
+                placeholder={t("fields.apiEndpoint.placeholder")}
                 {...field}
               />
             </FormControl>
@@ -623,7 +625,7 @@ function RESTfulConfigSection({ form }: { form: any }) {
         name="sourceConfig.method"
         render={({ field }) => (
           <FormItem>
-            <FormLabel htmlFor="method">Request Method</FormLabel>
+            <FormLabel htmlFor="method">{t("fields.method.label")}</FormLabel>
             <Select value={field.value} onValueChange={field.onChange}>
               <FormControl>
                 <SelectTrigger className="border-border">
@@ -645,7 +647,7 @@ function RESTfulConfigSection({ form }: { form: any }) {
         name="sourceConfig.authentication.type"
         render={({ field }) => (
           <FormItem>
-            <FormLabel htmlFor="auth-type">Authentication Type</FormLabel>
+            <FormLabel htmlFor="auth-type">{t("fields.authenticationType.label")}</FormLabel>
             <Select value={field.value} onValueChange={field.onChange}>
               <FormControl>
                 <SelectTrigger className="border-border">
@@ -666,19 +668,19 @@ function RESTfulConfigSection({ form }: { form: any }) {
       {/* Basic Authentication Fields */}
       {watchedAuthType === "basic" && (
         <div className="bg-muted/30 space-y-4 rounded border p-3">
-          <h5 className="text-sm font-medium">Basic Authentication</h5>
+          <h5 className="text-sm font-medium">{t("sections.basicAuth.title")}</h5>
           <div className="grid grid-cols-2 gap-3">
             <FormField
               control={form.control}
               name="sourceConfig.authentication.credentials.username"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel htmlFor="auth-username">Username</FormLabel>
+                  <FormLabel htmlFor="auth-username">{t("fields.username.label")}</FormLabel>
                   <FormControl>
                     <Input
                       className="border-border"
                       id="auth-username"
-                      placeholder="Username"
+                      placeholder={t("fields.username.placeholder")}
                       {...field}
                     />
                   </FormControl>
@@ -692,13 +694,13 @@ function RESTfulConfigSection({ form }: { form: any }) {
               name="sourceConfig.authentication.credentials.password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel htmlFor="auth-password">Password</FormLabel>
+                  <FormLabel htmlFor="auth-password">{t("fields.password.label")}</FormLabel>
                   <FormControl>
                     <Input
                       className="border-border"
                       id="auth-password"
                       type="password"
-                      placeholder="Password"
+                      placeholder={t("fields.password.placeholder")}
                       {...field}
                     />
                   </FormControl>
@@ -713,19 +715,19 @@ function RESTfulConfigSection({ form }: { form: any }) {
       {/* API Key Authentication Fields */}
       {watchedAuthType === "api_key" && (
         <div className="bg-muted/30 space-y-4 rounded border p-3">
-          <h5 className="text-sm font-medium">API Key Authentication</h5>
+          <h5 className="text-sm font-medium">{t("sections.apiKeyAuth.title")}</h5>
           <div className="grid grid-cols-2 gap-3">
             <FormField
               control={form.control}
               name="sourceConfig.authentication.credentials.headerName"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel htmlFor="header-name">Header Name</FormLabel>
+                  <FormLabel htmlFor="header-name">{t("fields.headerName.label")}</FormLabel>
                   <FormControl>
                     <Input
                       className="border-border"
                       id="header-name"
-                      placeholder="X-API-Key"
+                      placeholder={t("fields.headerName.placeholder")}
                       {...field}
                     />
                   </FormControl>
@@ -739,13 +741,13 @@ function RESTfulConfigSection({ form }: { form: any }) {
               name="sourceConfig.authentication.credentials.headerValue"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel htmlFor="header-value">Header Value</FormLabel>
+                  <FormLabel htmlFor="header-value">{t("fields.headerValue.label")}</FormLabel>
                   <FormControl>
                     <Input
                       className="border-border"
                       id="header-value"
                       type="password"
-                      placeholder="API Key Value"
+                      placeholder={t("fields.headerValue.placeholder")}
                       {...field}
                     />
                   </FormControl>

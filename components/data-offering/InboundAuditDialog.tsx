@@ -2,6 +2,7 @@
 
 import { DateTimePicker } from "@/components/DateTimePicker";
 import { Button } from "@/components/ui/button";
+import { useTranslations } from "next-intl";
 import {
   Dialog,
   DialogContent,
@@ -94,6 +95,7 @@ export function InboundAuditDialog({
   resourceId,
   onSuccess,
 }: InboundAuditDialogProps) {
+  const t = useTranslations("inboundAuditDialog");
   const { currentDataSpaceId } = useAppStore();
   const [currentStep, setCurrentStep] = useState<
     "form" | "audit" | "completed"
@@ -289,12 +291,11 @@ export function InboundAuditDialog({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-2xl">
         <DialogHeader>
-          <DialogTitle>Inbound Data Audit</DialogTitle>
+          <DialogTitle>{t("title")}</DialogTitle>
           <DialogDescription>
-            {currentStep === "form" &&
-              "Submit resource for inbound audit review"}
-            {currentStep === "audit" && "Automatic audit in progress..."}
-            {currentStep === "completed" && "Audit completed successfully"}
+            {currentStep === "form" && t("description.form")}
+            {currentStep === "audit" && t("description.audit")}
+            {currentStep === "completed" && t("description.completed")}
           </DialogDescription>
         </DialogHeader>
 
@@ -305,7 +306,7 @@ export function InboundAuditDialog({
                 {/* Auditor (Read-only) */}
                 <div>
                   <label className="text-muted-foreground text-sm font-medium">
-                    Auditor
+                    {t("fields.auditor")}
                   </label>
                   <Input
                     value={auditor}
@@ -320,10 +321,10 @@ export function InboundAuditDialog({
                   name="comments"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Comments</FormLabel>
+                      <FormLabel>{t("fields.comments")}</FormLabel>
                       <FormControl>
                         <Textarea
-                          placeholder="Enter audit comments..."
+                          placeholder={t("fields.commentsPlaceholder")}
                           className="border-border resize-none"
                           rows={3}
                           {...field}
@@ -340,12 +341,12 @@ export function InboundAuditDialog({
                   name="expires_at"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Expires At</FormLabel>
+                      <FormLabel>{t("fields.expiresAt")}</FormLabel>
                       <FormControl>
                         <DateTimePicker
                           value={field.value}
                           onChange={field.onChange}
-                          placeholder="Select expiration date and time"
+                          placeholder={t("fields.expiresAtPlaceholder")}
                         />
                       </FormControl>
                       <FormMessage />
@@ -361,7 +362,7 @@ export function InboundAuditDialog({
                   onClick={handleCancel}
                   disabled={createAuditMutation.isPending}
                 >
-                  Cancel
+                  {t("buttons.cancel")}
                 </Button>
                 <Button
                   type="submit"
@@ -371,10 +372,10 @@ export function InboundAuditDialog({
                   {createAuditMutation.isPending ? (
                     <>
                       <Spinner variant="bars" className="mr-2 h-4 w-4" />
-                      Creating...
+                      {t("buttons.creating")}
                     </>
                   ) : (
-                    "Start Audit"
+                    t("buttons.startAudit")
                   )}
                 </Button>
               </DialogFooter>
@@ -433,7 +434,7 @@ export function InboundAuditDialog({
             <div className="flex justify-center pt-4">
               <Button variant="secondary" disabled>
                 <Loader2 className="size-4 animate-spin" />
-                Processing Audit...
+                {t("buttons.processingAudit")}
               </Button>
             </div>
           </div>
@@ -443,10 +444,10 @@ export function InboundAuditDialog({
           <div className="space-y-4 py-8 text-center">
             <CheckCircle className="mx-auto h-16 w-16 text-green-500" />
             <h3 className="text-lg font-semibold">
-              Audit Completed Successfully
+              {t("messages.auditCompleted")}
             </h3>
             <p className="text-muted-foreground">
-              The inbound data audit has been completed and approved.
+              {t("messages.auditCompletedDescription")}
             </p>
           </div>
         )}
