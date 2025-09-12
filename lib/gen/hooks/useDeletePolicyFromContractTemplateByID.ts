@@ -4,8 +4,6 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
-import type { UseMutationOptions, QueryClient } from '@tanstack/react-query'
 import type {
   DeletePolicyFromContractTemplateByIDMutationResponse,
   DeletePolicyFromContractTemplateByIDPathParams,
@@ -13,8 +11,10 @@ import type {
   DeletePolicyFromContractTemplateByID404,
   DeletePolicyFromContractTemplateByID500,
 } from '../types/DeletePolicyFromContractTemplateByID.ts'
-import { useMutation } from '@tanstack/react-query'
+import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
+import type { UseMutationOptions, QueryClient } from '@tanstack/react-query'
 import { deletePolicyFromContractTemplateByID } from '../clients/deletePolicyFromContractTemplateByID.ts'
+import { useMutation } from '@tanstack/react-query'
 
 export const deletePolicyFromContractTemplateByIDMutationKey = () => [{ url: '/api/v1/contract-templates/:id/policies/:policy_id' }] as const
 

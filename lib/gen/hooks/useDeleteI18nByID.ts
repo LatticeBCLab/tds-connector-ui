@@ -4,8 +4,6 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
-import type { UseMutationOptions, QueryClient } from '@tanstack/react-query'
 import type {
   DeleteI18nByIDMutationResponse,
   DeleteI18nByIDPathParams,
@@ -13,8 +11,10 @@ import type {
   DeleteI18nByID404,
   DeleteI18nByID500,
 } from '../types/DeleteI18nByID.ts'
-import { useMutation } from '@tanstack/react-query'
+import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
+import type { UseMutationOptions, QueryClient } from '@tanstack/react-query'
 import { deleteI18nByID } from '../clients/deleteI18nByID.ts'
+import { useMutation } from '@tanstack/react-query'
 
 export const deleteI18nByIDMutationKey = () => [{ url: '/api/v1/i18n/:id' }] as const
 

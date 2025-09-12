@@ -4,8 +4,8 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { CreateSandboxMutationRequest, CreateSandboxMutationResponse, CreateSandbox400, CreateSandbox500 } from '../types/CreateSandbox.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 function getCreateSandboxUrl() {
   const res = { method: 'POST', url: `/tdsc/api/v1/sandboxes` as const }

@@ -4,8 +4,8 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { CreateResourceMutationRequest, CreateResourceMutationResponse, CreateResource400, CreateResource500 } from '../types/CreateResource.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 function getCreateResourceUrl() {
   const res = { method: 'POST', url: `/tdsc/api/v1/resources/create` as const }

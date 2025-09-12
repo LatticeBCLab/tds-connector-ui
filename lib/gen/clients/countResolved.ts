@@ -4,8 +4,8 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { CountResolvedQueryResponse, CountResolved500 } from '../types/CountResolved.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 function getCountResolvedUrl() {
   const res = { method: 'GET', url: `/tdsc/api/v1/alters/resolved` as const }

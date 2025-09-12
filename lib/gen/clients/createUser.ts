@@ -4,8 +4,8 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { CreateUserMutationRequest, CreateUserMutationResponse, CreateUser400, CreateUser500 } from '../types/CreateUser.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 function getCreateUserUrl() {
   const res = { method: 'POST', url: `/tdsc/api/v1/users` as const }

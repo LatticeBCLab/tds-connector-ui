@@ -4,8 +4,8 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { UpdateJobMutationRequest, UpdateJobMutationResponse, UpdateJobPathParams, UpdateJob400, UpdateJob404, UpdateJob500 } from '../types/UpdateJob.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 function getUpdateJobUrl(id: UpdateJobPathParams['id']) {
   const res = { method: 'PUT', url: `/tdsc/api/v1/jobs/${id}` as const }

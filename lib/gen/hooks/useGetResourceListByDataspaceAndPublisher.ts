@@ -4,16 +4,16 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
-import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
 import type {
   GetResourceListByDataspaceAndPublisherQueryResponse,
   GetResourceListByDataspaceAndPublisherQueryParams,
   GetResourceListByDataspaceAndPublisher400,
   GetResourceListByDataspaceAndPublisher500,
 } from '../types/GetResourceListByDataspaceAndPublisher.ts'
-import { queryOptions, useQuery } from '@tanstack/react-query'
+import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
+import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
 import { getResourceListByDataspaceAndPublisher } from '../clients/getResourceListByDataspaceAndPublisher.ts'
+import { queryOptions, useQuery } from '@tanstack/react-query'
 
 export const getResourceListByDataspaceAndPublisherQueryKey = (params?: GetResourceListByDataspaceAndPublisherQueryParams) =>
   [{ url: '/api/v1/resources/list' }, ...(params ? [params] : [])] as const

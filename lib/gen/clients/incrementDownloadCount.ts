@@ -4,7 +4,6 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type {
   IncrementDownloadCountMutationResponse,
   IncrementDownloadCountPathParams,
@@ -12,6 +11,7 @@ import type {
   IncrementDownloadCount404,
   IncrementDownloadCount500,
 } from '../types/IncrementDownloadCount.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 function getIncrementDownloadCountUrl(id: IncrementDownloadCountPathParams['id']) {
   const res = { method: 'POST', url: `/tdsc/api/v1/apps/${id}/download` as const }

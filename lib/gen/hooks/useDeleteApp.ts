@@ -4,11 +4,11 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
+import type { DeleteAppMutationResponse, DeleteAppPathParams, DeleteApp400, DeleteApp404, DeleteApp500 } from '../types/DeleteApp.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { UseMutationOptions, QueryClient } from '@tanstack/react-query'
-import type { DeleteAppMutationResponse, DeleteAppPathParams, DeleteApp400, DeleteApp404, DeleteApp500 } from '../types/DeleteApp.ts'
-import { useMutation } from '@tanstack/react-query'
 import { deleteApp } from '../clients/deleteApp.ts'
+import { useMutation } from '@tanstack/react-query'
 
 export const deleteAppMutationKey = () => [{ url: '/api/v1/apps/:id' }] as const
 

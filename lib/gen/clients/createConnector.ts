@@ -4,8 +4,8 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { CreateConnectorMutationRequest, CreateConnectorMutationResponse, CreateConnector400, CreateConnector500 } from '../types/CreateConnector.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 function getCreateConnectorUrl() {
   const res = { method: 'POST', url: `/tdsc/api/v1/connectors` as const }

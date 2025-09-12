@@ -4,11 +4,11 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
+import type { UpdateJobMutationRequest, UpdateJobMutationResponse, UpdateJobPathParams, UpdateJob400, UpdateJob404, UpdateJob500 } from '../types/UpdateJob.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { UseMutationOptions, QueryClient } from '@tanstack/react-query'
-import type { UpdateJobMutationRequest, UpdateJobMutationResponse, UpdateJobPathParams, UpdateJob400, UpdateJob404, UpdateJob500 } from '../types/UpdateJob.ts'
-import { useMutation } from '@tanstack/react-query'
 import { updateJob } from '../clients/updateJob.ts'
+import { useMutation } from '@tanstack/react-query'
 
 export const updateJobMutationKey = () => [{ url: '/api/v1/jobs/:id' }] as const
 

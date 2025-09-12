@@ -1,9 +1,7 @@
 "use client";
 
 import { StatusBadge } from "@/components/shared";
-import { useTranslations } from 'next-intl';
 import { EmptyState } from "@/components/shared/EmptyState";
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -13,8 +11,12 @@ import {
 } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useGetSandbox } from "@/lib/gen";
-import { Activity, Edit, Eye, Play, Trash2 } from "lucide-react";
+import { Activity, ShieldCheck } from "lucide-react";
+import { useTranslations } from "next-intl";
+import { useState } from "react";
+import { Button } from "../ui/button";
 import { CreateJobDialog } from "./CreateJobDialog";
+import { JobAuditDialog } from "./JobAuditDialog";
 
 // 定义Job的数据类型
 interface Job {
@@ -22,6 +24,7 @@ interface Job {
   name: string;
   description: string;
   status: string;
+  auditStatus?: string;
   connectorDid: string;
   sandboxId: string;
   resourceId: string;
@@ -58,8 +61,24 @@ export function DataProcessingJobsCard({
   runJob,
   onJobCreated,
 }: DataProcessingJobsCardProps) {
-  const t = useTranslations('Sandbox.DataProcessingJobsCard');
+  const t = useTranslations("Sandbox.DataProcessingJobsCard");
+  const [isAuditDialogOpen, setIsAuditDialogOpen] = useState(false);
+  const [selectedJob, setSelectedJob] = useState<Job | null>(null);
+
   console.log("jobs", jobs);
+
+  // 处理审核按钮点击
+  const handleAuditClick = (job: Job) => {
+    setSelectedJob(job);
+    setIsAuditDialogOpen(true);
+  };
+
+  // 审核成功后的回调
+  const handleAuditSuccess = () => {
+    setSelectedJob(null);
+    onJobCreated?.(); // 刷新数据
+  };
+
   // 格式化数据大小显示
   const formatDataSize = (sizeInMb: number) => {
     if (sizeInMb >= 1024) {
@@ -92,8 +111,8 @@ export function DataProcessingJobsCard({
       <CardHeader>
         <div className="flex items-center justify-between">
           <div>
-            <CardTitle>{t('title')}</CardTitle>
-            <CardDescription>{t('description')}</CardDescription>
+            <CardTitle>{t("title")}</CardTitle>
+            <CardDescription>{t("description")}</CardDescription>
           </div>
           <CreateJobDialog onSuccess={onJobCreated} />
         </div>
@@ -109,6 +128,9 @@ export function DataProcessingJobsCard({
                       <div className="mb-1 flex items-center space-x-2">
                         <h4 className="text-sm font-medium">{job.name}</h4>
                         <StatusBadge status={job.status} type="job" />
+                        {job.status === "completed" && job.auditStatus && (
+                          <StatusBadge status={job.auditStatus} type="audit" />
+                        )}
                       </div>
                       <div className="text-muted-foreground mb-2 text-xs">
                         {job.description}
@@ -155,7 +177,7 @@ export function DataProcessingJobsCard({
                       </div>
                     </div>
                     <div className="flex items-center space-x-1">
-                      {(job.status === "pending" ||
+                      {/* {(job.status === "pending" ||
                         job.status === "queued") && (
                         <Button
                           size="sm"
@@ -174,7 +196,18 @@ export function DataProcessingJobsCard({
                       </Button>
                       <Button variant="ghost" size="sm" title="删除任务">
                         <Trash2 className="h-4 w-4" />
-                      </Button>
+                      </Button> */}
+                      {job.status === "completed" &&
+                        job.auditStatus !== "APPROVED" && (
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            title="Audit"
+                            onClick={() => handleAuditClick(job)}
+                          >
+                            <ShieldCheck className="h-4 w-4" />
+                          </Button>
+                        )}
                     </div>
                   </div>
                 </div>
@@ -183,14 +216,29 @@ export function DataProcessingJobsCard({
               <div className="text-muted-foreground py-8 text-center">
                 <EmptyState
                   icon={Activity}
-                  title={t('noJobsFound')}
-                  description={t('createJobToStart')}
+                  title={t("noJobsFound")}
+                  description={t("createJobToStart")}
                 />
               </div>
             )}
           </div>
         </ScrollArea>
       </CardContent>
+
+      {/* Job Audit Dialog */}
+      {selectedJob && (
+        <JobAuditDialog
+          open={isAuditDialogOpen}
+          onOpenChange={setIsAuditDialogOpen}
+          job={{
+            id: selectedJob.id,
+            name: selectedJob.name,
+            description: selectedJob.description,
+            resource_id: selectedJob.resourceId,
+          }}
+          onSuccess={handleAuditSuccess}
+        />
+      )}
     </Card>
   );
 }

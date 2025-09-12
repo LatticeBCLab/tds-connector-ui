@@ -4,11 +4,11 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
+import type { ListAltersQueryResponse, ListAlters500 } from '../types/ListAlters.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
-import type { ListAltersQueryResponse, ListAlters500 } from '../types/ListAlters.ts'
-import { queryOptions, useQuery } from '@tanstack/react-query'
 import { listAlters } from '../clients/listAlters.ts'
+import { queryOptions, useQuery } from '@tanstack/react-query'
 
 export const listAltersQueryKey = () => [{ url: '/api/v1/alters' }] as const
 

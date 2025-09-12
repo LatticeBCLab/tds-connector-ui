@@ -423,7 +423,7 @@
     "fields": {
       "title": {
         "label": "标题",
-        "placeholder": "客户分析数据集"
+        "placeholder": "输入您的数据产品名称"
       },
       "description": {
         "label": "描述",

@@ -4,11 +4,11 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
+import type { GetAppStatsQueryResponse, GetAppStatsQueryParams, GetAppStats400, GetAppStats500 } from '../types/GetAppStats.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
-import type { GetAppStatsQueryResponse, GetAppStatsQueryParams, GetAppStats400, GetAppStats500 } from '../types/GetAppStats.ts'
-import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
 import { getAppStats } from '../clients/getAppStats.ts'
+import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
 
 export const getAppStatsSuspenseQueryKey = (params: GetAppStatsQueryParams) => [{ url: '/api/v1/apps/stats' }, ...(params ? [params] : [])] as const
 

@@ -4,7 +4,6 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type {
   UpdateContractTemplateStatusByIDMutationResponse,
   UpdateContractTemplateStatusByIDPathParams,
@@ -12,6 +11,7 @@ import type {
   UpdateContractTemplateStatusByID404,
   UpdateContractTemplateStatusByID500,
 } from '../types/UpdateContractTemplateStatusByID.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 function getUpdateContractTemplateStatusByIDUrl(
   id: UpdateContractTemplateStatusByIDPathParams['id'],

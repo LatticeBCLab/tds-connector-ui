@@ -4,11 +4,11 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
+import type { CreateTerminalMutationRequest, CreateTerminalMutationResponse, CreateTerminal400, CreateTerminal500 } from '../types/CreateTerminal.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { UseMutationOptions, QueryClient } from '@tanstack/react-query'
-import type { CreateTerminalMutationRequest, CreateTerminalMutationResponse, CreateTerminal400, CreateTerminal500 } from '../types/CreateTerminal.ts'
-import { useMutation } from '@tanstack/react-query'
 import { createTerminal } from '../clients/createTerminal.ts'
+import { useMutation } from '@tanstack/react-query'
 
 export const createTerminalMutationKey = () => [{ url: '/api/v1/terminals' }] as const
 

@@ -3,7 +3,7 @@ import { memo } from "react";
 
 export interface StatusBadgeProps {
   status: string;
-  type?: "default" | "contract" | "sandbox" | "job" | "health";
+  type?: "default" | "contract" | "sandbox" | "job" | "health" | "audit";
   className?: string;
 }
 
@@ -68,6 +68,24 @@ export const StatusBadge = memo(function StatusBadge({
           case "critical":
           case "offline":
             return "destructive";
+          default:
+            return "outline";
+        }
+
+      case "audit":
+        switch (status) {
+          case "approved":
+          case "passed":
+            return "default";
+          case "pending":
+          case "in_progress":
+            return "secondary";
+          case "rejected":
+          case "failed":
+          case "denied":
+            return "destructive";
+          case "requires_attention":
+            return "outline";
           default:
             return "outline";
         }

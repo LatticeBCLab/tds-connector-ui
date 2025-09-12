@@ -4,8 +4,6 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
-import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
 import type {
   GetConnectorSecurityRatingByDIDQueryResponse,
   GetConnectorSecurityRatingByDIDPathParams,
@@ -13,8 +11,10 @@ import type {
   GetConnectorSecurityRatingByDID404,
   GetConnectorSecurityRatingByDID500,
 } from '../types/GetConnectorSecurityRatingByDID.ts'
-import { queryOptions, useQuery } from '@tanstack/react-query'
+import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
+import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
 import { getConnectorSecurityRatingByDID } from '../clients/getConnectorSecurityRatingByDID.ts'
+import { queryOptions, useQuery } from '@tanstack/react-query'
 
 export const getConnectorSecurityRatingByDIDQueryKey = (connector_did: GetConnectorSecurityRatingByDIDPathParams['connector_did']) =>
   [{ url: '/api/v1/csr/connector/:connector_did', params: { connector_did: connector_did } }] as const

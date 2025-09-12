@@ -4,11 +4,11 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
+import type { PostOfferingMutationRequest, PostOfferingMutationResponse, PostOffering400, PostOffering500 } from '../types/PostOffering.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { UseMutationOptions, QueryClient } from '@tanstack/react-query'
-import type { PostOfferingMutationRequest, PostOfferingMutationResponse, PostOffering400, PostOffering500 } from '../types/PostOffering.ts'
-import { useMutation } from '@tanstack/react-query'
 import { postOffering } from '../clients/postOffering.ts'
+import { useMutation } from '@tanstack/react-query'
 
 export const postOfferingMutationKey = () => [{ url: '/offering' }] as const
 

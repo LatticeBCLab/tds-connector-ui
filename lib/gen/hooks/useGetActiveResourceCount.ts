@@ -4,11 +4,11 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
+import type { GetActiveResourceCountQueryResponse, GetActiveResourceCountQueryParams, GetActiveResourceCount500 } from '../types/GetActiveResourceCount.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
-import type { GetActiveResourceCountQueryResponse, GetActiveResourceCountQueryParams, GetActiveResourceCount500 } from '../types/GetActiveResourceCount.ts'
-import { queryOptions, useQuery } from '@tanstack/react-query'
 import { getActiveResourceCount } from '../clients/getActiveResourceCount.ts'
+import { queryOptions, useQuery } from '@tanstack/react-query'
 
 export const getActiveResourceCountQueryKey = (params?: GetActiveResourceCountQueryParams) =>
   [{ url: '/api/v1/resources/active/count' }, ...(params ? [params] : [])] as const

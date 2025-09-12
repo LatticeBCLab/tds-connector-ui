@@ -4,11 +4,11 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
+import type { GetPublicAppsQueryResponse, GetPublicAppsQueryParams, GetPublicApps400, GetPublicApps500 } from '../types/GetPublicApps.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
-import type { GetPublicAppsQueryResponse, GetPublicAppsQueryParams, GetPublicApps400, GetPublicApps500 } from '../types/GetPublicApps.ts'
-import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
 import { getPublicApps } from '../clients/getPublicApps.ts'
+import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
 
 export const getPublicAppsSuspenseQueryKey = (params?: GetPublicAppsQueryParams) => [{ url: '/api/v1/apps/public' }, ...(params ? [params] : [])] as const
 

@@ -4,7 +4,6 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type {
   GetConnectorSecurityRatingByDIDQueryResponse,
   GetConnectorSecurityRatingByDIDPathParams,
@@ -12,6 +11,7 @@ import type {
   GetConnectorSecurityRatingByDID404,
   GetConnectorSecurityRatingByDID500,
 } from '../types/GetConnectorSecurityRatingByDID.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 function getGetConnectorSecurityRatingByDIDUrl(connector_did: GetConnectorSecurityRatingByDIDPathParams['connector_did']) {
   const res = { method: 'GET', url: `/tdsc/api/v1/csr/connector/${connector_did}` as const }

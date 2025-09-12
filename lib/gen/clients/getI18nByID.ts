@@ -4,8 +4,8 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { GetI18nByIDQueryResponse, GetI18nByIDPathParams, GetI18nByID400, GetI18nByID404, GetI18nByID500 } from '../types/GetI18nByID.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 function getGetI18nByIDUrl(id: GetI18nByIDPathParams['id']) {
   const res = { method: 'GET', url: `/tdsc/api/v1/i18n/${id}` as const }

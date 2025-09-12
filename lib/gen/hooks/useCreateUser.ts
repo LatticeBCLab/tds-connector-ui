@@ -4,11 +4,11 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
+import type { CreateUserMutationRequest, CreateUserMutationResponse, CreateUser400, CreateUser500 } from '../types/CreateUser.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { UseMutationOptions, QueryClient } from '@tanstack/react-query'
-import type { CreateUserMutationRequest, CreateUserMutationResponse, CreateUser400, CreateUser500 } from '../types/CreateUser.ts'
-import { useMutation } from '@tanstack/react-query'
 import { createUser } from '../clients/createUser.ts'
+import { useMutation } from '@tanstack/react-query'
 
 export const createUserMutationKey = () => [{ url: '/api/v1/users' }] as const
 

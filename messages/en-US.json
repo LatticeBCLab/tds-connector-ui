@@ -423,7 +423,7 @@
     "fields": {
       "title": {
         "label": "Title",
-        "placeholder": "Customer Analytics Dataset"
+        "placeholder": "Enter your data offering name"
       },
       "description": {
         "label": "Description",
