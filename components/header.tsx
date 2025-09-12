@@ -86,9 +86,12 @@ export default function Header() {
                   <TooltipProvider>
                     <Tooltip>
                       <TooltipTrigger asChild>
-                        <span className="max-w-[200px] truncate text-sm font-medium">
+                        <Badge
+                          variant="outline"
+                          className="max-w-[200px] truncate text-sm font-medium"
+                        >
                           {connectorData.connectorName || "Unknown Connector"}
-                        </span>
+                        </Badge>
                       </TooltipTrigger>
                       <TooltipContent side="bottom" sideOffset={5}>
                         <div className="space-y-1 text-xs">
