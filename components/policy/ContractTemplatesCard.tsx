@@ -17,6 +17,7 @@ import {
   type ModelsContractTemplate,
 } from "@/lib/gen";
 import { Edit, Eye, FileText, Plus, Trash2 } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { EmptyState } from "../shared/EmptyState";
 import { Spinner } from "../ui/spinner";
@@ -32,6 +33,7 @@ export function ContractTemplatesCard({
   onCreateClick,
   refreshTrigger,
 }: ContractTemplatesCardProps) {
+  const t = useTranslations("Policy");
   const { currentDataSpace } = useDataSpace();
   const [page, setPage] = useState(1);
   const [pageSize] = useState(10);
@@ -115,19 +117,19 @@ export function ContractTemplatesCard({
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <FileText className="h-5 w-5" />
-            Contract Templates
+            {t("contractTemplateCard.title")}
           </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="p-6 text-center">
-            <p>Error loading contract templates</p>
+            <p>{t("contractTemplateCard.errorLoading")}</p>
             <Button
               onClick={() => refetchContracts()}
               variant="outline"
               size="sm"
               className="mt-2"
             >
-              Retry
+              {t("contractTemplateCard.retry")}
             </Button>
           </div>
         </CardContent>
@@ -152,16 +154,16 @@ export function ContractTemplatesCard({
           <div>
             <CardTitle className="flex items-center gap-2">
               <FileText className="h-5 w-5" />
-              Contract Templates
+              {t("contractTemplateCard.title")}
             </CardTitle>
             <CardDescription>
-              Pre-configured contracts combining multiple policies
+              {t("contractTemplateCard.preConfiguredContracts")}
             </CardDescription>
           </div>
           {showCreateButton && (
             <Button size="sm" variant="secondary" onClick={onCreateClick}>
               <Plus className="h-4 w-4" />
-              Create Contract
+              {t("contractTemplateCard.createContract")}
             </Button>
           )}
         </div>
@@ -193,13 +195,13 @@ export function ContractTemplatesCard({
                         </Badge>
                       </div>
                       <div className="flex items-center space-x-1">
-                        <Button variant="ghost" size="sm" title="View">
+                        <Button variant="ghost" size="sm" title={t("contractTemplateCard.view")}>
                           <Eye className="h-4 w-4" />
                         </Button>
-                        <Button variant="ghost" size="sm" title="Edit">
+                        <Button variant="ghost" size="sm" title={t("contractTemplateCard.edit")}>
                           <Edit className="h-4 w-4" />
                         </Button>
-                        <Button variant="ghost" size="sm" title="Delete">
+                        <Button variant="ghost" size="sm" title={t("contractTemplateCard.delete")}>
                           <Trash2 className="h-4 w-4" />
                         </Button>
                       </div>
@@ -208,24 +210,24 @@ export function ContractTemplatesCard({
                   <CardContent className="pt-0">
                     <div className="space-y-3">
                       <p className="text-muted-foreground text-sm">
-                        {template.description || "No description"}
+                        {template.description || t("contractTemplateCard.noDescription")}
                       </p>
 
                       <div className="flex items-center justify-end border-t pt-3">
                         <div className="text-muted-foreground flex items-center gap-4 text-xs">
                           <span>
-                            Created:{" "}
+                            {t("contractTemplateCard.created")}:{" "}
                             {template.created_at
                               ? new Date(
                                   template.created_at
                                 ).toLocaleDateString("en-US")
-                              : "Unknown"}
+                              : t("contractTemplateCard.unknown")}
                           </span>
                           {template.updated_at && (
                             <>
                               <span>•</span>
                               <span>
-                                Updated:{" "}
+                                {t("contractTemplateCard.updated")}:{" "}
                                 {new Date(
                                   template.updated_at
                                 ).toLocaleDateString("en-US")}
@@ -242,8 +244,8 @@ export function ContractTemplatesCard({
           ) : (
             <EmptyState
               icon={FileText}
-              title="No contract templates found"
-              description="Create a new contract template to get started"
+              title={t("contractTemplateCard.noTemplatesFound")}
+              description={t("contractTemplateCard.createTemplateToStart")}
             />
           )}
         </ScrollArea>
@@ -257,10 +259,10 @@ export function ContractTemplatesCard({
             >
               {isLoading ? (
                 <>
-                  <Spinner variant="bars" className="mr-2 h-4 w-4" /> Loading...
+                  <Spinner variant="bars" className="mr-2 h-4 w-4" /> {t("contractTemplateCard.loading")}
                 </>
               ) : (
-                "Load more"
+                t("contractTemplateCard.loadMore")
               )}
             </Button>
           </div>

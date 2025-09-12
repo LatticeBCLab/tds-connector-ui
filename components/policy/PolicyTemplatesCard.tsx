@@ -29,7 +29,7 @@ import {
   UserCheck,
   Users,
 } from "lucide-react";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 const policyIconMap: Record<string, any> = {
   "clock-fading": Clock,
@@ -83,6 +83,7 @@ export function PolicyTemplatesCard({
   showAddButton = false,
   onAddClick,
 }: PolicyTemplatesCardProps) {
+  const t = useTranslations("Policy");
   const locale = useLocale();
   const {
     data: policiesResponse,
@@ -105,16 +106,16 @@ export function PolicyTemplatesCard({
             <div>
               <CardTitle className="flex items-center gap-2">
                 <Shield className="h-5 w-5" />
-                Policy Templates
+                {t("policyTemplateCard.title")}
               </CardTitle>
               <CardDescription>
-                Define access control and usage policies for data sharing
+                {t("policyTemplateCard.description")}
               </CardDescription>
             </div>
             {showAddButton && (
               <Button size="sm" onClick={onAddClick}>
                 <Plus className="h-4 w-4" />
-                Add Policy
+                {t("policyTemplateCard.addPolicy")}
               </Button>
             )}
           </div>
@@ -122,7 +123,7 @@ export function PolicyTemplatesCard({
         <CardContent>
           <div className="flex items-center justify-center py-8">
             <div className="text-muted-foreground text-sm">
-              Loading policies...
+              {t("policyTemplateCard.loadingPolicies")}
             </div>
           </div>
         </CardContent>
@@ -138,10 +139,10 @@ export function PolicyTemplatesCard({
             <div>
               <CardTitle className="flex items-center gap-2">
                 <Shield className="h-5 w-5" />
-                Policy Templates
+                 {t("policyTemplateCard.title")}
               </CardTitle>
               <CardDescription>
-                Define access control and usage policies for data sharing
+                 {t("policyTemplateCard.description")}
               </CardDescription>
             </div>
             {showAddButton && (
@@ -154,7 +155,7 @@ export function PolicyTemplatesCard({
         </CardHeader>
         <CardContent>
           <div className="flex items-center justify-center py-8">
-            <div className="text-sm text-red-500">Failed to load policies</div>
+            <div className="text-sm text-red-500">{t("policyTemplateCard.failedToLoad")}</div>
           </div>
         </CardContent>
       </Card>
@@ -169,16 +170,17 @@ export function PolicyTemplatesCard({
             <div>
               <CardTitle className="flex items-center gap-2">
                 <Shield className="h-5 w-5" />
-                Policy Templates
+                {t("policyTemplateCard.title")}
+
               </CardTitle>
               <CardDescription>
-                Define access control and usage policies for data sharing
+                {t("policyTemplateCard.description")}
               </CardDescription>
             </div>
             {showAddButton && (
               <Button size="sm" onClick={onAddClick}>
                 <Plus className="h-4 w-4" />
-                Add Policy
+                {t("policyTemplateCard.description")}
               </Button>
             )}
           </div>
@@ -186,8 +188,8 @@ export function PolicyTemplatesCard({
         <CardContent>
           <EmptyState
             icon={Shield}
-            title="No policies found"
-            description="Create a new policy to get started"
+            title={t("policyTemplateCard.noPoliciesFound")}
+            description={t("policyTemplateCard.createPolicyToStart")}
           />
         </CardContent>
       </Card>
@@ -201,16 +203,16 @@ export function PolicyTemplatesCard({
           <div>
             <CardTitle className="flex items-center gap-2">
               <Shield className="h-5 w-5" />
-              Policy Templates
+               {t("policyTemplateCard.title")}
             </CardTitle>
             <CardDescription>
-              Define access control and usage policies for data sharing
+               {t("policyTemplateCard.description")}
             </CardDescription>
           </div>
           {showAddButton && (
             <Button size="sm" onClick={onAddClick}>
               <Plus className="h-4 w-4" />
-              Add Policy
+               {t("policyTemplateCard.addPolicy")}
             </Button>
           )}
         </div>
@@ -259,7 +261,7 @@ export function PolicyTemplatesCard({
                           <IconComponent className="text-primary mt-0.5 h-5 w-5 flex-shrink-0" />
                           <div className="min-w-0 flex-1">
                             <p className="mb-2 text-sm font-medium">
-                              Policy Configuration
+                              {t("policyTemplateCard.policyConfiguration")}
                             </p>
                             {policy.value.fields && (
                               <div className="space-y-1">
@@ -304,11 +306,11 @@ export function PolicyTemplatesCard({
                     </div>
                     <div className="mt-3 flex items-center justify-between border-t pt-3">
                       <div className="text-muted-foreground flex items-center gap-4 text-xs">
-                        <span>Security: {policy.security_level}</span>
+                        <span>{t("policyTemplateCard.securityLevel")}: {policy.security_level}</span>
                       </div>
                       <div className="text-muted-foreground flex items-center gap-4 text-xs">
                         <span>
-                          Created:{" "}
+                          {t("policyTemplateCard.createdAt")}:{" "}
                           {new Date(policy.created_at).toLocaleDateString()}
                         </span>
                       </div>

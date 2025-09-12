@@ -30,6 +30,7 @@ import { useCreateContractTemplate, useListPolicies } from "@/lib/gen";
 import { AlertTriangle, Shield } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
+import { useTranslations } from "next-intl";
 import { Spinner } from "../ui/spinner";
 
 interface PolicyData {
@@ -63,7 +64,7 @@ export function CreateContractTemplateDialog({
   onOpenChange,
   onSuccess,
 }: CreateContractTemplateDialogProps) {
-  // Hooks
+  const t = useTranslations("Policy");
   const { currentDataSpace } = useDataSpace();
 
   const { data: policiesData, isLoading: loadingPolicies } = useListPolicies({
@@ -111,15 +112,15 @@ export function CreateContractTemplateDialog({
 
     // Validation
     if (!formData.name.trim()) {
-      newErrors.push("Contract name is required");
+      newErrors.push(t("createContractDialog.nameRequired"));
     }
 
     if (!formData.description.trim()) {
-      newErrors.push("Contract description is required");
+      newErrors.push(t("createContractDialog.descriptionRequired"));
     }
 
     if (selectedPolicyIds.length === 0) {
-      newErrors.push("At least one policy must be selected");
+      newErrors.push(t("createContractDialog.policyRequired"));
     }
 
     if (newErrors.length > 0) {
@@ -167,11 +168,10 @@ export function CreateContractTemplateDialog({
       <DialogContent className="max-w-4xl">
         <DialogHeader>
           <DialogTitle className="flex items-center">
-            Create Contract Template
+            {t("createContractDialog.title")}
           </DialogTitle>
           <DialogDescription>
-            Create a new contract template by combining one or more policy
-            templates.
+            {t("createContractDialog.description")}
           </DialogDescription>
         </DialogHeader>
 
@@ -192,11 +192,11 @@ export function CreateContractTemplateDialog({
           {/* Basic Information */}
           <div className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="name">Contract Template Name</Label>
+              <Label htmlFor="name">{t("createContractDialog.nameLabel")}</Label>
               <Input
                 id="name"
                 className="border-border"
-                placeholder="e.g., Standard Data Sharing Agreement"
+                placeholder={t("createContractDialog.namePlaceholder")}
                 value={formData.name}
                 onChange={(e) =>
                   setFormData((prev) => ({ ...prev, name: e.target.value }))
@@ -205,11 +205,11 @@ export function CreateContractTemplateDialog({
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="description">Description</Label>
+              <Label htmlFor="description">{t("createContractDialog.descriptionLabel")}</Label>
               <Textarea
                 id="description"
                 className="border-border"
-                placeholder="Describe what this contract template is for and when it should be used..."
+                placeholder={t("createContractDialog.descriptionPlaceholder")}
                 value={formData.description}
                 onChange={(e) =>
                   setFormData((prev) => ({
@@ -222,7 +222,7 @@ export function CreateContractTemplateDialog({
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="status">Status</Label>
+              <Label htmlFor="status">{t("createContractDialog.statusLabel")}</Label>
               <Select
                 value={formData.status}
                 onValueChange={(value: "active" | "banned") =>
@@ -230,11 +230,11 @@ export function CreateContractTemplateDialog({
                 }
               >
                 <SelectTrigger className="border-border w-48">
-                  <SelectValue placeholder="Select status" />
+                  <SelectValue placeholder={t("createContractDialog.selectStatus")} />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="active">Active</SelectItem>
-                  <SelectItem value="banned">Banned</SelectItem>
+                  <SelectItem value="active">{t("createContractDialog.active")}</SelectItem>
+                  <SelectItem value="banned">{t("createContractDialog.banned")}</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -242,10 +242,10 @@ export function CreateContractTemplateDialog({
           {/* Policy Selection */}
           <div className="space-y-4">
             <div className="flex items-center justify-between">
-              <Label className="text-base font-semibold">Select Policies</Label>
+              <Label className="text-base font-semibold">{t("createContractDialog.selectPolicies")}</Label>
               {selectedPolicyIds.length > 0 && (
                 <Badge variant="secondary">
-                  {selectedPolicyIds.length} selected
+                  {t("createContractDialog.selected", {count: selectedPolicyIds.length})}
                 </Badge>
               )}
             </div>
@@ -287,7 +287,7 @@ export function CreateContractTemplateDialog({
                               <div className="flex items-start justify-between gap-3">
                                 <div className="min-w-0 flex-1">
                                   <CardTitle className="text-sm leading-tight">
-                                    {policy.name || "Unnamed Policy"}
+                                    {policy.name || t("createContractDialog.unnamedPolicy")}
                                   </CardTitle>
                                 </div>
                                 <Checkbox
@@ -325,17 +325,17 @@ export function CreateContractTemplateDialog({
                               </div>
                               <p className="text-muted-foreground text-xs leading-relaxed">
                                 {policy.description ||
-                                  "No description available"}
+                                  t("createContractDialog.noDescription")}
                               </p>
                             </div>
                           </div>
                         </CardHeader>
                         <CardContent className="pt-0">
                           <div className="text-muted-foreground flex flex-col gap-2 text-xs">
-                            <span>Policy ID: {policy.id}</span>
+                            <span>{t("createContractDialog.policyId")}: {policy.id}</span>
                             {policy.created_at && (
                               <span>
-                                Created:{" "}
+                                {t("createContractDialog.created")}:{" "}
                                 {new Date(
                                   policy.created_at
                                 ).toLocaleDateString()}
@@ -350,11 +350,10 @@ export function CreateContractTemplateDialog({
                     <div className="py-8 text-center">
                       <Shield className="text-muted-foreground mx-auto mb-4 h-12 w-12" />
                       <h3 className="text-muted-foreground mb-2 text-lg font-semibold">
-                        No policies available
+                        {t("createContractDialog.noPoliciesAvailable")}
                       </h3>
                       <p className="text-muted-foreground text-sm">
-                        No policy templates found. Please create some policies
-                        first.
+                        {t("createContractDialog.noPoliciesDescription")}
                       </p>
                     </div>
                   )}
@@ -370,7 +369,7 @@ export function CreateContractTemplateDialog({
             onClick={() => onOpenChange(false)}
             disabled={createContractTemplateMutation.isPending}
           >
-            Cancel
+            {t("createContractDialog.cancel")}
           </Button>
           <Button
             onClick={handleSubmit}
@@ -379,10 +378,10 @@ export function CreateContractTemplateDialog({
             {createContractTemplateMutation.isPending ? (
               <>
                 <Spinner variant="circle" />
-                Creating...
+                {t("createContractDialog.creating")}
               </>
             ) : (
-              "Create Contract Template"
+              t("createContractDialog.createButton")
             )}
           </Button>
         </DialogFooter>
