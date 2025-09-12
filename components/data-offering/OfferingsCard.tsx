@@ -26,7 +26,6 @@ import { cn } from "@/lib/utils";
 import {
   ArrowDown,
   ArrowUp,
-  ArrowUpDown,
   CheckCircle,
   Cloud,
   Database,
@@ -293,21 +292,26 @@ export function OfferingsCard({
                           <span>{offering.boundStatus || "N/A"}</span>
                         </div>
                         {/* Outbound/Inbound Badge */}
-                        {offering.isOutbound !== undefined && (
-                          <div
-                            className={cn(
-                              "flex items-center space-x-1 rounded-md px-2 py-1 text-xs",
-                              offering.isOutbound
-                                ? "bg-blue-100 text-blue-800"
-                                : "bg-purple-100 text-purple-800"
-                            )}
-                          >
-                            <ArrowUpDown className="h-3 w-3" />
-                            <span>
-                              {offering.isOutbound ? "Outbound" : "Inbound"}
-                            </span>
-                          </div>
-                        )}
+                        {offering.isOutbound !== undefined &&
+                          offering.boundStatus === "APPROVED" && (
+                            <div
+                              className={cn(
+                                "flex items-center space-x-1 rounded-md px-2 py-1 text-xs",
+                                offering.isOutbound
+                                  ? "bg-blue-100 text-blue-800"
+                                  : "bg-purple-100 text-purple-800"
+                              )}
+                            >
+                              {offering.isOutbound ? (
+                                <ArrowUp className="h-3 w-3" />
+                              ) : (
+                                <ArrowDown className="h-3 w-3" />
+                              )}
+                              <span>
+                                {offering.isOutbound ? "Outbound" : "Inbound"}
+                              </span>
+                            </div>
+                          )}
                       </div>
                       <p className="text-muted-foreground mt-1 text-sm">
                         {offering.description}
@@ -360,40 +364,42 @@ export function OfferingsCard({
                       </div>
                     </div>
                     {/* Action Buttons */}
-                    <DropdownMenu>
-                      <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" size="sm">
-                          <MoreHorizontal className="size-4" />
-                        </Button>
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent align="end">
-                        {/*isOutbound表示是否可以出境
+                    {offering.boundStatus !== "APPROVED" && (
+                      <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                          <Button variant="ghost" size="sm">
+                            <MoreHorizontal className="size-4" />
+                          </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end">
+                          {/*isOutbound表示是否可以出境
                         boundStatus表示出入境状态
                          */}
-                        {offering.isOutbound &&
-                          offering.boundStatus === "UNAUDITED" && (
-                            <DropdownMenuItem
-                              onClick={() =>
-                                handleOutboundAuditClick(offering.id)
-                              }
-                            >
-                              <ArrowUp className="size-4" />
-                              Outbound
-                            </DropdownMenuItem>
-                          )}
-                        {!offering.isOutbound &&
-                          offering.boundStatus === "UNAUDITED" && (
-                            <DropdownMenuItem
-                              onClick={() =>
-                                handleInboundAuditClick(offering.id)
-                              }
-                            >
-                              <ArrowDown className="size-4" />
-                              Inbound
-                            </DropdownMenuItem>
-                          )}
-                      </DropdownMenuContent>
-                    </DropdownMenu>
+                          {offering.isOutbound &&
+                            offering.boundStatus === "UNAUDITED" && (
+                              <DropdownMenuItem
+                                onClick={() =>
+                                  handleOutboundAuditClick(offering.id)
+                                }
+                              >
+                                <ArrowUp className="size-4" />
+                                Outbound
+                              </DropdownMenuItem>
+                            )}
+                          {!offering.isOutbound &&
+                            offering.boundStatus === "UNAUDITED" && (
+                              <DropdownMenuItem
+                                onClick={() =>
+                                  handleInboundAuditClick(offering.id)
+                                }
+                              >
+                                <ArrowDown className="size-4" />
+                                Inbound
+                              </DropdownMenuItem>
+                            )}
+                        </DropdownMenuContent>
+                      </DropdownMenu>
+                    )}
                   </div>
                 );
               })}

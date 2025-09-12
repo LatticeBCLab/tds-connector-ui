@@ -21,7 +21,11 @@ import { Input } from "@/components/ui/input";
 import { Progress } from "@/components/ui/progress";
 import { Spinner } from "@/components/ui/spinner";
 import { Textarea } from "@/components/ui/textarea";
-import { useApproveResourceAuditByID, useCreateResourceAudit } from "@/lib/gen";
+import {
+  useApproveResourceAuditByID,
+  useCreateResourceAudit,
+  useGetUserDIDList,
+} from "@/lib/gen";
 import { useAppStore } from "@/lib/stores/app-store";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -113,7 +117,11 @@ export function OutboundAuditDialog({
     },
   });
 
-  const auditor = process.env.NEXT_PUBLIC_USER_DID || "";
+  const { data: userDIDList } = useGetUserDIDList();
+  const auditor =
+    userDIDList?.filter(
+      (userDID) => userDID !== process.env.NEXT_PUBLIC_USER_DID
+    )[0] || "";
 
   // Reset form and state when dialog opens/closes
   useEffect(() => {
