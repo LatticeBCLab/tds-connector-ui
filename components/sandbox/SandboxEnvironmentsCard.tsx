@@ -204,84 +204,116 @@ export function SandboxEnvironmentsCard({
       </CardHeader>
       <CardContent className="p-0">
         <ScrollArea className="h-[480px] px-6 pb-6">
-        <div className="space-y-3">
-          {sandboxes && sandboxes.length > 0 ? (
-            sandboxes.map((sandbox) => (
-              <div key={sandbox.id} className="rounded-lg border p-3">
-                <div className="flex items-start justify-between">
-                  <div className="flex-1">
-                    <div className="mb-1 flex items-center space-x-2">
-                      <h4 className="font-medium">{sandbox.name}</h4>
-                      <StatusBadge status={sandbox.status} type="sandbox" />
-                    </div>
-                    <div className="text-muted-foreground space-y-1 text-sm">
-                      <div>{sandbox.description}</div>
-                      <div>
-                        Runtime: {sandbox.runtimeType} {sandbox.runtimeVersion}
+          <div className="space-y-3">
+            {sandboxes && sandboxes.length > 0 ? (
+              sandboxes.map((sandbox) => (
+                <div key={sandbox.id} className="rounded-lg border p-3">
+                  <div className="flex items-start justify-between">
+                    <div className="flex-1">
+                      <div className="mb-1 flex items-center space-x-2">
+                        <h4 className="font-medium">{sandbox.name}</h4>
+                        <StatusBadge status={sandbox.status} type="sandbox" />
                       </div>
-                      <div>
-                        Image: {sandbox.baseImage}
-                      </div>
-                      <div>
-                        CPU: {sandbox.cpuCores} cores ({sandbox.cpuUsage}%) | 
-                        Memory: {formatMemory(sandbox.memoryMb)} ({sandbox.memoryUsage}%)
-                      </div>
-                      <div>
-                        Storage: {formatStorage(sandbox.storageGb)} | 
-                        Security: {sandbox.securityLevel}
-                      </div>
-                      <div>
-                        Created: {new Date(sandbox.createdAt).toLocaleDateString('zh-CN')}
-                      </div>
-                      {sandbox.lastActivity && (
-                        <div>
-                          Last Activity: {new Date(sandbox.lastActivity).toLocaleDateString('zh-CN')}
+                      <div className="text-muted-foreground space-y-1 text-xs">
+                        <div>{sandbox.description}</div>
+                        <div className="flex justify-between">
+                          <span className="text-muted-foreground">
+                            Runtime:
+                          </span>
+                          <span className="ml-2 truncate font-mono">
+                            {sandbox.runtimeType} {sandbox.runtimeVersion}
+                          </span>
                         </div>
-                      )}
-                      {sandbox.expiresAt && (
-                        <div>
-                          Expires: {new Date(sandbox.expiresAt).toLocaleDateString('zh-CN')}
+                        <div className="flex justify-between">
+                          <span className="text-muted-foreground">Image:</span>
+                          <span className="ml-2 truncate font-mono">
+                            {sandbox.baseImage}
+                          </span>
                         </div>
-                      )}
+
+                        <div className="flex justify-between">
+                          <span className="text-muted-foreground">CPU:</span>
+                          <span className="ml-2 truncate font-mono">
+                            {sandbox.cpuCores} cores ({sandbox.cpuUsage}%)
+                          </span>
+                        </div>
+
+                        <div className="flex justify-between">
+                          <span className="text-muted-foreground">Memory:</span>
+                          <span className="ml-2 truncate font-mono">
+                            {formatMemory(sandbox.memoryMb)} (
+                            {sandbox.memoryUsage}%)
+                          </span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-muted-foreground">
+                            Storage:
+                          </span>
+                          <span className="ml-2 truncate font-mono">
+                            {formatStorage(sandbox.storageGb)}
+                          </span>
+                        </div>
+
+                        <div className="flex justify-between">
+                          <span className="text-muted-foreground">
+                            Security:
+                          </span>
+                          <span className="ml-2 truncate font-mono">
+                            {sandbox.securityLevel}
+                          </span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-muted-foreground">
+                            Created:
+                          </span>
+                          <span className="ml-2 truncate font-mono">
+                            {new Date(sandbox.createdAt).toLocaleDateString(
+                              "zh-CN"
+                            )}
+                          </span>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                  <div className="flex items-center space-x-1">
-                    {sandbox.status === "stopped" ? (
-                      <Button
-                        size="sm"
-                        variant="ghost"
-                        onClick={() => startSandbox(sandbox.id)}
-                        title="启动沙箱"
-                      >
-                        <Play className="h-4 w-4" />
+                    {/* <div className="flex items-center space-x-1">
+                      {sandbox.status === "stopped" ? (
+                        <Button
+                          size="sm"
+                          variant="ghost"
+                          onClick={() => startSandbox(sandbox.id)}
+                          title="启动沙箱"
+                        >
+                          <Play className="h-4 w-4" />
+                        </Button>
+                      ) : sandbox.status === "running" ? (
+                        <Button
+                          size="sm"
+                          variant="ghost"
+                          onClick={() => stopSandbox(sandbox.id)}
+                          title="停止沙箱"
+                        >
+                          <Square className="h-4 w-4" />
+                        </Button>
+                      ) : null}
+                      <Button variant="ghost" size="sm" title="查看详情">
+                        <Eye className="h-4 w-4" />
                       </Button>
-                    ) : sandbox.status === "running" ? (
-                      <Button
-                        size="sm"
-                        variant="ghost"
-                        onClick={() => stopSandbox(sandbox.id)}
-                        title="停止沙箱"
-                      >
-                        <Square className="h-4 w-4" />
+                      <Button variant="ghost" size="sm" title="删除沙箱">
+                        <Trash2 className="h-4 w-4" />
                       </Button>
-                    ) : null}
-                    <Button variant="ghost" size="sm" title="查看详情">
-                      <Eye className="h-4 w-4" />
-                    </Button>
-                    <Button variant="ghost" size="sm" title="删除沙箱">
-                      <Trash2 className="h-4 w-4" />
-                    </Button>
+                    </div> */}
                   </div>
                 </div>
+              ))
+            ) : (
+              <div className="text-muted-foreground py-8 text-center">
+                <EmptyState
+                  icon={Database}
+                  title="No sandbox environments found"
+                  description="Create one to get started."
+                />
               </div>
-            ))
-          ) : (
-            
-            <div className="text-center py-8 text-muted-foreground">
-              <EmptyState icon={Database} title="No sandbox environments found" description="Create one to get started." />
-            </div>
-          )}
-        </div>
+            )}
+          </div>
         </ScrollArea>
       </CardContent>
     </Card>

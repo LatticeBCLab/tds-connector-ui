@@ -10,14 +10,14 @@ import type { UseMutationOptions, QueryClient } from '@tanstack/react-query'
 import { createJob } from '../clients/createJob.ts'
 import { useMutation } from '@tanstack/react-query'
 
-export const createJobMutationKey = () => [{ url: '/api/v1/jobs' }] as const
+export const createJobMutationKey = () => [{ url: '/api/v1/jobs/create' }] as const
 
 export type CreateJobMutationKey = ReturnType<typeof createJobMutationKey>
 
 /**
  * @description 创建新的数据处理任务
  * @summary 创建Job
- * {@link /api/v1/jobs}
+ * {@link /api/v1/jobs/create}
  */
 export function useCreateJob<TContext>(
   options: {
