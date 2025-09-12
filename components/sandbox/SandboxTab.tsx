@@ -2,6 +2,7 @@
 
 import { MetricCard } from "@/components/shared";
 import { useDataOfferings, useSandbox } from "@/hooks";
+import { useTranslations } from 'next-intl';
 import { useDataSpace } from "@/lib/contexts/DataSpaceContext";
 import { useGetSandboxStats } from "@/lib/gen/hooks/useGetSandboxStats";
 import { useListApps } from "@/lib/gen/hooks/useListApps";
@@ -13,6 +14,7 @@ import { DataProcessingJobsCard } from "./DataProcessingJobsCard";
 import { SandboxEnvironmentsCard } from "./SandboxEnvironmentsCard";
 
 export function SandboxTab() {
+  const t = useTranslations('Sandbox.SandboxTab');
   const {
     sandboxEnvironments,
     ociImages,
@@ -66,29 +68,29 @@ export function SandboxTab() {
       {/* Overview Cards */}
       <div className="grid gap-4 md:grid-cols-4">
         <MetricCard
-          title="Running Sandboxes"
+          title={t('runningSandboxes')}
           value={sandboxStats?.runningSandboxes || 0}
-          description="Active environments"
+          description={t('activeEnvironments')}
           icon={Monitor}
           variant="primary"
         />
         <MetricCard
-          title="Active Jobs"
+          title={t('activeJobs')}
           value={sandboxStats?.rSandboxes || 0}
-          description="Currently processing"
+          description={t('currentlyProcessing')}
           icon={Activity}
           variant="secondary"
         />
         <MetricCard
-          title="Available Images"
+          title={t('availableImages')}
           value={sandboxStats?.runningSandboxes || 0}
-          description="Runtime images"
+          description={t('runtimeImages')}
           icon={Database}
         />
         <MetricCard
-          title="Completed Jobs"
+          title={t('completedJobs')}
           value={sandboxStats?.totalSandboxes || 0}
-          description="Total processed"
+          description={t('totalProcessed')}
           icon={Clock}
         />
       </div>

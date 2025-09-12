@@ -840,5 +840,108 @@
       "updated": "更新时间",
       "contractExpiredOn": "合约已于以下时间过期"
     }
+  },
+  "Sandbox": {
+    "AppsCard": {
+      "title": "已验证应用",
+      "description": "已发布并验证的应用，可用于部署",
+      "run": "运行",
+      "noApplicationsFound": "未找到应用",
+      "noContainerImages": "当前没有可用的容器镜像。"
+    },
+    "CreateJobDialog": {
+      "title": "创建处理任务",
+      "description": "配置新的数据处理任务",
+      "newJob": "新任务",
+      "jobName": "任务名称",
+      "jobNamePlaceholder": "客户细分分析",
+      "descriptionLabel": "描述",
+      "descriptionPlaceholder": "分析客户数据进行细分",
+      "application": "应用程序",
+      "selectApplication": "选择应用程序",
+      "loadingApplications": "加载应用程序中...",
+      "sandboxEnvironment": "沙箱环境",
+      "selectSandbox": "选择沙箱",
+      "loadingSandboxes": "加载沙箱中...",
+      "dataResource": "数据资源",
+      "selectDataResource": "选择数据资源",
+      "loadingResources": "加载资源中...",
+      "processingScript": "处理脚本",
+      "processingScriptPlaceholder": "import pandas as pd\n# 在此处编写您的数据处理代码",
+      "cancel": "取消",
+      "creating": "创建中...",
+      "createJob": "创建任务"
+    },
+    "DataProcessingJobsCard": {
+      "title": "数据处理任务",
+      "description": "管理数据处理任务",
+      "noJobsFound": "未找到处理任务",
+      "createJobToStart": "创建一个任务开始处理数据。"
+    },
+    "SandboxEnvironmentsCard": {
+      "title": "沙箱环境",
+      "description": "用于安全数据处理的隔离环境",
+      "createSandbox": "创建沙箱",
+      "createSandboxTitle": "创建沙箱环境",
+      "createSandboxDescription": "为数据处理设置新的隔离环境",
+      "environmentName": "环境名称",
+      "environmentNamePlaceholder": "Python 分析",
+      "runtime": "运行时",
+      "selectRuntime": "选择运行时",
+      "memoryLimit": "内存限制",
+      "selectMemoryLimit": "选择内存限制",
+      "containerImage": "容器镜像",
+      "selectImage": "选择镜像",
+      "networkIsolation": "网络隔离",
+      "cancel": "取消",
+      "noSandboxFound": "未找到沙箱环境",
+      "createOneToGetStarted": "创建一个开始使用。"
+    },
+    "SandboxTab": {
+      "runningSandboxes": "运行中的沙箱",
+      "activeEnvironments": "活跃环境",
+      "activeJobs": "活跃任务",
+      "currentlyProcessing": "正在处理",
+      "availableImages": "可用镜像",
+      "runtimeImages": "运行时镜像",
+      "completedJobs": "已完成任务",
+      "totalProcessed": "总处理量"
+    }
+  },
+  "Monitoring": {
+    "AuditProgressDialog": {
+      "sensitivityCheck": "敏感性检查",
+      "sensitivityCheckDescription": "检查数据中的敏感信息和分类",
+      "personalInfoCheck": "个人信息检查",
+      "personalInfoCheckDescription": "识别和验证个人隐私数据",
+      "complianceCheck": "合规性检查",
+      "complianceCheckDescription": "验证法规和政策合规性",
+      "dataAudit": "数据审计",
+      "dataAuditDescription": "对系统数据执行全面的审计检查",
+      "close": "关闭",
+      "start": "开始",
+      "stop": "停止",
+      "auditing": "审计中"
+    },
+    "MonitoringTab": {
+      "totalAlerts": "总告警数",
+      "allSystemAlerts": "所有系统告警",
+      "criticalAlerts": "严重告警",
+      "requireAttention": "需要关注",
+      "systemPerformance": "系统性能",
+      "optimal": "最佳",
+      "performanceMetrics": "性能指标",
+      "unresolvedIssues": "未解决问题",
+      "outstandingIssues": "待解决问题",
+      "systemMetrics": "系统指标",
+      "realTimeIndicators": "实时系统性能指标",
+      "cpuUsage": "CPU 使用率",
+      "memoryUsage": "内存使用率",
+      "diskUsage": "磁盘使用率",
+      "networkIn": "网络入站",
+      "networkOut": "网络出站",
+      "securityAlerts": "安全告警",
+      "securityEventsAndAlerts": "安全事件和系统告警"
+    }
   }
 }

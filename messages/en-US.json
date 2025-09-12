@@ -841,5 +841,108 @@
       "updated": "Updated",
       "contractExpiredOn": "Contract has expired on"
     }
+  },
+  "Sandbox": {
+    "AppsCard": {
+      "title": "Verified Applications",
+      "description": "Published and verified apps ready for deployment",
+      "run": "Run",
+      "noApplicationsFound": "No applications found",
+      "noContainerImages": "No container images are available at the moment."
+    },
+    "CreateJobDialog": {
+      "title": "Create Processing Job",
+      "description": "Configure a new data processing task",
+      "newJob": "New Job",
+      "jobName": "Job Name",
+      "jobNamePlaceholder": "Customer Segmentation Analysis",
+      "descriptionLabel": "Description",
+      "descriptionPlaceholder": "Analyze customer data for segmentation",
+      "application": "Application",
+      "selectApplication": "Select application",
+      "loadingApplications": "Loading applications...",
+      "sandboxEnvironment": "Sandbox Environment",
+      "selectSandbox": "Select sandbox",
+      "loadingSandboxes": "Loading sandboxes...",
+      "dataResource": "Data Resource",
+      "selectDataResource": "Select data resource",
+      "loadingResources": "Loading resources...",
+      "processingScript": "Processing Script",
+      "processingScriptPlaceholder": "import pandas as pd\n# Your data processing code here",
+      "cancel": "Cancel",
+      "creating": "Creating...",
+      "createJob": "Create Job"
+    },
+    "DataProcessingJobsCard": {
+      "title": "Data Processing Jobs",
+      "description": "Manage data processing tasks",
+      "noJobsFound": "No processing jobs found",
+      "createJobToStart": "Create one to start processing data."
+    },
+    "SandboxEnvironmentsCard": {
+      "title": "Sandbox Environments",
+      "description": "Isolated environments for secure data processing",
+      "createSandbox": "Create Sandbox",
+      "createSandboxTitle": "Create Sandbox Environment",
+      "createSandboxDescription": "Set up a new isolated environment for data processing",
+      "environmentName": "Environment Name",
+      "environmentNamePlaceholder": "Python Analytics",
+      "runtime": "Runtime",
+      "selectRuntime": "Select runtime",
+      "memoryLimit": "Memory Limit",
+      "selectMemoryLimit": "Select memory limit",
+      "containerImage": "Container Image",
+      "selectImage": "Select image",
+      "networkIsolation": "Network Isolation",
+      "cancel": "Cancel",
+      "noSandboxFound": "No sandbox environments found",
+      "createOneToGetStarted": "Create one to get started."
+    },
+    "SandboxTab": {
+      "runningSandboxes": "Running Sandboxes",
+      "activeEnvironments": "Active environments",
+      "activeJobs": "Active Jobs",
+      "currentlyProcessing": "Currently processing",
+      "availableImages": "Available Images",
+      "runtimeImages": "Runtime images",
+      "completedJobs": "Completed Jobs",
+      "totalProcessed": "Total processed"
+    }
+  },
+  "Monitoring": {
+    "AuditProgressDialog": {
+      "sensitivityCheck": "Sensitivity Check",
+      "sensitivityCheckDescription": "Check sensitive information and classification in data",
+      "personalInfoCheck": "Personal Information Check",
+      "personalInfoCheckDescription": "Identify and verify personal privacy data",
+      "complianceCheck": "Compliance Check",
+      "complianceCheckDescription": "Verify regulatory and policy compliance",
+      "dataAudit": "Data Audit",
+      "dataAuditDescription": "Performing comprehensive audit checks on system data",
+      "close": "Close",
+      "start": "Start",
+      "stop": "Stop",
+      "auditing": "Auditing"
+    },
+    "MonitoringTab": {
+      "totalAlerts": "Total Alerts",
+      "allSystemAlerts": "All system alerts",
+      "criticalAlerts": "Critical Alerts",
+      "requireAttention": "Require attention",
+      "systemPerformance": "System Performance",
+      "optimal": "Optimal",
+      "performanceMetrics": "Performance metrics",
+      "unresolvedIssues": "Unresolved Issues",
+      "outstandingIssues": "Outstanding issues",
+      "systemMetrics": "System Metrics",
+      "realTimeIndicators": "Real-time system performance indicators",
+      "cpuUsage": "CPU Usage",
+      "memoryUsage": "Memory Usage",
+      "diskUsage": "Disk Usage",
+      "networkIn": "Network In",
+      "networkOut": "Network Out",
+      "securityAlerts": "Security Alerts",
+      "securityEventsAndAlerts": "Security events and system alerts"
+    }
   }
 }
