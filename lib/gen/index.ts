@@ -41,14 +41,8 @@ export type { GetAllConnectorSecurityRatingsExcludeQueryKey } from './hooks/useG
 export type { GetAllConnectorSecurityRatingsExcludeSuspenseQueryKey } from './hooks/useGetAllConnectorSecurityRatingsExcludeSuspense.ts'
 export type { GetAllDataSpacesQueryKey } from './hooks/useGetAllDataSpaces.ts'
 export type { GetAllDataSpacesSuspenseQueryKey } from './hooks/useGetAllDataSpacesSuspense.ts'
-export type { GetApiV1TracesQueryKey } from './hooks/useGetApiV1Traces.ts'
 export type { GetApiV1TracesIdQueryKey } from './hooks/useGetApiV1TracesId.ts'
-export type { GetApiV1TracesIdChainQueryKey } from './hooks/useGetApiV1TracesIdChain.ts'
-export type { GetApiV1TracesIdChainSuspenseQueryKey } from './hooks/useGetApiV1TracesIdChainSuspense.ts'
 export type { GetApiV1TracesIdSuspenseQueryKey } from './hooks/useGetApiV1TracesIdSuspense.ts'
-export type { GetApiV1TracesResourceIdQueryKey } from './hooks/useGetApiV1TracesResourceId.ts'
-export type { GetApiV1TracesResourceIdSuspenseQueryKey } from './hooks/useGetApiV1TracesResourceIdSuspense.ts'
-export type { GetApiV1TracesSuspenseQueryKey } from './hooks/useGetApiV1TracesSuspense.ts'
 export type { GetAppQueryKey } from './hooks/useGetApp.ts'
 export type { GetAppStatsQueryKey } from './hooks/useGetAppStats.ts'
 export type { GetAppStatsSuspenseQueryKey } from './hooks/useGetAppStatsSuspense.ts'
@@ -142,6 +136,10 @@ export type { GetTotalResourceCountQueryKey } from './hooks/useGetTotalResourceC
 export type { GetTotalResourceCountByDataspaceQueryKey } from './hooks/useGetTotalResourceCountByDataspace.ts'
 export type { GetTotalResourceCountByDataspaceSuspenseQueryKey } from './hooks/useGetTotalResourceCountByDataspaceSuspense.ts'
 export type { GetTotalResourceCountSuspenseQueryKey } from './hooks/useGetTotalResourceCountSuspense.ts'
+export type { GetTraceChainQueryKey } from './hooks/useGetTraceChain.ts'
+export type { GetTraceChainSuspenseQueryKey } from './hooks/useGetTraceChainSuspense.ts'
+export type { GetTracesByResourceIDQueryKey } from './hooks/useGetTracesByResourceID.ts'
+export type { GetTracesByResourceIDSuspenseQueryKey } from './hooks/useGetTracesByResourceIDSuspense.ts'
 export type { GetUserQueryKey } from './hooks/useGetUser.ts'
 export type { GetUserDIDListQueryKey } from './hooks/useGetUserDIDList.ts'
 export type { GetUserDIDListSuspenseQueryKey } from './hooks/useGetUserDIDListSuspense.ts'
@@ -154,8 +152,6 @@ export type { ListAppsQueryKey } from './hooks/useListApps.ts'
 export type { ListAppsSuspenseQueryKey } from './hooks/useListAppsSuspense.ts'
 export type { ListBlockchainsQueryKey } from './hooks/useListBlockchains.ts'
 export type { ListBlockchainsSuspenseQueryKey } from './hooks/useListBlockchainsSuspense.ts'
-export type { ListConnectorsQueryKey } from './hooks/useListConnectors.ts'
-export type { ListConnectorsSuspenseQueryKey } from './hooks/useListConnectorsSuspense.ts'
 export type { ListContractsQueryKey } from './hooks/useListContracts.ts'
 export type { ListContractsSuspenseQueryKey } from './hooks/useListContractsSuspense.ts'
 export type { ListContractTemplatesQueryKey } from './hooks/useListContractTemplates.ts'
@@ -172,6 +168,8 @@ export type { ListResourcesQueryKey } from './hooks/useListResources.ts'
 export type { ListResourcesSuspenseQueryKey } from './hooks/useListResourcesSuspense.ts'
 export type { ListSandboxesQueryKey } from './hooks/useListSandboxes.ts'
 export type { ListSandboxesSuspenseQueryKey } from './hooks/useListSandboxesSuspense.ts'
+export type { ListTracesQueryKey } from './hooks/useListTraces.ts'
+export type { ListTracesSuspenseQueryKey } from './hooks/useListTracesSuspense.ts'
 export type { ListUsersQueryKey } from './hooks/useListUsers.ts'
 export type { ListUsersSuspenseQueryKey } from './hooks/useListUsersSuspense.ts'
 export type { PostOfferingMutationKey } from './hooks/usePostOffering.ts'
@@ -466,14 +464,6 @@ export type {
 } from './types/GetAllConnectorSecurityRatingsExclude.ts'
 export type { GetAllDataSpaces200, GetAllDataSpaces500, GetAllDataSpacesQueryResponse, GetAllDataSpacesQuery } from './types/GetAllDataSpaces.ts'
 export type {
-  GetApiV1TracesQueryParams,
-  GetApiV1Traces200,
-  GetApiV1Traces400,
-  GetApiV1Traces500,
-  GetApiV1TracesQueryResponse,
-  GetApiV1TracesQuery,
-} from './types/GetApiV1Traces.ts'
-export type {
   GetApiV1TracesIdPathParams,
   GetApiV1TracesId200,
   GetApiV1TracesId400,
@@ -482,24 +472,6 @@ export type {
   GetApiV1TracesIdQueryResponse,
   GetApiV1TracesIdQuery,
 } from './types/GetApiV1TracesId.ts'
-export type {
-  GetApiV1TracesIdChainPathParams,
-  GetApiV1TracesIdChain200,
-  GetApiV1TracesIdChain400,
-  GetApiV1TracesIdChain404,
-  GetApiV1TracesIdChain500,
-  GetApiV1TracesIdChainQueryResponse,
-  GetApiV1TracesIdChainQuery,
-} from './types/GetApiV1TracesIdChain.ts'
-export type {
-  GetApiV1TracesResourceIdPathParams,
-  GetApiV1TracesResourceIdQueryParams,
-  GetApiV1TracesResourceId200,
-  GetApiV1TracesResourceId400,
-  GetApiV1TracesResourceId500,
-  GetApiV1TracesResourceIdQueryResponse,
-  GetApiV1TracesResourceIdQuery,
-} from './types/GetApiV1TracesResourceId.ts'
 export type { GetAppPathParams, GetApp200, GetApp400, GetApp404, GetApp500, GetAppQueryResponse, GetAppQuery } from './types/GetApp.ts'
 export type { GetAppStatsQueryParams, GetAppStats200, GetAppStats400, GetAppStats500, GetAppStatsQueryResponse, GetAppStatsQuery } from './types/GetAppStats.ts'
 export type {
@@ -839,6 +811,24 @@ export type {
   GetTotalResourceCountByDataspaceQueryResponse,
   GetTotalResourceCountByDataspaceQuery,
 } from './types/GetTotalResourceCountByDataspace.ts'
+export type {
+  GetTraceChainPathParams,
+  GetTraceChain200,
+  GetTraceChain400,
+  GetTraceChain404,
+  GetTraceChain500,
+  GetTraceChainQueryResponse,
+  GetTraceChainQuery,
+} from './types/GetTraceChain.ts'
+export type {
+  GetTracesByResourceIDPathParams,
+  GetTracesByResourceIDQueryParams,
+  GetTracesByResourceID200,
+  GetTracesByResourceID400,
+  GetTracesByResourceID500,
+  GetTracesByResourceIDQueryResponse,
+  GetTracesByResourceIDQuery,
+} from './types/GetTracesByResourceID.ts'
 export type { GetUserPathParams, GetUser200, GetUser400, GetUser404, GetUser500, GetUserQueryResponse, GetUserQuery } from './types/GetUser.ts'
 export type {
   GetUserDIDListQueryParams,
@@ -903,14 +893,6 @@ export type {
   ListBlockchainsQuery,
 } from './types/ListBlockchains.ts'
 export type {
-  ListConnectorsQueryParams,
-  ListConnectors200,
-  ListConnectors400,
-  ListConnectors500,
-  ListConnectorsQueryResponse,
-  ListConnectorsQuery,
-} from './types/ListConnectors.ts'
-export type {
   ListContractsQueryParams,
   ListContracts200,
   ListContracts400,
@@ -965,6 +947,7 @@ export type {
   ListSandboxesQueryResponse,
   ListSandboxesQuery,
 } from './types/ListSandboxes.ts'
+export type { ListTracesQueryParams, ListTraces200, ListTraces400, ListTraces500, ListTracesQueryResponse, ListTracesQuery } from './types/ListTraces.ts'
 export type { ListUsersQueryParams, ListUsers200, ListUsers400, ListUsers500, ListUsersQueryResponse, ListUsersQuery } from './types/ListUsers.ts'
 export type { ModelsAlert } from './types/models/Alert.ts'
 export type { ModelsApp } from './types/models/App.ts'
@@ -1195,10 +1178,7 @@ export { getActiveResourceCount } from './clients/getActiveResourceCount.ts'
 export { getActiveResourceCountByDataspace } from './clients/getActiveResourceCountByDataspace.ts'
 export { getAllConnectorSecurityRatingsExclude } from './clients/getAllConnectorSecurityRatingsExclude.ts'
 export { getAllDataSpaces } from './clients/getAllDataSpaces.ts'
-export { getApiV1Traces } from './clients/getApiV1Traces.ts'
 export { getApiV1TracesId } from './clients/getApiV1TracesId.ts'
-export { getApiV1TracesIdChain } from './clients/getApiV1TracesIdChain.ts'
-export { getApiV1TracesResourceId } from './clients/getApiV1TracesResourceId.ts'
 export { getApp } from './clients/getApp.ts'
 export { getAppStats } from './clients/getAppStats.ts'
 export { getBlockchain } from './clients/getBlockchain.ts'
@@ -1245,6 +1225,8 @@ export { getSandboxStats } from './clients/getSandboxStats.ts'
 export { getTerminal } from './clients/getTerminal.ts'
 export { getTotalResourceCount } from './clients/getTotalResourceCount.ts'
 export { getTotalResourceCountByDataspace } from './clients/getTotalResourceCountByDataspace.ts'
+export { getTraceChain } from './clients/getTraceChain.ts'
+export { getTracesByResourceID } from './clients/getTracesByResourceID.ts'
 export { getUser } from './clients/getUser.ts'
 export { getUserDIDList } from './clients/getUserDIDList.ts'
 export { incrementDownloadCount } from './clients/incrementDownloadCount.ts'
@@ -1252,7 +1234,6 @@ export { incrementRunCount } from './clients/incrementRunCount.ts'
 export { listAlters } from './clients/listAlters.ts'
 export { listApps } from './clients/listApps.ts'
 export { listBlockchains } from './clients/listBlockchains.ts'
-export { listConnectors } from './clients/listConnectors.ts'
 export { listContracts } from './clients/listContracts.ts'
 export { listContractTemplates } from './clients/listContractTemplates.ts'
 export { listJobs } from './clients/listJobs.ts'
@@ -1261,6 +1242,7 @@ export { listPolicies } from './clients/listPolicies.ts'
 export { listResourceAudits } from './clients/listResourceAudits.ts'
 export { listResources } from './clients/listResources.ts'
 export { listSandboxes } from './clients/listSandboxes.ts'
+export { listTraces } from './clients/listTraces.ts'
 export { listUsers } from './clients/listUsers.ts'
 export { postOffering } from './clients/postOffering.ts'
 export { rejectJob } from './clients/rejectJob.ts'
@@ -1341,22 +1323,8 @@ export {
 } from './hooks/useGetAllConnectorSecurityRatingsExcludeSuspense.ts'
 export { getAllDataSpacesQueryKey, getAllDataSpacesQueryOptions, useGetAllDataSpaces } from './hooks/useGetAllDataSpaces.ts'
 export { getAllDataSpacesSuspenseQueryKey, getAllDataSpacesSuspenseQueryOptions, useGetAllDataSpacesSuspense } from './hooks/useGetAllDataSpacesSuspense.ts'
-export { getApiV1TracesQueryKey, getApiV1TracesQueryOptions, useGetApiV1Traces } from './hooks/useGetApiV1Traces.ts'
 export { getApiV1TracesIdQueryKey, getApiV1TracesIdQueryOptions, useGetApiV1TracesId } from './hooks/useGetApiV1TracesId.ts'
-export { getApiV1TracesIdChainQueryKey, getApiV1TracesIdChainQueryOptions, useGetApiV1TracesIdChain } from './hooks/useGetApiV1TracesIdChain.ts'
-export {
-  getApiV1TracesIdChainSuspenseQueryKey,
-  getApiV1TracesIdChainSuspenseQueryOptions,
-  useGetApiV1TracesIdChainSuspense,
-} from './hooks/useGetApiV1TracesIdChainSuspense.ts'
 export { getApiV1TracesIdSuspenseQueryKey, getApiV1TracesIdSuspenseQueryOptions, useGetApiV1TracesIdSuspense } from './hooks/useGetApiV1TracesIdSuspense.ts'
-export { getApiV1TracesResourceIdQueryKey, getApiV1TracesResourceIdQueryOptions, useGetApiV1TracesResourceId } from './hooks/useGetApiV1TracesResourceId.ts'
-export {
-  getApiV1TracesResourceIdSuspenseQueryKey,
-  getApiV1TracesResourceIdSuspenseQueryOptions,
-  useGetApiV1TracesResourceIdSuspense,
-} from './hooks/useGetApiV1TracesResourceIdSuspense.ts'
-export { getApiV1TracesSuspenseQueryKey, getApiV1TracesSuspenseQueryOptions, useGetApiV1TracesSuspense } from './hooks/useGetApiV1TracesSuspense.ts'
 export { getAppQueryKey, getAppQueryOptions, useGetApp } from './hooks/useGetApp.ts'
 export { getAppStatsQueryKey, getAppStatsQueryOptions, useGetAppStats } from './hooks/useGetAppStats.ts'
 export { getAppStatsSuspenseQueryKey, getAppStatsSuspenseQueryOptions, useGetAppStatsSuspense } from './hooks/useGetAppStatsSuspense.ts'
@@ -1614,6 +1582,14 @@ export {
   getTotalResourceCountSuspenseQueryOptions,
   useGetTotalResourceCountSuspense,
 } from './hooks/useGetTotalResourceCountSuspense.ts'
+export { getTraceChainQueryKey, getTraceChainQueryOptions, useGetTraceChain } from './hooks/useGetTraceChain.ts'
+export { getTraceChainSuspenseQueryKey, getTraceChainSuspenseQueryOptions, useGetTraceChainSuspense } from './hooks/useGetTraceChainSuspense.ts'
+export { getTracesByResourceIDQueryKey, getTracesByResourceIDQueryOptions, useGetTracesByResourceID } from './hooks/useGetTracesByResourceID.ts'
+export {
+  getTracesByResourceIDSuspenseQueryKey,
+  getTracesByResourceIDSuspenseQueryOptions,
+  useGetTracesByResourceIDSuspense,
+} from './hooks/useGetTracesByResourceIDSuspense.ts'
 export { getUserQueryKey, getUserQueryOptions, useGetUser } from './hooks/useGetUser.ts'
 export { getUserDIDListQueryKey, getUserDIDListQueryOptions, useGetUserDIDList } from './hooks/useGetUserDIDList.ts'
 export { getUserDIDListSuspenseQueryKey, getUserDIDListSuspenseQueryOptions, useGetUserDIDListSuspense } from './hooks/useGetUserDIDListSuspense.ts'
@@ -1626,8 +1602,6 @@ export { listAppsQueryKey, listAppsQueryOptions, useListApps } from './hooks/use
 export { listAppsSuspenseQueryKey, listAppsSuspenseQueryOptions, useListAppsSuspense } from './hooks/useListAppsSuspense.ts'
 export { listBlockchainsQueryKey, listBlockchainsQueryOptions, useListBlockchains } from './hooks/useListBlockchains.ts'
 export { listBlockchainsSuspenseQueryKey, listBlockchainsSuspenseQueryOptions, useListBlockchainsSuspense } from './hooks/useListBlockchainsSuspense.ts'
-export { listConnectorsQueryKey, listConnectorsQueryOptions, useListConnectors } from './hooks/useListConnectors.ts'
-export { listConnectorsSuspenseQueryKey, listConnectorsSuspenseQueryOptions, useListConnectorsSuspense } from './hooks/useListConnectorsSuspense.ts'
 export { listContractsQueryKey, listContractsQueryOptions, useListContracts } from './hooks/useListContracts.ts'
 export { listContractsSuspenseQueryKey, listContractsSuspenseQueryOptions, useListContractsSuspense } from './hooks/useListContractsSuspense.ts'
 export { listContractTemplatesQueryKey, listContractTemplatesQueryOptions, useListContractTemplates } from './hooks/useListContractTemplates.ts'
@@ -1652,6 +1626,8 @@ export { listResourcesQueryKey, listResourcesQueryOptions, useListResources } fr
 export { listResourcesSuspenseQueryKey, listResourcesSuspenseQueryOptions, useListResourcesSuspense } from './hooks/useListResourcesSuspense.ts'
 export { listSandboxesQueryKey, listSandboxesQueryOptions, useListSandboxes } from './hooks/useListSandboxes.ts'
 export { listSandboxesSuspenseQueryKey, listSandboxesSuspenseQueryOptions, useListSandboxesSuspense } from './hooks/useListSandboxesSuspense.ts'
+export { listTracesQueryKey, listTracesQueryOptions, useListTraces } from './hooks/useListTraces.ts'
+export { listTracesSuspenseQueryKey, listTracesSuspenseQueryOptions, useListTracesSuspense } from './hooks/useListTracesSuspense.ts'
 export { listUsersQueryKey, listUsersQueryOptions, useListUsers } from './hooks/useListUsers.ts'
 export { listUsersSuspenseQueryKey, listUsersSuspenseQueryOptions, useListUsersSuspense } from './hooks/useListUsersSuspense.ts'
 export { postOfferingMutationKey, usePostOffering } from './hooks/usePostOffering.ts'

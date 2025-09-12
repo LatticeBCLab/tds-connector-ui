@@ -41,14 +41,8 @@ export type { GetAllConnectorSecurityRatingsExcludeQueryKey } from './useGetAllC
 export type { GetAllConnectorSecurityRatingsExcludeSuspenseQueryKey } from './useGetAllConnectorSecurityRatingsExcludeSuspense.ts'
 export type { GetAllDataSpacesQueryKey } from './useGetAllDataSpaces.ts'
 export type { GetAllDataSpacesSuspenseQueryKey } from './useGetAllDataSpacesSuspense.ts'
-export type { GetApiV1TracesQueryKey } from './useGetApiV1Traces.ts'
 export type { GetApiV1TracesIdQueryKey } from './useGetApiV1TracesId.ts'
-export type { GetApiV1TracesIdChainQueryKey } from './useGetApiV1TracesIdChain.ts'
-export type { GetApiV1TracesIdChainSuspenseQueryKey } from './useGetApiV1TracesIdChainSuspense.ts'
 export type { GetApiV1TracesIdSuspenseQueryKey } from './useGetApiV1TracesIdSuspense.ts'
-export type { GetApiV1TracesResourceIdQueryKey } from './useGetApiV1TracesResourceId.ts'
-export type { GetApiV1TracesResourceIdSuspenseQueryKey } from './useGetApiV1TracesResourceIdSuspense.ts'
-export type { GetApiV1TracesSuspenseQueryKey } from './useGetApiV1TracesSuspense.ts'
 export type { GetAppQueryKey } from './useGetApp.ts'
 export type { GetAppStatsQueryKey } from './useGetAppStats.ts'
 export type { GetAppStatsSuspenseQueryKey } from './useGetAppStatsSuspense.ts'
@@ -142,6 +136,10 @@ export type { GetTotalResourceCountQueryKey } from './useGetTotalResourceCount.t
 export type { GetTotalResourceCountByDataspaceQueryKey } from './useGetTotalResourceCountByDataspace.ts'
 export type { GetTotalResourceCountByDataspaceSuspenseQueryKey } from './useGetTotalResourceCountByDataspaceSuspense.ts'
 export type { GetTotalResourceCountSuspenseQueryKey } from './useGetTotalResourceCountSuspense.ts'
+export type { GetTraceChainQueryKey } from './useGetTraceChain.ts'
+export type { GetTraceChainSuspenseQueryKey } from './useGetTraceChainSuspense.ts'
+export type { GetTracesByResourceIDQueryKey } from './useGetTracesByResourceID.ts'
+export type { GetTracesByResourceIDSuspenseQueryKey } from './useGetTracesByResourceIDSuspense.ts'
 export type { GetUserQueryKey } from './useGetUser.ts'
 export type { GetUserDIDListQueryKey } from './useGetUserDIDList.ts'
 export type { GetUserDIDListSuspenseQueryKey } from './useGetUserDIDListSuspense.ts'
@@ -154,8 +152,6 @@ export type { ListAppsQueryKey } from './useListApps.ts'
 export type { ListAppsSuspenseQueryKey } from './useListAppsSuspense.ts'
 export type { ListBlockchainsQueryKey } from './useListBlockchains.ts'
 export type { ListBlockchainsSuspenseQueryKey } from './useListBlockchainsSuspense.ts'
-export type { ListConnectorsQueryKey } from './useListConnectors.ts'
-export type { ListConnectorsSuspenseQueryKey } from './useListConnectorsSuspense.ts'
 export type { ListContractsQueryKey } from './useListContracts.ts'
 export type { ListContractsSuspenseQueryKey } from './useListContractsSuspense.ts'
 export type { ListContractTemplatesQueryKey } from './useListContractTemplates.ts'
@@ -172,6 +168,8 @@ export type { ListResourcesQueryKey } from './useListResources.ts'
 export type { ListResourcesSuspenseQueryKey } from './useListResourcesSuspense.ts'
 export type { ListSandboxesQueryKey } from './useListSandboxes.ts'
 export type { ListSandboxesSuspenseQueryKey } from './useListSandboxesSuspense.ts'
+export type { ListTracesQueryKey } from './useListTraces.ts'
+export type { ListTracesSuspenseQueryKey } from './useListTracesSuspense.ts'
 export type { ListUsersQueryKey } from './useListUsers.ts'
 export type { ListUsersSuspenseQueryKey } from './useListUsersSuspense.ts'
 export type { PostOfferingMutationKey } from './usePostOffering.ts'
@@ -254,22 +252,8 @@ export {
 } from './useGetAllConnectorSecurityRatingsExcludeSuspense.ts'
 export { getAllDataSpacesQueryKey, getAllDataSpacesQueryOptions, useGetAllDataSpaces } from './useGetAllDataSpaces.ts'
 export { getAllDataSpacesSuspenseQueryKey, getAllDataSpacesSuspenseQueryOptions, useGetAllDataSpacesSuspense } from './useGetAllDataSpacesSuspense.ts'
-export { getApiV1TracesQueryKey, getApiV1TracesQueryOptions, useGetApiV1Traces } from './useGetApiV1Traces.ts'
 export { getApiV1TracesIdQueryKey, getApiV1TracesIdQueryOptions, useGetApiV1TracesId } from './useGetApiV1TracesId.ts'
-export { getApiV1TracesIdChainQueryKey, getApiV1TracesIdChainQueryOptions, useGetApiV1TracesIdChain } from './useGetApiV1TracesIdChain.ts'
-export {
-  getApiV1TracesIdChainSuspenseQueryKey,
-  getApiV1TracesIdChainSuspenseQueryOptions,
-  useGetApiV1TracesIdChainSuspense,
-} from './useGetApiV1TracesIdChainSuspense.ts'
 export { getApiV1TracesIdSuspenseQueryKey, getApiV1TracesIdSuspenseQueryOptions, useGetApiV1TracesIdSuspense } from './useGetApiV1TracesIdSuspense.ts'
-export { getApiV1TracesResourceIdQueryKey, getApiV1TracesResourceIdQueryOptions, useGetApiV1TracesResourceId } from './useGetApiV1TracesResourceId.ts'
-export {
-  getApiV1TracesResourceIdSuspenseQueryKey,
-  getApiV1TracesResourceIdSuspenseQueryOptions,
-  useGetApiV1TracesResourceIdSuspense,
-} from './useGetApiV1TracesResourceIdSuspense.ts'
-export { getApiV1TracesSuspenseQueryKey, getApiV1TracesSuspenseQueryOptions, useGetApiV1TracesSuspense } from './useGetApiV1TracesSuspense.ts'
 export { getAppQueryKey, getAppQueryOptions, useGetApp } from './useGetApp.ts'
 export { getAppStatsQueryKey, getAppStatsQueryOptions, useGetAppStats } from './useGetAppStats.ts'
 export { getAppStatsSuspenseQueryKey, getAppStatsSuspenseQueryOptions, useGetAppStatsSuspense } from './useGetAppStatsSuspense.ts'
@@ -511,6 +495,14 @@ export {
   getTotalResourceCountSuspenseQueryOptions,
   useGetTotalResourceCountSuspense,
 } from './useGetTotalResourceCountSuspense.ts'
+export { getTraceChainQueryKey, getTraceChainQueryOptions, useGetTraceChain } from './useGetTraceChain.ts'
+export { getTraceChainSuspenseQueryKey, getTraceChainSuspenseQueryOptions, useGetTraceChainSuspense } from './useGetTraceChainSuspense.ts'
+export { getTracesByResourceIDQueryKey, getTracesByResourceIDQueryOptions, useGetTracesByResourceID } from './useGetTracesByResourceID.ts'
+export {
+  getTracesByResourceIDSuspenseQueryKey,
+  getTracesByResourceIDSuspenseQueryOptions,
+  useGetTracesByResourceIDSuspense,
+} from './useGetTracesByResourceIDSuspense.ts'
 export { getUserQueryKey, getUserQueryOptions, useGetUser } from './useGetUser.ts'
 export { getUserDIDListQueryKey, getUserDIDListQueryOptions, useGetUserDIDList } from './useGetUserDIDList.ts'
 export { getUserDIDListSuspenseQueryKey, getUserDIDListSuspenseQueryOptions, useGetUserDIDListSuspense } from './useGetUserDIDListSuspense.ts'
@@ -523,8 +515,6 @@ export { listAppsQueryKey, listAppsQueryOptions, useListApps } from './useListAp
 export { listAppsSuspenseQueryKey, listAppsSuspenseQueryOptions, useListAppsSuspense } from './useListAppsSuspense.ts'
 export { listBlockchainsQueryKey, listBlockchainsQueryOptions, useListBlockchains } from './useListBlockchains.ts'
 export { listBlockchainsSuspenseQueryKey, listBlockchainsSuspenseQueryOptions, useListBlockchainsSuspense } from './useListBlockchainsSuspense.ts'
-export { listConnectorsQueryKey, listConnectorsQueryOptions, useListConnectors } from './useListConnectors.ts'
-export { listConnectorsSuspenseQueryKey, listConnectorsSuspenseQueryOptions, useListConnectorsSuspense } from './useListConnectorsSuspense.ts'
 export { listContractsQueryKey, listContractsQueryOptions, useListContracts } from './useListContracts.ts'
 export { listContractsSuspenseQueryKey, listContractsSuspenseQueryOptions, useListContractsSuspense } from './useListContractsSuspense.ts'
 export { listContractTemplatesQueryKey, listContractTemplatesQueryOptions, useListContractTemplates } from './useListContractTemplates.ts'
@@ -545,6 +535,8 @@ export { listResourcesQueryKey, listResourcesQueryOptions, useListResources } fr
 export { listResourcesSuspenseQueryKey, listResourcesSuspenseQueryOptions, useListResourcesSuspense } from './useListResourcesSuspense.ts'
 export { listSandboxesQueryKey, listSandboxesQueryOptions, useListSandboxes } from './useListSandboxes.ts'
 export { listSandboxesSuspenseQueryKey, listSandboxesSuspenseQueryOptions, useListSandboxesSuspense } from './useListSandboxesSuspense.ts'
+export { listTracesQueryKey, listTracesQueryOptions, useListTraces } from './useListTraces.ts'
+export { listTracesSuspenseQueryKey, listTracesSuspenseQueryOptions, useListTracesSuspense } from './useListTracesSuspense.ts'
 export { listUsersQueryKey, listUsersQueryOptions, useListUsers } from './useListUsers.ts'
 export { listUsersSuspenseQueryKey, listUsersSuspenseQueryOptions, useListUsersSuspense } from './useListUsersSuspense.ts'
 export { postOfferingMutationKey, usePostOffering } from './usePostOffering.ts'

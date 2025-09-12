@@ -4,8 +4,8 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { RejectJobMutationResponse, RejectJobPathParams, RejectJob400, RejectJob404, RejectJob500 } from '../types/RejectJob.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
+import type { RejectJobMutationResponse, RejectJobPathParams, RejectJob400, RejectJob404, RejectJob500 } from '../types/RejectJob.ts'
 
 function getRejectJobUrl(id: RejectJobPathParams['id']) {
   const res = { method: 'POST', url: `/tdsc/api/v1/jobs/${id}/reject` as const }

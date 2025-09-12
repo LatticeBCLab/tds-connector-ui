@@ -4,11 +4,11 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { ApproveJobMutationResponse, ApproveJobPathParams, ApproveJob400, ApproveJob404, ApproveJob500 } from '../types/ApproveJob.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { UseMutationOptions, QueryClient } from '@tanstack/react-query'
-import { approveJob } from '../clients/approveJob.ts'
+import type { ApproveJobMutationResponse, ApproveJobPathParams, ApproveJob400, ApproveJob404, ApproveJob500 } from '../types/ApproveJob.ts'
 import { useMutation } from '@tanstack/react-query'
+import { approveJob } from '../clients/approveJob.ts'
 
 export const approveJobMutationKey = () => [{ url: '/api/v1/jobs/:id/approve' }] as const
 

@@ -10,14 +10,13 @@ import {
 } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Spinner } from "@/components/ui/spinner";
+import { ModelsTraceResponse } from "@/lib/gen";
 import { useGetResourceByID } from "@/lib/gen/hooks/useGetResourceByID";
 import { useGetTracesByResourceID } from "@/lib/gen/hooks/useGetTracesByResourceID";
 
 import { ModelsResource } from "@/lib/gen/types/models/Resource";
-import { ModelsTrace } from "@/lib/gen/types/models/Trace";
 import { cn } from "@/lib/utils";
 import {
-  ArrowDown,
   Database,
   FileText,
   GitBranch,
@@ -64,7 +63,7 @@ export function DataTraceabilityDialog({
   const traceabilityTree = useMemo(() => {
     if (!resourceData) return [];
     
-    const buildTree = (resource: ModelsResource, traces: ModelsTrace[] = [], level = 0): TraceNode[] => {
+    const buildTree = (resource: ModelsResource, traces: ModelsTraceResponse[] = [], level = 0): TraceNode[] => {
       const node: TraceNode = {
         id: resource.id || '',
         title: resource.title || 'Unknown Resource',
@@ -77,11 +76,14 @@ export function DataTraceabilityDialog({
         level,
         children: [],
       };
+      if (traces.length ===0) {
+        return [node];
+      }
       
       // 如果有追踪数据，构建子节点
-      if (traces[level]?.parent_data?.id !== "") {
-        node.children = traces[level].parent_data.flatMap(trace => {
-          if (trace.id) {
+      if (traces[level]?.parent_data?.length) {
+        node.children = traces[level]?.parent_data?.flatMap(trace => {
+          if (trace?.id) {
             return buildTree(trace, traces, level + 1);
           }
           return [];
@@ -180,15 +182,15 @@ export function DataTraceabilityDialog({
                     <span>Created: {new Date(node.createdAt).toLocaleDateString()}</span>
                   </div>
                 )}
+                )}
+                {node.id && (
+                  <div className="flex items-center space-x-1">
+                    <span>id: {node.id}</span>
+                  </div>
+                )}
               </div>
             </div>
             
-            {/* 箭头指示 */}
-            {hasChildren && (
-              <div className="flex items-center text-muted-foreground">
-                <ArrowDown className="h-4 w-4" />
-              </div>
-            )}
           </div>
         </div>
         

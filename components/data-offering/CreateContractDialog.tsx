@@ -29,7 +29,6 @@ import {
   useListPolicies,
 } from "@/lib/gen";
 import { useGetAllDataSpaces } from "@/lib/gen/hooks/useGetAllDataSpaces";
-import { useListConnectors } from "@/lib/gen/hooks/useListConnectors";
 import { useAppStore } from "@/lib/stores/app-store";
 import { generateContractAddress } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -109,16 +108,6 @@ export function CreateContractDialog({
   });
 
   // Get connectors for connector DID dropdown
-  const { data: connectorsData } = useListConnectors(
-    {
-      page: 1,
-      page_size: 100,
-    },
-    {
-      query: { enabled: !!open },
-    }
-  );
-
   const form = useForm<CreateContractFormData>({
     resolver: zodResolver(createContractSchema),
     defaultValues: {
@@ -153,9 +142,6 @@ export function CreateContractDialog({
     [];
 
   // Get available connectors
-  const availableConnectors = (connectorsData || []) as any[];
-
-  console.log("1111", availableConnectors);
 
   // Reset form when dialog opens/closes
   useEffect(() => {
@@ -322,21 +308,6 @@ export function CreateContractDialog({
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      {availableConnectors.map((connector: any) => (
-                        <SelectItem
-                          key={connector.connectorDid}
-                          value={connector.connectorDid}
-                        >
-                          <div className="flex flex-col">
-                            <span className="font-medium">
-                              {connector.connectorDid}
-                            </span>
-                            {/* <span className="text-muted-foreground text-xs">
-                              {connector.connectorName}
-                            </span> */}
-                          </div>
-                        </SelectItem>
-                      ))}
                     </SelectContent>
                   </Select>
                   <FormMessage />
