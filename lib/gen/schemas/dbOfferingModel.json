@@ -1,0 +1,1 @@
+{"type":"object","properties":{"bucket_name":{"type":"string"},"created_at":{"type":"string"},"description":{"type":"string"},"id":{"type":"string"},"object_name":{"type":"string"},"type":{"type":"string"},"url":{"type":"string"}},"x-readme-ref-name":"db.OfferingModel"}

@@ -1,0 +1,1 @@
+{"type":"object","properties":{"parent_data":{"type":"array","items":{"$ref":"#/components/schemas/models.Resource"}},"resource":{"$ref":"#/components/schemas/models.Resource"},"resource_id":{"type":"string"}},"x-readme-ref-name":"models.TraceResponse"}

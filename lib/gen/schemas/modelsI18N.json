@@ -1,0 +1,1 @@
+{"type":"object","properties":{"created_at":{"type":"string"},"deleted_at":{"type":"string"},"field":{"description":"字段名","type":"string"},"id":{"type":"integer"},"lang_code":{"description":"语言代码","type":"string"},"row_id":{"description":"关联的行ID","type":"string"},"updated_at":{"type":"string"},"value":{"description":"翻译值","type":"string"}},"x-readme-ref-name":"models.I18n"}

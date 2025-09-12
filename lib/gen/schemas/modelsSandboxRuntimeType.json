@@ -1,0 +1,1 @@
+{"type":"string","enum":["python","r","java","nodejs","scala","spark"],"x-enum-varnames":["SandboxRuntimePython","SandboxRuntimeR","SandboxRuntimeJava","SandboxRuntimeNodejs","SandboxRuntimeScala","SandboxRuntimeSpark"],"x-readme-ref-name":"models.SandboxRuntimeType"}

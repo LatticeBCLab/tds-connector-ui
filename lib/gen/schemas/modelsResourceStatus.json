@@ -1,0 +1,1 @@
+{"type":"string","enum":["Active","Inactive"],"x-enum-varnames":["Active","Inactive"],"x-readme-ref-name":"models.ResourceStatus"}

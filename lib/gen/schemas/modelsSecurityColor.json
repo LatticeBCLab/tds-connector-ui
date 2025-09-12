@@ -1,0 +1,1 @@
+{"type":"string","enum":["GREEN","YELLOW","RED"],"x-enum-comments":{"SecurityColorGreen":"绿色","SecurityColorRed":"红色","SecurityColorYellow":"黄色"},"x-enum-descriptions":["绿色","黄色","红色"],"x-enum-varnames":["SecurityColorGreen","SecurityColorYellow","SecurityColorRed"],"x-readme-ref-name":"models.SecurityColor"}
