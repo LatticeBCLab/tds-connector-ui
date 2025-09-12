@@ -182,7 +182,6 @@ export function DataTraceabilityDialog({
                     <span>Created: {new Date(node.createdAt).toLocaleDateString()}</span>
                   </div>
                 )}
-                )}
                 {node.id && (
                   <div className="flex items-center space-x-1">
                     <span>id: {node.id}</span>
