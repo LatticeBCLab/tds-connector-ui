@@ -1,0 +1,1 @@
+export type { DbOfferingModel } from './OfferingModel.ts'

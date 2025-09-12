@@ -4,8 +4,8 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { ApproveJobMutationResponse, ApproveJobPathParams, ApproveJob400, ApproveJob404, ApproveJob500 } from '../types/ApproveJob.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 function getApproveJobUrl(id: ApproveJobPathParams['id']) {
   const res = { method: 'POST', url: `/tdsc/api/v1/jobs/${id}/approve` as const }

@@ -17,6 +17,16 @@ export type HandlersUpdateContractRequest = {
    */
   expires_at?: string
   /**
+   * @description 来源连接DID
+   * @type string | undefined
+   */
+  from_connect_did?: string
+  /**
+   * @description 来源数据空间ID
+   * @type string | undefined
+   */
+  from_data_space_id?: string
+  /**
    * @type integer | undefined
    */
   max_access_count?: number
@@ -37,4 +47,14 @@ export type HandlersUpdateContractRequest = {
    * @type string | undefined
    */
   resource_id?: string
+  /**
+   * @description 目标连接DID
+   * @type string | undefined
+   */
+  to_connect_did?: string
+  /**
+   * @description 目标数据空间ID
+   * @type string | undefined
+   */
+  to_data_space_id?: string
 }

@@ -3,7 +3,6 @@
 import { DateTimePicker } from "@/components/DateTimePicker";
 import { ActionDialog } from "@/components/shared";
 import { Button } from "@/components/ui/button";
-import { useTranslations } from "next-intl";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
   Form,
@@ -29,10 +28,13 @@ import {
   useGetUserDIDList,
   useListPolicies,
 } from "@/lib/gen";
+import { useGetAllDataSpaces } from "@/lib/gen/hooks/useGetAllDataSpaces";
+import { useListConnectors } from "@/lib/gen/hooks/useListConnectors";
 import { useAppStore } from "@/lib/stores/app-store";
 import { generateContractAddress } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Plus } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -44,6 +46,8 @@ const createContractSchema = z.object({
   expires_at: z.string().min(1, "Expiration date is required"),
   max_access_count: z.number().min(1, "Max access count must be at least 1"),
   resource_id: z.string().min(1, "Resource is required"),
+  to_data_space_id: z.string().min(1, "Target data space is required"),
+  to_connect_did: z.string().min(1, "Target connector DID is required"),
   policy: z.array(z.string()).min(1, "At least one policy must be selected"),
 });
 
@@ -99,6 +103,22 @@ export function CreateContractDialog({
     }
   );
 
+  // Get all data spaces for target data space dropdown
+  const { data: dataSpacesData } = useGetAllDataSpaces({
+    query: { enabled: !!open },
+  });
+
+  // Get connectors for connector DID dropdown
+  const { data: connectorsData } = useListConnectors(
+    {
+      page: 1,
+      page_size: 100,
+    },
+    {
+      query: { enabled: !!open },
+    }
+  );
+
   const form = useForm<CreateContractFormData>({
     resolver: zodResolver(createContractSchema),
     defaultValues: {
@@ -107,15 +127,17 @@ export function CreateContractDialog({
       expires_at: "",
       max_access_count: 100,
       resource_id: "",
+      to_data_space_id: "",
+      to_connect_did: "",
       policy: [],
     },
   });
 
   const provider = process.env.NEXT_PUBLIC_USER_DID || "";
+  const fromConnectorDID = process.env.NEXT_PUBLIC_CONNECTOR_DID || "";
 
   // Filter users to exclude current user (usersData is a string array)
-  const availableConsumers =
-    usersData?.filter((userDID_item) => userDID_item !== userDID) || [];
+  const availableConsumers = usersData || [];
 
   // Filter resources to only show APPROVED boundStatus
   const approvedResources =
@@ -124,6 +146,16 @@ export function CreateContractDialog({
     ) || [];
 
   const availablePolicies = (policiesData as any)?.policies || [];
+
+  // Filter data spaces to show active ones
+  const availableDataSpaces =
+    dataSpacesData?.filter((dataSpace: any) => dataSpace.status === "ACTIVE") ||
+    [];
+
+  // Get available connectors
+  const availableConnectors = (connectorsData || []) as any[];
+
+  console.log("1111", availableConnectors);
 
   // Reset form when dialog opens/closes
   useEffect(() => {
@@ -169,11 +201,15 @@ export function CreateContractDialog({
         address,
         consumer: data.consumer,
         expires_at: formattedExpiresAt,
+        from_data_space_id: currentDataSpaceId || "",
+        to_data_space_id: data.to_data_space_id,
         max_access_count: data.max_access_count,
         name: data.name,
         policy: selectedPolicyObjects,
         provider,
         resource_id: data.resource_id,
+        from_connect_did: fromConnectorDID,
+        to_connect_did: data.to_connect_did,
       };
 
       await createContractMutation.mutateAsync({ data: contractData });
@@ -201,7 +237,7 @@ export function CreateContractDialog({
       description={t("description")}
       open={open}
       onOpenChange={onOpenChange}
-      maxWidth="lg"
+      maxWidth="xl"
     >
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
@@ -242,14 +278,63 @@ export function CreateContractDialog({
                   <FormLabel>{t("fields.consumer.label")}</FormLabel>
                   <Select value={field.value} onValueChange={field.onChange}>
                     <FormControl>
-                      <SelectTrigger className="border-border">
-                        <SelectValue placeholder={t("fields.consumer.placeholder")} />
+                      <SelectTrigger className="border-border w-full">
+                        <SelectValue
+                          placeholder={t("fields.consumer.placeholder")}
+                        />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
                       {availableConsumers.map((userDIDItem) => (
                         <SelectItem key={userDIDItem} value={userDIDItem}>
                           {userDIDItem}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label className="text-muted-foreground text-sm font-medium">
+                From Connector DID
+              </label>
+              <Input
+                value={fromConnectorDID}
+                readOnly
+                className="border-border bg-muted/50 text-muted-foreground"
+              />
+            </div>
+            <FormField
+              control={form.control}
+              name="to_connect_did"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>To Connector DID</FormLabel>
+                  <Select value={field.value} onValueChange={field.onChange}>
+                    <FormControl>
+                      <SelectTrigger className="border-border w-full">
+                        <SelectValue placeholder="Select target connector" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {availableConnectors.map((connector: any) => (
+                        <SelectItem
+                          key={connector.connectorDid}
+                          value={connector.connectorDid}
+                        >
+                          <div className="flex flex-col">
+                            <span className="font-medium">
+                              {connector.connectorDid}
+                            </span>
+                            {/* <span className="text-muted-foreground text-xs">
+                              {connector.connectorName}
+                            </span> */}
+                          </div>
                         </SelectItem>
                       ))}
                     </SelectContent>
@@ -303,32 +388,67 @@ export function CreateContractDialog({
             />
           </div>
 
-          <FormField
-            control={form.control}
-            name="resource_id"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>{t("fields.resource.label")}</FormLabel>
-                <Select value={field.value} onValueChange={field.onChange}>
-                  <FormControl>
-                    <SelectTrigger className="border-border">
-                      <SelectValue placeholder={t("fields.resource.placeholder")} />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent>
-                    {approvedResources.map((resource: any) => (
-                      <SelectItem key={resource.id} value={resource.id}>
-                        <div className="flex flex-col">
-                          <span className="font-medium">{resource.title}</span>
-                        </div>
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+          <div className="grid grid-cols-2 gap-4">
+            <FormField
+              control={form.control}
+              name="resource_id"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>{t("fields.resource.label")}</FormLabel>
+                  <Select value={field.value} onValueChange={field.onChange}>
+                    <FormControl>
+                      <SelectTrigger className="border-border w-full">
+                        <SelectValue
+                          placeholder={t("fields.resource.placeholder")}
+                        />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {approvedResources.map((resource: any) => (
+                        <SelectItem key={resource.id} value={resource.id}>
+                          <div className="flex flex-col">
+                            <span className="font-medium">
+                              {resource.title}
+                            </span>
+                          </div>
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="to_data_space_id"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Target Data Space</FormLabel>
+                  <Select value={field.value} onValueChange={field.onChange}>
+                    <FormControl>
+                      <SelectTrigger className="border-border w-full">
+                        <SelectValue placeholder={"Select target data space"} />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {availableDataSpaces.map((dataSpace: any) => (
+                        <SelectItem key={dataSpace.id} value={dataSpace.id}>
+                          <div className="flex flex-col">
+                            <span className="font-medium">
+                              {dataSpace.name}
+                            </span>
+                          </div>
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
 
           <FormField
             control={form.control}
