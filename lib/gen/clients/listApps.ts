@@ -8,14 +8,14 @@ import type { ListAppsQueryResponse, ListAppsQueryParams, ListApps400, ListApps5
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 function getListAppsUrl() {
-  const res = { method: 'GET', url: `/tdsc/api/v1/apps` as const }
+  const res = { method: 'GET', url: `/tdsc/api/v1/apps/pagination` as const }
   return res
 }
 
 /**
  * @description 分页获取App列表，支持按名称搜索和分类过滤
  * @summary 获取App列表
- * {@link /api/v1/apps}
+ * {@link /api/v1/apps/pagination}
  */
 export async function listApps(params: ListAppsQueryParams, config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
   const { client: request = fetch, ...requestConfig } = config

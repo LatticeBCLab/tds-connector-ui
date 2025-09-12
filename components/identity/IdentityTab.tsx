@@ -12,7 +12,7 @@ import {
 import { Spinner } from "@/components/ui/spinner";
 import { useToast } from "@/hooks/use-toast";
 import { useGetConnectorByDID } from "@/lib/gen/hooks/useGetConnectorByDID";
-import { useGetUserByDID } from "@/lib/gen/hooks/useGetUserByDID";
+import { useGetUser } from "@/lib/gen/hooks/useGetUser";
 import { useAppStore } from "@/lib/stores/app-store";
 import {
   AlertCircle,
@@ -54,7 +54,7 @@ export function IdentityTab() {
     data: userData,
     isLoading: isLoadingUser,
     error: userError,
-  } = useGetUserByDID(userDID || "", {
+  } = useGetUser(userDID || "", {
     query: {
       enabled: !!userDID,
     },

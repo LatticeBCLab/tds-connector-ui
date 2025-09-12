@@ -10,7 +10,7 @@ import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryRe
 import { listJobs } from '../clients/listJobs.ts'
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
 
-export const listJobsSuspenseQueryKey = (params: ListJobsQueryParams) => [{ url: '/api/v1/jobs' }, ...(params ? [params] : [])] as const
+export const listJobsSuspenseQueryKey = (params: ListJobsQueryParams) => [{ url: '/api/v1/jobs/pagination' }, ...(params ? [params] : [])] as const
 
 export type ListJobsSuspenseQueryKey = ReturnType<typeof listJobsSuspenseQueryKey>
 
@@ -29,7 +29,7 @@ export function listJobsSuspenseQueryOptions(params: ListJobsQueryParams, config
 /**
  * @description 分页获取Job列表，支持按名称搜索和状态过滤
  * @summary 获取Job列表
- * {@link /api/v1/jobs}
+ * {@link /api/v1/jobs/pagination}
  */
 export function useListJobsSuspense<TData = ListJobsQueryResponse, TQueryKey extends QueryKey = ListJobsSuspenseQueryKey>(
   params: ListJobsQueryParams,

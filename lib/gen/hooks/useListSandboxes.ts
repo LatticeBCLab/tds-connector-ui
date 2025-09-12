@@ -10,7 +10,7 @@ import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from
 import { listSandboxes } from '../clients/listSandboxes.ts'
 import { queryOptions, useQuery } from '@tanstack/react-query'
 
-export const listSandboxesQueryKey = (params: ListSandboxesQueryParams) => [{ url: '/api/v1/sandboxes' }, ...(params ? [params] : [])] as const
+export const listSandboxesQueryKey = (params: ListSandboxesQueryParams) => [{ url: '/api/v1/sandboxes/pagination' }, ...(params ? [params] : [])] as const
 
 export type ListSandboxesQueryKey = ReturnType<typeof listSandboxesQueryKey>
 
@@ -29,7 +29,7 @@ export function listSandboxesQueryOptions(params: ListSandboxesQueryParams, conf
 /**
  * @description 分页获取沙箱列表，支持按名称搜索和状态过滤
  * @summary 获取沙箱列表
- * {@link /api/v1/sandboxes}
+ * {@link /api/v1/sandboxes/pagination}
  */
 export function useListSandboxes<
   TData = ListSandboxesQueryResponse,
