@@ -18,6 +18,7 @@ export type { CreatePolicyMutationKey } from './hooks/useCreatePolicy.ts'
 export type { CreateResourceMutationKey } from './hooks/useCreateResource.ts'
 export type { CreateResourceAuditMutationKey } from './hooks/useCreateResourceAudit.ts'
 export type { CreateSandboxMutationKey } from './hooks/useCreateSandbox.ts'
+export type { CreateTerminalMutationKey } from './hooks/useCreateTerminal.ts'
 export type { CreateUserMutationKey } from './hooks/useCreateUser.ts'
 export type { DeleteAppMutationKey } from './hooks/useDeleteApp.ts'
 export type { DeleteByRowIDMutationKey } from './hooks/useDeleteByRowID.ts'
@@ -120,14 +121,16 @@ export type { GetSandboxStatsQueryKey } from './hooks/useGetSandboxStats.ts'
 export type { GetSandboxStatsSuspenseQueryKey } from './hooks/useGetSandboxStatsSuspense.ts'
 export type { GetSandboxSuspenseQueryKey } from './hooks/useGetSandboxSuspense.ts'
 export type { GetSuspenseQueryKey } from './hooks/useGetSuspense.ts'
+export type { GetTerminalQueryKey } from './hooks/useGetTerminal.ts'
+export type { GetTerminalSuspenseQueryKey } from './hooks/useGetTerminalSuspense.ts'
 export type { GetTotalResourceCountQueryKey } from './hooks/useGetTotalResourceCount.ts'
 export type { GetTotalResourceCountByDataspaceQueryKey } from './hooks/useGetTotalResourceCountByDataspace.ts'
 export type { GetTotalResourceCountByDataspaceSuspenseQueryKey } from './hooks/useGetTotalResourceCountByDataspaceSuspense.ts'
 export type { GetTotalResourceCountSuspenseQueryKey } from './hooks/useGetTotalResourceCountSuspense.ts'
-export type { GetUserByDIDQueryKey } from './hooks/useGetUserByDID.ts'
-export type { GetUserByDIDSuspenseQueryKey } from './hooks/useGetUserByDIDSuspense.ts'
+export type { GetUserQueryKey } from './hooks/useGetUser.ts'
 export type { GetUserDIDListQueryKey } from './hooks/useGetUserDIDList.ts'
 export type { GetUserDIDListSuspenseQueryKey } from './hooks/useGetUserDIDListSuspense.ts'
+export type { GetUserSuspenseQueryKey } from './hooks/useGetUserSuspense.ts'
 export type { IncrementDownloadCountMutationKey } from './hooks/useIncrementDownloadCount.ts'
 export type { IncrementRunCountMutationKey } from './hooks/useIncrementRunCount.ts'
 export type { ListAltersQueryKey } from './hooks/useListAlters.ts'
@@ -294,6 +297,14 @@ export type {
   CreateSandboxMutationResponse,
   CreateSandboxMutation,
 } from './types/CreateSandbox.ts'
+export type {
+  CreateTerminal201,
+  CreateTerminal400,
+  CreateTerminal500,
+  CreateTerminalMutationRequest,
+  CreateTerminalMutationResponse,
+  CreateTerminalMutation,
+} from './types/CreateTerminal.ts'
 export type {
   CreateUser201,
   CreateUser400,
@@ -718,6 +729,15 @@ export type {
   GetSandboxStatsQuery,
 } from './types/GetSandboxStats.ts'
 export type {
+  GetTerminalPathParams,
+  GetTerminal200,
+  GetTerminal400,
+  GetTerminal404,
+  GetTerminal500,
+  GetTerminalQueryResponse,
+  GetTerminalQuery,
+} from './types/GetTerminal.ts'
+export type {
   GetTotalResourceCountQueryParams,
   GetTotalResourceCount200,
   GetTotalResourceCount500,
@@ -733,15 +753,7 @@ export type {
   GetTotalResourceCountByDataspaceQueryResponse,
   GetTotalResourceCountByDataspaceQuery,
 } from './types/GetTotalResourceCountByDataspace.ts'
-export type {
-  GetUserByDIDPathParams,
-  GetUserByDID200,
-  GetUserByDID400,
-  GetUserByDID404,
-  GetUserByDID500,
-  GetUserByDIDQueryResponse,
-  GetUserByDIDQuery,
-} from './types/GetUserByDID.ts'
+export type { GetUserPathParams, GetUser200, GetUser400, GetUser404, GetUser500, GetUserQueryResponse, GetUserQuery } from './types/GetUser.ts'
 export type {
   GetUserDIDListQueryParams,
   GetUserDIDList200,
@@ -764,6 +776,7 @@ export type { HandlersCreatePolicyRequest } from './types/handlers/CreatePolicyR
 export type { HandlersCreateResourceAuditRequest } from './types/handlers/CreateResourceAuditRequest.ts'
 export type { HandlersCreateResourceRequest } from './types/handlers/CreateResourceRequest.ts'
 export type { HandlersCreateSandboxRequestWithConnector } from './types/handlers/CreateSandboxRequestWithConnector.ts'
+export type { HandlersCreateTerminalRequest } from './types/handlers/CreateTerminalRequest.ts'
 export type { HandlersCreateUserRequest } from './types/handlers/CreateUserRequest.ts'
 export type { HandlersJobStatsResponse } from './types/handlers/JobStatsResponse.ts'
 export type { HandlersRejectAuditRequest } from './types/handlers/RejectAuditRequest.ts'
@@ -901,6 +914,7 @@ export type { ModelsSeverityEnum, ModelsSeverity } from './types/models/Severity
 export type { ModelsStartModeEnum, ModelsStartMode } from './types/models/StartMode.ts'
 export type { ModelsSystemMetrics } from './types/models/SystemMetrics.ts'
 export type { ModelsTemplateStatusEnum, ModelsTemplateStatus } from './types/models/TemplateStatus.ts'
+export type { ModelsTerminal } from './types/models/Terminal.ts'
 export type { ModelsTransaction } from './types/models/Transaction.ts'
 export type { ModelsUser } from './types/models/User.ts'
 export type { ModelsVerifiableCredential } from './types/models/VerifiableCredential.ts'
@@ -1056,6 +1070,7 @@ export { createPolicy } from './clients/createPolicy.ts'
 export { createResource } from './clients/createResource.ts'
 export { createResourceAudit } from './clients/createResourceAudit.ts'
 export { createSandbox } from './clients/createSandbox.ts'
+export { createTerminal } from './clients/createTerminal.ts'
 export { createUser } from './clients/createUser.ts'
 export { deleteApp } from './clients/deleteApp.ts'
 export { deleteByRowID } from './clients/deleteByRowID.ts'
@@ -1113,9 +1128,10 @@ export { getResourceListByDataspaceAndPublisher } from './clients/getResourceLis
 export { getResourcesByPublisher } from './clients/getResourcesByPublisher.ts'
 export { getSandbox } from './clients/getSandbox.ts'
 export { getSandboxStats } from './clients/getSandboxStats.ts'
+export { getTerminal } from './clients/getTerminal.ts'
 export { getTotalResourceCount } from './clients/getTotalResourceCount.ts'
 export { getTotalResourceCountByDataspace } from './clients/getTotalResourceCountByDataspace.ts'
-export { getUserByDID } from './clients/getUserByDID.ts'
+export { getUser } from './clients/getUser.ts'
 export { getUserDIDList } from './clients/getUserDIDList.ts'
 export { incrementDownloadCount } from './clients/incrementDownloadCount.ts'
 export { incrementRunCount } from './clients/incrementRunCount.ts'
@@ -1166,6 +1182,7 @@ export { createPolicyMutationKey, useCreatePolicy } from './hooks/useCreatePolic
 export { createResourceMutationKey, useCreateResource } from './hooks/useCreateResource.ts'
 export { createResourceAuditMutationKey, useCreateResourceAudit } from './hooks/useCreateResourceAudit.ts'
 export { createSandboxMutationKey, useCreateSandbox } from './hooks/useCreateSandbox.ts'
+export { createTerminalMutationKey, useCreateTerminal } from './hooks/useCreateTerminal.ts'
 export { createUserMutationKey, useCreateUser } from './hooks/useCreateUser.ts'
 export { deleteAppMutationKey, useDeleteApp } from './hooks/useDeleteApp.ts'
 export { deleteByRowIDMutationKey, useDeleteByRowID } from './hooks/useDeleteByRowID.ts'
@@ -1424,6 +1441,8 @@ export { getSandboxStatsQueryKey, getSandboxStatsQueryOptions, useGetSandboxStat
 export { getSandboxStatsSuspenseQueryKey, getSandboxStatsSuspenseQueryOptions, useGetSandboxStatsSuspense } from './hooks/useGetSandboxStatsSuspense.ts'
 export { getSandboxSuspenseQueryKey, getSandboxSuspenseQueryOptions, useGetSandboxSuspense } from './hooks/useGetSandboxSuspense.ts'
 export { getSuspenseQueryKey, getSuspenseQueryOptions, useGetSuspense } from './hooks/useGetSuspense.ts'
+export { getTerminalQueryKey, getTerminalQueryOptions, useGetTerminal } from './hooks/useGetTerminal.ts'
+export { getTerminalSuspenseQueryKey, getTerminalSuspenseQueryOptions, useGetTerminalSuspense } from './hooks/useGetTerminalSuspense.ts'
 export { getTotalResourceCountQueryKey, getTotalResourceCountQueryOptions, useGetTotalResourceCount } from './hooks/useGetTotalResourceCount.ts'
 export {
   getTotalResourceCountByDataspaceQueryKey,
@@ -1440,10 +1459,10 @@ export {
   getTotalResourceCountSuspenseQueryOptions,
   useGetTotalResourceCountSuspense,
 } from './hooks/useGetTotalResourceCountSuspense.ts'
-export { getUserByDIDQueryKey, getUserByDIDQueryOptions, useGetUserByDID } from './hooks/useGetUserByDID.ts'
-export { getUserByDIDSuspenseQueryKey, getUserByDIDSuspenseQueryOptions, useGetUserByDIDSuspense } from './hooks/useGetUserByDIDSuspense.ts'
+export { getUserQueryKey, getUserQueryOptions, useGetUser } from './hooks/useGetUser.ts'
 export { getUserDIDListQueryKey, getUserDIDListQueryOptions, useGetUserDIDList } from './hooks/useGetUserDIDList.ts'
 export { getUserDIDListSuspenseQueryKey, getUserDIDListSuspenseQueryOptions, useGetUserDIDListSuspense } from './hooks/useGetUserDIDListSuspense.ts'
+export { getUserSuspenseQueryKey, getUserSuspenseQueryOptions, useGetUserSuspense } from './hooks/useGetUserSuspense.ts'
 export { incrementDownloadCountMutationKey, useIncrementDownloadCount } from './hooks/useIncrementDownloadCount.ts'
 export { incrementRunCountMutationKey, useIncrementRunCount } from './hooks/useIncrementRunCount.ts'
 export { listAltersQueryKey, listAltersQueryOptions, useListAlters } from './hooks/useListAlters.ts'
