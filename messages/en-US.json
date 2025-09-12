@@ -114,7 +114,33 @@
       "truststoreConfiguration": "TrustStore Configuration",
       "truststoreUrl": "TrustStore URL",
       "truststoreAlias": "TrustStore Alias",
-      "truststorePassword": "TrustStore Password"
+      "truststorePassword": "TrustStore Password",
+      "mainChain": "Main Chain",
+      "subChains": "Sub Chains",
+      "dataSpace": "Data Space",
+      "connected": "Connected",
+      "disconnected": "Disconnected",
+      "identityChain": "Identity Chain (DID)",
+      "currentEnvironment": "Current environment",
+      "noDataSpace": "No data space",
+      "mainChainIdentityChain": "Main Chain (Identity Chain)",
+      "didRegistrationAndVerification": "DID registration and identity verification",
+      "chainId": "Chain ID",
+      "consensusNodes": "Consensus Nodes",
+      "blockHeight": "Block Height",
+      "purpose": "Purpose",
+      "description": "Description",
+      "recentTransactions": "Recent Transactions",
+      "loadingMainChain": "Loading main chain...",
+      "noMainChainFound": "No main chain found",
+      "subChain": "Sub Chain",
+      "chainType": "Chain Type",
+      "subChainType": "Sub Chain Type",
+      "activeTransactions": "Active Transactions",
+      "status": "Status",
+      "latestBlock": "Latest Block",
+      "loadingSubChain": "Loading sub chain...",
+      "noSubChainFound": "No sub chain found"
     },
     "notifications": {
       "notificationPreferences": "Notification Preferences",
@@ -233,7 +259,16 @@
     "connectorDidNotSet": "Connector DID not set",
     "userDidNotSet": "User DID not set",
     "loadingConnector": "Loading connector...",
-    "loadingUser": "Loading user..."
+    "loadingUser": "Loading user...",
+    "terminal": {
+      "title": "Trusted Terminal",
+      "description": "Trusted computing terminal information",
+      "DID": "terminal DID",
+      "name": "terminal name",
+      "version": "version",
+      "status": "status",
+      "endpoint": "service endpoint"
+    }
   },
   "Policy": {
     "activePolicyTemplates": "Active Policy Templates",

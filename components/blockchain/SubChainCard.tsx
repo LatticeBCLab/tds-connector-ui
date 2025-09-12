@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/select";
 import { ModelsBlockChain, useGetBlockchain } from "@/lib/gen";
 import { Folder, Shield } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { EmptyState } from "../shared/EmptyState";
 import { Spinner } from "../ui/spinner";
@@ -30,6 +31,7 @@ function SubChainRealCard({
 }: {
   options: { label: string; value: string }[];
 }) {
+  const t = useTranslations("Settings.blockchain");
   const [id, setId] = useState(options[0].value);
   const { data: chainData, isLoading } = useGetBlockchain(+id);
 
@@ -45,14 +47,14 @@ function SubChainRealCard({
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Shield className="h-5 w-5" />
-            Sub Chain
+            {t("subChain")}
           </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="flex flex-col items-center gap-3 p-6">
             <Spinner variant="bars" />
             <p className="text-muted-foreground text-sm">
-              Loading sub chain...
+              {t("loadingSubChain")}
             </p>
           </div>
         </CardContent>
@@ -97,13 +99,13 @@ function SubChainRealCard({
                 </div>
                 <div className="grid grid-cols-2 gap-4 text-sm">
                   <div>
-                    <span className="text-muted-foreground">Chain Type:</span>
-                    <p className="font-medium">Sub Chain</p>
+                    <span className="text-muted-foreground">{t("chainType")}:</span>
+                    <p className="font-medium">{t("subChain")}</p>
                   </div>
                   {!!chainData.subChainType && (
                     <div>
                       <span className="text-muted-foreground">
-                        Sub Chain Type:
+                        {t("subChainType")}:
                       </span>
                       <p className="font-medium">
                         {chainData.subChainType.charAt(0).toUpperCase() +
@@ -113,29 +115,29 @@ function SubChainRealCard({
                   )}
                   <div>
                     <span className="text-muted-foreground">
-                      Active Transactions:
+                      {t("activeTransactions")}:
                     </span>
                     <p className="font-medium">
                       {chainData.recentTransactions?.length}
                     </p>
                   </div>
                   <div>
-                    <span className="text-muted-foreground">Status:</span>
-                    <p className="font-medium">Connected</p>
+                    <span className="text-muted-foreground">{t("status")}:</span>
+                    <p className="font-medium">{t("connected")}</p>
                   </div>
                   <div>
-                    <span className="text-muted-foreground">Latest Block:</span>
+                    <span className="text-muted-foreground">{t("latestBlock")}:</span>
                     <p className="font-medium">
                       {Math.floor(Math.random() * 1000000).toLocaleString()}
                     </p>
                   </div>
                   <div>
-                    <span className="text-muted-foreground">Purpose:</span>
+                    <span className="text-muted-foreground">{t("purpose")}:</span>
                     <p className="font-medium">{chainData.purpose}</p>
                   </div>
                 </div>
                 <div>
-                  <span className="text-muted-foreground">Description:</span>
+                  <span className="text-muted-foreground">{t("description")}:</span>
                   <p className="mt-1 text-sm">{chainData.description}</p>
                 </div>
               </div>
@@ -143,7 +145,7 @@ function SubChainRealCard({
 
             {/* Sub Chain Recent Transactions */}
             <div>
-              <h5 className="mb-3 font-medium">Recent Transactions</h5>
+              <h5 className="mb-3 font-medium">{t("recentTransactions")}</h5>
               <div className="space-y-2">
                 {(chainData.recentTransactions || []).slice(0, 3).map((tx) => (
                   <div
@@ -172,20 +174,22 @@ function SubChainRealCard({
 }
 
 export function SubChainCard({ subChains }: SubChainCardProps) {
+  const t = useTranslations("Settings.blockchain");
+  
   if (subChains.length === 0) {
     return (
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Shield className="h-5 w-5" />
-            Sub Chain
+            {t("subChain")}
           </CardTitle>
         </CardHeader>
         <CardContent>
           <EmptyState
             icon={Folder}
-            title="No sub chain found"
-            description="No sub chain found"
+            title={t("noSubChainFound")}
+            description={t("noSubChainFoundDescription")}
           />
         </CardContent>
       </Card>

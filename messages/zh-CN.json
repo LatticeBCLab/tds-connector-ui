@@ -114,7 +114,33 @@
       "truststoreConfiguration": "信任存储配置",
       "truststoreUrl": "信任存储URL",
       "truststoreAlias": "信任存储别名",
-      "truststorePassword": "信任存储密码"
+      "truststorePassword": "信任存储密码",
+      "mainChain": "主链",
+      "subChains": "子链",
+      "dataSpace": "数据空间",
+      "connected": "已连接",
+      "disconnected": "未连接",
+      "identityChain": "身份链 (DID)",
+      "currentEnvironment": "当前环境",
+      "noDataSpace": "无数据空间",
+      "mainChainIdentityChain": "主链（身份链）",
+      "didRegistrationAndVerification": "DID注册和身份验证",
+      "chainId": "链ID",
+      "consensusNodes": "共识节点",
+      "blockHeight": "区块高度",
+      "purpose": "用途",
+      "description": "描述",
+      "recentTransactions": "最近交易",
+      "loadingMainChain": "正在加载主链...",
+      "noMainChainFound": "未找到主链",
+      "subChain": "子链",
+      "chainType": "链类型",
+      "subChainType": "子链类型",
+      "activeTransactions": "活跃交易",
+      "status": "状态",
+      "latestBlock": "最新区块",
+      "loadingSubChain": "正在加载子链...",
+      "noSubChainFound": "未找到子链"
     },
     "notifications": {
       "notificationPreferences": "通知偏好",
@@ -233,7 +259,16 @@
     "connectorDidNotSet": "连接器DID未设置",
     "userDidNotSet": "用户DID未设置",
     "loadingConnector": "加载连接器...",
-    "loadingUser": "加载用户..."
+    "loadingUser": "加载用户...",
+    "terminal": {
+      "title": "可信终端",
+      "description": "可信计算终端信息",
+      "DID": "可信终端 DID",
+      "name": "可信终端名",
+      "version": "版本",
+      "status": "状态",
+      "endpoint": "服务端点"
+    }
   },
   "Policy": {
     "activePolicyTemplates": "活跃策略模板",
