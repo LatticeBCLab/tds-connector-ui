@@ -25,7 +25,7 @@ import { Progress } from "@/components/ui/progress";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Spinner } from "@/components/ui/spinner";
 import { useCreateResource } from "@/lib/gen/hooks/useCreateResource";
-import { useGetContractListByDataspaceAndConsumer } from "@/lib/gen/hooks/useGetContractListByDataspaceAndConsumer";
+import { useGetContractListByDataspaceAndProvider } from "@/lib/gen/hooks/useGetContractListByDataspaceAndProvider";
 import { useAppStore } from "@/lib/stores/app-store";
 import { cn } from "@/lib/utils";
 import {
@@ -74,12 +74,12 @@ export function ContractCard() {
     isLoading: isLoadingContracts,
     error: contractError,
     refetch: refetchContracts,
-  } = useGetContractListByDataspaceAndConsumer(
-    currentDataSpaceId || "",
+  } = useGetContractListByDataspaceAndProvider(
     {
       page,
       page_size: pageSize,
-      consumer: userDID || "",
+      dataspace: currentDataSpaceId || "",
+      provider: userDID || "",
     },
     {
       query: {

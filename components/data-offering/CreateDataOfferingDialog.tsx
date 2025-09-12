@@ -2,7 +2,6 @@
 
 import { ActionDialog } from "@/components/shared";
 import { Button } from "@/components/ui/button";
-import { useTranslations } from "next-intl";
 import {
   Form,
   FormControl,
@@ -31,6 +30,7 @@ import { useAppStore } from "@/lib/stores/app-store";
 import { DataSourceType } from "@/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Cloud, File, Link, Plus, Server } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useCallback, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -386,7 +386,9 @@ function LocalFileConfigSection({ form, t }: { form: any; t: (key: string) => st
         name="sourceConfig.filePath"
         render={({ field }) => (
           <FormItem>
-            <FormLabel htmlFor="file-path">{t("fields.filePath.label")}</FormLabel>
+            <FormLabel htmlFor="file-path">
+              {t("fields.filePath.label")}
+            </FormLabel>
             <FormControl>
               <Input
                 className="border-border"
@@ -405,7 +407,9 @@ function LocalFileConfigSection({ form, t }: { form: any; t: (key: string) => st
         name="sourceConfig.format"
         render={({ field }) => (
           <FormItem>
-            <FormLabel htmlFor="file-format">{t("fields.fileFormat.label")}</FormLabel>
+            <FormLabel htmlFor="file-format">
+              {t("fields.fileFormat.label")}
+            </FormLabel>
             <Select value={field.value} onValueChange={field.onChange}>
               <FormControl>
                 <SelectTrigger className="border-border">
@@ -439,7 +443,9 @@ function S3ConfigSection({ form, t }: { form: any; t: (key: string) => string })
           name="sourceConfig.bucketName"
           render={({ field }) => (
             <FormItem>
-              <FormLabel htmlFor="bucket-name">{t("fields.bucketName.label")}</FormLabel>
+              <FormLabel htmlFor="bucket-name">
+                {t("fields.bucketName.label")}
+              </FormLabel>
               <FormControl>
                 <Input
                   className="border-border"
@@ -458,7 +464,9 @@ function S3ConfigSection({ form, t }: { form: any; t: (key: string) => string })
           name="sourceConfig.objectName"
           render={({ field }) => (
             <FormItem>
-              <FormLabel htmlFor="object-name">{t("fields.objectName.label")}</FormLabel>
+              <FormLabel htmlFor="object-name">
+                {t("fields.objectName.label")}
+              </FormLabel>
               <FormControl>
                 <Input
                   className="border-border"
@@ -533,7 +541,9 @@ function NASConfigSection({ form, t }: { form: any; t: (key: string) => string }
           name="sourceConfig.serverAddress"
           render={({ field }) => (
             <FormItem>
-              <FormLabel htmlFor="server-address">{t("fields.serverAddress.label")}</FormLabel>
+              <FormLabel htmlFor="server-address">
+                {t("fields.serverAddress.label")}
+              </FormLabel>
               <FormControl>
                 <Input
                   className="border-border"
@@ -552,7 +562,9 @@ function NASConfigSection({ form, t }: { form: any; t: (key: string) => string }
           name="sourceConfig.sharePath"
           render={({ field }) => (
             <FormItem>
-              <FormLabel htmlFor="share-path">{t("fields.sharePath.label")}</FormLabel>
+              <FormLabel htmlFor="share-path">
+                {t("fields.sharePath.label")}
+              </FormLabel>
               <FormControl>
                 <Input
                   className="border-border"
@@ -572,7 +584,9 @@ function NASConfigSection({ form, t }: { form: any; t: (key: string) => string }
         name="sourceConfig.protocol"
         render={({ field }) => (
           <FormItem>
-            <FormLabel htmlFor="protocol">{t("fields.protocol.label")}</FormLabel>
+            <FormLabel htmlFor="protocol">
+              {t("fields.protocol.label")}
+            </FormLabel>
             <Select value={field.value} onValueChange={field.onChange}>
               <FormControl>
                 <SelectTrigger className="border-border">
@@ -605,7 +619,9 @@ function RESTfulConfigSection({ form, t }: { form: any; t: (key: string) => stri
         name="sourceConfig.apiEndpoint"
         render={({ field }) => (
           <FormItem>
-            <FormLabel htmlFor="api-endpoint">{t("fields.apiEndpoint.label")}</FormLabel>
+            <FormLabel htmlFor="api-endpoint">
+              {t("fields.apiEndpoint.label")}
+            </FormLabel>
             <FormControl>
               <Input
                 className="border-border"
@@ -646,7 +662,9 @@ function RESTfulConfigSection({ form, t }: { form: any; t: (key: string) => stri
         name="sourceConfig.authentication.type"
         render={({ field }) => (
           <FormItem>
-            <FormLabel htmlFor="auth-type">{t("fields.authenticationType.label")}</FormLabel>
+            <FormLabel htmlFor="auth-type">
+              {t("fields.authenticationType.label")}
+            </FormLabel>
             <Select value={field.value} onValueChange={field.onChange}>
               <FormControl>
                 <SelectTrigger className="border-border">
@@ -667,14 +685,18 @@ function RESTfulConfigSection({ form, t }: { form: any; t: (key: string) => stri
       {/* Basic Authentication Fields */}
       {watchedAuthType === "basic" && (
         <div className="bg-muted/30 space-y-4 rounded border p-3">
-          <h5 className="text-sm font-medium">{t("sections.basicAuth.title")}</h5>
+          <h5 className="text-sm font-medium">
+            {t("sections.basicAuth.title")}
+          </h5>
           <div className="grid grid-cols-2 gap-3">
             <FormField
               control={form.control}
               name="sourceConfig.authentication.credentials.username"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel htmlFor="auth-username">{t("fields.username.label")}</FormLabel>
+                  <FormLabel htmlFor="auth-username">
+                    {t("fields.username.label")}
+                  </FormLabel>
                   <FormControl>
                     <Input
                       className="border-border"
@@ -693,7 +715,9 @@ function RESTfulConfigSection({ form, t }: { form: any; t: (key: string) => stri
               name="sourceConfig.authentication.credentials.password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel htmlFor="auth-password">{t("fields.password.label")}</FormLabel>
+                  <FormLabel htmlFor="auth-password">
+                    {t("fields.password.label")}
+                  </FormLabel>
                   <FormControl>
                     <Input
                       className="border-border"
@@ -714,14 +738,18 @@ function RESTfulConfigSection({ form, t }: { form: any; t: (key: string) => stri
       {/* API Key Authentication Fields */}
       {watchedAuthType === "api_key" && (
         <div className="bg-muted/30 space-y-4 rounded border p-3">
-          <h5 className="text-sm font-medium">{t("sections.apiKeyAuth.title")}</h5>
+          <h5 className="text-sm font-medium">
+            {t("sections.apiKeyAuth.title")}
+          </h5>
           <div className="grid grid-cols-2 gap-3">
             <FormField
               control={form.control}
               name="sourceConfig.authentication.credentials.headerName"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel htmlFor="header-name">{t("fields.headerName.label")}</FormLabel>
+                  <FormLabel htmlFor="header-name">
+                    {t("fields.headerName.label")}
+                  </FormLabel>
                   <FormControl>
                     <Input
                       className="border-border"
@@ -740,7 +768,9 @@ function RESTfulConfigSection({ form, t }: { form: any; t: (key: string) => stri
               name="sourceConfig.authentication.credentials.headerValue"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel htmlFor="header-value">{t("fields.headerValue.label")}</FormLabel>
+                  <FormLabel htmlFor="header-value">
+                    {t("fields.headerValue.label")}
+                  </FormLabel>
                   <FormControl>
                     <Input
                       className="border-border"

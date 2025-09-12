@@ -178,51 +178,57 @@ export function OfferingsCard({
   };
 
   if (isLoadingResources) {
-    return cardSkeleton(
-      <div className="flex flex-col items-center gap-3 p-6">
-        <Spinner variant="bars" />
-        <p className="text-muted-foreground text-sm">
-          {t("offerings.loading")}
-        </p>
-      </div>,
-      isAddOfferingOpen,
-      setIsAddOfferingOpen,
-      t,
-      handleRefreshData
+    return (
+      <CardSkeleton
+        isAddOfferingOpen={isAddOfferingOpen}
+        setIsAddOfferingOpen={setIsAddOfferingOpen}
+        onRefreshData={handleRefreshData}
+      >
+        <div className="flex flex-col items-center gap-3 p-6">
+          <Spinner variant="bars" />
+          <p className="text-muted-foreground text-sm">
+            {t("offerings.loading")}
+          </p>
+        </div>
+      </CardSkeleton>
     );
   }
 
   if (resourceError) {
-    return cardSkeleton(
-      <div className="p-6 text-center">
-        <p>{t("offerings.error")}</p>
-        <Button
-          onClick={() => refetchResources()}
-          variant="outline"
-          size="sm"
-          className="mt-2"
-        >
-          {t("common.retry")}
-        </Button>
-      </div>,
-      isAddOfferingOpen,
-      setIsAddOfferingOpen,
-      t,
-      handleRefreshData
+    return (
+      <CardSkeleton
+        isAddOfferingOpen={isAddOfferingOpen}
+        setIsAddOfferingOpen={setIsAddOfferingOpen}
+        onRefreshData={handleRefreshData}
+      >
+        <div className="p-6 text-center">
+          <p>{t("offerings.error")}</p>
+          <Button
+            onClick={() => refetchResources()}
+            variant="outline"
+            size="sm"
+            className="mt-2"
+          >
+            {t("common.retry")}
+          </Button>
+        </div>
+      </CardSkeleton>
     );
   }
 
   if (allDataOfferings.length === 0) {
-    return cardSkeleton(
-      <EmptyState
-        icon={Database}
-        title={t("offerings.empty.title")}
-        description={t("offerings.empty.description")}
-      />,
-      isAddOfferingOpen,
-      setIsAddOfferingOpen,
-      t,
-      handleRefreshData
+    return (
+      <CardSkeleton
+        isAddOfferingOpen={isAddOfferingOpen}
+        setIsAddOfferingOpen={setIsAddOfferingOpen}
+        onRefreshData={handleRefreshData}
+      >
+        <EmptyState
+          icon={Database}
+          title={t("offerings.empty.title")}
+          description={t("offerings.empty.description")}
+        />
+      </CardSkeleton>
     );
   }
 
@@ -460,22 +466,25 @@ export function OfferingsCard({
   );
 }
 
-function cardSkeleton(
-  children: React.ReactNode,
-  isAddOfferingOpen: boolean,
-  setIsAddOfferingOpen: (open: boolean) => void,
-  t: any,
-  onRefreshData?: () => void
-) {
+function CardSkeleton({
+  children,
+  isAddOfferingOpen,
+  setIsAddOfferingOpen,
+  onRefreshData,
+}: {
+  children: React.ReactNode;
+  isAddOfferingOpen: boolean;
+  setIsAddOfferingOpen: (open: boolean) => void;
+  onRefreshData?: () => void;
+}) {
+  const t = useTranslations("DataOffering");
   return (
     <Card>
       <CardHeader>
         <div className="flex items-center justify-between">
           <div>
             <CardTitle>{t("offerings.title")}</CardTitle>
-            <CardDescription>
-              {t("offerings.description")}
-            </CardDescription>
+            <CardDescription>{t("offerings.description")}</CardDescription>
           </div>
           <CreateDataOfferingDialog
             open={isAddOfferingOpen}

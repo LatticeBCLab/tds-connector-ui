@@ -29,7 +29,7 @@ export function MonitoringTab() {
 
   useEffect(() => {
     const handler = () => refetch();
-    const timer = setInterval(handler, 2_000);
+    const timer = setInterval(handler, 5_000);
     return () => clearInterval(timer);
   });
 

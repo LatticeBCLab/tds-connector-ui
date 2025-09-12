@@ -178,29 +178,33 @@ export function ContractCard({
   };
 
   if (isLoadingContracts) {
-    return cardSkeleton(
-      <div className="flex flex-col items-center gap-3 p-6">
-        <Spinner variant="bars" />
-        <p className="text-muted-foreground text-sm">{t("contract.loading")}</p>
-      </div>,
-      t
+    return (
+      <CardSkeleton>
+        <div className="flex flex-col items-center gap-3 p-6">
+          <Spinner variant="bars" />
+          <p className="text-muted-foreground text-sm">
+            {t("contract.loading")}
+          </p>
+        </div>
+      </CardSkeleton>
     );
   }
 
   if (contractError) {
-    return cardSkeleton(
-      <div className="p-6 text-center">
-        <p>{t("contract.error")}</p>
-        <Button
-          onClick={() => refetchContracts()}
-          variant="outline"
-          size="sm"
-          className="mt-2"
-        >
-          {t("common.retry")}
-        </Button>
-      </div>,
-      t
+    return (
+      <CardSkeleton>
+        <div className="p-6 text-center">
+          <p>{t("contract.error")}</p>
+          <Button
+            onClick={() => refetchContracts()}
+            variant="outline"
+            size="sm"
+            className="mt-2"
+          >
+            {t("common.retry")}
+          </Button>
+        </div>
+      </CardSkeleton>
     );
   }
 
@@ -210,9 +214,7 @@ export function ContractCard({
         <div className="flex items-center justify-between">
           <div>
             <CardTitle>{t("contract.title")}</CardTitle>
-            <CardDescription>
-              {t("contract.description")}
-            </CardDescription>
+            <CardDescription>{t("contract.description")}</CardDescription>
           </div>
           <CreateContractDialog
             open={isAddContractOpen}
@@ -298,7 +300,10 @@ export function ContractCard({
                                   {isExpired ? (
                                     <>
                                       {t("contract.suspend.issuesDetected")}:
-                                      <div>• {t("contract.suspend.contractExpired")}</div>
+                                      <div>
+                                        •{" "}
+                                        {t("contract.suspend.contractExpired")}
+                                      </div>
                                       <br />
                                       {t("contract.suspend.confirmExpired")}
                                     </>
@@ -308,7 +313,9 @@ export function ContractCard({
                                 </AlertDialogDescription>
                               </AlertDialogHeader>
                               <AlertDialogFooter>
-                                <AlertDialogCancel>{t("common.cancel")}</AlertDialogCancel>
+                                <AlertDialogCancel>
+                                  {t("common.cancel")}
+                                </AlertDialogCancel>
                                 <AlertDialogAction
                                   className={
                                     isExpired
@@ -413,7 +420,8 @@ export function ContractCard({
                             {t("contract.fields.maxAccess")}
                           </div>
                           <div className="text-sm font-medium">
-                            {contract.maxAccessCount || t("contract.fields.unlimited")}
+                            {contract.maxAccessCount ||
+                              t("contract.fields.unlimited")}
                           </div>
                         </div>
                         <div className="text-center">
@@ -481,16 +489,15 @@ export function ContractCard({
   );
 }
 
-function cardSkeleton(children: React.ReactNode,t: any) {
+function CardSkeleton({ children }: { children: React.ReactNode }) {
+  const t = useTranslations("DataOffering");
   return (
     <Card>
       <CardHeader>
         <div className="flex items-center justify-between">
           <div>
             <CardTitle>{t("contract.title")}</CardTitle>
-            <CardDescription>
-              {t("contract.description")}
-            </CardDescription>
+            <CardDescription>{t("contract.description")}</CardDescription>
           </div>
           <div>
             <Button size="sm">
