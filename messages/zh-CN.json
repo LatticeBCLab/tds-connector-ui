@@ -686,16 +686,16 @@
     },
     "filter": {
       "all": "全部",
-      "outbound": "出站",
-      "inbound": "入站"
+      "outbound": "出境",
+      "inbound": "入境"
     },
     "direction": {
-      "outbound": "出站",
-      "inbound": "入站"
+      "outbound": "出境",
+      "inbound": "入境"
     },
     "actions": {
-      "outbound": "出站",
-      "inbound": "入站"
+      "outbound": "出境",
+      "inbound": "入境"
     },
     "common": {
       "loading": "加载中...",

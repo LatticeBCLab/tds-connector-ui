@@ -2,13 +2,12 @@
 
 import { EmptyState } from "@/components/shared/EmptyState";
 import { Button } from "@/components/ui/button";
-import { useTranslations } from "next-intl";
 import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardHeader,
-    CardTitle,
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
 } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Spinner } from "@/components/ui/spinner";
@@ -16,16 +15,17 @@ import { useGetResourceListByDataspaceAndPublisher } from "@/lib/gen/hooks/useGe
 import { useAppStore } from "@/lib/stores/app-store";
 import { cn } from "@/lib/utils";
 import {
-    ArrowUpDown,
-    CheckCircle,
-    Cloud,
-    Database,
-    File,
-    Link,
-    Pause,
-    Server,
-    Shield,
+  ArrowUpDown,
+  CheckCircle,
+  Cloud,
+  Database,
+  File,
+  Link,
+  Pause,
+  Server,
+  Shield,
 } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 
 // Data source type icon mapping
@@ -190,9 +190,9 @@ export function CatalogCard() {
         <CardHeader>
           <div className="flex items-center justify-between">
             <div>
-              <CardTitle>Data Catalog</CardTitle>
+              <CardTitle>{t('catalog.title')}</CardTitle>
               <CardDescription>
-                Discover and request data from other connectors
+                {t('catalog.description')}
               </CardDescription>
             </div>
           </div>
@@ -213,9 +213,9 @@ export function CatalogCard() {
       <CardHeader>
         <div className="flex items-center justify-between">
           <div>
-            <CardTitle>Data Catalog</CardTitle>
+            <CardTitle>{t('catalog.title')}</CardTitle>
             <CardDescription>
-              Discover and request data from other connectors
+              {t('catalog.description')}
             </CardDescription>
           </div>
         </div>
