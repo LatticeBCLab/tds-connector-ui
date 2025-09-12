@@ -15,6 +15,7 @@ import { useGetConnectorByDID } from "@/lib/gen/hooks/useGetConnectorByDID";
 import { useGetTerminal } from "@/lib/gen/hooks/useGetTerminal";
 import { useGetUser } from "@/lib/gen/hooks/useGetUser";
 import { useAppStore } from "@/lib/stores/app-store";
+import { formatDate, formatDateTime } from "@/lib/utils";
 import {
   AlertCircle,
   Calendar,
@@ -463,9 +464,10 @@ export function IdentityTab() {
                   {t("issuanceDate")}
                 </p>
                 <code className="bg-muted block rounded font-mono text-sm">
-                  {credential.issuanceDate ||
-                    userData.issuanceDate ||
-                    t("noIssuanceDate")}
+                  {formatDateTime(
+                    credential.issuanceDate || userData.issuanceDate,
+                    { fallback: t("noIssuanceDate") }
+                  )}
                 </code>
               </div>
               <div>
@@ -473,7 +475,7 @@ export function IdentityTab() {
                   {t("expirationDate")}
                 </p>
                 <code className="bg-muted block rounded font-mono text-sm">
-                  {userData.expirationDate || t("noExpirationDate")}
+                  {formatDate(userData.expirationDate, 'zh-CN', t("noExpirationDate"))}
                 </code>
               </div>
               {userData.validFrom && (
@@ -482,7 +484,7 @@ export function IdentityTab() {
                     {t("validFrom")}
                   </p>
                   <code className="bg-muted block rounded font-mono text-sm">
-                    {userData.validFrom}
+                    {formatDateTime(userData.validFrom)}
                   </code>
                 </div>
               )}
@@ -615,7 +617,7 @@ export function IdentityTab() {
                         {t("lastAuthTime")}
                       </p>
                       <p className="text-sm font-medium">
-                        {userData.lastAuthenticatedAt}
+                        {formatDateTime(userData.lastAuthenticatedAt)}
                       </p>
                     </div>
                   )}
@@ -794,7 +796,10 @@ export function IdentityTab() {
                       </p>
                       <div className="bg-muted rounded-lg">
                         <span className="font-medium">
-                          {connectorData?.createdAt || t("noCreationTime")}
+                              {formatDateTime(
+                                connectorData?.createdAt,
+                                { fallback: t("noCreationTime") }
+                              )}
                         </span>
                       </div>
                     </div>
@@ -972,7 +977,10 @@ export function IdentityTab() {
                       </p>
                       <div className="bg-muted rounded-lg">
                         <span className="font-medium">
-                          {terminalData?.createdAt || t("noCreationTime")}
+                              {formatDateTime(
+                                terminalData?.createdAt,
+                                { fallback: t("noCreationTime") }
+                              )}
                         </span>
                       </div>
                     </div>
@@ -1174,7 +1182,10 @@ export function IdentityTab() {
                       </p>
                       <div className="bg-muted rounded-lg">
                         <span className="font-medium">
-                          {userData?.lastAuthenticatedAt || t("noLastAuth")}
+                              {formatDateTime(
+                                userData?.lastAuthenticatedAt,
+                                { fallback: t("noLastAuth") }
+                              )}
                         </span>
                       </div>
                     </div>
