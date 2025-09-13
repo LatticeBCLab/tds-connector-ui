@@ -160,15 +160,15 @@ export function ContractCard() {
       // Step 4: Create new resource with downloaded data
       const newResourceData = {
         config: resourceData.config,
-        dataspace: process.env.NEXT_PUBLIC_INBOUND_RESOURCE_DATASPACE_ID,
+        dataspace: contract.toDataSpaceId,
         description: resourceData.description,
         location: process.env.NEXT_PUBLIC_LOCATION,
         originCountry: resourceData.originCountry,
-        //originResource: [contract.resourceId],
+        originResource: [contract.resourceId],
         publisher: process.env.NEXT_PUBLIC_USER_DID || "",
-        status: "Active" as any,
-        title: resourceData.title || "",
-        type: resourceData.type || ("S3" as any),
+        status: "Active",
+        title: resourceData.title,
+        type: resourceData.type,
       };
 
       await new Promise((resolve) => setTimeout(resolve, 2400));
