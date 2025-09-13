@@ -54,35 +54,32 @@ interface OutboundAuditDialogProps {
   onSuccess?: () => void;
 }
 
-const AUDIT_STAGES: AuditStage[] = [
+const getAuditStages = (t: any): AuditStage[] => [
   {
     id: "classification",
-    name: "Cross-border Data Classification",
-    description:
-      "Classify and grade cross-border data according to regulations",
+    name: t("stages.classification.name"),
+    description: t("stages.classification.description"),
     status: "pending",
     progress: 0,
   },
   {
     id: "negative_list",
-    name: "Negative List Identification",
-    description:
-      "Identify data against negative lists and restricted categories",
+    name: t("stages.negativeList.name"),
+    description: t("stages.negativeList.description"),
     status: "pending",
     progress: 0,
   },
   {
     id: "compliance",
-    name: "Cross-border Compliance Pre-check",
-    description:
-      "Verify compliance with cross-border data transfer regulations",
+    name: t("stages.compliance.name"),
+    description: t("stages.compliance.description"),
     status: "pending",
     progress: 0,
   },
   {
     id: "legal",
-    name: "Legal Compliance Confirmation",
-    description: "Confirm legal compliance and regulatory requirements",
+    name: t("stages.legal.name"),
+    description: t("stages.legal.description"),
     status: "pending",
     progress: 0,
   },
@@ -99,7 +96,7 @@ export function OutboundAuditDialog({
   const [currentStep, setCurrentStep] = useState<
     "form" | "audit" | "completed"
   >("form");
-  const [stages, setStages] = useState<AuditStage[]>(AUDIT_STAGES);
+  const [stages, setStages] = useState<AuditStage[]>(getAuditStages(t));
   const [currentStageIndex, setCurrentStageIndex] = useState(-1);
   const [isAuditing, setIsAuditing] = useState(false);
   const [auditId, setAuditId] = useState<string>("");
@@ -110,7 +107,7 @@ export function OutboundAuditDialog({
   const form = useForm<OutboundAuditFormData>({
     resolver: zodResolver(outboundAuditSchema),
     defaultValues: {
-      comments: "Initial outbound audit request",
+      comments: t("fields.commentsPlaceholder"),
       expires_at: "",
     },
   });
@@ -122,7 +119,7 @@ export function OutboundAuditDialog({
     if (!open) {
       setCurrentStep("form");
       setStages(
-        AUDIT_STAGES.map((stage) => ({
+        getAuditStages(t).map((stage) => ({
           ...stage,
           status: "pending",
           progress: 0,
@@ -133,17 +130,17 @@ export function OutboundAuditDialog({
       setAuditId("");
       form.reset();
     }
-  }, [open, form]);
+  }, [open, form, t]);
 
   const onSubmit = async (data: OutboundAuditFormData) => {
     try {
       if (!currentDataSpaceId) {
-        toast.error("Please select a data space first");
+        toast.error(t("errors.noDataSpace"));
         return;
       }
 
       if (!auditor) {
-        toast.error("User DID not configured");
+        toast.error(t("errors.noAuditor"));
         return;
       }
 
@@ -171,7 +168,7 @@ export function OutboundAuditDialog({
       // toast.success("Audit request created successfully");
     } catch (error) {
       console.error("Error creating audit:", error);
-      toast.error("Failed to create audit request");
+      toast.error(t("errors.createFailed"));
     }
   };
 
@@ -272,7 +269,7 @@ export function OutboundAuditDialog({
   const handleApproveAudit = async () => {
     try {
       if (!auditId) {
-        toast.error("Audit ID not found");
+        toast.error(t("errors.noAuditId"));
         return;
       }
 
@@ -285,7 +282,7 @@ export function OutboundAuditDialog({
       });
 
       setCurrentStep("completed");
-      toast.success("Audit approved successfully");
+      toast.success(t("success.approved"));
 
       setTimeout(() => {
         onSuccess?.();
@@ -293,7 +290,7 @@ export function OutboundAuditDialog({
       }, 2000);
     } catch (error) {
       console.error("Error approving audit:", error);
-      toast.error("Failed to approve audit");
+      toast.error(t("errors.approveFailed"));
     }
   };
 

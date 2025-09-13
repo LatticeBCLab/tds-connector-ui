@@ -99,10 +99,10 @@ export function DataTraceabilityDialog({
         if (resource) {
           items.push({
             id: resource.id || "",
-            title: resource.title || "Unknown Resource",
+            title: resource.title || t("unknownResource"),
             description: resource.description || "",
-            type: resource.type?.toString() || "Unknown",
-            status: resource.status?.toString() || "Unknown",
+            type: resource.type?.toString() || t("unknown"),
+            status: resource.status?.toString() || t("unknown"),
             createdAt: resource.created_at || "",
             publisher: resource.publisher || "",
             location: resource.location?.toString() || "",
@@ -115,10 +115,10 @@ export function DataTraceabilityDialog({
       // 如果没有溯源数据，则显示当前资源
       items.push({
         id: resourceData.id || "",
-        title: resourceData.title || "Unknown Resource",
+        title: resourceData.title || t("unknownResource"),
         description: resourceData.description || "",
-        type: resourceData.type?.toString() || "Unknown",
-        status: resourceData.status?.toString() || "Unknown",
+        type: resourceData.type?.toString() || t("unknown"),
+        status: resourceData.status?.toString() || t("unknown"),
         createdAt: resourceData.createdAt || "",
         publisher: resourceData.publisher || "",
         location: resourceData.location?.toString() || "",
@@ -157,7 +157,7 @@ export function DataTraceabilityDialog({
                 variant="outline"
                 size="sm"
               >
-                {t("common.retry")}
+                {t("retry")}
               </Button>
             </div>
           )}
@@ -218,24 +218,32 @@ export function DataTraceabilityDialog({
                         <div className="grid grid-cols-1 gap-2">
                           <div className="col-span-2 flex items-center space-x-1">
                             <FileText className="h-3 w-3" />
-                            <span>Type: {item.type}</span>
+                            <span>
+                              {t("type")}: {item.type}
+                            </span>
                           </div>
                           {item.location && (
                             <div className="col-span-2 flex items-center space-x-1">
                               <MapPin className="h-3 w-3" />
-                              <span>Location: {item.location}</span>
+                              <span>
+                                {t("location")}: {item.location}
+                              </span>
                             </div>
                           )}
                           {item.id && (
                             <div className="col-span-2 flex items-center space-x-1">
                               <IdCard className="h-3 w-3" />
-                              <span>ID: {item.id}</span>
+                              <span>
+                                {t("id")}: {item.id}
+                              </span>
                             </div>
                           )}
                           {item.publisher && (
                             <div className="col-span-2 flex items-center space-x-1">
                               <User className="h-3 w-3" />
-                              <span>Publisher: {item.publisher}</span>
+                              <span>
+                                {t("publisher")}: {item.publisher}
+                              </span>
                             </div>
                           )}
                         </div>
@@ -243,7 +251,7 @@ export function DataTraceabilityDialog({
                       <TimelineDate className="mt-2 mb-0">
                         {item.createdAt
                           ? new Date(item.createdAt).toLocaleString()
-                          : "Unknown date"}
+                          : t("unknownDate")}
                       </TimelineDate>
                     </TimelineContent>
                   </TimelineItem>

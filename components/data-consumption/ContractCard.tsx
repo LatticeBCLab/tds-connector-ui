@@ -27,6 +27,7 @@ import { useGetContractListByConsumerAndFromDataSpace } from "@/lib/gen";
 import { useCreateResource } from "@/lib/gen/hooks/useCreateResource";
 import { useAppStore } from "@/lib/stores/app-store";
 import { cn } from "@/lib/utils";
+import { useQueryClient } from "@tanstack/react-query";
 import {
   Activity,
   AlertTriangle,
@@ -53,6 +54,7 @@ const getContractDisplayStatus = (expiresAt: string, t: any) => {
 
 export function ContractCard() {
   const t = useTranslations("DataConsumption");
+  const queryClient = useQueryClient();
   const { userDID, currentDataSpaceId } = useAppStore();
 
   // Initialize mutation hooks
@@ -187,10 +189,16 @@ export function ContractCard() {
 
       await new Promise((resolve) => setTimeout(resolve, 1000));
 
-      toast.success("Data downloaded successfully");
+      // 刷新所有资源列表查询
+      queryClient.invalidateQueries({
+        queryKey: [{ url: "/api/v1/resources/list" }],
+        exact: false,
+      });
+
+      toast.success(t("contracts.downloadSuccess"));
     } catch (error) {
       console.error("Download error:", error);
-      toast.error("Failed to download data");
+      toast.error(t("contracts.downloadFailed"));
     } finally {
       setDownloadingFiles((prev) => {
         const newSet = new Set(prev);
@@ -278,13 +286,13 @@ export function ContractCard() {
                       <div className="flex-1">
                         <div className="mb-2 flex items-center space-x-2">
                           <FileText className="text-muted-foreground h-4 w-4" />
-                          <h4 className="text-sm font-medium">
+                          <h4 className="line-clamp-1 text-sm font-medium">
                             {contract.name}
                           </h4>
                           {/* Status Badge */}
                           <div
                             className={cn(
-                              "flex items-center space-x-1 rounded-md px-2 py-1 text-xs",
+                              "flex items-center space-x-1 rounded-md px-2 py-1 text-xs whitespace-nowrap",
                               isExpired
                                 ? "bg-red-100 text-red-800"
                                 : "bg-green-100 text-green-800"

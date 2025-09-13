@@ -1,6 +1,5 @@
 "use client";
 
-import { useTranslations } from 'next-intl'
 import { ActionDialog, StatusBadge } from "@/components/shared";
 import { EmptyState } from "@/components/shared/EmptyState";
 import { Button } from "@/components/ui/button";
@@ -22,7 +21,8 @@ import {
 } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
 import { ScrollArea } from "@radix-ui/react-scroll-area";
-import { Database, Eye, Play, Plus, Square, Trash2 } from "lucide-react";
+import { Database, Plus } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 interface SandboxEnvironment {
   id: string;
@@ -69,7 +69,7 @@ export function SandboxEnvironmentsCard({
   stopSandbox,
   ociImages,
 }: SandboxEnvironmentsCardProps) {
-  const t = useTranslations('Sandbox.SandboxEnvironmentsCard')
+  const t = useTranslations("Sandbox.SandboxEnvironmentsCard");
   const formatMemory = (memoryMb: number) => {
     if (memoryMb >= 1024) {
       return `${(memoryMb / 1024).toFixed(1)} GB`;
@@ -86,46 +86,45 @@ export function SandboxEnvironmentsCard({
       <CardHeader>
         <div className="flex items-center justify-between">
           <div>
-            <CardTitle>{t('title')}</CardTitle>
-            <CardDescription>
-              {t('description')}
-            </CardDescription>
+            <CardTitle>{t("title")}</CardTitle>
+            <CardDescription>{t("description")}</CardDescription>
           </div>
           <ActionDialog
             trigger={
               <Button size="sm">
                 <Plus className="h-4 w-4" />
-                {t('createSandbox')}
+                {t("createSandbox")}
               </Button>
             }
-            title={t('createSandboxTitle')}
-            description={t('createSandboxDescription')}
+            title={t("createSandboxTitle")}
+            description={t("createSandboxDescription")}
             open={isCreateSandboxOpen}
             onOpenChange={setIsCreateSandboxOpen}
             maxWidth="md"
           >
             <div className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="sandbox-name">{t('environmentName')}</Label>
+                <Label htmlFor="sandbox-name">{t("environmentName")}</Label>
                 <Input
                   id="sandbox-name"
+                  className="border-border"
                   value={newSandbox.name}
                   onChange={(e) =>
                     setNewSandbox({ ...newSandbox, name: e.target.value })
                   }
-                  placeholder={t('environmentNamePlaceholder')}
+                  placeholder={t("environmentNamePlaceholder")}
                 />
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="runtime">{t('runtime')}</Label>
+                  <Label htmlFor="runtime">{t("runtime")}</Label>
                   <Select
                     value={newSandbox.runtime}
                     onValueChange={(value) =>
                       setNewSandbox({ ...newSandbox, runtime: value })
                     }
                   >
-                    <SelectTrigger>
+                    <SelectTrigger className="border-border w-full">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
@@ -139,14 +138,14 @@ export function SandboxEnvironmentsCard({
                   </Select>
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="memory-limit">{t('memoryLimit')}</Label>
+                  <Label htmlFor="memory-limit">{t("memoryLimit")}</Label>
                   <Select
                     value={newSandbox.memoryLimit}
                     onValueChange={(value) =>
                       setNewSandbox({ ...newSandbox, memoryLimit: value })
                     }
                   >
-                    <SelectTrigger>
+                    <SelectTrigger className="border-border w-full">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
@@ -159,15 +158,15 @@ export function SandboxEnvironmentsCard({
                 </div>
               </div>
               <div className="space-y-2">
-                <Label htmlFor="image">{t('containerImage')}</Label>
+                <Label htmlFor="image">{t("containerImage")}</Label>
                 <Select
                   value={newSandbox.image}
                   onValueChange={(value) =>
                     setNewSandbox({ ...newSandbox, image: value })
                   }
                 >
-                  <SelectTrigger>
-                    <SelectValue placeholder={t('selectImage')} />
+                  <SelectTrigger className="border-border w-full">
+                    <SelectValue placeholder={t("selectImage")} />
                   </SelectTrigger>
                   <SelectContent>
                     {ociImages.map((image) => (
@@ -189,16 +188,18 @@ export function SandboxEnvironmentsCard({
                     })
                   }
                 />
-                <Label htmlFor="network-isolated">{t('networkIsolation')}</Label>
+                <Label htmlFor="network-isolated">
+                  {t("networkIsolation")}
+                </Label>
               </div>
               <div className="flex justify-end space-x-2">
                 <Button
                   variant="outline"
                   onClick={() => setIsCreateSandboxOpen(false)}
                 >
-                  {t('cancel')}
+                  {t("cancel")}
                 </Button>
-                <Button onClick={createSandbox}>{t('createSandbox')}</Button>
+                <Button onClick={createSandbox}>{t("createSandbox")}</Button>
               </div>
             </div>
           </ActionDialog>
@@ -310,8 +311,8 @@ export function SandboxEnvironmentsCard({
               <div className="text-muted-foreground py-8 text-center">
                 <EmptyState
                   icon={Database}
-                  title={t('noSandboxFound')}
-                  description={t('createOneToGetStarted')}
+                  title={t("noSandboxFound")}
+                  description={t("createOneToGetStarted")}
                 />
               </div>
             )}

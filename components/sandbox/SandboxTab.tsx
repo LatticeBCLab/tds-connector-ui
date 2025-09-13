@@ -68,29 +68,29 @@ export function SandboxTab() {
       {/* Overview Cards */}
       <div className="grid gap-4 md:grid-cols-4">
         <MetricCard
-          title={t('runningSandboxes')}
+          title={t("runningSandboxes")}
           value={sandboxStats?.runningSandboxes || 0}
-          description={t('activeEnvironments')}
+          description={t("activeEnvironments")}
           icon={Monitor}
           variant="primary"
         />
         <MetricCard
-          title={t('activeJobs')}
+          title={t("activeJobs")}
           value={sandboxStats?.rSandboxes || 0}
-          description={t('currentlyProcessing')}
+          description={t("currentlyProcessing")}
           icon={Activity}
           variant="secondary"
         />
         <MetricCard
-          title={t('availableImages')}
+          title={t("availableImages")}
           value={sandboxStats?.runningSandboxes || 0}
-          description={t('runtimeImages')}
+          description={t("runtimeImages")}
           icon={Database}
         />
         <MetricCard
-          title={t('completedJobs')}
+          title={t("completedJobs")}
           value={sandboxStats?.totalSandboxes || 0}
-          description={t('totalProcessed')}
+          description={t("totalProcessed")}
           icon={Clock}
         />
       </div>
@@ -112,14 +112,12 @@ export function SandboxTab() {
         {/* Data Processing Jobs */}
         <DataProcessingJobsCard
           jobs={jobsList?.data || []}
-          sandboxes={sandboxList?.data || []}
-          dataOfferings={dataOfferings}
-          isCreateJobOpen={isCreateJobOpen}
-          setIsCreateJobOpen={setIsCreateJobOpen}
-          newJob={newJob}
-          setNewJob={setNewJob}
-          createJob={createJob}
           runJob={runJob}
+          onJobCreated={() => {
+            // 当任务创建成功后，重新获取任务列表（可选，因为我们已经在 CreateJobDialog 中处理了）
+            // 这里可以添加额外的逻辑，比如显示通知等
+            console.log("Job created successfully");
+          }}
         />
       </div>
 

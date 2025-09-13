@@ -3,6 +3,7 @@
 import { useGetI18nByRowIDFieldAndLang } from "@/lib/gen/hooks/useGetI18nByRowIDFieldAndLang";
 import { useGetOwnDataSpaces } from "@/lib/gen/hooks/useGetOwnDataSpaces";
 import type { ModelsDataSpace } from "@/lib/gen/types/models/DataSpace";
+import { useAppStore } from "@/lib/stores/app-store";
 import { useLocale } from "next-intl";
 import {
   createContext,
@@ -158,6 +159,7 @@ function TranslatedDataSpaceItem({
 
 export function DataSpaceProvider({ children }: { children: ReactNode }) {
   const lang = useLocale();
+  const { currentDataSpaceId, setCurrentDataSpaceId } = useAppStore();
   const [currentDataSpace, setCurrentDataSpace] = useState<DataSpace | null>(
     null
   );
@@ -207,23 +209,56 @@ export function DataSpaceProvider({ children }: { children: ReactNode }) {
     );
   }, [baseAvailableDataSpaces, translatedDataSpaces]);
 
+  // 自动选择数据空间的逻辑
   useEffect(() => {
-    if (availableDataSpaces.length > 0 && !currentDataSpace) {
-      const activeDataSpace = availableDataSpaces.find(
-        (ds) => ds.status === "active"
-      );
-      setCurrentDataSpace(activeDataSpace || availableDataSpaces[0]);
+    if (availableDataSpaces.length > 0) {
+      // 如果有持久化的数据空间ID，优先恢复
+      if (currentDataSpaceId) {
+        const persistedDataSpace = availableDataSpaces.find(
+          (ds) => ds.id === currentDataSpaceId
+        );
+        if (
+          persistedDataSpace &&
+          currentDataSpace?.id !== persistedDataSpace.id
+        ) {
+          setCurrentDataSpace(persistedDataSpace);
+          return;
+        }
+      }
+
+      // 如果没有当前选择的数据空间，自动选择一个
+      if (!currentDataSpace) {
+        const activeDataSpace = availableDataSpaces.find(
+          (ds) => ds.status === "active"
+        );
+        const selectedDataSpace = activeDataSpace || availableDataSpaces[0];
+        setCurrentDataSpace(selectedDataSpace);
+        setCurrentDataSpaceId(selectedDataSpace.id);
+      }
     }
-  }, [availableDataSpaces, currentDataSpace]);
+  }, [
+    availableDataSpaces,
+    currentDataSpace,
+    currentDataSpaceId,
+    setCurrentDataSpaceId,
+  ]);
+
+  // 同步当前数据空间到持久化状态
+  useEffect(() => {
+    if (currentDataSpace && currentDataSpace.id !== currentDataSpaceId) {
+      setCurrentDataSpaceId(currentDataSpace.id);
+    }
+  }, [currentDataSpace, currentDataSpaceId, setCurrentDataSpaceId]);
 
   const switchDataSpace = useCallback(
     (dataSpaceId: string) => {
       const dataSpace = availableDataSpaces.find((ds) => ds.id === dataSpaceId);
       if (dataSpace) {
         setCurrentDataSpace(dataSpace);
+        setCurrentDataSpaceId(dataSpaceId);
       }
     },
-    [availableDataSpaces]
+    [availableDataSpaces, setCurrentDataSpaceId]
   );
 
   const contextValue = useMemo(

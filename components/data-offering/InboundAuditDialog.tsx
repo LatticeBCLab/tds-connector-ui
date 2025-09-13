@@ -56,34 +56,32 @@ interface InboundAuditDialogProps {
   onSuccess?: () => void;
 }
 
-const AUDIT_STAGES: AuditStage[] = [
+const getAuditStages = (t: any): AuditStage[] => [
   {
     id: "sensitivity",
-    name: "Sensitivity Detection",
-    description:
-      "Analyze data sensitivity levels and classification requirements",
+    name: t("stages.sensitivity.name"),
+    description: t("stages.sensitivity.description"),
     status: "pending",
     progress: 0,
   },
   {
     id: "personal_info",
-    name: "Personal Information Detection",
-    description: "Identify and classify personal information and privacy data",
+    name: t("stages.personalInfo.name"),
+    description: t("stages.personalInfo.description"),
     status: "pending",
     progress: 0,
   },
   {
     id: "compliance",
-    name: "Cross-border Compliance Pre-check",
-    description:
-      "Verify compliance with cross-border data transfer regulations",
+    name: t("stages.compliance.name"),
+    description: t("stages.compliance.description"),
     status: "pending",
     progress: 0,
   },
   {
     id: "malicious",
-    name: "Malicious Content Detection",
-    description: "Scan for malicious content and security threats",
+    name: t("stages.malicious.name"),
+    description: t("stages.malicious.description"),
     status: "pending",
     progress: 0,
   },
@@ -100,7 +98,7 @@ export function InboundAuditDialog({
   const [currentStep, setCurrentStep] = useState<
     "form" | "audit" | "completed"
   >("form");
-  const [stages, setStages] = useState<AuditStage[]>(AUDIT_STAGES);
+  const [stages, setStages] = useState<AuditStage[]>(getAuditStages(t));
   const [currentStageIndex, setCurrentStageIndex] = useState(-1);
   const [isAuditing, setIsAuditing] = useState(false);
   const [auditId, setAuditId] = useState<string>("");
@@ -108,7 +106,7 @@ export function InboundAuditDialog({
   const form = useForm<InboundAuditFormData>({
     resolver: zodResolver(inboundAuditSchema),
     defaultValues: {
-      comments: "Initial inbound audit request",
+      comments: t("fields.commentsPlaceholder"),
       expires_at: "",
     },
   });
@@ -123,7 +121,7 @@ export function InboundAuditDialog({
     if (!open) {
       setCurrentStep("form");
       setStages(
-        AUDIT_STAGES.map((stage) => ({
+        getAuditStages(t).map((stage) => ({
           ...stage,
           status: "pending",
           progress: 0,
@@ -134,7 +132,7 @@ export function InboundAuditDialog({
       setAuditId("");
       form.reset();
     }
-  }, [open, form]);
+  }, [open, form, t]);
 
   const onSubmit = async (data: InboundAuditFormData) => {
     try {
@@ -159,7 +157,7 @@ export function InboundAuditDialog({
       startAutomaticAudit();
     } catch (error) {
       console.error("Failed to create audit:", error);
-      toast.error("Failed to create audit");
+      toast.error(t("errors.createFailed"));
     }
   };
 
@@ -188,7 +186,7 @@ export function InboundAuditDialog({
       });
 
       setCurrentStep("completed");
-      toast.success("Inbound audit completed successfully");
+      toast.success(t("success.approved"));
 
       // Call onSuccess after a short delay
       setTimeout(() => {
@@ -197,9 +195,9 @@ export function InboundAuditDialog({
       }, 1500);
     } catch (error) {
       console.error("Failed to approve audit:", error);
-      toast.error("Failed to approve audit");
+      toast.error(t("errors.approveFailed"));
     }
-  }, [auditId, auditor, approveAuditMutation, onSuccess, onOpenChange]);
+  }, [auditId, auditor, approveAuditMutation, onSuccess, onOpenChange, t]);
 
   const getStageIcon = (stage: AuditStage) => {
     switch (stage.status) {

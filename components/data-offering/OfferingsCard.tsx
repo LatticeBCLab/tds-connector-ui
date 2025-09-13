@@ -60,22 +60,6 @@ const getDataSourceIcon = (type: string) => {
   }
 };
 
-// Data source type label mapping
-const getDataSourceLabel = (type: string, t: any) => {
-  switch (type?.toLowerCase()) {
-    case "local_file":
-      return t("dataSource.localFile");
-    case "s3":
-      return t("dataSource.s3Storage");
-    case "nas":
-      return t("dataSource.nasStorage");
-    case "restful":
-      return t("dataSource.restfulApi");
-    default:
-      return type || t("dataSource.unknown");
-  }
-};
-
 interface OfferingsCardProps {
   isAddOfferingOpen: boolean;
   setIsAddOfferingOpen: (open: boolean) => void;
@@ -194,7 +178,7 @@ export function OfferingsCard({
 
   // Format file size
   const formatFileSize = (bytes: number) => {
-    if (!bytes) return "N/A";
+    if (!bytes) return t("common.notAvailable");
     const sizes = ["Bytes", "KB", "MB", "GB"];
     const i = Math.floor(Math.log(bytes) / Math.log(1024));
     return Math.round((bytes / Math.pow(1024, i)) * 100) / 100 + " " + sizes[i];
@@ -322,7 +306,9 @@ export function OfferingsCard({
                           )}
                         >
                           <Shield className="h-3 w-3" />
-                          <span>{offering.boundStatus || "N/A"}</span>
+                          <span>
+                            {offering.boundStatus || t("common.notAvailable")}
+                          </span>
                         </div>
                         {/* Outbound/Inbound Badge */}
                         {offering.isOutbound !== undefined &&
@@ -353,14 +339,12 @@ export function OfferingsCard({
                       </p>
                       <div className="text-muted-foreground mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs">
                         <div className="flex items-center space-x-1">
-                          <span>Type:</span>
-                          <span className="font-medium">
-                            {getDataSourceLabel(offering.type, t)}
-                          </span>
+                          <span>{t("offerings.type")}:</span>
+                          <span className="font-medium">{offering.type}</span>
                         </div>
                         {offering.config?.fileFormat && (
                           <div className="flex items-center space-x-1">
-                            <span>Format:</span>
+                            <span>{t("offerings.format")}:</span>
                             <span className="font-medium">
                               {offering.config.fileFormat}
                             </span>
@@ -368,7 +352,7 @@ export function OfferingsCard({
                         )}
                         {offering.config?.fileSize && (
                           <div className="flex items-center space-x-1">
-                            <span>Size:</span>
+                            <span>{t("offerings.size")}:</span>
                             <span className="font-medium">
                               {formatFileSize(offering.config.fileSize)}
                             </span>
@@ -376,7 +360,7 @@ export function OfferingsCard({
                         )}
                         {offering.originCountry && (
                           <div className="flex items-center space-x-1">
-                            <span>Origin:</span>
+                            <span>{t("offerings.origin")}:</span>
                             <span className="font-medium">
                               {offering.originCountry}
                             </span>
@@ -384,14 +368,14 @@ export function OfferingsCard({
                         )}
                         {offering.location && (
                           <div className="flex items-center space-x-1">
-                            <span>Location:</span>
+                            <span>{t("offerings.location")}:</span>
                             <span className="font-medium">
                               {offering.location}
                             </span>
                           </div>
                         )}
                         <div className="flex items-center space-x-1">
-                          <span>Created:</span>
+                          <span>{t("offerings.created")}:</span>
                           <span>
                             {new Date(offering.createdAt).toLocaleDateString()}
                           </span>
@@ -442,7 +426,7 @@ export function OfferingsCard({
                               onClick={() => handleApiAccessClick(offering)}
                             >
                               <Plug className="size-4" />
-                              API Access
+                              {t("actions.apiAccess")}
                             </DropdownMenuItem>
                           )}
                         </DropdownMenuContent>

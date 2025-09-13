@@ -16,14 +16,12 @@ import {
 } from "@/components/ui/popover";
 import { Spinner } from "@/components/ui/spinner";
 import { useDataSpace } from "@/lib/contexts/DataSpaceContext";
-import { useAppStore } from "@/lib/stores/app-store";
 import { cn } from "@/lib/utils";
 import { AlertCircle, Check, ChevronsUpDown, Globe } from "lucide-react";
 import { useState } from "react";
 
 export function DataSpaceSwitcher() {
   const [open, setOpen] = useState(false);
-  const { setCurrentDataSpaceId } = useAppStore();
   const {
     currentDataSpace,
     availableDataSpaces,
@@ -34,7 +32,6 @@ export function DataSpaceSwitcher() {
 
   const handleDataSpaceSwitch = (dataSpaceId: string) => {
     switchDataSpace(dataSpaceId);
-    setCurrentDataSpaceId(dataSpaceId);
     setOpen(false);
   };
 

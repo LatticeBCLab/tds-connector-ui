@@ -248,12 +248,12 @@ export function ContractCard({
                       <div className="flex-1">
                         <div className="mb-2 flex items-center space-x-2">
                           <ContractStatusIcon className="text-muted-foreground h-4 w-4" />
-                          <h4 className="text-sm font-medium">
+                          <h4 className="line-clamp-1 text-sm font-medium">
                             {contract.name}
                           </h4>
                           <div
                             className={cn(
-                              "flex items-center space-x-1 rounded-md px-2 py-1 text-xs",
+                              "flex items-center space-x-1 rounded-md px-2 py-1 text-xs whitespace-nowrap",
                               displayStatus === "active" &&
                                 "bg-green-100 text-green-800",
                               displayStatus === "expired" &&

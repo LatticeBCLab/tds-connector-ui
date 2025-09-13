@@ -29,6 +29,7 @@ import {
   Send,
   XCircle,
 } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 
 interface ApiConfig {
@@ -55,6 +56,7 @@ export function ApiAccessDialog({
   apiConfig,
   offeringTitle,
 }: ApiAccessDialogProps) {
+  const t = useTranslations("apiAccessDialog");
   const { toast } = useToast();
   const [method, setMethod] = useState<"GET" | "POST">(apiConfig.method);
   const [endpoint, setEndpoint] = useState(apiConfig.apiEndpoint);
@@ -117,8 +119,8 @@ export function ApiAccessDialog({
           };
         } catch (e) {
           toast({
-            title: "Request Body Format Error",
-            description: "Please enter valid JSON format",
+            title: t("requestBodyFormatError"),
+            description: t("enterValidJson"),
             variant: "destructive",
           });
           setLoading(false);
@@ -155,23 +157,23 @@ export function ApiAccessDialog({
 
       if (!res.ok) {
         toast({
-          title: "Request Failed",
-          description: `Status Code: ${res.status}`,
+          title: t("requestFailed"),
+          description: `${t("statusCode")}: ${res.status}`,
           variant: "destructive",
         });
       } else {
         toast({
-          title: "Request Successful",
-          description: `Status Code: ${res.status}`,
+          title: t("requestSuccessful"),
+          description: `${t("statusCode")}: ${res.status}`,
         });
       }
     } catch (error) {
       setResponse(
-        `Error: ${error instanceof Error ? error.message : "Unknown Error"}`
+        `Error: ${error instanceof Error ? error.message : t("unknownError")}`
       );
       toast({
-        title: "Request Failed",
-        description: error instanceof Error ? error.message : "Unknown Error",
+        title: t("requestFailed"),
+        description: error instanceof Error ? error.message : t("unknownError"),
         variant: "destructive",
       });
     } finally {
@@ -182,7 +184,7 @@ export function ApiAccessDialog({
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);
     toast({
-      title: "Copied to Clipboard",
+      title: t("copiedToClipboard"),
     });
   };
 
@@ -198,7 +200,7 @@ export function ApiAccessDialog({
       <DialogContent className="flex max-w-7xl flex-col overflow-hidden">
         <DialogHeader className="flex-shrink-0">
           <DialogTitle className="text-xl font-semibold">
-            API Testing Console
+            {t("title")}
           </DialogTitle>
         </DialogHeader>
 
@@ -228,7 +230,7 @@ export function ApiAccessDialog({
                 className="border-border h-9 flex-1 font-mono text-sm"
                 value={endpoint}
                 onChange={(e) => setEndpoint(e.target.value)}
-                placeholder="Enter request URL"
+                placeholder={t("enterRequestUrl")}
               />
 
               <Button
@@ -239,12 +241,12 @@ export function ApiAccessDialog({
                 {loading ? (
                   <>
                     <Loader2 className="size-4 animate-spin" />
-                    Sending
+                    {t("sending")}
                   </>
                 ) : (
                   <>
                     <Send className="size-4" />
-                    Send
+                    {t("send")}
                   </>
                 )}
               </Button>
@@ -255,11 +257,12 @@ export function ApiAccessDialog({
               <div className="flex items-center gap-2 rounded-lg border border-amber-200 bg-amber-50 px-4 py-2 dark:border-amber-800 dark:bg-amber-950/20">
                 <Lock className="h-4 w-4 text-amber-600" />
                 <span className="text-sm text-amber-800 dark:text-amber-200">
-                  <span className="font-semibold">Auth:</span>{" "}
+                  <span className="font-semibold">{t("auth")}:</span>{" "}
                   {apiConfig.authentication.type.toUpperCase()}
-                  {apiConfig.authentication.type === "bearer" && " Token"}
+                  {apiConfig.authentication.type === "bearer" &&
+                    ` ${t("token")}`}
                   {apiConfig.authentication.type === "basic" &&
-                    " (Username/Password)"}
+                    ` ${t("usernamePassword")}`}
                 </span>
               </div>
             )}
@@ -267,40 +270,46 @@ export function ApiAccessDialog({
             {/* Request Configuration Tabs */}
             <Tabs defaultValue="headers" className="w-full">
               <TabsList className="grid w-full grid-cols-3">
-                <TabsTrigger value="headers">Headers</TabsTrigger>
+                <TabsTrigger value="headers">{t("headers")}</TabsTrigger>
                 <TabsTrigger value="body" disabled={method === "GET"}>
-                  Body
+                  {t("body")}
                   {method === "GET" && (
                     <span className="ml-1 text-xs opacity-50">(GET)</span>
                   )}
                 </TabsTrigger>
-                <TabsTrigger value="params">Params</TabsTrigger>
+                <TabsTrigger value="params">{t("params")}</TabsTrigger>
               </TabsList>
 
               <TabsContent value="headers" className="mt-4 space-y-3">
-                <Label className="text-sm font-medium">Request Headers</Label>
+                <Label className="text-sm font-medium">
+                  {t("requestHeaders")}
+                </Label>
                 <Textarea
                   className="border-border h-24 resize-none font-mono text-sm"
                   value={headers}
                   onChange={(e) => setHeaders(e.target.value)}
-                  placeholder='{\n  "Content-Type": "application/json",\n  "Accept": "application/json"\n}'
+                  placeholder={t("headersPlaceholder")}
                 />
               </TabsContent>
 
               <TabsContent value="body" className="mt-4 space-y-3">
-                <Label className="text-sm font-medium">Request Body</Label>
+                <Label className="text-sm font-medium">
+                  {t("requestBody")}
+                </Label>
                 <Textarea
                   className="border-border h-24 resize-none font-mono text-sm"
                   value={requestBody}
                   onChange={(e) => setRequestBody(e.target.value)}
-                  placeholder='{\n  "key": "value",\n  "data": {\n    "example": true\n  }\n}'
+                  placeholder={t("bodyPlaceholder")}
                 />
               </TabsContent>
 
               <TabsContent value="params" className="mt-4 space-y-3">
-                <Label className="text-sm font-medium">Query Parameters</Label>
+                <Label className="text-sm font-medium">
+                  {t("queryParameters")}
+                </Label>
                 <div className="text-muted-foreground text-sm">
-                  Add query parameters directly to the URL above
+                  {t("addQueryParametersNote")}
                 </div>
               </TabsContent>
             </Tabs>
@@ -310,7 +319,7 @@ export function ApiAccessDialog({
           <div className="flex flex-1 flex-col overflow-hidden">
             <div className="flex-shrink-0 py-4">
               <div className="flex items-center justify-between">
-                <h3 className="text-lg font-semibold">Response</h3>
+                <h3 className="text-lg font-semibold">{t("response")}</h3>
                 <div className="flex items-center gap-3">
                   {responseStatus && (
                     <Badge
@@ -346,17 +355,15 @@ export function ApiAccessDialog({
                       </pre>
                     </ScrollArea>
                   ) : (
-                    <div className="flex min-h-[300px] flex-col items-center justify-center text-center">
-                      <div className="bg-muted/50 mb-6 rounded-full">
+                    <div className="flex min-h-[300px] flex-col items-center justify-center space-y-2 text-center">
+                      <div className="bg-muted/50 rounded-full">
                         <Send className="text-muted-foreground h-12 w-12" />
                       </div>
-                      <h3 className="text-muted-foreground mb-3 text-xl font-semibold">
-                        Ready to test your API
+                      <h3 className="text-muted-foreground text-base font-semibold">
+                        {t("readyToTest")}
                       </h3>
-                      <p className="text-muted-foreground max-w-md">
-                        Configure your request above and click &quot;Send&quot;
-                        to see the response here. The response will include
-                        status code, timing information, and full response body.
+                      <p className="text-muted-foreground max-w-md text-sm">
+                        {t("configureRequest")}
                       </p>
                     </div>
                   )}

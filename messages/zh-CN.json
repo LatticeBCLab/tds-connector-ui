@@ -589,72 +589,6 @@
       "close": "关闭"
     }
   },
-  "inboundAuditDialog": {
-    "title": "入境数据审计",
-    "description": {
-      "form": "提交资源进行入境审计审查",
-      "audit": "自动审计进行中...",
-      "completed": "审计成功完成"
-    },
-    "sections": {
-      "dataResourceInformation": "数据资源信息",
-      "auditConfiguration": "审计配置"
-    },
-    "fields": {
-      "resourceTitle": "资源标题",
-      "resourceId": "资源ID",
-      "targetRegion": "目标区域",
-      "targetRegionPlaceholder": "选择目标区域",
-      "auditType": "审计类型",
-      "auditor": "审计员",
-      "comments": "备注",
-      "commentsPlaceholder": "输入审计备注...",
-      "expiresAt": "过期时间",
-      "expiresAtPlaceholder": "选择过期日期和时间"
-    },
-    "buttons": {
-      "cancel": "取消",
-      "creating": "创建中...",
-      "startAudit": "开始审计",
-      "processingAudit": "处理审计中...",
-      "close": "关闭"
-    },
-    "messages": {
-      "auditCompleted": "审计成功完成",
-      "auditCompletedDescription": "入境数据审计已完成并通过。"
-    }
-  },
-  "outboundAuditDialog": {
-    "title": "出境数据审计",
-    "description": "创建和处理出境数据审计以符合跨境合规要求",
-    "sections": {
-      "dataResourceInformation": "数据资源信息",
-      "auditConfiguration": "审计配置"
-    },
-    "fields": {
-      "resourceTitle": "资源标题",
-      "resourceId": "资源ID",
-      "targetRegion": "目标区域",
-      "targetRegionPlaceholder": "选择目标区域",
-      "auditType": "审计类型",
-      "auditor": "审计员",
-      "comments": "备注",
-      "commentsPlaceholder": "输入审计备注...",
-      "expirationDateTime": "过期时间",
-      "expirationDateTimePlaceholder": "选择过期日期和时间"
-    },
-    "buttons": {
-      "cancel": "取消",
-      "creating": "创建中...",
-      "createAudit": "创建审计",
-      "processingAudit": "处理审计中...",
-      "close": "关闭"
-    },
-    "completion": {
-      "title": "审计成功完成",
-      "description": "出境数据审计已完成并通过。"
-    }
-  },
   "DataOffering": {
     "metrics": {
       "activeOfferings": {
@@ -678,7 +612,13 @@
       "empty": {
         "title": "未找到数据资源",
         "description": "创建新的数据资源以开始使用"
-      }
+      },
+      "type": "类型",
+      "format": "格式",
+      "size": "大小",
+      "origin": "来源",
+      "location": "位置",
+      "created": "创建时间"
     },
     "contract": {
       "title": "数据合约",
@@ -758,14 +698,115 @@
     "actions": {
       "outbound": "出境",
       "inbound": "入境",
-      "dataTrace": "数据溯源"
+      "dataTrace": "数据溯源",
+      "apiAccess": "API访问"
     },
     "common": {
       "loading": "加载中...",
       "loadMore": "加载更多",
       "tryAgain": "重试",
       "retry": "重试",
-      "cancel": "取消"
+      "cancel": "取消",
+      "notAvailable": "不可用"
+    }
+  },
+  "outboundAuditDialog": {
+    "title": "出境数据审计",
+    "description": "提交出境数据进行跨境合规审计",
+    "fields": {
+      "auditor": "审计员",
+      "comments": "备注信息",
+      "commentsPlaceholder": "请提供审计申请详情...",
+      "expirationDateTime": "过期日期和时间",
+      "expirationDateTimePlaceholder": "选择过期日期和时间"
+    },
+    "buttons": {
+      "cancel": "取消",
+      "createAudit": "创建审计",
+      "creating": "创建中...",
+      "processingAudit": "审计处理中..."
+    },
+    "completion": {
+      "title": "审计成功完成",
+      "description": "出境数据审计已完成并通过。"
+    },
+    "errors": {
+      "noDataSpace": "请先选择数据空间",
+      "noAuditor": "未配置用户DID",
+      "createFailed": "创建审计请求失败",
+      "noAuditId": "未找到审计ID",
+      "approveFailed": "审计批准失败"
+    },
+    "success": {
+      "approved": "审计批准成功"
+    },
+    "stages": {
+      "classification": {
+        "name": "跨境数据分类",
+        "description": "根据法规对跨境数据进行分类和分级"
+      },
+      "negativeList": {
+        "name": "负面清单识别",
+        "description": "识别负面清单和限制类别中的数据"
+      },
+      "compliance": {
+        "name": "跨境合规预检",
+        "description": "验证跨境数据传输法规的合规性"
+      },
+      "legal": {
+        "name": "法律合规确认",
+        "description": "确认法律合规性和监管要求"
+      }
+    }
+  },
+  "inboundAuditDialog": {
+    "title": "入境数据审计",
+    "description": {
+      "form": "提交入境数据进行安全和合规审计",
+      "audit": "正在处理入境数据审计...",
+      "completed": "入境数据审计成功完成"
+    },
+    "fields": {
+      "auditor": "审计员",
+      "comments": "备注信息",
+      "commentsPlaceholder": "请提供审计申请详情...",
+      "expiresAt": "过期日期和时间",
+      "expiresAtPlaceholder": "选择过期日期和时间"
+    },
+    "buttons": {
+      "cancel": "取消",
+      "startAudit": "开始审计",
+      "creating": "创建中...",
+      "processingAudit": "审计处理中..."
+    },
+    "messages": {
+      "auditCompleted": "审计成功完成",
+      "auditCompletedDescription": "入境数据审计已完成并通过。"
+    },
+    "errors": {
+      "createFailed": "创建审计请求失败",
+      "approveFailed": "审计批准失败"
+    },
+    "success": {
+      "approved": "入境数据审计成功完成"
+    },
+    "stages": {
+      "sensitivity": {
+        "name": "敏感性检测",
+        "description": "分析数据敏感级别和分类要求"
+      },
+      "personalInfo": {
+        "name": "个人信息检测",
+        "description": "识别和分类个人信息和隐私数据"
+      },
+      "compliance": {
+        "name": "跨境合规预检",
+        "description": "验证跨境数据传输法规的合规性"
+      },
+      "malicious": {
+        "name": "恶意内容检测",
+        "description": "扫描恶意内容和安全威胁"
+      }
     }
   },
   "DataConsumption": {
@@ -867,7 +908,9 @@
       "created": "创建时间",
       "expires": "过期时间",
       "updated": "更新时间",
-      "contractExpiredOn": "合约已于以下时间过期"
+      "contractExpiredOn": "合约已于以下时间过期",
+      "downloadSuccess": "数据下载成功",
+      "downloadFailed": "数据下载失败"
     }
   },
   "Sandbox": {
@@ -899,7 +942,8 @@
       "processingScriptPlaceholder": "import pandas as pd\n# 在此处编写您的数据处理代码",
       "cancel": "取消",
       "creating": "创建中...",
-      "createJob": "创建任务"
+      "createJob": "创建任务",
+      "createJobSuccess": "创建任务成功"
     },
     "DataProcessingJobsCard": {
       "title": "数据处理任务",
@@ -973,6 +1017,37 @@
       "securityEventsAndAlerts": "安全事件和系统告警"
     }
   },
+  "apiAccessDialog": {
+    "title": "API 测试控制台",
+    "description": "测试和交互 API 端点",
+    "method": "方法",
+    "endpoint": "端点",
+    "send": "发送",
+    "sending": "发送中",
+    "enterRequestUrl": "输入请求URL",
+    "auth": "认证",
+    "token": "令牌",
+    "usernamePassword": "（用户名/密码）",
+    "headers": "请求头",
+    "body": "请求体",
+    "params": "参数",
+    "requestHeaders": "请求头",
+    "requestBody": "请求体",
+    "queryParameters": "查询参数",
+    "addQueryParametersNote": "直接在上面的URL中添加查询参数",
+    "response": "响应",
+    "readyToTest": "准备测试您的API",
+    "configureRequest": "在上面配置您的请求并点击\"发送\"以在此处查看响应。响应将包括状态码、时间信息和完整的响应体。",
+    "requestBodyFormatError": "请求体格式错误",
+    "enterValidJson": "请输入有效的JSON格式",
+    "requestFailed": "请求失败",
+    "requestSuccessful": "请求成功",
+    "statusCode": "状态码",
+    "unknownError": "未知错误",
+    "copiedToClipboard": "已复制到剪贴板",
+    "headersPlaceholder": "{\n  \"Content-Type\": \"application/json\",\n  \"Accept\": \"application/json\"\n}",
+    "bodyPlaceholder": "{\n  \"key\": \"value\",\n  \"data\": {\n    \"example\": true\n  }\n}"
+  },
   "dataTraceabilityDialog": {
     "title": "数据溯源",
     "description": "查看该资源的完整数据血缘和溯源链路",
@@ -981,6 +1056,14 @@
     "noData": "暂无溯源信息",
     "resourceInfo": "资源信息",
     "traceabilityChain": "溯源链路",
+    "retry": "重试",
+    "type": "类型",
+    "location": "位置",
+    "id": "ID",
+    "publisher": "发布者",
+    "unknownResource": "未知资源",
+    "unknown": "未知",
+    "unknownDate": "未知日期",
     "buttons": {
       "close": "关闭"
     }

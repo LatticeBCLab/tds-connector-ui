@@ -16,10 +16,12 @@ import { useDataSpace } from "@/lib/contexts/DataSpaceContext";
 import { useCreateJob } from "@/lib/gen/hooks/useCreateJob";
 import { useGetResourceListByDataspaceAndPublisher } from "@/lib/gen/hooks/useGetResourceListByDataspaceAndPublisher";
 import { useListApps } from "@/lib/gen/hooks/useListApps";
+import { listJobsQueryKey } from "@/lib/gen/hooks/useListJobs";
 import { useListSandboxes } from "@/lib/gen/hooks/useListSandboxes";
 import { modelsJobStatus } from "@/lib/gen/types/models/JobStatus";
 import { useAppStore } from "@/lib/stores/app-store";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useQueryClient } from "@tanstack/react-query";
 import { Plus } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useMemo, useState } from "react";
@@ -46,6 +48,7 @@ interface CreateJobDialogProps {
 
 export function CreateJobDialog({ trigger, onSuccess }: CreateJobDialogProps) {
   const t = useTranslations("Sandbox.CreateJobDialog");
+  const queryClient = useQueryClient();
   const [open, setOpen] = useState(false);
   const { currentDataSpace } = useDataSpace();
 
@@ -96,10 +99,19 @@ export function CreateJobDialog({ trigger, onSuccess }: CreateJobDialogProps) {
   const createJobMutation = useCreateJob({
     mutation: {
       onSuccess: () => {
-        toast.success("Job created successfully");
+        toast.success(t("createJobSuccess"));
         reset();
         setOpen(false);
         onSuccess?.();
+
+        // 刷新任务列表
+        queryClient.invalidateQueries({
+          queryKey: listJobsQueryKey({
+            connector_did: process.env.NEXT_PUBLIC_CONNECTOR_DID || "",
+            page: 1,
+            page_size: 10,
+          }),
+        });
       },
       onError: (error) => {
         toast.error("Failed to create job");

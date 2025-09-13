@@ -590,72 +590,6 @@
       "close": "Close"
     }
   },
-  "inboundAuditDialog": {
-    "title": "Inbound Data Audit",
-    "description": {
-      "form": "Submit resource for inbound audit review",
-      "audit": "Automated audit in progress...",
-      "completed": "Audit completed successfully"
-    },
-    "sections": {
-      "dataResourceInformation": "Data Resource Information",
-      "auditConfiguration": "Audit Configuration"
-    },
-    "fields": {
-      "resourceTitle": "Resource Title",
-      "resourceId": "Resource ID",
-      "targetRegion": "Target Region",
-      "targetRegionPlaceholder": "Select target region",
-      "auditType": "Audit Type",
-      "auditor": "Auditor",
-      "comments": "Comments",
-      "commentsPlaceholder": "Enter audit comments...",
-      "expiresAt": "Expires At",
-      "expiresAtPlaceholder": "Select expiration date and time"
-    },
-    "buttons": {
-      "cancel": "Cancel",
-      "creating": "Creating...",
-      "startAudit": "Start Audit",
-      "processingAudit": "Processing Audit...",
-      "close": "Close"
-    },
-    "messages": {
-      "auditCompleted": "Audit Completed Successfully",
-      "auditCompletedDescription": "The inbound data audit has been completed and passed."
-    }
-  },
-  "outboundAuditDialog": {
-    "title": "Outbound Data Audit",
-    "description": "Create and process outbound data audits for cross-border compliance",
-    "sections": {
-      "dataResourceInformation": "Data Resource Information",
-      "auditConfiguration": "Audit Configuration"
-    },
-    "fields": {
-      "resourceTitle": "Resource Title",
-      "resourceId": "Resource ID",
-      "targetRegion": "Target Region",
-      "targetRegionPlaceholder": "Select target region",
-      "auditType": "Audit Type",
-      "auditor": "Auditor",
-      "comments": "Comments",
-      "commentsPlaceholder": "Enter audit comments...",
-      "expirationDateTime": "Expiration Date Time",
-      "expirationDateTimePlaceholder": "Select expiration date and time"
-    },
-    "buttons": {
-      "cancel": "Cancel",
-      "creating": "Creating...",
-      "createAudit": "Create Audit",
-      "processingAudit": "Processing Audit...",
-      "close": "Close"
-    },
-    "completion": {
-      "title": "Audit Completed Successfully",
-      "description": "The outbound data audit has been completed and passed."
-    }
-  },
   "DataOffering": {
     "metrics": {
       "activeOfferings": {
@@ -679,7 +613,13 @@
       "empty": {
         "title": "No data offerings found",
         "description": "Create a new data offering to get started"
-      }
+      },
+      "type": "Type",
+      "format": "Format",
+      "size": "Size",
+      "origin": "Origin",
+      "location": "Location",
+      "created": "Created"
     },
     "contract": {
       "title": "Data Contract",
@@ -747,14 +687,115 @@
     "actions": {
       "outbound": "Outbound",
       "inbound": "Inbound",
-      "dataTrace": "数据溯源"
+      "dataTrace": "Data Traceability",
+      "apiAccess": "API Access"
     },
     "common": {
       "loading": "Loading...",
       "loadMore": "Load More",
       "tryAgain": "Try Again",
       "retry": "Retry",
-      "cancel": "Cancel"
+      "cancel": "Cancel",
+      "notAvailable": "N/A"
+    }
+  },
+  "outboundAuditDialog": {
+    "title": "Outbound Data Audit",
+    "description": "Submit outbound data for cross-border compliance audit",
+    "fields": {
+      "auditor": "Auditor",
+      "comments": "Comments",
+      "commentsPlaceholder": "Please provide audit request details...",
+      "expirationDateTime": "Expiration Date & Time",
+      "expirationDateTimePlaceholder": "Select expiration date and time"
+    },
+    "buttons": {
+      "cancel": "Cancel",
+      "createAudit": "Create Audit",
+      "creating": "Creating...",
+      "processingAudit": "Processing Audit..."
+    },
+    "completion": {
+      "title": "Audit Successfully Completed",
+      "description": "Outbound data audit has been completed and approved."
+    },
+    "errors": {
+      "noDataSpace": "Please select a data space first",
+      "noAuditor": "User DID not configured",
+      "createFailed": "Failed to create audit request",
+      "noAuditId": "Audit ID not found",
+      "approveFailed": "Failed to approve audit"
+    },
+    "success": {
+      "approved": "Audit approved successfully"
+    },
+    "stages": {
+      "classification": {
+        "name": "Cross-border Data Classification",
+        "description": "Classify and grade cross-border data according to regulations"
+      },
+      "negativeList": {
+        "name": "Negative List Identification", 
+        "description": "Identify data against negative lists and restricted categories"
+      },
+      "compliance": {
+        "name": "Cross-border Compliance Pre-check",
+        "description": "Verify compliance with cross-border data transfer regulations"
+      },
+      "legal": {
+        "name": "Legal Compliance Confirmation",
+        "description": "Confirm legal compliance and regulatory requirements"
+      }
+    }
+  },
+  "inboundAuditDialog": {
+    "title": "Inbound Data Audit",
+    "description": {
+      "form": "Submit resource for inbound audit review",
+      "audit": "Automated audit in progress...",
+      "completed": "Audit completed successfully"
+    },
+    "fields": {
+      "auditor": "Auditor",
+      "comments": "Comments",
+      "commentsPlaceholder": "Please provide audit request details...",
+      "expiresAt": "Expiration Date & Time",
+      "expiresAtPlaceholder": "Select expiration date and time"
+    },
+    "buttons": {
+      "cancel": "Cancel",
+      "startAudit": "Start Audit",
+      "creating": "Creating...",
+      "processingAudit": "Processing Audit..."
+    },
+    "messages": {
+      "auditCompleted": "Audit Successfully Completed",
+      "auditCompletedDescription": "Inbound data audit has been completed and approved."
+    },
+    "errors": {
+      "createFailed": "Failed to create audit request",
+      "approveFailed": "Failed to approve audit"
+    },
+    "success": {
+      "approved": "Inbound audit completed successfully"
+    },
+    "stages": {
+      "sensitivity": {
+        "name": "Sensitivity Detection",
+        "description": "Analyze data sensitivity levels and classification requirements"
+      },
+      "personalInfo": {
+        "name": "Personal Information Detection",
+        "description": "Identify and classify personal information and privacy data"
+      },
+      "compliance": {
+        "name": "Cross-border Compliance Pre-check", 
+        "description": "Verify compliance with cross-border data transfer regulations"
+      },
+      "malicious": {
+        "name": "Malicious Content Detection",
+        "description": "Scan for malicious content and security threats"
+      }
     }
   },
   "DataConsumption": {
@@ -856,7 +897,9 @@
       "created": "Created",
       "expires": "Expires",
       "updated": "Updated",
-      "contractExpiredOn": "Contract has expired on"
+      "contractExpiredOn": "Contract has expired on",
+      "downloadSuccess": "Data downloaded successfully",
+      "downloadFailed": "Failed to download data"
     }
   },
   "Sandbox": {
@@ -888,7 +931,8 @@
       "processingScriptPlaceholder": "import pandas as pd\n# Your data processing code here",
       "cancel": "Cancel",
       "creating": "Creating...",
-      "createJob": "Create Job"
+      "createJob": "Create Job",
+      "createJobSuccess": "Job created successfully"
     },
     "DataProcessingJobsCard": {
       "title": "Data Processing Jobs",
@@ -962,6 +1006,37 @@
       "securityEventsAndAlerts": "Security events and system alerts"
     }
   },
+  "apiAccessDialog": {
+    "title": "API Testing Console",
+    "description": "Test and interact with the API endpoint",
+    "method": "Method",
+    "endpoint": "Endpoint",
+    "send": "Send",
+    "sending": "Sending",
+    "enterRequestUrl": "Enter request URL",
+    "auth": "Auth",
+    "token": "Token",
+    "usernamePassword": "(Username/Password)",
+    "headers": "Headers",
+    "body": "Body",
+    "params": "Params",
+    "requestHeaders": "Request Headers",
+    "requestBody": "Request Body",
+    "queryParameters": "Query Parameters",
+    "addQueryParametersNote": "Add query parameters directly to the URL above",
+    "response": "Response",
+    "readyToTest": "Ready to test your API",
+    "configureRequest": "Configure your request above and click \"Send\" to see the response here. The response will include status code, timing information, and full response body.",
+    "requestBodyFormatError": "Request Body Format Error",
+    "enterValidJson": "Please enter valid JSON format",
+    "requestFailed": "Request Failed",
+    "requestSuccessful": "Request Successful",
+    "statusCode": "Status Code",
+    "unknownError": "Unknown Error",
+    "copiedToClipboard": "Copied to Clipboard",
+    "headersPlaceholder": "{\n  \"Content-Type\": \"application/json\",\n  \"Accept\": \"application/json\"\n}",
+    "bodyPlaceholder": "{\n  \"key\": \"value\",\n  \"data\": {\n    \"example\": true\n  }\n}"
+  },
   "dataTraceabilityDialog": {
     "title": "Data Traceability",
     "description": "View the complete data lineage and traceability chain for this resource",
@@ -970,6 +1045,14 @@
     "noData": "No traceability information available",
     "resourceInfo": "Resource Information",
     "traceabilityChain": "Traceability Chain",
+    "retry": "Retry",
+    "type": "Type",
+    "location": "Location",
+    "id": "ID",
+    "publisher": "Publisher",
+    "unknownResource": "Unknown Resource",
+    "unknown": "Unknown",
+    "unknownDate": "Unknown date",
     "buttons": {
       "close": "Close"
     }
