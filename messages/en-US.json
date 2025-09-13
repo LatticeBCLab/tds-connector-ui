@@ -938,7 +938,17 @@
       "title": "Data Processing Jobs",
       "description": "Manage data processing tasks",
       "noJobsFound": "No processing jobs found",
-      "createJobToStart": "Create one to start processing data."
+      "createJobToStart": "Create one to start processing data.",
+      "sandbox": "Sandbox",
+      "created": "Created",
+      "started": "Started",
+      "ended": "Ended",
+      "duration": "Duration",
+      "error": "Error",
+      "approvingJob": "Approving Job...",
+      "creatingResource": "Creating Resource...",
+      "completedSuccessfully": "Completed Successfully!",
+      "audit": "Audit"
     },
     "SandboxEnvironmentsCard": {
       "title": "Sandbox Environments",
@@ -957,7 +967,14 @@
       "networkIsolation": "Network Isolation",
       "cancel": "Cancel",
       "noSandboxFound": "No sandbox environments found",
-      "createOneToGetStarted": "Create one to get started."
+      "createOneToGetStarted": "Create one to get started.",
+      "image": "Image",
+      "cpu": "CPU",
+      "cores": "cores",
+      "memory": "Memory",
+      "storage": "Storage",
+      "security": "Security",
+      "created": "Created"
     },
     "SandboxTab": {
       "runningSandboxes": "Running Sandboxes",

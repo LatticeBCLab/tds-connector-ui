@@ -949,7 +949,17 @@
       "title": "数据处理任务",
       "description": "管理数据处理任务",
       "noJobsFound": "未找到处理任务",
-      "createJobToStart": "创建一个任务开始处理数据。"
+      "createJobToStart": "创建一个任务开始处理数据。",
+      "sandbox": "沙箱",
+      "created": "创建时间",
+      "started": "开始时间",
+      "ended": "结束时间",
+      "duration": "持续时间",
+      "error": "错误",
+      "approvingJob": "正在审批任务...",
+      "creatingResource": "正在创建资源...",
+      "completedSuccessfully": "成功完成！",
+      "audit": "审计"
     },
     "SandboxEnvironmentsCard": {
       "title": "沙箱环境",
@@ -968,7 +978,14 @@
       "networkIsolation": "网络隔离",
       "cancel": "取消",
       "noSandboxFound": "未找到沙箱环境",
-      "createOneToGetStarted": "创建一个开始使用。"
+      "createOneToGetStarted": "创建一个开始使用。",
+      "image": "镜像",
+      "cpu": "CPU",
+      "cores": "核心",
+      "memory": "内存",
+      "storage": "存储",
+      "security": "安全级别",
+      "created": "创建时间"
     },
     "SandboxTab": {
       "runningSandboxes": "运行中的沙箱",

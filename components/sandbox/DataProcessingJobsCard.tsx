@@ -208,7 +208,10 @@ export function DataProcessingJobsCard({
                     <div className="flex-1">
                       <div className="mb-1 flex items-center space-x-2">
                         <h4 className="text-sm font-medium">{job.name}</h4>
-                        <StatusBadge status={job.status} type="job" />
+                        <StatusBadge
+                          status={job.status.toUpperCase()}
+                          type="job"
+                        />
                         {job.status === "completed" && job.auditStatus && (
                           <StatusBadge status={job.auditStatus} type="audit" />
                         )}
@@ -218,35 +221,36 @@ export function DataProcessingJobsCard({
                       </div>
                       <div className="text-muted-foreground space-y-1 text-xs">
                         <div>
-                          Sandbox: <SandboxName sandboxId={job.sandboxId} />
+                          {t("sandbox")}:{" "}
+                          <SandboxName sandboxId={job.sandboxId} />
                         </div>
                         <div className="space-x-4">
                           <span>
-                            Created:{" "}
-                            {new Date(job.createdAt).toLocaleString("zh-CN")}
+                            {t("created")}:{" "}
+                            {new Date(job.createdAt).toLocaleString()}
                           </span>
                           {job.startedAt && (
                             <span>
-                              Started:{" "}
-                              {new Date(job.startedAt).toLocaleString("zh-CN")}
+                              {t("started")}:{" "}
+                              {new Date(job.startedAt).toLocaleString()}
                             </span>
                           )}
                           {job.endedAt && (
                             <span>
-                              Ended:{" "}
-                              {new Date(job.endedAt).toLocaleString("zh-CN")}
+                              {t("ended")}:{" "}
+                              {new Date(job.endedAt).toLocaleString()}
                             </span>
                           )}
                           {job.startedAt && (
                             <span>
-                              Duration:{" "}
+                              {t("duration")}:{" "}
                               {getJobDuration(job.startedAt, job.endedAt)}
                             </span>
                           )}
                         </div>
                         {job.errorMessage && (
                           <div className="text-red-600">
-                            Error: {job.errorMessage}
+                            {t("error")}: {job.errorMessage}
                           </div>
                         )}
                       </div>
@@ -257,7 +261,7 @@ export function DataProcessingJobsCard({
                           {currentStep === "approving" && (
                             <div className="space-y-1">
                               <div className="flex justify-between text-xs">
-                                <span>Approving Job...</span>
+                                <span>{t("approvingJob")}</span>
                                 <span>{auditProgress}%</span>
                               </div>
                               <Progress value={auditProgress} className="h-2" />
@@ -266,7 +270,7 @@ export function DataProcessingJobsCard({
                           {currentStep === "downloading" && (
                             <div className="space-y-1">
                               <div className="flex justify-between text-xs">
-                                <span>Creating Resource...</span>
+                                <span>{t("creatingResource")}</span>
                                 <span>{downloadProgress}%</span>
                               </div>
                               <Progress
@@ -278,7 +282,7 @@ export function DataProcessingJobsCard({
                           {currentStep === "completed" && (
                             <div className="space-y-1">
                               <div className="flex justify-between text-xs text-green-600">
-                                <span>Completed Successfully!</span>
+                                <span>{t("completedSuccessfully")}</span>
                                 <span>100%</span>
                               </div>
                               <Progress value={100} className="h-2" />
@@ -288,18 +292,17 @@ export function DataProcessingJobsCard({
                       )}
                     </div>
                     <div className="flex items-center space-x-1">
-                      {job.status === "completed" &&
-                        job.auditStatus !== "APPROVED" && (
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            title="Audit"
-                            onClick={() => handleAuditClick(job)}
-                            disabled={processingJobId === job.id}
-                          >
-                            <Download className="h-4 w-4" />
-                          </Button>
-                        )}
+                      {job.status === "completed" && (
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          title={t("audit")}
+                          onClick={() => handleAuditClick(job)}
+                          disabled={processingJobId === job.id}
+                        >
+                          <Download className="h-4 w-4" />
+                        </Button>
+                      )}
                     </div>
                   </div>
                 </div>

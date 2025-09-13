@@ -32,13 +32,13 @@ export const StatusBadge = memo(function StatusBadge({
 
       case "sandbox":
         switch (status) {
-          case "running":
+          case "RUNNING":
             return "default";
-          case "stopped":
-          case "creating":
+          case "STOPPED":
+          case "CREATING":
             return "secondary";
-          case "destroying":
-          case "error":
+          case "DESTROYING":
+          case "ERROR":
             return "destructive";
           default:
             return "outline";
@@ -46,14 +46,14 @@ export const StatusBadge = memo(function StatusBadge({
 
       case "job":
         switch (status) {
-          case "completed":
+          case "COMPLETED":
             return "default";
-          case "running":
+          case "RUNNING":
             return "secondary";
-          case "queued":
+          case "QUEUED":
             return "outline";
-          case "failed":
-          case "cancelled":
+          case "FAILED":
+          case "CANCELLED":
             return "destructive";
           default:
             return "outline";

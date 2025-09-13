@@ -11,8 +11,8 @@ import {
 } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Clock, Database, Tag, User } from "lucide-react";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
-import { useTranslations } from 'next-intl';
 
 // 定义App的数据类型
 interface App {
@@ -46,7 +46,7 @@ interface AppsCardProps {
 }
 
 export function AppsCard({ apps }: AppsCardProps) {
-  const t = useTranslations('Sandbox.AppsCard');
+  const t = useTranslations("Sandbox.AppsCard");
   // 格式化计数显示
   const formatCount = (count: number) => {
     if (count >= 1000000) {
@@ -103,10 +103,8 @@ export function AppsCard({ apps }: AppsCardProps) {
       <CardHeader>
         <div className="flex items-center justify-between">
           <div>
-            <CardTitle>{t('title')}</CardTitle>
-            <CardDescription>
-              {t('description')}
-            </CardDescription>
+            <CardTitle>{t("title")}</CardTitle>
+            <CardDescription>{t("description")}</CardDescription>
           </div>
           <div className="text-muted-foreground text-sm">
             {apps.length} app{apps.length !== 1 ? "s" : ""} available
@@ -180,13 +178,13 @@ export function AppsCard({ apps }: AppsCardProps) {
                         variant="outline"
                         className={`text-xs ${getStatusColor(app.status)}`}
                       >
-                        {app.status}
+                        {app.status.toUpperCase()}
                       </Badge>
                       <Badge
                         variant="outline"
                         className={`text-xs ${getCategoryColor(app.category)}`}
                       >
-                        {app.category.replace("_", " ")}
+                        {app.category.replace("_", " ").toUpperCase()}
                       </Badge>
                     </div>
 
@@ -239,16 +237,6 @@ export function AppsCard({ apps }: AppsCardProps) {
 
                     {/* Stats */}
                     <div className="text-muted-foreground flex items-center justify-between text-xs">
-                      {/* <div className="flex items-center space-x-3">
-                        <div className="flex items-center space-x-1">
-                          <Download className="h-3 w-3" />
-                          <span>{formatCount(app.downloadCount)}</span>
-                        </div>
-                        <div className="flex items-center space-x-1">
-                          <Play className="h-3 w-3" />
-                          <span>{formatCount(app.runCount)}</span>
-                        </div>
-                      </div> */}
                       {/* Author */}
                       <div className="text-muted-foreground flex items-center space-x-1 text-xs">
                         <User className="h-3 w-3" />
@@ -261,23 +249,6 @@ export function AppsCard({ apps }: AppsCardProps) {
                         </span>
                       </div>
                     </div>
-
-                    {/* Action Buttons */}
-                    {/* <div className="flex space-x-2 pt-2">
-                      <Button
-                        size="sm"
-                        variant="outline"
-                        className="flex-1 text-xs"
-                      >
-                        <Play className="mr-1 h-3 w-3" />
-                        Run
-                      </Button>
-                      {app.documentation && (
-                        <Button size="sm" variant="ghost" className="p-2">
-                          <ExternalLink className="h-3 w-3" />
-                        </Button>
-                      )}
-                    </div> */}
                   </div>
                 );
               })}
@@ -287,8 +258,8 @@ export function AppsCard({ apps }: AppsCardProps) {
           <div className="py-8 text-center">
             <EmptyState
               icon={Database}
-              title={t('noApplicationsFound')}
-              description={t('noContainerImages')}
+              title={t("noApplicationsFound")}
+              description={t("noContainerImages")}
             />
           </div>
         )}

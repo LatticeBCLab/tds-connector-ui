@@ -215,34 +215,44 @@ export function SandboxEnvironmentsCard({
                     <div className="flex-1">
                       <div className="mb-1 flex items-center space-x-2">
                         <h4 className="font-medium">{sandbox.name}</h4>
-                        <StatusBadge status={sandbox.status} type="sandbox" />
+                        <StatusBadge
+                          status={sandbox.status.toUpperCase()}
+                          type="sandbox"
+                        />
                       </div>
                       <div className="text-muted-foreground space-y-1 text-xs">
                         <div>{sandbox.description}</div>
                         <div className="flex justify-between">
                           <span className="text-muted-foreground">
-                            Runtime:
+                            {t("runtime")}:
                           </span>
                           <span className="ml-2 truncate font-mono">
                             {sandbox.runtimeType} {sandbox.runtimeVersion}
                           </span>
                         </div>
                         <div className="flex justify-between">
-                          <span className="text-muted-foreground">Image:</span>
+                          <span className="text-muted-foreground">
+                            {t("image")}:
+                          </span>
                           <span className="ml-2 truncate font-mono">
                             {sandbox.baseImage}
                           </span>
                         </div>
 
                         <div className="flex justify-between">
-                          <span className="text-muted-foreground">CPU:</span>
+                          <span className="text-muted-foreground">
+                            {t("cpu")}:
+                          </span>
                           <span className="ml-2 truncate font-mono">
-                            {sandbox.cpuCores} cores ({sandbox.cpuUsage}%)
+                            {sandbox.cpuCores} {t("cores")} ({sandbox.cpuUsage}
+                            %)
                           </span>
                         </div>
 
                         <div className="flex justify-between">
-                          <span className="text-muted-foreground">Memory:</span>
+                          <span className="text-muted-foreground">
+                            {t("memory")}:
+                          </span>
                           <span className="ml-2 truncate font-mono">
                             {formatMemory(sandbox.memoryMb)} (
                             {sandbox.memoryUsage}%)
@@ -250,7 +260,7 @@ export function SandboxEnvironmentsCard({
                         </div>
                         <div className="flex justify-between">
                           <span className="text-muted-foreground">
-                            Storage:
+                            {t("storage")}:
                           </span>
                           <span className="ml-2 truncate font-mono">
                             {formatStorage(sandbox.storageGb)}
@@ -259,7 +269,7 @@ export function SandboxEnvironmentsCard({
 
                         <div className="flex justify-between">
                           <span className="text-muted-foreground">
-                            Security:
+                            {t("security")}:
                           </span>
                           <span className="ml-2 truncate font-mono">
                             {sandbox.securityLevel}
@@ -267,43 +277,14 @@ export function SandboxEnvironmentsCard({
                         </div>
                         <div className="flex justify-between">
                           <span className="text-muted-foreground">
-                            Created:
+                            {t("created")}:
                           </span>
                           <span className="ml-2 truncate font-mono">
-                            {new Date(sandbox.createdAt).toLocaleDateString(
-                              "zh-CN"
-                            )}
+                            {new Date(sandbox.createdAt).toLocaleDateString()}
                           </span>
                         </div>
                       </div>
                     </div>
-                    {/* <div className="flex items-center space-x-1">
-                      {sandbox.status === "stopped" ? (
-                        <Button
-                          size="sm"
-                          variant="ghost"
-                          onClick={() => startSandbox(sandbox.id)}
-                          title="启动沙箱"
-                        >
-                          <Play className="h-4 w-4" />
-                        </Button>
-                      ) : sandbox.status === "running" ? (
-                        <Button
-                          size="sm"
-                          variant="ghost"
-                          onClick={() => stopSandbox(sandbox.id)}
-                          title="停止沙箱"
-                        >
-                          <Square className="h-4 w-4" />
-                        </Button>
-                      ) : null}
-                      <Button variant="ghost" size="sm" title="查看详情">
-                        <Eye className="h-4 w-4" />
-                      </Button>
-                      <Button variant="ghost" size="sm" title="删除沙箱">
-                        <Trash2 className="h-4 w-4" />
-                      </Button>
-                    </div> */}
                   </div>
                 </div>
               ))
