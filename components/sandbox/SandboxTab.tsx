@@ -2,13 +2,13 @@
 
 import { MetricCard } from "@/components/shared";
 import { useDataOfferings, useSandbox } from "@/hooks";
-import { useTranslations } from 'next-intl';
 import { useDataSpace } from "@/lib/contexts/DataSpaceContext";
 import { useGetSandboxStats } from "@/lib/gen/hooks/useGetSandboxStats";
 import { useListApps } from "@/lib/gen/hooks/useListApps";
 import { useListJobs } from "@/lib/gen/hooks/useListJobs";
 import { useListSandboxes } from "@/lib/gen/hooks/useListSandboxes";
 import { Activity, Clock, Database, Monitor } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { AppsCard } from "./AppsCard";
 import { DataProcessingJobsCard } from "./DataProcessingJobsCard";
 import { SandboxEnvironmentsCard } from "./SandboxEnvironmentsCard";

@@ -164,7 +164,7 @@ export function ContractCard() {
         description: resourceData.description,
         location: process.env.NEXT_PUBLIC_LOCATION,
         originCountry: resourceData.originCountry,
-        // originResource: [contract.resourceId],
+        originResource: [contract.resourceId],
         publisher: process.env.NEXT_PUBLIC_USER_DID || "",
         status: "Active",
         title: resourceData.title,

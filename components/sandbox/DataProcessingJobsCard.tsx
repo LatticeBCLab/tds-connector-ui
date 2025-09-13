@@ -141,6 +141,7 @@ export function DataProcessingJobsCard({
         status: "Active" as any,
         title: job.name,
         type: "LocalFile" as any,
+        originResource: [job.resourceId],
       };
 
       await createResourceMutation.mutateAsync({ data: newResourceData });

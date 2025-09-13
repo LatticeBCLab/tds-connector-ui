@@ -74,7 +74,7 @@ export function JobAuditDialog({
         description: job.description,
         location: location as any,
         originCountry: originCountry as any,
-        // originResource: [job.resource_id],
+        originResource: [job.resource_id],
         publisher,
         status: "Active" as any,
         title: job.name,
