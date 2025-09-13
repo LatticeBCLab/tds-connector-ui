@@ -4,8 +4,6 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
-import type { UseMutationOptions, QueryClient } from '@tanstack/react-query'
 import type {
   UpdateI18nByIDMutationRequest,
   UpdateI18nByIDMutationResponse,
@@ -14,8 +12,10 @@ import type {
   UpdateI18nByID404,
   UpdateI18nByID500,
 } from '../types/UpdateI18nByID.ts'
-import { useMutation } from '@tanstack/react-query'
+import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
+import type { UseMutationOptions, QueryClient } from '@tanstack/react-query'
 import { updateI18nByID } from '../clients/updateI18nByID.ts'
+import { useMutation } from '@tanstack/react-query'
 
 export const updateI18nByIDMutationKey = () => [{ url: '/api/v1/i18n/:id' }] as const
 

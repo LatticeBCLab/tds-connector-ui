@@ -4,8 +4,6 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
-import type { UseMutationOptions, QueryClient } from '@tanstack/react-query'
 import type {
   IncrementDownloadCountMutationResponse,
   IncrementDownloadCountPathParams,
@@ -13,8 +11,10 @@ import type {
   IncrementDownloadCount404,
   IncrementDownloadCount500,
 } from '../types/IncrementDownloadCount.ts'
-import { useMutation } from '@tanstack/react-query'
+import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
+import type { UseMutationOptions, QueryClient } from '@tanstack/react-query'
 import { incrementDownloadCount } from '../clients/incrementDownloadCount.ts'
+import { useMutation } from '@tanstack/react-query'
 
 export const incrementDownloadCountMutationKey = () => [{ url: '/api/v1/apps/:id/download' }] as const
 

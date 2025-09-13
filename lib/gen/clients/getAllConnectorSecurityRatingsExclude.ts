@@ -4,12 +4,12 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type {
   GetAllConnectorSecurityRatingsExcludeQueryResponse,
   GetAllConnectorSecurityRatingsExcludeQueryParams,
   GetAllConnectorSecurityRatingsExclude500,
 } from '../types/GetAllConnectorSecurityRatingsExclude.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 function getGetAllConnectorSecurityRatingsExcludeUrl() {
   const res = { method: 'GET', url: `/tdsc/api/v1/csr/others` as const }

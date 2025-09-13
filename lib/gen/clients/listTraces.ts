@@ -4,8 +4,8 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { ListTracesQueryResponse, ListTracesQueryParams, ListTraces400, ListTraces500 } from '../types/ListTraces.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 function getListTracesUrl() {
   const res = { method: 'GET', url: `/tdsc/api/v1/traces` as const }

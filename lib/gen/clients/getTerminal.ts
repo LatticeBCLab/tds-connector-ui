@@ -4,8 +4,8 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { GetTerminalQueryResponse, GetTerminalPathParams, GetTerminal400, GetTerminal404, GetTerminal500 } from '../types/GetTerminal.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 function getGetTerminalUrl(terminal_did: GetTerminalPathParams['terminal_did']) {
   const res = { method: 'GET', url: `/tdsc/api/v1/terminals/${terminal_did}` as const }

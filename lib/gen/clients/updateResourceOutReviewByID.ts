@@ -4,7 +4,6 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type {
   UpdateResourceOutReviewByIDMutationRequest,
   UpdateResourceOutReviewByIDMutationResponse,
@@ -13,6 +12,7 @@ import type {
   UpdateResourceOutReviewByID404,
   UpdateResourceOutReviewByID500,
 } from '../types/UpdateResourceOutReviewByID.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 function getUpdateResourceOutReviewByIDUrl(id: UpdateResourceOutReviewByIDPathParams['id']) {
   const res = { method: 'PATCH', url: `/tdsc/api/v1/resources/${id}/out-review` as const }

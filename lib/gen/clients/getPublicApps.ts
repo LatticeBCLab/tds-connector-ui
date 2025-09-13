@@ -4,8 +4,8 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { GetPublicAppsQueryResponse, GetPublicAppsQueryParams, GetPublicApps400, GetPublicApps500 } from '../types/GetPublicApps.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 function getGetPublicAppsUrl() {
   const res = { method: 'GET', url: `/tdsc/api/v1/apps/public` as const }

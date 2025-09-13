@@ -4,8 +4,6 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
-import type { UseMutationOptions, QueryClient } from '@tanstack/react-query'
 import type {
   CompleteJobMutationRequest,
   CompleteJobMutationResponse,
@@ -14,8 +12,10 @@ import type {
   CompleteJob404,
   CompleteJob500,
 } from '../types/CompleteJob.ts'
-import { useMutation } from '@tanstack/react-query'
+import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
+import type { UseMutationOptions, QueryClient } from '@tanstack/react-query'
 import { completeJob } from '../clients/completeJob.ts'
+import { useMutation } from '@tanstack/react-query'
 
 export const completeJobMutationKey = () => [{ url: '/api/v1/jobs/:id/complete' }] as const
 

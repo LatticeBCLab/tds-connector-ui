@@ -4,11 +4,11 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
+import type { GetTraceChainQueryResponse, GetTraceChainPathParams, GetTraceChain400, GetTraceChain404, GetTraceChain500 } from '../types/GetTraceChain.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
-import type { GetTraceChainQueryResponse, GetTraceChainPathParams, GetTraceChain400, GetTraceChain404, GetTraceChain500 } from '../types/GetTraceChain.ts'
-import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
 import { getTraceChain } from '../clients/getTraceChain.ts'
+import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
 
 export const getTraceChainSuspenseQueryKey = (id: GetTraceChainPathParams['id']) => [{ url: '/api/v1/traces/:id/chain', params: { id: id } }] as const
 

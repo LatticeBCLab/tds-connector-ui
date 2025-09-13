@@ -26,6 +26,7 @@ import {
   useCreateContract,
   useGetResourceListByDataspaceAndPublisher,
   useGetUserDIDList,
+  useListConnectors,
   useListPolicies,
 } from "@/lib/gen";
 import { useGetAllDataSpaces } from "@/lib/gen/hooks/useGetAllDataSpaces";
@@ -108,6 +109,17 @@ export function CreateContractDialog({
   });
 
   // Get connectors for connector DID dropdown
+  const { data: connectorsData } = useListConnectors(
+    {
+      page: 1,
+      page_size: 100,
+    },
+    {
+      query: { enabled: !!open },
+    }
+  );
+
+  // Get connectors for connector DID dropdown
   const form = useForm<CreateContractFormData>({
     resolver: zodResolver(createContractSchema),
     defaultValues: {
@@ -142,6 +154,7 @@ export function CreateContractDialog({
     [];
 
   // Get available connectors
+  const availableConnectors = (connectorsData || []) as any[];
 
   // Reset form when dialog opens/closes
   useEffect(() => {
@@ -308,6 +321,21 @@ export function CreateContractDialog({
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
+                      {availableConnectors.map((connector: any) => (
+                        <SelectItem
+                          key={connector.connectorDid}
+                          value={connector.connectorDid}
+                        >
+                          <div className="flex flex-col">
+                            <span className="font-medium">
+                              {connector.connectorDid}
+                            </span>
+                            {/* <span className="text-muted-foreground text-xs">
+                              {connector.connectorName}
+                            </span> */}
+                          </div>
+                        </SelectItem>
+                      ))}
                     </SelectContent>
                   </Select>
                   <FormMessage />

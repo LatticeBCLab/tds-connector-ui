@@ -4,11 +4,11 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
+import type { GetAppQueryResponse, GetAppPathParams, GetApp400, GetApp404, GetApp500 } from '../types/GetApp.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
-import type { GetAppQueryResponse, GetAppPathParams, GetApp400, GetApp404, GetApp500 } from '../types/GetApp.ts'
-import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
 import { getApp } from '../clients/getApp.ts'
+import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
 
 export const getAppSuspenseQueryKey = (id: GetAppPathParams['id']) => [{ url: '/api/v1/apps/:id', params: { id: id } }] as const
 

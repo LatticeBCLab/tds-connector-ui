@@ -4,8 +4,6 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
-import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
 import type {
   GetTracesByResourceIDQueryResponse,
   GetTracesByResourceIDPathParams,
@@ -13,8 +11,10 @@ import type {
   GetTracesByResourceID400,
   GetTracesByResourceID500,
 } from '../types/GetTracesByResourceID.ts'
-import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
+import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
+import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
 import { getTracesByResourceID } from '../clients/getTracesByResourceID.ts'
+import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
 
 export const getTracesByResourceIDSuspenseQueryKey = (id: GetTracesByResourceIDPathParams['id'], params?: GetTracesByResourceIDQueryParams) =>
   [{ url: '/api/v1/traces/resource/:id', params: { id: id } }, ...(params ? [params] : [])] as const

@@ -4,11 +4,11 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
+import type { CountUnresolvedQueryResponse, CountUnresolved500 } from '../types/CountUnresolved.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
-import type { CountUnresolvedQueryResponse, CountUnresolved500 } from '../types/CountUnresolved.ts'
-import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
 import { countUnresolved } from '../clients/countUnresolved.ts'
+import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
 
 export const countUnresolvedSuspenseQueryKey = () => [{ url: '/api/v1/alters/unresolved' }] as const
 

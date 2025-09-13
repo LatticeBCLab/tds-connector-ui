@@ -4,11 +4,11 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
+import type { UpdateAppMutationRequest, UpdateAppMutationResponse, UpdateAppPathParams, UpdateApp400, UpdateApp404, UpdateApp500 } from '../types/UpdateApp.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { UseMutationOptions, QueryClient } from '@tanstack/react-query'
-import type { UpdateAppMutationRequest, UpdateAppMutationResponse, UpdateAppPathParams, UpdateApp400, UpdateApp404, UpdateApp500 } from '../types/UpdateApp.ts'
-import { useMutation } from '@tanstack/react-query'
 import { updateApp } from '../clients/updateApp.ts'
+import { useMutation } from '@tanstack/react-query'
 
 export const updateAppMutationKey = () => [{ url: '/api/v1/apps/:id' }] as const
 

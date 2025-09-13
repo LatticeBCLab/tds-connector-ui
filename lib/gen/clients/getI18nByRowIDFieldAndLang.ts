@@ -4,7 +4,6 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type {
   GetI18nByRowIDFieldAndLangQueryResponse,
   GetI18nByRowIDFieldAndLangQueryParams,
@@ -12,6 +11,7 @@ import type {
   GetI18nByRowIDFieldAndLang404,
   GetI18nByRowIDFieldAndLang500,
 } from '../types/GetI18nByRowIDFieldAndLang.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 function getGetI18nByRowIDFieldAndLangUrl() {
   const res = { method: 'GET', url: `/tdsc/api/v1/i18n/translate` as const }

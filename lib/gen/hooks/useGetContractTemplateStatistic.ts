@@ -4,16 +4,16 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
-import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
 import type {
   GetContractTemplateStatisticQueryResponse,
   GetContractTemplateStatisticQueryParams,
   GetContractTemplateStatistic400,
   GetContractTemplateStatistic500,
 } from '../types/GetContractTemplateStatistic.ts'
-import { queryOptions, useQuery } from '@tanstack/react-query'
+import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
+import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
 import { getContractTemplateStatistic } from '../clients/getContractTemplateStatistic.ts'
+import { queryOptions, useQuery } from '@tanstack/react-query'
 
 export const getContractTemplateStatisticQueryKey = (params: GetContractTemplateStatisticQueryParams) =>
   [{ url: '/api/v1/contract-templates/statistic' }, ...(params ? [params] : [])] as const

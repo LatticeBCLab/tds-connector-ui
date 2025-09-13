@@ -4,7 +4,6 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type {
   GetResourceAuditByIDQueryResponse,
   GetResourceAuditByIDPathParams,
@@ -13,6 +12,7 @@ import type {
   GetResourceAuditByID404,
   GetResourceAuditByID500,
 } from '../types/GetResourceAuditByID.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 function getGetResourceAuditByIDUrl(id: GetResourceAuditByIDPathParams['id']) {
   const res = { method: 'GET', url: `/tdsc/api/v1/resource-audits/${id}` as const }

@@ -4,8 +4,8 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { CreateAppMutationRequest, CreateAppMutationResponse, CreateApp400, CreateApp500 } from '../types/CreateApp.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 function getCreateAppUrl() {
   const res = { method: 'POST', url: `/tdsc/api/v1/apps` as const }

@@ -4,11 +4,11 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
+import type { ListTracesQueryResponse, ListTracesQueryParams, ListTraces400, ListTraces500 } from '../types/ListTraces.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
-import type { ListTracesQueryResponse, ListTracesQueryParams, ListTraces400, ListTraces500 } from '../types/ListTraces.ts'
-import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
 import { listTraces } from '../clients/listTraces.ts'
+import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
 
 export const listTracesSuspenseQueryKey = (params?: ListTracesQueryParams) => [{ url: '/api/v1/traces' }, ...(params ? [params] : [])] as const
 

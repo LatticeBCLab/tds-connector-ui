@@ -4,8 +4,8 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { GetTraceChainQueryResponse, GetTraceChainPathParams, GetTraceChain400, GetTraceChain404, GetTraceChain500 } from '../types/GetTraceChain.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 function getGetTraceChainUrl(id: GetTraceChainPathParams['id']) {
   const res = { method: 'GET', url: `/tdsc/api/v1/traces/${id}/chain` as const }

@@ -4,7 +4,6 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type {
   GetTracesByResourceIDQueryResponse,
   GetTracesByResourceIDPathParams,
@@ -12,6 +11,7 @@ import type {
   GetTracesByResourceID400,
   GetTracesByResourceID500,
 } from '../types/GetTracesByResourceID.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 function getGetTracesByResourceIDUrl(id: GetTracesByResourceIDPathParams['id']) {
   const res = { method: 'GET', url: `/tdsc/api/v1/traces/resource/${id}` as const }

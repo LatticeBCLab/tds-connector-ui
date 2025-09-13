@@ -4,12 +4,12 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
-import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type {
   GetContractCountByProviderQueryResponse,
   GetContractCountByProviderQueryParams,
   GetContractCountByProvider500,
 } from '../types/GetContractCountByProvider.ts'
+import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 function getGetContractCountByProviderUrl() {
   const res = { method: 'GET', url: `/tdsc/api/v1/contracts/count` as const }

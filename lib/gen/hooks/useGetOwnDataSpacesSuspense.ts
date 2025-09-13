@@ -4,11 +4,11 @@
  */
 
 import fetch from '@kubb/plugin-client/clients/axios'
+import type { GetOwnDataSpacesQueryResponse, GetOwnDataSpacesQueryParams, GetOwnDataSpaces400, GetOwnDataSpaces500 } from '../types/GetOwnDataSpaces.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
-import type { GetOwnDataSpacesQueryResponse, GetOwnDataSpacesQueryParams, GetOwnDataSpaces400, GetOwnDataSpaces500 } from '../types/GetOwnDataSpaces.ts'
-import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
 import { getOwnDataSpaces } from '../clients/getOwnDataSpaces.ts'
+import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
 
 export const getOwnDataSpacesSuspenseQueryKey = (params: GetOwnDataSpacesQueryParams) =>
   [{ url: '/api/v1/dataspaces/own' }, ...(params ? [params] : [])] as const
