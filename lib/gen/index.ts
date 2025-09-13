@@ -63,8 +63,8 @@ export type { GetContractCountByDataspaceAndProviderQueryKey } from './hooks/use
 export type { GetContractCountByDataspaceAndProviderSuspenseQueryKey } from './hooks/useGetContractCountByDataspaceAndProviderSuspense.ts'
 export type { GetContractCountByProviderQueryKey } from './hooks/useGetContractCountByProvider.ts'
 export type { GetContractCountByProviderSuspenseQueryKey } from './hooks/useGetContractCountByProviderSuspense.ts'
-export type { GetContractListByConsumerAndToDataSpaceQueryKey } from './hooks/useGetContractListByConsumerAndToDataSpace.ts'
-export type { GetContractListByConsumerAndToDataSpaceSuspenseQueryKey } from './hooks/useGetContractListByConsumerAndToDataSpaceSuspense.ts'
+export type { GetContractListByConsumerAndFromDataSpaceQueryKey } from './hooks/useGetContractListByConsumerAndFromDataSpace.ts'
+export type { GetContractListByConsumerAndFromDataSpaceSuspenseQueryKey } from './hooks/useGetContractListByConsumerAndFromDataSpaceSuspense.ts'
 export type { GetContractListByDataspaceQueryKey } from './hooks/useGetContractListByDataspace.ts'
 export type { GetContractListByDataspaceAndConsumerQueryKey } from './hooks/useGetContractListByDataspaceAndConsumer.ts'
 export type { GetContractListByDataspaceAndConsumerSuspenseQueryKey } from './hooks/useGetContractListByDataspaceAndConsumerSuspense.ts'
@@ -544,13 +544,13 @@ export type {
   GetContractCountByProviderQuery,
 } from './types/GetContractCountByProvider.ts'
 export type {
-  GetContractListByConsumerAndToDataSpaceQueryParams,
-  GetContractListByConsumerAndToDataSpace200,
-  GetContractListByConsumerAndToDataSpace400,
-  GetContractListByConsumerAndToDataSpace500,
-  GetContractListByConsumerAndToDataSpaceQueryResponse,
-  GetContractListByConsumerAndToDataSpaceQuery,
-} from './types/GetContractListByConsumerAndToDataSpace.ts'
+  GetContractListByConsumerAndFromDataSpaceQueryParams,
+  GetContractListByConsumerAndFromDataSpace200,
+  GetContractListByConsumerAndFromDataSpace400,
+  GetContractListByConsumerAndFromDataSpace500,
+  GetContractListByConsumerAndFromDataSpaceQueryResponse,
+  GetContractListByConsumerAndFromDataSpaceQuery,
+} from './types/GetContractListByConsumerAndFromDataSpace.ts'
 export type {
   GetContractListByDataspacePathParams,
   GetContractListByDataspaceQueryParams,
@@ -1199,7 +1199,7 @@ export { getContractByID } from './clients/getContractByID.ts'
 export { getContractCountByDataspaceAndConsumer } from './clients/getContractCountByDataspaceAndConsumer.ts'
 export { getContractCountByDataspaceAndProvider } from './clients/getContractCountByDataspaceAndProvider.ts'
 export { getContractCountByProvider } from './clients/getContractCountByProvider.ts'
-export { getContractListByConsumerAndToDataSpace } from './clients/getContractListByConsumerAndToDataSpace.ts'
+export { getContractListByConsumerAndFromDataSpace } from './clients/getContractListByConsumerAndFromDataSpace.ts'
 export { getContractListByDataspace } from './clients/getContractListByDataspace.ts'
 export { getContractListByDataspaceAndConsumer } from './clients/getContractListByDataspaceAndConsumer.ts'
 export { getContractListByDataspaceAndProvider } from './clients/getContractListByDataspaceAndProvider.ts'
@@ -1393,15 +1393,15 @@ export {
   useGetContractCountByProviderSuspense,
 } from './hooks/useGetContractCountByProviderSuspense.ts'
 export {
-  getContractListByConsumerAndToDataSpaceQueryKey,
-  getContractListByConsumerAndToDataSpaceQueryOptions,
-  useGetContractListByConsumerAndToDataSpace,
-} from './hooks/useGetContractListByConsumerAndToDataSpace.ts'
+  getContractListByConsumerAndFromDataSpaceQueryKey,
+  getContractListByConsumerAndFromDataSpaceQueryOptions,
+  useGetContractListByConsumerAndFromDataSpace,
+} from './hooks/useGetContractListByConsumerAndFromDataSpace.ts'
 export {
-  getContractListByConsumerAndToDataSpaceSuspenseQueryKey,
-  getContractListByConsumerAndToDataSpaceSuspenseQueryOptions,
-  useGetContractListByConsumerAndToDataSpaceSuspense,
-} from './hooks/useGetContractListByConsumerAndToDataSpaceSuspense.ts'
+  getContractListByConsumerAndFromDataSpaceSuspenseQueryKey,
+  getContractListByConsumerAndFromDataSpaceSuspenseQueryOptions,
+  useGetContractListByConsumerAndFromDataSpaceSuspense,
+} from './hooks/useGetContractListByConsumerAndFromDataSpaceSuspense.ts'
 export {
   getContractListByDataspaceQueryKey,
   getContractListByDataspaceQueryOptions,

@@ -1,5 +1,6 @@
 "use client";
 
+import { ApiAccessDialog } from "@/components/data-offering/ApiAccessDialog";
 import { CreateDataOfferingDialog } from "@/components/data-offering/CreateDataOfferingDialog";
 import { DataOfferingDetailsDialog } from "@/components/data-offering/DataOfferingDetailsDialog";
 import { DataTraceabilityDialog } from "@/components/data-offering/DataTraceabilityDialog";
@@ -35,6 +36,7 @@ import {
   Link,
   MoreHorizontal,
   Pause,
+  Plug,
   Server,
   Shield,
 } from "lucide-react";
@@ -102,6 +104,10 @@ export function OfferingsCard({
 
   // State for data traceability dialog
   const [isTraceabilityOpen, setIsTraceabilityOpen] = useState(false);
+
+  // State for API access dialog
+  const [isApiAccessOpen, setIsApiAccessOpen] = useState(false);
+  const [selectedApiOffering, setSelectedApiOffering] = useState<any>(null);
 
   // API call for data offerings
   const {
@@ -173,6 +179,12 @@ export function OfferingsCard({
   const handleTraceabilityClick = (resourceId: string) => {
     setSelectedResourceId(resourceId);
     setIsTraceabilityOpen(true);
+  };
+
+  // Handle API access button click
+  const handleApiAccessClick = (offering: any) => {
+    setSelectedApiOffering(offering);
+    setIsApiAccessOpen(true);
   };
 
   // Check if there are more pages to load
@@ -250,9 +262,7 @@ export function OfferingsCard({
           <div className="flex items-center justify-between">
             <div>
               <CardTitle>{t("offerings.title")}</CardTitle>
-              <CardDescription>
-                {t("offerings.description")}
-              </CardDescription>
+              <CardDescription>{t("offerings.description")}</CardDescription>
             </div>
             <CreateDataOfferingDialog
               open={isAddOfferingOpen}
@@ -270,6 +280,7 @@ export function OfferingsCard({
                 const DataSourceIcon = getDataSourceIcon(offering.type);
                 // Use simplified status since we don't have the complex status structure
                 const isActive = offering.status === "Active";
+                const isAPI = offering.config?.apiEndpoint;
 
                 return (
                   <div
@@ -330,7 +341,9 @@ export function OfferingsCard({
                                 <ArrowDown className="h-3 w-3" />
                               )}
                               <span>
-                                {offering.isOutbound ? t("direction.outbound") : t("direction.inbound")}
+                                {offering.isOutbound
+                                  ? t("direction.outbound")
+                                  : t("direction.inbound")}
                               </span>
                             </div>
                           )}
@@ -386,7 +399,7 @@ export function OfferingsCard({
                       </div>
                     </div>
                     {/* Action Buttons */}
-                    { (
+                    {
                       <DropdownMenu>
                         <DropdownMenuTrigger asChild>
                           <Button variant="ghost" size="sm">
@@ -394,9 +407,8 @@ export function OfferingsCard({
                           </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end">
-                          {/*isOutbound表示是否可以出境
-                        boundStatus表示出入境状态
-                         */}
+                          {/*isOutbound表示是否可以出境，boundStatus表示出入境状态
+                           */}
                           {offering.isOutbound &&
                             offering.boundStatus === "UNAUDITED" && (
                               <DropdownMenuItem
@@ -405,7 +417,7 @@ export function OfferingsCard({
                                 }
                               >
                                 <ArrowUp className="size-4" />
-                                  {t("actions.outbound")}
+                                {t("actions.outbound")}
                               </DropdownMenuItem>
                             )}
                           {!offering.isOutbound &&
@@ -416,7 +428,7 @@ export function OfferingsCard({
                                 }
                               >
                                 <ArrowDown className="size-4" />
-                                  {t("actions.inbound")}
+                                {t("actions.inbound")}
                               </DropdownMenuItem>
                             )}
                           <DropdownMenuItem
@@ -425,9 +437,17 @@ export function OfferingsCard({
                             <GitBranch className="size-4" />
                             {t("actions.dataTrace")}
                           </DropdownMenuItem>
+                          {isAPI && (
+                            <DropdownMenuItem
+                              onClick={() => handleApiAccessClick(offering)}
+                            >
+                              <Plug className="size-4" />
+                              API Access
+                            </DropdownMenuItem>
+                          )}
                         </DropdownMenuContent>
                       </DropdownMenu>
-                    )}
+                    }
                   </div>
                 );
               })}
@@ -486,6 +506,16 @@ export function OfferingsCard({
         onOpenChange={setIsTraceabilityOpen}
         resourceId={selectedResourceId}
       />
+
+      {/* API Access Dialog */}
+      {selectedApiOffering && (
+        <ApiAccessDialog
+          open={isApiAccessOpen}
+          onOpenChange={setIsApiAccessOpen}
+          apiConfig={selectedApiOffering.config}
+          offeringTitle={selectedApiOffering.title}
+        />
+      )}
     </>
   );
 }

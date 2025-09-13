@@ -321,13 +321,13 @@ export type {
   GetContractCountByProviderQuery,
 } from './GetContractCountByProvider.ts'
 export type {
-  GetContractListByConsumerAndToDataSpaceQueryParams,
-  GetContractListByConsumerAndToDataSpace200,
-  GetContractListByConsumerAndToDataSpace400,
-  GetContractListByConsumerAndToDataSpace500,
-  GetContractListByConsumerAndToDataSpaceQueryResponse,
-  GetContractListByConsumerAndToDataSpaceQuery,
-} from './GetContractListByConsumerAndToDataSpace.ts'
+  GetContractListByConsumerAndFromDataSpaceQueryParams,
+  GetContractListByConsumerAndFromDataSpace200,
+  GetContractListByConsumerAndFromDataSpace400,
+  GetContractListByConsumerAndFromDataSpace500,
+  GetContractListByConsumerAndFromDataSpaceQueryResponse,
+  GetContractListByConsumerAndFromDataSpaceQuery,
+} from './GetContractListByConsumerAndFromDataSpace.ts'
 export type {
   GetContractListByDataspacePathParams,
   GetContractListByDataspaceQueryParams,

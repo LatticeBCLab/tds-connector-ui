@@ -7,7 +7,7 @@ import type { ModelsContract } from './models/Contract.ts'
 import type { ResponsePaginatedResponse } from './response/PaginatedResponse.ts'
 import type { ResponseResponse } from './response/Response.ts'
 
-export type GetContractListByConsumerAndToDataSpaceQueryParams = {
+export type GetContractListByConsumerAndFromDataSpaceQueryParams = {
   /**
    * @description 页码
    * @default 1
@@ -29,7 +29,7 @@ export type GetContractListByConsumerAndToDataSpaceQueryParams = {
    * @description 目标数据空间ID（可选）
    * @type string | undefined
    */
-  to_data_space_id?: string
+  from_data_space_id?: string
   /**
    * @description 目标连接DID（可选）
    * @type string | undefined
@@ -40,7 +40,7 @@ export type GetContractListByConsumerAndToDataSpaceQueryParams = {
 /**
  * @description OK
  */
-export type GetContractListByConsumerAndToDataSpace200 = ResponsePaginatedResponse & {
+export type GetContractListByConsumerAndFromDataSpace200 = ResponsePaginatedResponse & {
   /**
    * @type array | undefined
    */
@@ -50,17 +50,17 @@ export type GetContractListByConsumerAndToDataSpace200 = ResponsePaginatedRespon
 /**
  * @description Bad Request
  */
-export type GetContractListByConsumerAndToDataSpace400 = ResponseResponse
+export type GetContractListByConsumerAndFromDataSpace400 = ResponseResponse
 
 /**
  * @description Internal Server Error
  */
-export type GetContractListByConsumerAndToDataSpace500 = ResponseResponse
+export type GetContractListByConsumerAndFromDataSpace500 = ResponseResponse
 
-export type GetContractListByConsumerAndToDataSpaceQueryResponse = GetContractListByConsumerAndToDataSpace200
+export type GetContractListByConsumerAndFromDataSpaceQueryResponse = GetContractListByConsumerAndFromDataSpace200
 
-export type GetContractListByConsumerAndToDataSpaceQuery = {
-  Response: GetContractListByConsumerAndToDataSpace200
-  QueryParams: GetContractListByConsumerAndToDataSpaceQueryParams
-  Errors: GetContractListByConsumerAndToDataSpace400 | GetContractListByConsumerAndToDataSpace500
+export type GetContractListByConsumerAndFromDataSpaceQuery = {
+  Response: GetContractListByConsumerAndFromDataSpace200
+  QueryParams: GetContractListByConsumerAndFromDataSpaceQueryParams
+  Errors: GetContractListByConsumerAndFromDataSpace400 | GetContractListByConsumerAndFromDataSpace500
 }
