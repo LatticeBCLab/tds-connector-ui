@@ -2,7 +2,6 @@
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Dialog,
   DialogContent,
@@ -19,9 +18,17 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
-import { CheckCircle2, Copy, Globe, Loader2, Lock, Send, XCircle } from "lucide-react";
+import {
+  CheckCircle2,
+  Clock,
+  Loader2,
+  Lock,
+  Send,
+  XCircle,
+} from "lucide-react";
 import { useState } from "react";
 
 interface ApiConfig {
@@ -56,11 +63,15 @@ export function ApiAccessDialog({
   const [response, setResponse] = useState<string>("");
   const [loading, setLoading] = useState(false);
   const [responseStatus, setResponseStatus] = useState<number | null>(null);
+  const [responseTime, setResponseTime] = useState<number | null>(null);
 
   const handleSendRequest = async () => {
     setLoading(true);
     setResponse("");
     setResponseStatus(null);
+    setResponseTime(null);
+
+    const startTime = Date.now();
 
     try {
       let parsedHeaders = {};
@@ -74,13 +85,22 @@ export function ApiAccessDialog({
       }
 
       // Add authentication headers
-      if (apiConfig.authentication.type === "bearer" && apiConfig.authentication.token) {
+      if (
+        apiConfig.authentication.type === "bearer" &&
+        apiConfig.authentication.token
+      ) {
         parsedHeaders = {
           ...parsedHeaders,
           Authorization: `Bearer ${apiConfig.authentication.token}`,
         };
-      } else if (apiConfig.authentication.type === "basic" && apiConfig.authentication.username && apiConfig.authentication.password) {
-        const credentials = btoa(`${apiConfig.authentication.username}:${apiConfig.authentication.password}`);
+      } else if (
+        apiConfig.authentication.type === "basic" &&
+        apiConfig.authentication.username &&
+        apiConfig.authentication.password
+      ) {
+        const credentials = btoa(
+          `${apiConfig.authentication.username}:${apiConfig.authentication.password}`
+        );
         parsedHeaders = {
           ...parsedHeaders,
           Authorization: `Basic ${credentials}`,
@@ -116,7 +136,9 @@ export function ApiAccessDialog({
       }
 
       const res = await fetch(endpoint, fetchOptions);
+      const endTime = Date.now();
       setResponseStatus(res.status);
+      setResponseTime(endTime - startTime);
 
       const responseText = await res.text();
       let formattedResponse = responseText;
@@ -144,7 +166,9 @@ export function ApiAccessDialog({
         });
       }
     } catch (error) {
-      setResponse(`Error: ${error instanceof Error ? error.message : "Unknown Error"}`);
+      setResponse(
+        `Error: ${error instanceof Error ? error.message : "Unknown Error"}`
+      );
       toast({
         title: "Request Failed",
         description: error instanceof Error ? error.message : "Unknown Error",
@@ -171,157 +195,127 @@ export function ApiAccessDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-6xl h-[90vh] flex flex-col overflow-hidden">
-        <DialogHeader className="pb-4 flex-shrink-0">
-          <DialogTitle className="flex items-center gap-3 text-xl">
-            <div className="flex flex-col">
-              <span>API Interface Call</span>
-              {offeringTitle && (
-                <span className="text-sm text-muted-foreground font-normal">
-                  Testing API for {offeringTitle}
-                </span>
-              )}
-            </div>
+      <DialogContent className="flex max-w-7xl flex-col overflow-hidden">
+        <DialogHeader className="flex-shrink-0">
+          <DialogTitle className="text-xl font-semibold">
+            API Testing Console
           </DialogTitle>
         </DialogHeader>
 
-        <div className="flex flex-col gap-4 flex-1 overflow-hidden">
-          {/* Request configuration area */}
-          <Card className="border-0 shadow-sm bg-muted/20 flex-shrink-0">
-            <CardHeader className="pb-3">
-              <CardTitle className="flex items-center gap-2 text-lg">
-                <Globe className="size-5 text-blue-600" />
-                Request Configuration
-              </CardTitle>
-              <CardDescription>Configure your API request parameters</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                <div className="space-y-3">
-                  <Label className="text-sm font-semibold text-foreground">Request Method</Label>
-                  <Select value={method} onValueChange={(value) => setMethod(value as "GET" | "POST")}>
-                    <SelectTrigger className="h-11 border-2 border-muted-foreground/20 hover:border-primary/50 transition-colors">
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="GET" className="cursor-pointer">
-                        <div className="flex items-center gap-2">
-                          <div className="w-2 h-2 rounded-full bg-green-500"></div>
-                          GET
-                        </div>
-                      </SelectItem>
-                      <SelectItem value="POST" className="cursor-pointer">
-                        <div className="flex items-center gap-2">
-                          <div className="w-2 h-2 rounded-full bg-blue-500"></div>
-                          POST
-                        </div>
-                      </SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
+        <div className="flex flex-1 flex-col overflow-hidden">
+          {/* Main Request Area - Postman Style */}
+          <div className="flex-shrink-0 space-y-4">
+            {/* Request Line */}
+            <div className="flex items-center gap-3">
+              <Select
+                value={method}
+                onValueChange={(value) => setMethod(value as "GET" | "POST")}
+              >
+                <SelectTrigger className="border-border font-semibold">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="GET">
+                    <span className="font-semibold text-green-600">GET</span>
+                  </SelectItem>
+                  <SelectItem value="POST">
+                    <span className="font-semibold text-blue-600">POST</span>
+                  </SelectItem>
+                </SelectContent>
+              </Select>
 
-                <div className="space-y-3 md:col-span-2">
-                  <Label className="text-sm font-semibold text-foreground">API Endpoint</Label>
-                  <Input
-                    className="h-11 border-2 border-muted-foreground/20 hover:border-primary/50 focus:border-primary transition-colors font-mono text-sm"
-                    value={endpoint}
-                    onChange={(e) => setEndpoint(e.target.value)}
-                    placeholder="https://api.example.com/endpoint"
-                  />
-                </div>
+              <Input
+                className="border-border h-9 flex-1 font-mono text-sm"
+                value={endpoint}
+                onChange={(e) => setEndpoint(e.target.value)}
+                placeholder="Enter request URL"
+              />
 
-                <div className="space-y-3">
-                  <Label className="text-sm font-semibold text-foreground">Send Request</Label>
-                  <Button 
-                    onClick={handleSendRequest} 
-                    disabled={loading || !endpoint}
-                    className="w-full h-11 text-sm font-semibold"
-                  >
-                    {loading ? (
-                      <>
-                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                        Sending...
-                      </>
-                    ) : (
-                      <>
-                        <Send className="mr-2 h-4 w-4" />
-                        Send
-                      </>
-                    )}
-                  </Button>
-                </div>
-              </div>
-
-              {/* Advanced Configuration */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-                <div className="space-y-2">
-                  <Label className="text-sm font-semibold text-foreground">Request Headers <span className="text-xs text-muted-foreground">(JSON format)</span></Label>
-                  <Textarea
-                    className="border-2 border-muted-foreground/20 hover:border-primary/50 focus:border-primary transition-colors font-mono text-xs resize-none"
-                    value={headers}
-                    onChange={(e) => setHeaders(e.target.value)}
-                    placeholder='{\n  "Content-Type": "application/json",\n  "Accept": "application/json"\n}'
-                    rows={3}
-                  />
-                </div>
-
-                {method === "POST" && (
-                  <div className="space-y-2">
-                    <Label className="text-sm font-semibold text-foreground">Request Body <span className="text-xs text-muted-foreground">(JSON format)</span></Label>
-                    <Textarea
-                      className="border-2 border-muted-foreground/20 hover:border-primary/50 focus:border-primary transition-colors font-mono text-xs resize-none"
-                      value={requestBody}
-                      onChange={(e) => setRequestBody(e.target.value)}
-                      placeholder='{\n  "key": "value",\n  "data": {\n    "example": true\n  }\n}'
-                      rows={3}
-                    />
-                  </div>
-                )}
-              </div>
-
-              {apiConfig.authentication.type !== "none" && (
-                <div className="p-4 bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-950/20 dark:to-orange-950/20 rounded-lg border border-amber-200 dark:border-amber-800 mt-4">
-                  <div className="flex items-center gap-2 mb-3">
-                    <Lock className="size-4 text-amber-600" />
-                    <span className="text-sm font-semibold text-amber-800 dark:text-amber-200">Authentication Configured</span>
-                  </div>
-                  <div className="text-sm text-amber-700 dark:text-amber-300">
-                    <div className="flex items-center gap-2">
-                      <div className="w-2 h-2 rounded-full bg-amber-500"></div>
-                      Type: {apiConfig.authentication.type.toUpperCase()}
-                      {apiConfig.authentication.type === "bearer" && " (Token)"}
-                      {apiConfig.authentication.type === "basic" && " (Username/Password)"}
-                    </div>
-                  </div>
-                </div>
-              )}
-            </CardContent>
-          </Card>
-
-          {/* Response area */}
-          <Card className="border-0 shadow-sm bg-muted/20 flex-1 flex flex-col min-h-0">
-            <CardHeader className="flex-shrink-0">
-              <CardTitle className="flex items-center gap-2 text-lg">
-                {responseStatus ? (
-                  responseStatus >= 200 && responseStatus < 300 ? (
-                    <CheckCircle2 className="size-5 text-green-600" />
-                  ) : (
-                    <XCircle className="size-5 text-red-600" />
-                  )
+              <Button
+                onClick={handleSendRequest}
+                disabled={loading || !endpoint}
+                className="h-9"
+              >
+                {loading ? (
+                  <>
+                    <Loader2 className="size-4 animate-spin" />
+                    Sending
+                  </>
                 ) : (
-                  <Copy className="size-5 text-gray-600" />
+                  <>
+                    <Send className="size-4" />
+                    Send
+                  </>
                 )}
-                Response Result
-              </CardTitle>
-              <CardDescription>API response will appear here</CardDescription>
-            </CardHeader>
-            <CardContent className="flex-1 flex flex-col min-h-0">
-              <div className="flex items-center justify-between mb-3">
-                <div className="flex items-center gap-2">
+              </Button>
+            </div>
+
+            {/* Auth Info */}
+            {apiConfig.authentication.type !== "none" && (
+              <div className="flex items-center gap-2 rounded-lg border border-amber-200 bg-amber-50 px-4 py-2 dark:border-amber-800 dark:bg-amber-950/20">
+                <Lock className="h-4 w-4 text-amber-600" />
+                <span className="text-sm text-amber-800 dark:text-amber-200">
+                  <span className="font-semibold">Auth:</span>{" "}
+                  {apiConfig.authentication.type.toUpperCase()}
+                  {apiConfig.authentication.type === "bearer" && " Token"}
+                  {apiConfig.authentication.type === "basic" &&
+                    " (Username/Password)"}
+                </span>
+              </div>
+            )}
+
+            {/* Request Configuration Tabs */}
+            <Tabs defaultValue="headers" className="w-full">
+              <TabsList className="grid w-full grid-cols-3">
+                <TabsTrigger value="headers">Headers</TabsTrigger>
+                <TabsTrigger value="body" disabled={method === "GET"}>
+                  Body
+                  {method === "GET" && (
+                    <span className="ml-1 text-xs opacity-50">(GET)</span>
+                  )}
+                </TabsTrigger>
+                <TabsTrigger value="params">Params</TabsTrigger>
+              </TabsList>
+
+              <TabsContent value="headers" className="mt-4 space-y-3">
+                <Label className="text-sm font-medium">Request Headers</Label>
+                <Textarea
+                  className="border-border h-24 resize-none font-mono text-sm"
+                  value={headers}
+                  onChange={(e) => setHeaders(e.target.value)}
+                  placeholder='{\n  "Content-Type": "application/json",\n  "Accept": "application/json"\n}'
+                />
+              </TabsContent>
+
+              <TabsContent value="body" className="mt-4 space-y-3">
+                <Label className="text-sm font-medium">Request Body</Label>
+                <Textarea
+                  className="border-border h-24 resize-none font-mono text-sm"
+                  value={requestBody}
+                  onChange={(e) => setRequestBody(e.target.value)}
+                  placeholder='{\n  "key": "value",\n  "data": {\n    "example": true\n  }\n}'
+                />
+              </TabsContent>
+
+              <TabsContent value="params" className="mt-4 space-y-3">
+                <Label className="text-sm font-medium">Query Parameters</Label>
+                <div className="text-muted-foreground text-sm">
+                  Add query parameters directly to the URL above
+                </div>
+              </TabsContent>
+            </Tabs>
+          </div>
+
+          {/* Response Area */}
+          <div className="flex flex-1 flex-col overflow-hidden">
+            <div className="flex-shrink-0 py-4">
+              <div className="flex items-center justify-between">
+                <h3 className="text-lg font-semibold">Response</h3>
+                <div className="flex items-center gap-3">
                   {responseStatus && (
-                    <Badge 
+                    <Badge
                       variant={getStatusBadgeVariant(responseStatus)}
-                      className="px-3 py-1 text-sm font-semibold"
+                      className="px-3 py-1 font-semibold"
                     >
                       {responseStatus >= 200 && responseStatus < 300 && (
                         <CheckCircle2 className="mr-1 h-3 w-3" />
@@ -332,50 +326,44 @@ export function ApiAccessDialog({
                       {responseStatus}
                     </Badge>
                   )}
-                  {response && (
-                    <span className="text-xs text-muted-foreground">
-                      {response.length} characters
-                    </span>
+                  {responseTime && (
+                    <Badge variant="outline" className="px-3 py-1">
+                      <Clock className="h-3 w-3" />
+                      {responseTime}ms
+                    </Badge>
                   )}
                 </div>
-                {response && (
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => copyToClipboard(response)}
-                    className="h-8 px-3"
-                  >
-                    <Copy className="size-3 mr-1" />
-                    Copy
-                  </Button>
-                )}
               </div>
+            </div>
 
-              <div className="flex-1 border-2 rounded-lg border-muted-foreground/20 bg-background overflow-hidden">
-                <ScrollArea className="h-full">
-                  <div className="p-4">
-                    {response ? (
-                      <pre className="text-sm whitespace-pre-wrap break-words font-mono leading-relaxed">
+            <div className="bg-muted/20 overflow-hidden rounded-lg border-2 border-dotted">
+              <ScrollArea className="max-h-[50vh]">
+                <div className="p-4">
+                  {response ? (
+                    <ScrollArea className="max-h-[50vh]">
+                      <pre className="font-mono text-sm leading-relaxed break-words whitespace-pre-wrap">
                         {response}
                       </pre>
-                    ) : (
-                      <div className="flex flex-col items-center justify-center min-h-[200px] text-center">
-                        <div className="p-6 rounded-full bg-muted/50 mb-4">
-                          <Send className="h-8 w-8 text-muted-foreground" />
-                        </div>
-                        <h3 className="text-lg font-semibold text-muted-foreground mb-2">
-                          Ready to Send Request
-                        </h3>
-                        <p className="text-sm text-muted-foreground max-w-sm">
-                          Configure your request parameters and click &quot;Send Request&quot; to see the API response here
-                        </p>
+                    </ScrollArea>
+                  ) : (
+                    <div className="flex min-h-[300px] flex-col items-center justify-center text-center">
+                      <div className="bg-muted/50 mb-6 rounded-full">
+                        <Send className="text-muted-foreground h-12 w-12" />
                       </div>
-                    )}
-                  </div>
-                </ScrollArea>
-              </div>
-            </CardContent>
-          </Card>
+                      <h3 className="text-muted-foreground mb-3 text-xl font-semibold">
+                        Ready to test your API
+                      </h3>
+                      <p className="text-muted-foreground max-w-md">
+                        Configure your request above and click &quot;Send&quot;
+                        to see the response here. The response will include
+                        status code, timing information, and full response body.
+                      </p>
+                    </div>
+                  )}
+                </div>
+              </ScrollArea>
+            </div>
+          </div>
         </div>
       </DialogContent>
     </Dialog>
