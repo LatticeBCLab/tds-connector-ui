@@ -1,0 +1,82 @@
+name: Build and Push Multi-Architecture Docker Images
+
+on:
+  push:
+    branches: [ main, develop ]
+    tags: [ 'v*' ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - image-name: tdsc-laos
+            user-did: did:tdsc:user:laos-001
+            connector-did: did:tdsc:connector:laos-001
+            terminal-did: did:tdsc:terminal:laos-001
+            location: Laos
+            dataspace-id: cmf4tbxky0001njs14md4yc5a
+          - image-name: tdsc-china-offshore
+            user-did: did:tdsc:user:laos-001
+            connector-did: did:tdsc:connector:laos-custody-001
+            terminal-did: did:tdsc:terminal:laos-custody-001
+            location: China
+            dataspace-id: cmf4tbxky0001njs14md4yc5a
+          - image-name: tdsc-china
+            user-did: did:tdsc:user:china-asean-001
+            connector-did: did:tdsc:connector:china-asean-001
+            terminal-did: did:tdsc:terminal:china-asean-001
+            location: China
+            dataspace-id: cmf4tbxky0001njs14md4yc5a
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+        with:
+          platforms: linux/amd64,linux/arm64
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Extract metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ secrets.DOCKER_USERNAME }}/${{ matrix.image-name }}
+          tags: |
+            type=ref,event=branch
+            type=ref,event=pr
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=sha,prefix=sha-
+            type=raw,value=latest,enable={{is_default_branch}}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./Dockerfile
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          build-args: |
+            NEXT_PUBLIC_USER_DID=${{ matrix.user-did }}
+            NEXT_PUBLIC_CONNECTOR_DID=${{ matrix.connector-did }}
+            NEXT_PUBLIC_TERMINAL_DID=${{ matrix.terminal-did }}
+            NEXT_PUBLIC_LOCATION=${{ matrix.location }}
+            NEXT_PUBLIC_INBOUND_RESOURCE_DATASPACE_ID=${{ matrix.dataspace-id }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Image digest
+        run: echo "Image pushed with digest ${{ steps.build.outputs.digest }}"
