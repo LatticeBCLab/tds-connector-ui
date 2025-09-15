@@ -14,10 +14,11 @@ import { useStats } from "@/lib/gen/hooks/useStats";
 import { Activity, AlertTriangle, CheckCircle, Shield } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useEffect } from "react";
+import { EmptyState } from "../shared/EmptyState";
 import { ScrollArea } from "../ui/scroll-area";
 
 export function MonitoringTab() {
-  const t = useTranslations('Monitoring.MonitoringTab');
+  const t = useTranslations("Monitoring.MonitoringTab");
   const { data: alterList } = useListAlters();
   const { data: latestMetrics, refetch } = useGetMetric();
   const { data: statsData } = useStats();
@@ -32,6 +33,8 @@ export function MonitoringTab() {
     const timer = setInterval(handler, 5_000);
     return () => clearInterval(timer);
   });
+
+  const alerts = (alterList || []).filter((alert) => alert.id !== "");
 
   return (
     <div className="space-y-6">
@@ -77,7 +80,7 @@ export function MonitoringTab() {
             </div>
           </CardHeader>
           <CardContent>
-            {latestMetrics && (
+            {latestMetrics ? (
               <div className="space-y-4">
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
@@ -128,6 +131,12 @@ export function MonitoringTab() {
                   </div>
                 </div>
               </div>
+            ) : (
+              <EmptyState
+                icon={Activity}
+                title={t("systemMetrics")}
+                description={t("realTimeIndicators")}
+              />
             )}
           </CardContent>
         </Card>
@@ -141,9 +150,8 @@ export function MonitoringTab() {
           <CardContent className="p-0">
             <ScrollArea className="h-96 px-6 pb-6">
               <div className="space-y-3">
-                {(alterList || [])
-                  .filter((alert) => alert.id !== "")
-                  .map((alert) => (
+                {alerts.length > 0 ? (
+                  alerts.map((alert) => (
                     <div
                       key={alert.id}
                       className={`rounded-lg border p-3 ${
@@ -174,7 +182,14 @@ export function MonitoringTab() {
                         </div>
                       </div>
                     </div>
-                  ))}
+                  ))
+                ) : (
+                  <EmptyState
+                    icon={AlertTriangle}
+                    title={t("securityAlerts")}
+                    description={t("securityEventsAndAlerts")}
+                  />
+                )}
               </div>
             </ScrollArea>
           </CardContent>

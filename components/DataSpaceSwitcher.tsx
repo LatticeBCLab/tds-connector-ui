@@ -18,6 +18,7 @@ import { Spinner } from "@/components/ui/spinner";
 import { useDataSpace } from "@/lib/contexts/DataSpaceContext";
 import { cn } from "@/lib/utils";
 import { AlertCircle, Check, ChevronsUpDown, Globe } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 
 export function DataSpaceSwitcher() {
@@ -29,6 +30,7 @@ export function DataSpaceSwitcher() {
     isLoading,
     error,
   } = useDataSpace();
+  const t = useTranslations("DataSpaceSwitcher");
 
   const handleDataSpaceSwitch = (dataSpaceId: string) => {
     switchDataSpace(dataSpaceId);
@@ -37,10 +39,10 @@ export function DataSpaceSwitcher() {
 
   if (isLoading) {
     return (
-      <Button variant="outline" disabled className="w-[240px] justify-between">
+      <Button variant="outline" disabled className="w-auto justify-between">
         <div className="flex items-center space-x-2">
-          <Spinner className="h-4 w-4" />
-          <span>Loading...</span>
+          <Spinner variant="bars" />
+          <span>{t("loading")}</span>
         </div>
       </Button>
     );
@@ -51,11 +53,11 @@ export function DataSpaceSwitcher() {
       <Button
         variant="outline"
         disabled
-        className="text-destructive w-[240px] justify-between"
+        className="text-destructive w-auto justify-between"
       >
         <div className="flex items-center space-x-2">
-          <AlertCircle className="h-4 w-4" />
-          <span>Loading failed</span>
+          <AlertCircle className="size-4" />
+          <span>{t("error")}</span>
         </div>
       </Button>
     );
@@ -66,11 +68,11 @@ export function DataSpaceSwitcher() {
       <Button
         variant="outline"
         disabled
-        className="text-muted-foreground w-[240px] justify-between"
+        className="text-muted-foreground w-auto justify-between"
       >
         <div className="flex items-center space-x-2">
-          <Globe className="h-4 w-4" />
-          <span>No data space</span>
+          <Globe className="size-4" />
+          <span>{t("noDataSpace")}</span>
         </div>
       </Button>
     );
@@ -83,10 +85,10 @@ export function DataSpaceSwitcher() {
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-[240px] justify-between"
+          className="w-auto justify-between"
         >
           <div className="flex items-center space-x-2">
-            <Globe className="h-4 w-4" />
+            <Globe className="size-4" />
             <span className="truncate">{currentDataSpace.name}</span>
           </div>
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
@@ -94,9 +96,9 @@ export function DataSpaceSwitcher() {
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0">
         <Command>
-          <CommandInput placeholder="Search data space..." />
+          <CommandInput placeholder={t("search")} />
           <CommandList>
-            <CommandEmpty>No data space found.</CommandEmpty>
+            <CommandEmpty>{t("noDataSpace")}</CommandEmpty>
             <CommandGroup>
               {availableDataSpaces.map((dataSpace) => (
                 <CommandItem

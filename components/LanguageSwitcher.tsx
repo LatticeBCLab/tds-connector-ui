@@ -15,7 +15,7 @@ import { useTransition } from "react";
 export default function LanguageSwitcher() {
   const locale = useLocale();
   const pathname = usePathname();
-  const [isPending, startTransition] = useTransition();
+  const [isPending] = useTransition();
   const handleLanguageChange = (newLocale: string) => {
     console.log("Current pathname:", pathname);
     console.log("Current locale:", locale);
@@ -39,7 +39,7 @@ export default function LanguageSwitcher() {
         <Button
           variant="outline"
           size="sm"
-          className="gap-2"
+          className="h-9 gap-2"
           disabled={isPending}
         >
           <Languages className="h-4 w-4" />

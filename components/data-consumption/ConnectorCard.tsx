@@ -13,8 +13,10 @@ import { useGetAllConnectorSecurityRatingsExclude } from "@/lib/gen/hooks/useGet
 import type { ModelsConnectorSecurityRating } from "@/lib/gen/types/models/ConnectorSecurityRating";
 import { cn } from "@/lib/utils";
 import type { SecurityRating } from "@/types";
-import { Calendar, Globe, Shield, Wifi } from "lucide-react";
+import { Calendar, Globe, Shield, Wifi, WifiOff } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { EmptyState } from "../shared/EmptyState";
+import { Spinner } from "../ui/spinner";
 
 // 安全等级颜色映射
 const getSecurityLevelColor = (level?: string) => {
@@ -38,11 +40,23 @@ const getSecurityLevelColor = (level?: string) => {
 const getConnectionTypeDisplay = (t: any, type?: string) => {
   switch (type) {
     case "DEDICATED":
-      return { icon: Wifi, text: t('connectors.dedicatedConnection'), color: "text-green-600" };
+      return {
+        icon: Wifi,
+        text: t("connectors.dedicatedConnection"),
+        color: "text-green-600",
+      };
     case "INTERNET":
-      return { icon: Globe, text: t('connectors.internetConnection'), color: "text-blue-600" };
+      return {
+        icon: Globe,
+        text: t("connectors.internetConnection"),
+        color: "text-blue-600",
+      };
     default:
-      return { icon: Globe, text: t('connectors.unknownConnection'), color: "text-gray-600" };
+      return {
+        icon: Globe,
+        text: t("connectors.unknownConnection"),
+        color: "text-gray-600",
+      };
   }
 };
 
@@ -64,10 +78,12 @@ const getConnectorStatus = (level?: string) => {
 
 // 从 DID 提取显示名称
 const getDisplayNameFromDid = (t: any, did?: string) => {
-  if (!did) return t('connectors.unknownConnector');
+  if (!did) return t("connectors.unknownConnector");
   const parts = did.split(":");
   if (parts.length >= 4) {
-    return parts[parts.length - 1].replace(/-/g, " ").replace(/\b\w/g, l => l.toUpperCase());
+    return parts[parts.length - 1]
+      .replace(/-/g, " ")
+      .replace(/\b\w/g, (l) => l.toUpperCase());
   }
   return did;
 };
@@ -75,7 +91,7 @@ const getDisplayNameFromDid = (t: any, did?: string) => {
 // 证书解析
 const parseCertifications = (certs?: string) => {
   if (!certs) return [];
-  return certs.split(",").filter(cert => cert.trim());
+  return certs.split(",").filter((cert) => cert.trim());
 };
 
 interface ConnectorCardProps {
@@ -83,8 +99,12 @@ interface ConnectorCardProps {
 }
 
 export function ConnectorCard({ excludeConnectorDid }: ConnectorCardProps) {
-  const t = useTranslations('DataConsumption');
-  const { data: connectors = [], isLoading, error } = useGetAllConnectorSecurityRatingsExclude({
+  const t = useTranslations("DataConsumption");
+  const {
+    data: connectors = [],
+    isLoading,
+    error,
+  } = useGetAllConnectorSecurityRatingsExclude({
     exclude_connector_did: excludeConnectorDid,
   });
 
@@ -92,14 +112,13 @@ export function ConnectorCard({ excludeConnectorDid }: ConnectorCardProps) {
     return (
       <Card>
         <CardHeader>
-          <CardTitle>{t('connectors.title')}</CardTitle>
-          <CardDescription>
-            {t('connectors.description')}
-          </CardDescription>
+          <CardTitle>{t("connectors.title")}</CardTitle>
+          <CardDescription>{t("connectors.description")}</CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="flex items-center justify-center py-8">
-            <div className="text-sm text-muted-foreground">{t('connectors.loading')}</div>
+          <div className="flex flex-col items-center justify-center gap-3 py-8">
+            <Spinner variant="bars" />
+            {t("connectors.loading")}
           </div>
         </CardContent>
       </Card>
@@ -110,14 +129,14 @@ export function ConnectorCard({ excludeConnectorDid }: ConnectorCardProps) {
     return (
       <Card>
         <CardHeader>
-          <CardTitle>{t('connectors.title')}</CardTitle>
-          <CardDescription>
-            {t('connectors.description')}
-          </CardDescription>
+          <CardTitle>{t("connectors.title")}</CardTitle>
+          <CardDescription>{t("connectors.description")}</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="flex items-center justify-center py-8">
-            <div className="text-sm text-red-500">{t('connectors.error')}</div>
+            <div className="text-muted-foreground text-sm">
+              {t("connectors.error")}
+            </div>
           </div>
         </CardContent>
       </Card>
@@ -128,14 +147,17 @@ export function ConnectorCard({ excludeConnectorDid }: ConnectorCardProps) {
     return (
       <Card>
         <CardHeader>
-          <CardTitle>{t('connectors.title')}</CardTitle>
-          <CardDescription>
-            {t('connectors.description')}
-          </CardDescription>
+          <CardTitle>{t("connectors.title")}</CardTitle>
+          <CardDescription>{t("connectors.description")}</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="flex items-center justify-center py-8">
-            <div className="text-sm text-muted-foreground">{t('connectors.noConnectors')}</div>
+            {/* <div className="text-sm text-muted-foreground">{t('connectors.noConnectors')}</div> */}
+            <EmptyState
+              icon={WifiOff}
+              title={t("connectors.noConnectors")}
+              description={t("connectors.noConnectors")}
+            />
           </div>
         </CardContent>
       </Card>
@@ -145,19 +167,25 @@ export function ConnectorCard({ excludeConnectorDid }: ConnectorCardProps) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>{t('connectors.title')}</CardTitle>
-        <CardDescription>
-          {t('connectors.description')}
-        </CardDescription>
+        <CardTitle>{t("connectors.title")}</CardTitle>
+        <CardDescription>{t("connectors.description")}</CardDescription>
       </CardHeader>
       <CardContent>
         <div className="grid gap-6 md:grid-cols-1 lg:grid-cols-2">
           {connectors.map((connector: ModelsConnectorSecurityRating) => {
-            const displayName = getDisplayNameFromDid( t,connector.connectorDid);
-            const connectionType = getConnectionTypeDisplay(t,connector.connectionType);
+            const displayName = getDisplayNameFromDid(
+              t,
+              connector.connectorDid
+            );
+            const connectionType = getConnectionTypeDisplay(
+              t,
+              connector.connectionType
+            );
             const ConnectionIcon = connectionType.icon;
             const status = getConnectorStatus(connector.overallLevel);
-            const certifications = parseCertifications(connector.thirdPartyCerts);
+            const certifications = parseCertifications(
+              connector.thirdPartyCerts
+            );
 
             return (
               <div
@@ -168,13 +196,13 @@ export function ConnectorCard({ excludeConnectorDid }: ConnectorCardProps) {
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
                     <div className="mb-1 flex items-center space-x-2">
-                      <h4 className="text-lg font-semibold">
-                        {displayName}
-                      </h4>
+                      <h4 className="text-lg font-semibold">{displayName}</h4>
                       <StatusBadge status={status} />
                     </div>
                     <div className="text-muted-foreground mb-1 flex items-center space-x-1 text-sm">
-                      <ConnectionIcon className={cn("h-3 w-3", connectionType.color)} />
+                      <ConnectionIcon
+                        className={cn("h-3 w-3", connectionType.color)}
+                      />
                       <span>{connectionType.text}</span>
                     </div>
                     <div className="text-muted-foreground mb-1 flex items-center space-x-1 text-sm">
@@ -186,8 +214,10 @@ export function ConnectorCard({ excludeConnectorDid }: ConnectorCardProps) {
                     <SecurityRatingChart
                       assessment={{
                         overallScore: connector.overallScore || 0,
-                        rating: (connector.overallLevel || "D") as SecurityRating,
-                        lastAssessed: connector.updatedAt || new Date().toISOString(),
+                        rating: (connector.overallLevel ||
+                          "D") as SecurityRating,
+                        lastAssessed:
+                          connector.updatedAt || new Date().toISOString(),
                         assessor: "System",
                         // 模拟六维度数据
                         dimensions: [
@@ -195,50 +225,82 @@ export function ConnectorCard({ excludeConnectorDid }: ConnectorCardProps) {
                             name: "Identity",
                             weight: 0.17,
                             score: 0.85,
-                            status: connector.identityColor?.toLowerCase() === "green" ? "green" : 
-                                   connector.identityColor?.toLowerCase() === "yellow" ? "yellow" : "red",
-                            description: "Identity verification and management"
+                            status:
+                              connector.identityColor?.toLowerCase() === "green"
+                                ? "green"
+                                : connector.identityColor?.toLowerCase() ===
+                                    "yellow"
+                                  ? "yellow"
+                                  : "red",
+                            description: "Identity verification and management",
                           },
                           {
                             name: "Communication",
                             weight: 0.17,
-                            score: 0.90,
-                            status: connector.commColor?.toLowerCase() === "green" ? "green" : 
-                                   connector.commColor?.toLowerCase() === "yellow" ? "yellow" : "red",
-                            description: "Secure communication protocols"
+                            score: 0.9,
+                            status:
+                              connector.commColor?.toLowerCase() === "green"
+                                ? "green"
+                                : connector.commColor?.toLowerCase() ===
+                                    "yellow"
+                                  ? "yellow"
+                                  : "red",
+                            description: "Secure communication protocols",
                           },
                           {
                             name: "Access Control",
                             weight: 0.17,
                             score: 0.88,
-                            status: connector.accessUsageColor?.toLowerCase() === "green" ? "green" : 
-                                   connector.accessUsageColor?.toLowerCase() === "yellow" ? "yellow" : "red",
-                            description: "Access control and data usage policies"
+                            status:
+                              connector.accessUsageColor?.toLowerCase() ===
+                              "green"
+                                ? "green"
+                                : connector.accessUsageColor?.toLowerCase() ===
+                                    "yellow"
+                                  ? "yellow"
+                                  : "red",
+                            description:
+                              "Access control and data usage policies",
                           },
                           {
                             name: "Platform Security",
                             weight: 0.17,
                             score: 0.82,
-                            status: connector.platformColor?.toLowerCase() === "green" ? "green" : 
-                                   connector.platformColor?.toLowerCase() === "yellow" ? "yellow" : "red",
-                            description: "Platform and system security"
+                            status:
+                              connector.platformColor?.toLowerCase() === "green"
+                                ? "green"
+                                : connector.platformColor?.toLowerCase() ===
+                                    "yellow"
+                                  ? "yellow"
+                                  : "red",
+                            description: "Platform and system security",
                           },
                           {
                             name: "Audit & Traceability",
                             weight: 0.16,
                             score: 0.87,
-                            status: connector.auditColor?.toLowerCase() === "green" ? "green" : 
-                                   connector.auditColor?.toLowerCase() === "yellow" ? "yellow" : "red",
-                            description: "Audit logging and traceability"
+                            status:
+                              connector.auditColor?.toLowerCase() === "green"
+                                ? "green"
+                                : connector.auditColor?.toLowerCase() ===
+                                    "yellow"
+                                  ? "yellow"
+                                  : "red",
+                            description: "Audit logging and traceability",
                           },
                           {
                             name: "Privacy",
                             weight: 0.16,
                             score: 0.91,
-                            status: connector.privacyColor?.toLowerCase() === "green" ? "green" : 
-                                   connector.privacyColor?.toLowerCase() === "yellow" ? "yellow" : "red",
-                            description: "Privacy protection and compliance"
-                          }
+                            status:
+                              connector.privacyColor?.toLowerCase() === "green"
+                                ? "green"
+                                : connector.privacyColor?.toLowerCase() ===
+                                    "yellow"
+                                  ? "yellow"
+                                  : "red",
+                            description: "Privacy protection and compliance",
+                          },
                         ],
                       }}
                       size="md"
@@ -250,49 +312,56 @@ export function ConnectorCard({ excludeConnectorDid }: ConnectorCardProps) {
                         getSecurityLevelColor(connector.overallLevel)
                       )}
                     >
-                      {t('connectors.securityRating')} {connector.overallLevel || t('catalog.notAvailable')}
+                      {t("connectors.securityRating")}{" "}
+                      {connector.overallLevel || t("catalog.notAvailable")}
                     </Badge>
                   </div>
                 </div>
 
                 {/* DID */}
                 <div className="bg-muted rounded-md">
-                  <div className="text-muted-foreground mb-1 text-xs">{t('connectors.did')}:</div>
-                  <p className="font-mono text-sm break-all">{connector.connectorDid}</p>
+                  <div className="text-muted-foreground mb-1 text-xs">
+                    {t("connectors.did")}:
+                  </div>
+                  <p className="font-mono text-sm break-all">
+                    {connector.connectorDid}
+                  </p>
                 </div>
 
                 {/* Security Features */}
                 <div className="space-y-2">
-                  <div className="text-muted-foreground text-xs">{t('connectors.securityFeatures')}:</div>
+                  <div className="text-muted-foreground text-xs">
+                    {t("connectors.securityFeatures")}:
+                  </div>
                   <div className="flex flex-wrap gap-1">
                     {connector.msgSigning && (
                       <Badge variant="secondary" className="text-xs">
-                        {t('connectors.messageSigning')}
+                        {t("connectors.messageSigning")}
                       </Badge>
                     )}
                     {connector.mfaEnabled && (
                       <Badge variant="secondary" className="text-xs">
-                        {t('connectors.mfaEnabled')}
+                        {t("connectors.mfaEnabled")}
                       </Badge>
                     )}
                     {connector.hsmTpm && (
                       <Badge variant="secondary" className="text-xs">
-                        {t('connectors.hsmTpm')}
+                        {t("connectors.hsmTpm")}
                       </Badge>
                     )}
                     {connector.didEnabled && (
                       <Badge variant="secondary" className="text-xs">
-                        {t('connectors.didEnabled')}
+                        {t("connectors.didEnabled")}
                       </Badge>
                     )}
                     {connector.usageControlEnforced && (
                       <Badge variant="secondary" className="text-xs">
-                        {t('connectors.usageControl')}
+                        {t("connectors.usageControl")}
                       </Badge>
                     )}
                     {connector.secureBoot && (
                       <Badge variant="secondary" className="text-xs">
-                        {t('connectors.secureBoot')}
+                        {t("connectors.secureBoot")}
                       </Badge>
                     )}
                   </div>
@@ -301,7 +370,9 @@ export function ConnectorCard({ excludeConnectorDid }: ConnectorCardProps) {
                 {/* Certifications */}
                 {certifications.length > 0 && (
                   <div className="space-y-2">
-                    <div className="text-muted-foreground text-xs">{t('connectors.certifications')}:</div>
+                    <div className="text-muted-foreground text-xs">
+                      {t("connectors.certifications")}:
+                    </div>
                     <div className="flex flex-wrap gap-1">
                       {certifications.map((cert, index) => (
                         <Badge
@@ -318,40 +389,46 @@ export function ConnectorCard({ excludeConnectorDid }: ConnectorCardProps) {
                 )}
 
                 {/* Statistics */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 border-t pt-3">
+                <div className="grid grid-cols-1 gap-4 border-t pt-3 md:grid-cols-2 lg:grid-cols-4">
                   <div className="text-center">
                     <div className="text-sm font-medium">
-                      {connector.overallScore?.toFixed(1) || t('catalog.notAvailable')}
+                      {connector.overallScore?.toFixed(1) ||
+                        t("catalog.notAvailable")}
                     </div>
                     <div className="text-muted-foreground text-xs">
-                      {t('connectors.score')}
+                      {t("connectors.score")}
                     </div>
                   </div>
                   <div className="text-center">
                     <div className="text-sm font-medium">
-                      {connector.logRetentionMonths || t('catalog.notAvailable')}
+                      {connector.logRetentionMonths ||
+                        t("catalog.notAvailable")}
                     </div>
                     <div className="text-muted-foreground text-xs">
-                      {t('connectors.logRetention')}
+                      {t("connectors.logRetention")}
                     </div>
                   </div>
                   <div className="text-center">
                     <div className="text-sm font-medium">
-                      {connector.createdAt ? new Date(connector.createdAt).toLocaleDateString() : t('catalog.notAvailable')}
+                      {connector.createdAt
+                        ? new Date(connector.createdAt).toLocaleDateString()
+                        : t("catalog.notAvailable")}
                     </div>
                     <div className="text-muted-foreground text-xs">
-                      {t('catalog.created')}
+                      {t("catalog.created")}
                     </div>
                   </div>
                   <div className="text-center">
                     <div className="flex items-center justify-center space-x-1">
                       <Calendar className="h-3 w-3" />
                       <div className="text-sm font-medium">
-                        {connector.updatedAt ? new Date(connector.updatedAt).toLocaleDateString() : t('catalog.notAvailable')}
+                        {connector.updatedAt
+                          ? new Date(connector.updatedAt).toLocaleDateString()
+                          : t("catalog.notAvailable")}
                       </div>
                     </div>
                     <div className="text-muted-foreground text-xs">
-                      {t('connectors.securityReview')}
+                      {t("connectors.securityReview")}
                     </div>
                   </div>
                 </div>

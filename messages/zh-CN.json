@@ -812,6 +812,9 @@
   "DataConsumption": {
     "title": "数据消费",
     "description": "发现、访问和消费来自数据空间中可信合作伙伴的数据",
+    "common": {
+      "retry": "重试"
+    },
     "metrics": {
       "availableData": "可用数据",
       "externalOfferings": "外部数据源",
@@ -1084,5 +1087,12 @@
     "buttons": {
       "close": "关闭"
     }
+  },
+  "DataSpaceSwitcher": {
+    "loading": "正在加载数据空间...",
+    "error": "加载数据空间失败",
+    "noDataSpace": "未找到数据空间",
+    "noDataSpaceDescription": "没有可供使用的数据空间",
+    "search": "搜索数据空间"
   }
 }

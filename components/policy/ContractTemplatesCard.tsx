@@ -10,7 +10,6 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Skeleton } from "@/components/ui/skeleton";
 import { useDataSpace } from "@/lib/contexts/DataSpaceContext";
 import {
   useListContractTemplates,
@@ -85,29 +84,22 @@ export function ContractTemplatesCard({
 
   if (isLoading) {
     return (
-      <div className="space-y-4">
-        {Array.from({ length: 3 }).map((_, index) => (
-          <Card key={index}>
-            <CardHeader className="pb-0">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <Skeleton className="h-5 w-32" />
-                  <Skeleton className="h-5 w-16" />
-                </div>
-                <div className="flex items-center space-x-1">
-                  <Skeleton className="h-8 w-8" />
-                  <Skeleton className="h-8 w-8" />
-                  <Skeleton className="h-8 w-8" />
-                </div>
-              </div>
-              <Skeleton className="mt-2 h-4 w-full" />
-            </CardHeader>
-            <CardContent className="pt-0">
-              <Skeleton className="mt-4 h-20 w-full" />
-            </CardContent>
-          </Card>
-        ))}
-      </div>
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <FileText className="h-5 w-5" />
+            {t("contractTemplateCard.title")}
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="flex flex-col items-center gap-3 p-6">
+            <Spinner variant="bars" />
+            <p className="text-muted-foreground text-sm">
+              {t("contractTemplateCard.loading")}
+            </p>
+          </div>
+        </CardContent>
+      </Card>
     );
   }
 
@@ -136,16 +128,6 @@ export function ContractTemplatesCard({
       </Card>
     );
   }
-
-  // if (!allTemplates || allTemplates.length === 0) {
-  //   return (
-  //     <EmptyState
-  //       icon={FileText}
-  //       title="No contract templates found"
-  //       description="Create a new contract template to get started"
-  //     />
-  //   );
-  // }
 
   return (
     <Card>
@@ -195,13 +177,25 @@ export function ContractTemplatesCard({
                         </Badge>
                       </div>
                       <div className="flex items-center space-x-1">
-                        <Button variant="ghost" size="sm" title={t("contractTemplateCard.view")}>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          title={t("contractTemplateCard.view")}
+                        >
                           <Eye className="h-4 w-4" />
                         </Button>
-                        <Button variant="ghost" size="sm" title={t("contractTemplateCard.edit")}>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          title={t("contractTemplateCard.edit")}
+                        >
                           <Edit className="h-4 w-4" />
                         </Button>
-                        <Button variant="ghost" size="sm" title={t("contractTemplateCard.delete")}>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          title={t("contractTemplateCard.delete")}
+                        >
                           <Trash2 className="h-4 w-4" />
                         </Button>
                       </div>
@@ -210,7 +204,8 @@ export function ContractTemplatesCard({
                   <CardContent className="pt-0">
                     <div className="space-y-3">
                       <p className="text-muted-foreground text-sm">
-                        {template.description || t("contractTemplateCard.noDescription")}
+                        {template.description ||
+                          t("contractTemplateCard.noDescription")}
                       </p>
 
                       <div className="flex items-center justify-end border-t pt-3">
@@ -259,7 +254,8 @@ export function ContractTemplatesCard({
             >
               {isLoading ? (
                 <>
-                  <Spinner variant="bars" className="mr-2 h-4 w-4" /> {t("contractTemplateCard.loading")}
+                  <Spinner variant="bars" className="mr-2 h-4 w-4" />{" "}
+                  {t("contractTemplateCard.loading")}
                 </>
               ) : (
                 t("contractTemplateCard.loadMore")

@@ -801,6 +801,9 @@
   "DataConsumption": {
     "title": "Data Consumption",
     "description": "Discover, access, and consume data from trusted partners in the data space",
+    "common": {
+      "retry": "Retry"
+    },
     "metrics": {
       "availableData": "Available Data",
       "externalOfferings": "External offerings",
@@ -1073,5 +1076,12 @@
     "buttons": {
       "close": "Close"
     }
+  },
+  "DataSpaceSwitcher": {
+    "loading": "Loading data space...",
+    "error": "Failed to load data space",
+    "noDataSpace": "No data space found",
+    "noDataSpaceDescription": "No data space available",
+    "search": "Search data space"
   }
 }

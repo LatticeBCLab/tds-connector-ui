@@ -81,14 +81,14 @@ export default function Header() {
             </Link>
             {/* Connector Info */}
             {connectorData && (
-              <div className="ml-6 hidden items-center space-x-3 md:flex">
+              <div className="hidden items-center space-x-2 md:flex">
                 <div className="flex items-center space-x-2">
                   <TooltipProvider>
                     <Tooltip>
                       <TooltipTrigger asChild>
                         <Badge
                           variant="outline"
-                          className="max-w-[200px] truncate text-sm font-medium"
+                          className="w-auto truncate text-sm font-medium"
                         >
                           {connectorData.connectorName || "Unknown Connector"}
                         </Badge>
@@ -115,9 +115,9 @@ export default function Header() {
                               connectorData.securityRating.overallLevel
                             ).variant
                           }
-                          className={`${getSecurityLevelStyle(connectorData.securityRating.overallLevel).className} text-white`}
+                          className={`${getSecurityLevelStyle(connectorData.securityRating.overallLevel).className} text-sm text-white`}
                         >
-                          <Shield className="h-3 w-3" />
+                          <Shield className="size-3" />
                           {connectorData.securityRating.overallLevel}
                         </Badge>
                       </TooltipTrigger>
