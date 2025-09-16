@@ -18,7 +18,7 @@ stages:
     - echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
     - /kaniko/executor
       --context $CI_PROJECT_DIR
-      --dockerfile ./Dockerfile
+      --dockerfile ./Dockerfile.gitlab
       --destination $TAG
       --build-arg NEXT_PUBLIC_USER_DID=$USER_DID
       --build-arg NEXT_PUBLIC_CONNECTOR_DID=$CONNECTOR_DID
