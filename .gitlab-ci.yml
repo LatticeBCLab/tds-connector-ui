@@ -10,6 +10,9 @@ stages:
     name: $CI_REGISTRY/library/kaniko-executor
     entrypoint: [ "" ]
   stage: build
+  only:
+    - main
+    - develop
   script:
     - echo $TAG
     - echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
@@ -17,10 +20,41 @@ stages:
       --context $CI_PROJECT_DIR
       --dockerfile ./Dockerfile
       --destination $TAG
+      --build-arg NEXT_PUBLIC_USER_DID=$USER_DID
+      --build-arg NEXT_PUBLIC_CONNECTOR_DID=$CONNECTOR_DID
+      --build-arg NEXT_PUBLIC_TERMINAL_DID=$TERMINAL_DID
+      --build-arg NEXT_PUBLIC_LOCATION=$LOCATION
+      --build-arg NEXT_PUBLIC_INBOUND_RESOURCE_DATASPACE_ID=$DATASPACE_ID
 
-build-image:
-  only:
-    - main
+build-laos:
+  variables:
+    USER_DID: "did:tdsc:user:laos-001"
+    CONNECTOR_DID: "did:tdsc:connector:laos-001"
+    TERMINAL_DID: "did:tdsc:terminal:laos-001"
+    LOCATION: "Laos"
+    DATASPACE_ID: "cmf4tbxky0001njs14md4yc5a"
   before_script:
-    - export TAG=$CI_REGISTRY/${PROJECT_NAME}/$IMAGE_NAME:latest
+    - export TAG=$CI_REGISTRY/${PROJECT_NAME}/connector-laos:latest
+  <<: *job_configuration
+
+build-china-offshore:
+  variables:
+    USER_DID: "did:tdsc:user:laos-001"
+    CONNECTOR_DID: "did:tdsc:connector:laos-custody-001"
+    TERMINAL_DID: "did:tdsc:terminal:laos-custody-001"
+    LOCATION: "China"
+    DATASPACE_ID: "cmf4tbxky0001njs14md4yc5a"
+  before_script:
+    - export TAG=$CI_REGISTRY/${PROJECT_NAME}/connector-china-offshore:latest
+  <<: *job_configuration
+
+build-china:
+  variables:
+    USER_DID: "did:tdsc:user:china-asean-001"
+    CONNECTOR_DID: "did:tdsc:connector:china-asean-001"
+    TERMINAL_DID: "did:tdsc:terminal:china-asean-001"
+    LOCATION: "China"
+    DATASPACE_ID: "cmf4tbxky0001njs14md4yc5a"
+  before_script:
+    - export TAG=$CI_REGISTRY/${PROJECT_NAME}/connector-china:latest
   <<: *job_configuration
