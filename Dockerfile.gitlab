@@ -1,7 +1,9 @@
 FROM harbordev.zlattice.top/library/node:22-alpine AS base
 
-# 安装 pnpm
-RUN npm install -g pnpm
+# 配置镜像源并安装 pnpm
+RUN npm config set registry https://registry.npmmirror.com && \
+    npm install -g pnpm && \
+    pnpm config set registry https://registry.npmmirror.com
 
 # 设置工作目录
 WORKDIR /app
@@ -47,8 +49,10 @@ WORKDIR /app
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
-# 安装 pnpm
-RUN npm install -g pnpm
+# 配置镜像源并安装 pnpm
+RUN npm config set registry https://registry.npmmirror.com && \
+    npm install -g pnpm && \
+    pnpm config set registry https://registry.npmmirror.com
 
 # 复制必要的文件
 COPY --from=builder /app/public ./public
