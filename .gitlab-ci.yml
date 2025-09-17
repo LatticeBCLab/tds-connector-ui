@@ -64,7 +64,7 @@ build-china:
   image: $CI_REGISTRY/library/ansible-runner:latest
   stage: deploy
   before_script:
-    - microdnf install -y openssh-clients sshpass
+    - yum install -y openssh-clients sshpass
     - export ANSIBLE_HOST_KEY_CHECKING=False
   script:
     - |
