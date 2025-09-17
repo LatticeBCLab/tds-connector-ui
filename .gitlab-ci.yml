@@ -75,7 +75,6 @@ build-china:
       export DEPLOY_USER=$DEPLOY_USER
       export DEPLOY_PASSWORD=$DEPLOY_PASSWORD
       export SERVICE_PATH=$SERVICE_PATH
-      cd ansible
       ansible-playbook -i ansible/inventory.ini ansible/playbook.yml -v
 
 deploy-production:
