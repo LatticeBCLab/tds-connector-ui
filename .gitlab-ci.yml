@@ -64,7 +64,7 @@ build-china:
   image: $CI_REGISTRY/library/ansible-runner:latest
   stage: deploy
   before_script:
-    - apk add --no-cache openssh-client sshpass
+    - microdnf install -y openssh-clients sshpass
     - export ANSIBLE_HOST_KEY_CHECKING=False
   script:
     - |
@@ -74,9 +74,6 @@ build-china:
       export SERVICE_PATH=$SERVICE_PATH
       cd ansible
       ansible-playbook -i inventory.ini playbook.yml -v
-  only:
-    - main
-    - develop
 
 deploy-production:
   variables:
