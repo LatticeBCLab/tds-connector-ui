@@ -4,6 +4,7 @@ variables:
 
 stages:
   - build
+  - deploy
 
 .job_template: &job_configuration
   image:
@@ -58,3 +59,45 @@ build-china:
   before_script:
     - export TAG=$CI_REGISTRY/${PROJECT_NAME}/connector-china:latest
   <<: *job_configuration
+
+.deploy_template: &deploy_configuration
+  image: $CI_REGISTRY/library/ansible-runner:latest
+  stage: deploy
+  before_script:
+    - apk add --no-cache openssh-client sshpass
+    - export ANSIBLE_HOST_KEY_CHECKING=False
+  script:
+    - |
+      export DEPLOY_HOST=$DEPLOY_HOST
+      export DEPLOY_USER=$DEPLOY_USER
+      export DEPLOY_PASSWORD=$DEPLOY_PASSWORD
+      export SERVICE_PATH=$SERVICE_PATH
+      cd ansible
+      ansible-playbook -i inventory.ini playbook.yml -v
+  only:
+    - main
+    - develop
+
+deploy-production:
+  variables:
+    DEPLOY_HOST: "$PROD_DEPLOY_HOST"
+    DEPLOY_USER: "$PROD_DEPLOY_USER"
+    DEPLOY_PASSWORD: "$PROD_DEPLOY_PASSWORD"
+    CHINA_SERVICE_PATH: "$PROD_CHINA_SERVICE_PATH"
+    LAOS_SERVICE_PATH: "$PROD_LAOS_SERVICE_PATH"
+    CHINA_OFFSHORE_SERVICE_PATH: "$PROD_CHINA_OFFSHORE_SERVICE_PATH"
+  only:
+    - main
+  <<: *deploy_configuration
+
+deploy-staging:
+  variables:
+    DEPLOY_HOST: "$STAGING_DEPLOY_HOST"
+    DEPLOY_USER: "$STAGING_DEPLOY_USER"
+    DEPLOY_PASSWORD: "$STAGING_DEPLOY_PASSWORD"
+    CHINA_SERVICE_PATH: "$STAGING_CHINA_SERVICE_PATH"
+    LAOS_SERVICE_PATH: "$STAGING_LAOS_SERVICE_PATH"
+    CHINA_OFFSHORE_SERVICE_PATH: "$STAGING_CHINA_OFFSHORE_SERVICE_PATH"
+  only:
+    - develop
+  <<: *deploy_configuration

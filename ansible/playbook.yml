@@ -1,0 +1,79 @@
+---
+- name: Update TDS Connector UI Services with Docker Compose
+  hosts: all
+  gather_facts: no
+  vars:
+    services:
+      - name: "china"
+        path: "{{ ansible_env.CHINA_SERVICE_PATH | default('/home/tds/china') }}"
+      - name: "laos"
+        path: "{{ ansible_env.LAOS_SERVICE_PATH | default('/home/tds/laos') }}"
+      - name: "china-offshore"
+        path: "{{ ansible_env.CHINA_OFFSHORE_SERVICE_PATH | default('/home/tds/china-offshore') }}"
+
+  tasks:
+    - name: Check if docker-compose.yaml exists for {{ item.name }}
+      stat:
+        path: "{{ item.path }}/docker-compose.yaml"
+      register: compose_file
+      loop: "{{ services }}"
+      loop_control:
+        loop_var: item
+
+    - name: Fail if docker-compose.yaml not found for {{ item.item.name }}
+      fail:
+        msg: "docker-compose.yaml not found in {{ item.item.path }}"
+      when: not item.stat.exists
+      loop: "{{ compose_file.results }}"
+      loop_control:
+        loop_var: item
+
+    - name: Stop existing containers for {{ item.name }}
+      command: docker compose down
+      args:
+        chdir: "{{ item.path }}"
+      register: down_result
+      failed_when: down_result.rc != 0
+      loop: "{{ services }}"
+      loop_control:
+        loop_var: item
+
+    - name: Pull latest images for {{ item.name }}
+      command: docker compose pull
+      args:
+        chdir: "{{ item.path }}"
+      register: pull_result
+      failed_when: pull_result.rc != 0
+      loop: "{{ services }}"
+      loop_control:
+        loop_var: item
+
+    - name: Start containers in detached mode for {{ item.name }}
+      command: docker compose up -d
+      args:
+        chdir: "{{ item.path }}"
+      register: up_result
+      failed_when: up_result.rc != 0
+      loop: "{{ services }}"
+      loop_control:
+        loop_var: item
+
+    - name: Wait for containers to be healthy
+      pause:
+        seconds: 10
+
+    - name: Check container status for {{ item.name }}
+      command: docker compose ps
+      args:
+        chdir: "{{ item.path }}"
+      register: ps_result
+      loop: "{{ services }}"
+      loop_control:
+        loop_var: item
+
+    - name: Display container status for all services
+      debug:
+        msg: "{{ item.item.name }} service status: {{ item.stdout_lines }}"
+      loop: "{{ ps_result.results }}"
+      loop_control:
+        loop_var: item
