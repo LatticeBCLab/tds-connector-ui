@@ -69,12 +69,7 @@ build-china:
     - sed -i s@/archive.ubuntu.com/@/mirrors.cernet.edu.cn/@g /etc/apt/sources.list
     - sed -i s@/security.ubuntu.com/@/mirrors.cernet.edu.cn/@g /etc/apt/sources.list
     - apt update && apt install -y ansible sshpass
-    - |
-      export CHINA_SERVICE_PATH=${CHINA_SERVICE_PATH}
-      export LAOS_SERVICE_PATH=${LAOS_SERVICE_PATH}
-      export CHINA_OFFSHORE_SERVICE_PATH=${CHINA_OFFSHORE_SERVICE_PATH}
-
-      ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i ansible/inventory.ini ansible/playbook.yml -v
+    - ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i ansible/inventory.ini ansible/playbook.yml -v
     - apt clean
 
 deploy-production:
@@ -86,7 +81,15 @@ deploy-production:
     LAOS_SERVICE_PATH: "$PROD_LAOS_SERVICE_PATH"
     CHINA_OFFSHORE_SERVICE_PATH: "$PROD_CHINA_OFFSHORE_SERVICE_PATH"
   before_script:
-    - sed -i "s/__PROD_DEPLOY_HOST__/${PROD_DEPLOY_HOST}/g; s/__PROD_DEPLOY_USER__/${PROD_DEPLOY_USER}/g; s/__PROD_DEPLOY_PASSWORD__/${PROD_DEPLOY_PASSWORD}/g" ansible/inventory.ini
+    - |
+      sed -i "s/__PROD_DEPLOY_HOST__/${PROD_DEPLOY_HOST}/g" ansible/inventory.ini
+      sed -i "s/__PROD_DEPLOY_USER__/${PROD_DEPLOY_USER}/g" ansible/inventory.ini
+      sed -i "s/__PROD_DEPLOY_PASSWORD__/${PROD_DEPLOY_PASSWORD}/g" ansible/inventory.ini
+      sed -i "s#__PROD_CHINA_SERVICE_PATH__#${PROD_CHINA_SERVICE_PATH}#g" ansible/inventory.ini
+      sed -i "s#__PROD_LAOS_SERVICE_PATH__#${PROD_LAOS_SERVICE_PATH}#g" ansible/inventory.ini
+      sed -i "s#__PROD_CHINA_OFFSHORE_SERVICE_PATH__#${PROD_CHINA_OFFSHORE_SERVICE_PATH}#g" ansible/inventory.ini
+
+      sed -i "s/__DEPLOY_TARGET__/production/g" ansible/playbook.yml
   only:
     - main
   <<: *deploy_configuration
@@ -100,7 +103,15 @@ deploy-staging:
     LAOS_SERVICE_PATH: "$STAGING_LAOS_SERVICE_PATH"
     CHINA_OFFSHORE_SERVICE_PATH: "$STAGING_CHINA_OFFSHORE_SERVICE_PATH"
   before_script:
-    - sed -i "s/__STAGING_DEPLOY_HOST__/${STAGING_DEPLOY_HOST}/g; s/__STAGING_DEPLOY_USER__/${STAGING_DEPLOY_USER}/g; s/__STAGING_DEPLOY_PASSWORD__/${STAGING_DEPLOY_PASSWORD}/g" ansible/inventory.ini
+    - |
+      sed -i "s/__STAGING_DEPLOY_HOST__/${STAGING_DEPLOY_HOST}/g" ansible/inventory.ini
+      sed -i "s/__STAGING_DEPLOY_USER__/${STAGING_DEPLOY_USER}/g" ansible/inventory.ini
+      sed -i "s/__STAGING_DEPLOY_PASSWORD__/${STAGING_DEPLOY_PASSWORD}/g" ansible/inventory.ini
+      sed -i "s#__STAGING_CHINA_SERVICE_PATH__#${STAGING_CHINA_SERVICE_PATH}#g" ansible/inventory.ini
+      sed -i "s#__STAGING_LAOS_SERVICE_PATH__#${STAGING_LAOS_SERVICE_PATH}#g" ansible/inventory.ini
+      sed -i "s#__STAGING_CHINA_OFFSHORE_SERVICE_PATH__#${STAGING_CHINA_OFFSHORE_SERVICE_PATH}#g" ansible/inventory.ini
+
+      sed -i "s/__DEPLOY_TARGET__/staging/g" ansible/playbook.yml
   only:
     - develop
   <<: *deploy_configuration

@@ -1,15 +1,15 @@
 ---
 - name: Update TDS Connector UI Services with Docker Compose
-  hosts: all
+  hosts: __DEPLOY_TARGET__
   gather_facts: no
   vars:
     services:
       - name: "china"
-        path: "{{ ansible_env.CHINA_SERVICE_PATH | default('/home/tds/china') }}"
+        path: "{{ china_service_path }}"
       - name: "laos"
-        path: "{{ ansible_env.LAOS_SERVICE_PATH | default('/home/tds/laos') }}"
+        path: "{{ laos_service_path }}"
       - name: "china-offshore"
-        path: "{{ ansible_env.CHINA_OFFSHORE_SERVICE_PATH | default('/home/tds/china-offshore') }}"
+        path: "{{ china_offshore_service_path }}"
 
   tasks:
     - name: Check if docker-compose.yaml exists for {{ item.name }}
