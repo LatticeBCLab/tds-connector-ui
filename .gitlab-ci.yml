@@ -68,9 +68,9 @@ build-china:
   script:
     - sed -i s@/archive.ubuntu.com/@/mirrors.cernet.edu.cn/@g /etc/apt/sources.list
     - sed -i s@/security.ubuntu.com/@/mirrors.cernet.edu.cn/@g /etc/apt/sources.list
-    - apt update && apt install -y ansible sshpass
+    - apt-get update && apt-get install -y ansible sshpass
     - ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i ansible/inventory.ini ansible/playbook.yml -v
-    - apt clean
+    - apt-get clean
 
 deploy-production:
   variables:
